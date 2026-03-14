@@ -1,0 +1,16 @@
+I'll work through this step-by-step, filtering each calculation to verify correctness before proceeding.
+
+Start: 44
+
+Step 1: 44 + 14 = 58
+Step 2: 58 × 3 = 174
+Step 3: 174 - 9 = 165
+Step 4: 165 + 5 = 170
+Step 5: 170 + 15 = 185
+Step 6: 185 - 5 = 180
+Step 7: 180 - 10 = 170
+Step 8: 170 × 2 = 340
+Step 9: 340 + 11 = 351
+Step 10: 351 - 10 = 341
+
+341

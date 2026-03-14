@@ -1,0 +1,6 @@
+{
+  "problem": "Start with 83.\nStep 1: add 4.\nStep 2: add 10.\nStep 3: subtract 13.\nStep 4: subtract 5.\nStep 5: multiply 2.\nStep 6: add 3.\nStep 7: subtract 13.\nStep 8: add 4.\nStep 9: add 10.\nStep 10: subtract 11.\nStep 11: add 15.\nStep 12: subtract 12.\nStep 13: multiply 2.\nStep 14: multiply 2.\nStep 15: multiply 2.\nStep 16: subtract 11.\nStep 17: subtract 12.\nStep 18: add 12.\nStep 19: subtract 7.\nStep 20: subtract 8.\n\nWhat is the final value? Reply with just the number.",
+  "answer": 1206,
+  "steps": 20,
+  "model": "sonnet"
+}

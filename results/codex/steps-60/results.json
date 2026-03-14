@@ -1,0 +1,110 @@
+{
+  "bare": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      }
+    ]
+  },
+  "prompt": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      }
+    ]
+  },
+  "framework": {
+    "correct": 4,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "4516645122381",
+        "extracted": 4516645122381,
+        "correct": false
+      },
+      {
+        "trial": 5,
+        "response": "332152637525920",
+        "extracted": 332152637525920,
+        "correct": true
+      }
+    ]
+  }
+}

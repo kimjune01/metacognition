@@ -1,0 +1,110 @@
+{
+  "bare": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "I'll work through this step-by-step.\n\nStarting value: 28\n\nStep 1: 28 - 11 = 17\nStep 2: 17 - 15 = 2\nStep 3: 2 + 15 = 17\nStep 4: 17 + 13 = 30\nStep 5: 30 - 5 = 25\nStep 6: 25 + 9 = 34\nStep 7: 34 - 12 = 22\nStep 8: 22 + 6 = 28\nStep 9: 28 - 11 = 17\nStep 10: 17 + 4 = 21\nStep 11: 21 - 4 = 17\nStep 12: 17 \u00d7 3 = 51\nStep 13: 51 - 15 = 36\nStep 14: 36 - 4 = 32\nStep 15: 32 - 5 = 27\nStep 16: 27 + 6 = 33\nStep 17: 33 - 14 = 19\nStep 18: 19 - 3 = 16\nStep 19: 16 \u00d7 3 = 48\nStep 20: 48 \u00d7 4 = 192\nStep 21: 192 - 9 = 183\nStep 22: 183 - 7 = 176\nStep 23: 176 \u00d7 3 = 528\nStep 24: 528 \u00d7 3 = 1584\nStep 25: 1584 + 8 = 1592\nStep 26: 1592 - 4 = 1588\nStep 27: 1588 \u00d7 2 = 3176\nStep 28: 3176 - 3 = 3173\nStep 29: 3173 + 15 = 3188\nStep 30: 3188 + 8 = 3196\nStep 31: 3196 + 13 = 3209\nStep 32: 3209 + 12 = 3221\nStep 33: 3221 \u00d7 3 = 9663\nStep 34: 9663 + 9 = 9672\nStep 35: 9672 \u00d7 4 = 38688\nStep 36: 38688 - 3 = 38685\nStep 37: 38685 - 8 = 38677\nStep 38: 38677 \u00d7 2 = 77354\nStep 39: 77354 \u00d7 4 = 309416\nStep 40: 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "I'll work through this step-by-step.\n\nStart: 28\n\nStep 1: 28 - 11 = 17\nStep 2: 17 - 15 = 2\nStep 3: 2 + 15 = 17\nStep 4: 17 + 13 = 30\nStep 5: 30 - 5 = 25\nStep 6: 25 + 9 = 34\nStep 7: 34 - 12 = 22\nStep 8: 22 + 6 = 28\nStep 9: 28 - 11 = 17\nStep 10: 17 + 4 = 21\nStep 11: 21 - 4 = 17\nStep 12: 17 \u00d7 3 = 51\nStep 13: 51 - 15 = 36\nStep 14: 36 - 4 = 32\nStep 15: 32 - 5 = 27\nStep 16: 27 + 6 = 33\nStep 17: 33 - 14 = 19\nStep 18: 19 - 3 = 16\nStep 19: 16 \u00d7 3 = 48\nStep 20: 48 \u00d7 4 = 192\nStep 21: 192 - 9 = 183\nStep 22: 183 - 7 = 176\nStep 23: 176 \u00d7 3 = 528\nStep 24: 528 \u00d7 3 = 1584\nStep 25: 1584 + 8 = 1592\nStep 26: 1592 - 4 = 1588\nStep 27: 1588 \u00d7 2 = 3176\nStep 28: 3176 - 3 = 3173\nStep 29: 3173 + 15 = 3188\nStep 30: 3188 + 8 = 3196\nStep 31: 3196 + 13 = 3209\nStep 32: 3209 + 12 = 3221\nStep 33: 3221 \u00d7 3 = 9663\nStep 34: 9663 + 9 = 9672\nStep 35: 9672 \u00d7 4 = 38688\nStep 36: 38688 - 3 = 38685\nStep 37: 38685 - 8 = 38677\nStep 38: 38677 \u00d7 2 = 77354\nStep 39: 77354 \u00d7 4 = 309416\nStep 40: 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "I'll work through this step-by-step.\n\nStart: 28\nStep 1: 28 - 11 = 17\nStep 2: 17 - 15 = 2\nStep 3: 2 + 15 = 17\nStep 4: 17 + 13 = 30\nStep 5: 30 - 5 = 25\nStep 6: 25 + 9 = 34\nStep 7: 34 - 12 = 22\nStep 8: 22 + 6 = 28\nStep 9: 28 - 11 = 17\nStep 10: 17 + 4 = 21\nStep 11: 21 - 4 = 17\nStep 12: 17 \u00d7 3 = 51\nStep 13: 51 - 15 = 36\nStep 14: 36 - 4 = 32\nStep 15: 32 - 5 = 27\nStep 16: 27 + 6 = 33\nStep 17: 33 - 14 = 19\nStep 18: 19 - 3 = 16\nStep 19: 16 \u00d7 3 = 48\nStep 20: 48 \u00d7 4 = 192\nStep 21: 192 - 9 = 183\nStep 22: 183 - 7 = 176\nStep 23: 176 \u00d7 3 = 528\nStep 24: 528 \u00d7 3 = 1584\nStep 25: 1584 + 8 = 1592\nStep 26: 1592 - 4 = 1588\nStep 27: 1588 \u00d7 2 = 3176\nStep 28: 3176 - 3 = 3173\nStep 29: 3173 + 15 = 3188\nStep 30: 3188 + 8 = 3196\nStep 31: 3196 + 13 = 3209\nStep 32: 3209 + 12 = 3221\nStep 33: 3221 \u00d7 3 = 9663\nStep 34: 9663 + 9 = 9672\nStep 35: 9672 \u00d7 4 = 38688\nStep 36: 38688 - 3 = 38685\nStep 37: 38685 - 8 = 38677\nStep 38: 38677 \u00d7 2 = 77354\nStep 39: 77354 \u00d7 4 = 309416\nStep 40: 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "I'll work through this step-by-step.\n\nStarting value: 28\n\nStep 1: 28 - 11 = 17\nStep 2: 17 - 15 = 2\nStep 3: 2 + 15 = 17\nStep 4: 17 + 13 = 30\nStep 5: 30 - 5 = 25\nStep 6: 25 + 9 = 34\nStep 7: 34 - 12 = 22\nStep 8: 22 + 6 = 28\nStep 9: 28 - 11 = 17\nStep 10: 17 + 4 = 21\nStep 11: 21 - 4 = 17\nStep 12: 17 \u00d7 3 = 51\nStep 13: 51 - 15 = 36\nStep 14: 36 - 4 = 32\nStep 15: 32 - 5 = 27\nStep 16: 27 + 6 = 33\nStep 17: 33 - 14 = 19\nStep 18: 19 - 3 = 16\nStep 19: 16 \u00d7 3 = 48\nStep 20: 48 \u00d7 4 = 192\nStep 21: 192 - 9 = 183\nStep 22: 183 - 7 = 176\nStep 23: 176 \u00d7 3 = 528\nStep 24: 528 \u00d7 3 = 1584\nStep 25: 1584 + 8 = 1592\nStep 26: 1592 - 4 = 1588\nStep 27: 1588 \u00d7 2 = 3176\nStep 28: 3176 - 3 = 3173\nStep 29: 3173 + 15 = 3188\nStep 30: 3188 + 8 = 3196\nStep 31: 3196 + 13 = 3209\nStep 32: 3209 + 12 = 3221\nStep 33: 3221 \u00d7 3 = 9663\nStep 34: 9663 + 9 = 9672\nStep 35: 9672 \u00d7 4 = 38688\nStep 36: 38688 - 3 = 38685\nStep 37: 38685 - 8 = 38677\nStep 38: 38677 \u00d7 2 = 77354\nStep 39: 77354 \u00d7 4 = 309416\nStep 40: 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "I'll work through this step-by-step, starting with 28.\n\nStart: 28\nStep 1: 28 - 11 = 17\nStep 2: 17 - 15 = 2\nStep 3: 2 + 15 = 17\nStep 4: 17 + 13 = 30\nStep 5: 30 - 5 = 25\nStep 6: 25 + 9 = 34\nStep 7: 34 - 12 = 22\nStep 8: 22 + 6 = 28\nStep 9: 28 - 11 = 17\nStep 10: 17 + 4 = 21\nStep 11: 21 - 4 = 17\nStep 12: 17 \u00d7 3 = 51\nStep 13: 51 - 15 = 36\nStep 14: 36 - 4 = 32\nStep 15: 32 - 5 = 27\nStep 16: 27 + 6 = 33\nStep 17: 33 - 14 = 19\nStep 18: 19 - 3 = 16\nStep 19: 16 \u00d7 3 = 48\nStep 20: 48 \u00d7 4 = 192\nStep 21: 192 - 9 = 183\nStep 22: 183 - 7 = 176\nStep 23: 176 \u00d7 3 = 528\nStep 24: 528 \u00d7 3 = 1584\nStep 25: 1584 + 8 = 1592\nStep 26: 1592 - 4 = 1588\nStep 27: 1588 \u00d7 2 = 3176\nStep 28: 3176 - 3 = 3173\nStep 29: 3173 + 15 = 3188\nStep 30: 3188 + 8 = 3196\nStep 31: 3196 + 13 = 3209\nStep 32: 3209 + 12 = 3221\nStep 33: 3221 \u00d7 3 = 9663\nStep 34: 9663 + 9 = 9672\nStep 35: 9672 \u00d7 4 = 38688\nStep 36: 38688 - 3 = 38685\nStep 37: 38685 - 8 = 38677\nStep 38: 38677 \u00d7 2 = 77354\nStep 39: 77354 \u00d7 4 = 309416\nStep 40: 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      }
+    ]
+  },
+  "prompt": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "I'll work through this step-by-step, verifying as I go.\n\nStart: 28\n\nStep 1: 28 - 11 = 17\nStep 2: 17 - 15 = 2\nStep 3: 2 + 15 = 17\nStep 4: 17 + 13 = 30\nStep 5: 30 - 5 = 25\nStep 6: 25 + 9 = 34\nStep 7: 34 - 12 = 22\nStep 8: 22 + 6 = 28\nStep 9: 28 - 11 = 17\nStep 10: 17 + 4 = 21\nStep 11: 21 - 4 = 17\nStep 12: 17 \u00d7 3 = 51\nStep 13: 51 - 15 = 36\nStep 14: 36 - 4 = 32\nStep 15: 32 - 5 = 27\nStep 16: 27 + 6 = 33\nStep 17: 33 - 14 = 19\nStep 18: 19 - 3 = 16\nStep 19: 16 \u00d7 3 = 48\nStep 20: 48 \u00d7 4 = 192\nStep 21: 192 - 9 = 183\nStep 22: 183 - 7 = 176\nStep 23: 176 \u00d7 3 = 528\nStep 24: 528 \u00d7 3 = 1584\nStep 25: 1584 + 8 = 1592\nStep 26: 1592 - 4 = 1588\nStep 27: 1588 \u00d7 2 = 3176\nStep 28: 3176 - 3 = 3173\nStep 29: 3173 + 15 = 3188\nStep 30: 3188 + 8 = 3196\nStep 31: 3196 + 13 = 3209\nStep 32: 3209 + 12 = 3221\nStep 33: 3221 \u00d7 3 = 9663\nStep 34: 9663 + 9 = 9672\nStep 35: 9672 \u00d7 4 = 38688\nStep 36: 38688 - 3 = 38685\nStep 37: 38685 - 8 = 38677\nStep 38: 38677 \u00d7 2 = 77354\nStep 39: 77354 \u00d7 4 = 309416\nStep 40: 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "I'll work through this step-by-step, verifying as I go.\n\nStart: 28\n\nStep 1: 28 - 11 = 17\nStep 2: 17 - 15 = 2\nStep 3: 2 + 15 = 17\nStep 4: 17 + 13 = 30\nStep 5: 30 - 5 = 25\nStep 6: 25 + 9 = 34\nStep 7: 34 - 12 = 22\nStep 8: 22 + 6 = 28\nStep 9: 28 - 11 = 17\nStep 10: 17 + 4 = 21\nStep 11: 21 - 4 = 17\nStep 12: 17 \u00d7 3 = 51\nStep 13: 51 - 15 = 36\nStep 14: 36 - 4 = 32\nStep 15: 32 - 5 = 27\nStep 16: 27 + 6 = 33\nStep 17: 33 - 14 = 19\nStep 18: 19 - 3 = 16\nStep 19: 16 \u00d7 3 = 48\nStep 20: 48 \u00d7 4 = 192\nStep 21: 192 - 9 = 183\nStep 22: 183 - 7 = 176\nStep 23: 176 \u00d7 3 = 528\nStep 24: 528 \u00d7 3 = 1584\nStep 25: 1584 + 8 = 1592\nStep 26: 1592 - 4 = 1588\nStep 27: 1588 \u00d7 2 = 3176\nStep 28: 3176 - 3 = 3173\nStep 29: 3173 + 15 = 3188\nStep 30: 3188 + 8 = 3196\nStep 31: 3196 + 13 = 3209\nStep 32: 3209 + 12 = 3221\nStep 33: 3221 \u00d7 3 = 9663\nStep 34: 9663 + 9 = 9672\nStep 35: 9672 \u00d7 4 = 38688\nStep 36: 38688 - 3 = 38685\nStep 37: 38685 - 8 = 38677\nStep 38: 38677 \u00d7 2 = 77354\nStep 39: 77354 \u00d7 4 = 309416\nStep 40: 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "I'll work through this step-by-step, verifying each intermediate result.\n\nStart: 28\n\nStep 1: 28 - 11 = 17\nStep 2: 17 - 15 = 2\nStep 3: 2 + 15 = 17\nStep 4: 17 + 13 = 30\nStep 5: 30 - 5 = 25\nStep 6: 25 + 9 = 34\nStep 7: 34 - 12 = 22\nStep 8: 22 + 6 = 28\nStep 9: 28 - 11 = 17\nStep 10: 17 + 4 = 21\nStep 11: 21 - 4 = 17\nStep 12: 17 \u00d7 3 = 51\nStep 13: 51 - 15 = 36\nStep 14: 36 - 4 = 32\nStep 15: 32 - 5 = 27\nStep 16: 27 + 6 = 33\nStep 17: 33 - 14 = 19\nStep 18: 19 - 3 = 16\nStep 19: 16 \u00d7 3 = 48\nStep 20: 48 \u00d7 4 = 192\nStep 21: 192 - 9 = 183\nStep 22: 183 - 7 = 176\nStep 23: 176 \u00d7 3 = 528\nStep 24: 528 \u00d7 3 = 1584\nStep 25: 1584 + 8 = 1592\nStep 26: 1592 - 4 = 1588\nStep 27: 1588 \u00d7 2 = 3176\nStep 28: 3176 - 3 = 3173\nStep 29: 3173 + 15 = 3188\nStep 30: 3188 + 8 = 3196\nStep 31: 3196 + 13 = 3209\nStep 32: 3209 + 12 = 3221\nStep 33: 3221 \u00d7 3 = 9663\nStep 34: 9663 + 9 = 9672\nStep 35: 9672 \u00d7 4 = 38688\nStep 36: 38688 - 3 = 38685\nStep 37: 38685 - 8 = 38677\nStep 38: 38677 \u00d7 2 = 77354\nStep 39: 77354 \u00d7 4 = 309416\nStep 40: 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "I'll work through this step-by-step, verifying as I go.\n\nStart: 28\n\nStep 1: 28 - 11 = 17\nStep 2: 17 - 15 = 2\nStep 3: 2 + 15 = 17\nStep 4: 17 + 13 = 30\nStep 5: 30 - 5 = 25\nStep 6: 25 + 9 = 34\nStep 7: 34 - 12 = 22\nStep 8: 22 + 6 = 28\nStep 9: 28 - 11 = 17\nStep 10: 17 + 4 = 21\nStep 11: 21 - 4 = 17\nStep 12: 17 \u00d7 3 = 51\nStep 13: 51 - 15 = 36\nStep 14: 36 - 4 = 32\nStep 15: 32 - 5 = 27\nStep 16: 27 + 6 = 33\nStep 17: 33 - 14 = 19\nStep 18: 19 - 3 = 16\nStep 19: 16 \u00d7 3 = 48\nStep 20: 48 \u00d7 4 = 192\nStep 21: 192 - 9 = 183\nStep 22: 183 - 7 = 176\nStep 23: 176 \u00d7 3 = 528\nStep 24: 528 \u00d7 3 = 1584\nStep 25: 1584 + 8 = 1592\nStep 26: 1592 - 4 = 1588\nStep 27: 1588 \u00d7 2 = 3176\nStep 28: 3176 - 3 = 3173\nStep 29: 3173 + 15 = 3188\nStep 30: 3188 + 8 = 3196\nStep 31: 3196 + 13 = 3209\nStep 32: 3209 + 12 = 3221\nStep 33: 3221 \u00d7 3 = 9663\nStep 34: 9663 + 9 = 9672\nStep 35: 9672 \u00d7 4 = 38688\nStep 36: 38688 - 3 = 38685\nStep 37: 38685 - 8 = 38677\nStep 38: 38677 \u00d7 2 = 77354\nStep 39: 77354 \u00d7 4 = 309416\nStep 40: 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "I'll work through this step-by-step, verifying each intermediate result.\n\nStart: 28\n\nStep 1: 28 - 11 = 17\nStep 2: 17 - 15 = 2\nStep 3: 2 + 15 = 17\nStep 4: 17 + 13 = 30\nStep 5: 30 - 5 = 25\nStep 6: 25 + 9 = 34\nStep 7: 34 - 12 = 22\nStep 8: 22 + 6 = 28\nStep 9: 28 - 11 = 17\nStep 10: 17 + 4 = 21\nStep 11: 21 - 4 = 17\nStep 12: 17 \u00d7 3 = 51\nStep 13: 51 - 15 = 36\nStep 14: 36 - 4 = 32\nStep 15: 32 - 5 = 27\nStep 16: 27 + 6 = 33\nStep 17: 33 - 14 = 19\nStep 18: 19 - 3 = 16\nStep 19: 16 \u00d7 3 = 48\nStep 20: 48 \u00d7 4 = 192\nStep 21: 192 - 9 = 183\nStep 22: 183 - 7 = 176\nStep 23: 176 \u00d7 3 = 528\nStep 24: 528 \u00d7 3 = 1584\nStep 25: 1584 + 8 = 1592\nStep 26: 1592 - 4 = 1588\nStep 27: 1588 \u00d7 2 = 3176\nStep 28: 3176 - 3 = 3173\nStep 29: 3173 + 15 = 3188\nStep 30: 3188 + 8 = 3196\nStep 31: 3196 + 13 = 3209\nStep 32: 3209 + 12 = 3221\nStep 33: 3221 \u00d7 3 = 9663\nStep 34: 9663 + 9 = 9672\nStep 35: 9672 \u00d7 4 = 38688\nStep 36: 38688 - 3 = 38685\nStep 37: 38685 - 8 = 38677\nStep 38: 38677 \u00d7 2 = 77354\nStep 39: 77354 \u00d7 4 = 309416\nStep 40: 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      }
+    ]
+  },
+  "framework": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "I'll apply the framework's filter (verify each step) and attend (focus on what matters) principles to work through this calculation carefully.\n\nStarting value: 28\n\nStep 1: 28 - 11 = 17\nStep 2: 17 - 15 = 2\nStep 3: 2 + 15 = 17\nStep 4: 17 + 13 = 30\nStep 5: 30 - 5 = 25\nStep 6: 25 + 9 = 34\nStep 7: 34 - 12 = 22\nStep 8: 22 + 6 = 28\nStep 9: 28 - 11 = 17\nStep 10: 17 + 4 = 21\nStep 11: 21 - 4 = 17\nStep 12: 17 \u00d7 3 = 51\nStep 13: 51 - 15 = 36\nStep 14: 36 - 4 = 32\nStep 15: 32 - 5 = 27\nStep 16: 27 + 6 = 33\nStep 17: 33 - 14 = 19\nStep 18: 19 - 3 = 16\nStep 19: 16 \u00d7 3 = 48\nStep 20: 48 \u00d7 4 = 192\nStep 21: 192 - 9 = 183\nStep 22: 183 - 7 = 176\nStep 23: 176 \u00d7 3 = 528\nStep 24: 528 \u00d7 3 = 1584\nStep 25: 1584 + 8 = 1592\nStep 26: 1592 - 4 = 1588\nStep 27: 1588 \u00d7 2 = 3176\nStep 28: 3176 - 3 = 3173\nStep 29: 3173 + 15 = 3188\nStep 30: 3188 + 8 = 3196\nStep 31: 3196 + 13 = 3209\nStep 32: 3209 + 12 = 3221\nStep 33: 3221 \u00d7 3 = 9663\nStep 34: 9663 + 9 = 9672\nStep 35: 9672 \u00d7 4 = 38688\nStep 36: 38688 - 3 = 38685\nStep 37: 38685 - 8 = 38677\nStep 38: 38677 \u00d7 2 = 77354\nStep 39: 77354 \u00d7 4 = 309416\nStep 40: 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "I'll work through this step-by-step, applying filter (verify each calculation) and attend (track the running value carefully).\n\nStarting value: 28\n\n1. 28 - 11 = 17\n2. 17 - 15 = 2\n3. 2 + 15 = 17\n4. 17 + 13 = 30\n5. 30 - 5 = 25\n6. 25 + 9 = 34\n7. 34 - 12 = 22\n8. 22 + 6 = 28\n9. 28 - 11 = 17\n10. 17 + 4 = 21\n11. 21 - 4 = 17\n12. 17 \u00d7 3 = 51\n13. 51 - 15 = 36\n14. 36 - 4 = 32\n15. 32 - 5 = 27\n16. 27 + 6 = 33\n17. 33 - 14 = 19\n18. 19 - 3 = 16\n19. 16 \u00d7 3 = 48\n20. 48 \u00d7 4 = 192\n21. 192 - 9 = 183\n22. 183 - 7 = 176\n23. 176 \u00d7 3 = 528\n24. 528 \u00d7 3 = 1584\n25. 1584 + 8 = 1592\n26. 1592 - 4 = 1588\n27. 1588 \u00d7 2 = 3176\n28. 3176 - 3 = 3173\n29. 3173 + 15 = 3188\n30. 3188 + 8 = 3196\n31. 3196 + 13 = 3209\n32. 3209 + 12 = 3221\n33. 3221 \u00d7 3 = 9663\n34. 9663 + 9 = 9672\n35. 9672 \u00d7 4 = 38688\n36. 38688 - 3 = 38685\n37. 38685 - 8 = 38677\n38. 38677 \u00d7 2 = 77354\n39. 77354 \u00d7 4 = 309416\n40. 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "I'll apply the framework's filter (verify each step) and attend (focus on what matters) principles to work through this calculation.\n\nStarting value: 28\n\nStep 1: 28 - 11 = 17\nStep 2: 17 - 15 = 2\nStep 3: 2 + 15 = 17\nStep 4: 17 + 13 = 30\nStep 5: 30 - 5 = 25\nStep 6: 25 + 9 = 34\nStep 7: 34 - 12 = 22\nStep 8: 22 + 6 = 28\nStep 9: 28 - 11 = 17\nStep 10: 17 + 4 = 21\nStep 11: 21 - 4 = 17\nStep 12: 17 \u00d7 3 = 51\nStep 13: 51 - 15 = 36\nStep 14: 36 - 4 = 32\nStep 15: 32 - 5 = 27\nStep 16: 27 + 6 = 33\nStep 17: 33 - 14 = 19\nStep 18: 19 - 3 = 16\nStep 19: 16 \u00d7 3 = 48\nStep 20: 48 \u00d7 4 = 192\nStep 21: 192 - 9 = 183\nStep 22: 183 - 7 = 176\nStep 23: 176 \u00d7 3 = 528\nStep 24: 528 \u00d7 3 = 1584\nStep 25: 1584 + 8 = 1592\nStep 26: 1592 - 4 = 1588\nStep 27: 1588 \u00d7 2 = 3176\nStep 28: 3176 - 3 = 3173\nStep 29: 3173 + 15 = 3188\nStep 30: 3188 + 8 = 3196\nStep 31: 3196 + 13 = 3209\nStep 32: 3209 + 12 = 3221\nStep 33: 3221 \u00d7 3 = 9663\nStep 34: 9663 + 9 = 9672\nStep 35: 9672 \u00d7 4 = 38688\nStep 36: 38688 - 3 = 38685\nStep 37: 38685 - 8 = 38677\nStep 38: 38677 \u00d7 2 = 77354\nStep 39: 77354 \u00d7 4 = 309416\nStep 40: 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "I'll work through this step-by-step, applying filter (verify each step) and attend (focus on what matters).\n\nStart: 28\n\n1. 28 - 11 = 17\n2. 17 - 15 = 2\n3. 2 + 15 = 17\n4. 17 + 13 = 30\n5. 30 - 5 = 25\n6. 25 + 9 = 34\n7. 34 - 12 = 22\n8. 22 + 6 = 28\n9. 28 - 11 = 17\n10. 17 + 4 = 21\n11. 21 - 4 = 17\n12. 17 \u00d7 3 = 51\n13. 51 - 15 = 36\n14. 36 - 4 = 32\n15. 32 - 5 = 27\n16. 27 + 6 = 33\n17. 33 - 14 = 19\n18. 19 - 3 = 16\n19. 16 \u00d7 3 = 48\n20. 48 \u00d7 4 = 192\n21. 192 - 9 = 183\n22. 183 - 7 = 176\n23. 176 \u00d7 3 = 528\n24. 528 \u00d7 3 = 1584\n25. 1584 + 8 = 1592\n26. 1592 - 4 = 1588\n27. 1588 \u00d7 2 = 3176\n28. 3176 - 3 = 3173\n29. 3173 + 15 = 3188\n30. 3188 + 8 = 3196\n31. 3196 + 13 = 3209\n32. 3209 + 12 = 3221\n33. 3221 \u00d7 3 = 9663\n34. 9663 + 9 = 9672\n35. 9672 \u00d7 4 = 38688\n36. 38688 - 3 = 38685\n37. 38685 - 8 = 38677\n38. 38677 \u00d7 2 = 77354\n39. 77354 \u00d7 4 = 309416\n40. 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "I'll apply the framework's principles: **filter** (verify each step) and **attend** (focus on what matters).\n\nLet me work through this systematically, caching intermediate values and filtering for errors:\n\nStart: 28\n\nSteps 1-5:\n- 28 - 11 = 17\n- 17 - 15 = 2\n- 2 + 15 = 17\n- 17 + 13 = 30\n- 30 - 5 = 25\n\nSteps 6-10:\n- 25 + 9 = 34\n- 34 - 12 = 22\n- 22 + 6 = 28\n- 28 - 11 = 17\n- 17 + 4 = 21\n\nSteps 11-15:\n- 21 - 4 = 17\n- 17 \u00d7 3 = 51\n- 51 - 15 = 36\n- 36 - 4 = 32\n- 32 - 5 = 27\n\nSteps 16-20:\n- 27 + 6 = 33\n- 33 - 14 = 19\n- 19 - 3 = 16\n- 16 \u00d7 3 = 48\n- 48 \u00d7 4 = 192\n\nSteps 21-25:\n- 192 - 9 = 183\n- 183 - 7 = 176\n- 176 \u00d7 3 = 528\n- 528 \u00d7 3 = 1584\n- 1584 + 8 = 1592\n\nSteps 26-30:\n- 1592 - 4 = 1588\n- 1588 \u00d7 2 = 3176\n- 3176 - 3 = 3173\n- 3173 + 15 = 3188\n- 3188 + 8 = 3196\n\nSteps 31-35:\n- 3196 + 13 = 3209\n- 3209 + 12 = 3221\n- 3221 \u00d7 3 = 9663\n- 9663 + 9 = 9672\n- 9672 \u00d7 4 = 38688\n\nSteps 36-40:\n- 38688 - 3 = 38685\n- 38685 - 8 = 38677\n- 38677 \u00d7 2 = 77354\n- 77354 \u00d7 4 = 309416\n- 309416 + 14 = 309430\n\n309430",
+        "extracted": 309430,
+        "correct": true
+      }
+    ]
+  }
+}

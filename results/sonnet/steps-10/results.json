@@ -1,0 +1,110 @@
+{
+  "bare": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "Let me work through this step by step:\n\nStart: 44\nStep 1: 44 + 14 = 58\nStep 2: 58 \u00d7 3 = 174\nStep 3: 174 - 9 = 165\nStep 4: 165 + 5 = 170\nStep 5: 170 + 15 = 185\nStep 6: 185 - 5 = 180\nStep 7: 180 - 10 = 170\nStep 8: 170 \u00d7 2 = 340\nStep 9: 340 + 11 = 351\nStep 10: 351 - 10 = 341\n\n341",
+        "extracted": 341,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "I'll work through this step-by-step:\n\nStart: 44\nStep 1: 44 + 14 = 58\nStep 2: 58 \u00d7 3 = 174\nStep 3: 174 - 9 = 165\nStep 4: 165 + 5 = 170\nStep 5: 170 + 15 = 185\nStep 6: 185 - 5 = 180\nStep 7: 180 - 10 = 170\nStep 8: 170 \u00d7 2 = 340\nStep 9: 340 + 11 = 351\nStep 10: 351 - 10 = 341\n\n341",
+        "extracted": 341,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "I'll work through this step-by-step:\n\nStart: 44\nStep 1: 44 + 14 = 58\nStep 2: 58 \u00d7 3 = 174\nStep 3: 174 - 9 = 165\nStep 4: 165 + 5 = 170\nStep 5: 170 + 15 = 185\nStep 6: 185 - 5 = 180\nStep 7: 180 - 10 = 170\nStep 8: 170 \u00d7 2 = 340\nStep 9: 340 + 11 = 351\nStep 10: 351 - 10 = 341\n\n341",
+        "extracted": 341,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "Let me work through this step by step:\n\nStart: 44\nStep 1: 44 + 14 = 58\nStep 2: 58 \u00d7 3 = 174\nStep 3: 174 - 9 = 165\nStep 4: 165 + 5 = 170\nStep 5: 170 + 15 = 185\nStep 6: 185 - 5 = 180\nStep 7: 180 - 10 = 170\nStep 8: 170 \u00d7 2 = 340\nStep 9: 340 + 11 = 351\nStep 10: 351 - 10 = 341\n\n341",
+        "extracted": 341,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "Let me work through this step by step:\n\nStart: 44\nStep 1: 44 + 14 = 58\nStep 2: 58 \u00d7 3 = 174\nStep 3: 174 - 9 = 165\nStep 4: 165 + 5 = 170\nStep 5: 170 + 15 = 185\nStep 6: 185 - 5 = 180\nStep 7: 180 - 10 = 170\nStep 8: 170 \u00d7 2 = 340\nStep 9: 340 + 11 = 351\nStep 10: 351 - 10 = 341\n\n341",
+        "extracted": 341,
+        "correct": true
+      }
+    ]
+  },
+  "prompt": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "I'll work through this step-by-step, verifying each intermediate result.\n\nStart: 44\n\nStep 1: 44 + 14 = 58\n\u2713 Verified: 58\n\nStep 2: 58 \u00d7 3 = 174\n\u2713 Verified: 174\n\nStep 3: 174 - 9 = 165\n\u2713 Verified: 165\n\nStep 4: 165 + 5 = 170\n\u2713 Verified: 170\n\nStep 5: 170 + 15 = 185\n\u2713 Verified: 185\n\nStep 6: 185 - 5 = 180\n\u2713 Verified: 180\n\nStep 7: 180 - 10 = 170\n\u2713 Verified: 170\n\nStep 8: 170 \u00d7 2 = 340\n\u2713 Verified: 340\n\nStep 9: 340 + 11 = 351\n\u2713 Verified: 351\n\nStep 10: 351 - 10 = 341\n\u2713 Verified: 341\n\n341",
+        "extracted": 341,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "I'll work through this step-by-step, verifying each result.\n\nStart: 44\n\nStep 1: 44 + 14 = 58\nVerification: \u2713\n\nStep 2: 58 \u00d7 3 = 174\nVerification: \u2713\n\nStep 3: 174 - 9 = 165\nVerification: \u2713\n\nStep 4: 165 + 5 = 170\nVerification: \u2713\n\nStep 5: 170 + 15 = 185\nVerification: \u2713\n\nStep 6: 185 - 5 = 180\nVerification: \u2713\n\nStep 7: 180 - 10 = 170\nVerification: \u2713\n\nStep 8: 170 \u00d7 2 = 340\nVerification: \u2713\n\nStep 9: 340 + 11 = 351\nVerification: \u2713\n\nStep 10: 351 - 10 = 341\nVerification: \u2713\n\n341",
+        "extracted": 341,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "I'll work through this step-by-step, verifying each result.\n\nStart: 44\n\nStep 1: 44 + 14 = 58\nVerify: \u2713\n\nStep 2: 58 \u00d7 3 = 174\nVerify: \u2713\n\nStep 3: 174 - 9 = 165\nVerify: \u2713\n\nStep 4: 165 + 5 = 170\nVerify: \u2713\n\nStep 5: 170 + 15 = 185\nVerify: \u2713\n\nStep 6: 185 - 5 = 180\nVerify: \u2713\n\nStep 7: 180 - 10 = 170\nVerify: \u2713\n\nStep 8: 170 \u00d7 2 = 340\nVerify: \u2713\n\nStep 9: 340 + 11 = 351\nVerify: \u2713\n\nStep 10: 351 - 10 = 341\nVerify: \u2713\n\n341",
+        "extracted": 341,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "I'll work through this step-by-step, verifying each answer.\n\nStart: 44\n\nStep 1: 44 + 14 = 58 \u2713\n\nStep 2: 58 \u00d7 3 = 174 \u2713\n\nStep 3: 174 - 9 = 165 \u2713\n\nStep 4: 165 + 5 = 170 \u2713\n\nStep 5: 170 + 15 = 185 \u2713\n\nStep 6: 185 - 5 = 180 \u2713\n\nStep 7: 180 - 10 = 170 \u2713\n\nStep 8: 170 \u00d7 2 = 340 \u2713\n\nStep 9: 340 + 11 = 351 \u2713\n\nStep 10: 351 - 10 = 341 \u2713\n\n341",
+        "extracted": 341,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "I'll work through this step-by-step, verifying each result.\n\nStart: 44\n\nStep 1: 44 + 14 = 58 \u2713\n\nStep 2: 58 \u00d7 3 = 174 \u2713\n\nStep 3: 174 - 9 = 165 \u2713\n\nStep 4: 165 + 5 = 170 \u2713\n\nStep 5: 170 + 15 = 185 \u2713\n\nStep 6: 185 - 5 = 180 \u2713\n\nStep 7: 180 - 10 = 170 \u2713\n\nStep 8: 170 \u00d7 2 = 340 \u2713\n\nStep 9: 340 + 11 = 351 \u2713\n\nStep 10: 351 - 10 = 341 \u2713\n\n341",
+        "extracted": 341,
+        "correct": true
+      }
+    ]
+  },
+  "framework": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "I'll work through this step-by-step, verifying each calculation.\n\nStart: 44\n\nStep 1: 44 + 14 = 58\nStep 2: 58 \u00d7 3 = 174\nStep 3: 174 - 9 = 165\nStep 4: 165 + 5 = 170\nStep 5: 170 + 15 = 185\nStep 6: 185 - 5 = 180\nStep 7: 180 - 10 = 170\nStep 8: 170 \u00d7 2 = 340\nStep 9: 340 + 11 = 351\nStep 10: 351 - 10 = 341\n\n341",
+        "extracted": 341,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "I'll work through this step-by-step, filtering each calculation to verify correctness before proceeding.\n\nStart: 44\n\nStep 1: 44 + 14 = 58\nStep 2: 58 \u00d7 3 = 174\nStep 3: 174 - 9 = 165\nStep 4: 165 + 5 = 170\nStep 5: 170 + 15 = 185\nStep 6: 185 - 5 = 180\nStep 7: 180 - 10 = 170\nStep 8: 170 \u00d7 2 = 340\nStep 9: 340 + 11 = 351\nStep 10: 351 - 10 = 341\n\n341",
+        "extracted": 341,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "I'll work through this step-by-step, filtering for accuracy at each stage.\n\nStart: 44\n\nStep 1: 44 + 14 = 58\nStep 2: 58 \u00d7 3 = 174\nStep 3: 174 - 9 = 165\nStep 4: 165 + 5 = 170\nStep 5: 170 + 15 = 185\nStep 6: 185 - 5 = 180\nStep 7: 180 - 10 = 170\nStep 8: 170 \u00d7 2 = 340\nStep 9: 340 + 11 = 351\nStep 10: 351 - 10 = 341\n\n341",
+        "extracted": 341,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "I'll work through this step-by-step, verifying each calculation.\n\n**Start:** 44\n\n**Step 1:** 44 + 14 = 58\n\n**Step 2:** 58 \u00d7 3 = 174\n\n**Step 3:** 174 - 9 = 165\n\n**Step 4:** 165 + 5 = 170\n\n**Step 5:** 170 + 15 = 185\n\n**Step 6:** 185 - 5 = 180\n\n**Step 7:** 180 - 10 = 170\n\n**Step 8:** 170 \u00d7 2 = 340\n\n**Step 9:** 340 + 11 = 351\n\n**Step 10:** 351 - 10 = 341\n\n341",
+        "extracted": 341,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "I'll work through this step-by-step, filtering for accuracy at each stage.\n\nStart: 44\n\nStep 1: 44 + 14 = 58\nStep 2: 58 \u00d7 3 = 174\nStep 3: 174 - 9 = 165\nStep 4: 165 + 5 = 170\nStep 5: 170 + 15 = 185\nStep 6: 185 - 5 = 180\nStep 7: 180 - 10 = 170\nStep 8: 170 \u00d7 2 = 340\nStep 9: 340 + 11 = 351\nStep 10: 351 - 10 = 341\n\n341",
+        "extracted": 341,
+        "correct": true
+      }
+    ]
+  }
+}

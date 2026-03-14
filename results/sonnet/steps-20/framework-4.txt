@@ -1,0 +1,26 @@
+I'll apply the framework's filter and attend principles: verify each step and focus on accuracy.
+
+Starting value: 83
+
+Step 1: 83 + 4 = 87
+Step 2: 87 + 10 = 97
+Step 3: 97 - 13 = 84
+Step 4: 84 - 5 = 79
+Step 5: 79 × 2 = 158
+Step 6: 158 + 3 = 161
+Step 7: 161 - 13 = 148
+Step 8: 148 + 4 = 152
+Step 9: 152 + 10 = 162
+Step 10: 162 - 11 = 151
+Step 11: 151 + 15 = 166
+Step 12: 166 - 12 = 154
+Step 13: 154 × 2 = 308
+Step 14: 308 × 2 = 616
+Step 15: 616 × 2 = 1232
+Step 16: 1232 - 11 = 1221
+Step 17: 1221 - 12 = 1209
+Step 18: 1209 + 12 = 1221
+Step 19: 1221 - 7 = 1214
+Step 20: 1214 - 8 = 1206
+
+1206

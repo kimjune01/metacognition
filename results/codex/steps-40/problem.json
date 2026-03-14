@@ -1,0 +1,6 @@
+{
+  "problem": "Start with 28.\nStep 1: subtract 11.\nStep 2: subtract 15.\nStep 3: add 15.\nStep 4: add 13.\nStep 5: subtract 5.\nStep 6: add 9.\nStep 7: subtract 12.\nStep 8: add 6.\nStep 9: subtract 11.\nStep 10: add 4.\nStep 11: subtract 4.\nStep 12: multiply 3.\nStep 13: subtract 15.\nStep 14: subtract 4.\nStep 15: subtract 5.\nStep 16: add 6.\nStep 17: subtract 14.\nStep 18: subtract 3.\nStep 19: multiply 3.\nStep 20: multiply 4.\nStep 21: subtract 9.\nStep 22: subtract 7.\nStep 23: multiply 3.\nStep 24: multiply 3.\nStep 25: add 8.\nStep 26: subtract 4.\nStep 27: multiply 2.\nStep 28: subtract 3.\nStep 29: add 15.\nStep 30: add 8.\nStep 31: add 13.\nStep 32: add 12.\nStep 33: multiply 3.\nStep 34: add 9.\nStep 35: multiply 4.\nStep 36: subtract 3.\nStep 37: subtract 8.\nStep 38: multiply 2.\nStep 39: multiply 4.\nStep 40: add 14.\n\nWhat is the final value? Reply with just the number.",
+  "answer": 309430,
+  "steps": 40,
+  "model": "codex"
+}

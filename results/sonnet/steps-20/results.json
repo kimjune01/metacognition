@@ -1,0 +1,110 @@
+{
+  "bare": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "I'll work through this step-by-step, starting with 83.\n\nStart: 83\nStep 1: 83 + 4 = 87\nStep 2: 87 + 10 = 97\nStep 3: 97 - 13 = 84\nStep 4: 84 - 5 = 79\nStep 5: 79 \u00d7 2 = 158\nStep 6: 158 + 3 = 161\nStep 7: 161 - 13 = 148\nStep 8: 148 + 4 = 152\nStep 9: 152 + 10 = 162\nStep 10: 162 - 11 = 151\nStep 11: 151 + 15 = 166\nStep 12: 166 - 12 = 154\nStep 13: 154 \u00d7 2 = 308\nStep 14: 308 \u00d7 2 = 616\nStep 15: 616 \u00d7 2 = 1232\nStep 16: 1232 - 11 = 1221\nStep 17: 1221 - 12 = 1209\nStep 18: 1209 + 12 = 1221\nStep 19: 1221 - 7 = 1214\nStep 20: 1214 - 8 = 1206\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "I'll work through this step-by-step, starting with 83.\n\nStart: 83\nStep 1: 83 + 4 = 87\nStep 2: 87 + 10 = 97\nStep 3: 97 - 13 = 84\nStep 4: 84 - 5 = 79\nStep 5: 79 \u00d7 2 = 158\nStep 6: 158 + 3 = 161\nStep 7: 161 - 13 = 148\nStep 8: 148 + 4 = 152\nStep 9: 152 + 10 = 162\nStep 10: 162 - 11 = 151\nStep 11: 151 + 15 = 166\nStep 12: 166 - 12 = 154\nStep 13: 154 \u00d7 2 = 308\nStep 14: 308 \u00d7 2 = 616\nStep 15: 616 \u00d7 2 = 1232\nStep 16: 1232 - 11 = 1221\nStep 17: 1221 - 12 = 1209\nStep 18: 1209 + 12 = 1221\nStep 19: 1221 - 7 = 1214\nStep 20: 1214 - 8 = 1206\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "I'll work through this step-by-step.\n\nStart: 83\nStep 1: 83 + 4 = 87\nStep 2: 87 + 10 = 97\nStep 3: 97 - 13 = 84\nStep 4: 84 - 5 = 79\nStep 5: 79 \u00d7 2 = 158\nStep 6: 158 + 3 = 161\nStep 7: 161 - 13 = 148\nStep 8: 148 + 4 = 152\nStep 9: 152 + 10 = 162\nStep 10: 162 - 11 = 151\nStep 11: 151 + 15 = 166\nStep 12: 166 - 12 = 154\nStep 13: 154 \u00d7 2 = 308\nStep 14: 308 \u00d7 2 = 616\nStep 15: 616 \u00d7 2 = 1232\nStep 16: 1232 - 11 = 1221\nStep 17: 1221 - 12 = 1209\nStep 18: 1209 + 12 = 1221\nStep 19: 1221 - 7 = 1214\nStep 20: 1214 - 8 = 1206\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "I'll work through this step-by-step, starting with 83.\n\nStart: 83\nStep 1: 83 + 4 = 87\nStep 2: 87 + 10 = 97\nStep 3: 97 - 13 = 84\nStep 4: 84 - 5 = 79\nStep 5: 79 \u00d7 2 = 158\nStep 6: 158 + 3 = 161\nStep 7: 161 - 13 = 148\nStep 8: 148 + 4 = 152\nStep 9: 152 + 10 = 162\nStep 10: 162 - 11 = 151\nStep 11: 151 + 15 = 166\nStep 12: 166 - 12 = 154\nStep 13: 154 \u00d7 2 = 308\nStep 14: 308 \u00d7 2 = 616\nStep 15: 616 \u00d7 2 = 1232\nStep 16: 1232 - 11 = 1221\nStep 17: 1221 - 12 = 1209\nStep 18: 1209 + 12 = 1221\nStep 19: 1221 - 7 = 1214\nStep 20: 1214 - 8 = 1206\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "I'll work through this step-by-step.\n\nStart: 83\nStep 1: 83 + 4 = 87\nStep 2: 87 + 10 = 97\nStep 3: 97 - 13 = 84\nStep 4: 84 - 5 = 79\nStep 5: 79 \u00d7 2 = 158\nStep 6: 158 + 3 = 161\nStep 7: 161 - 13 = 148\nStep 8: 148 + 4 = 152\nStep 9: 152 + 10 = 162\nStep 10: 162 - 11 = 151\nStep 11: 151 + 15 = 166\nStep 12: 166 - 12 = 154\nStep 13: 154 \u00d7 2 = 308\nStep 14: 308 \u00d7 2 = 616\nStep 15: 616 \u00d7 2 = 1232\nStep 16: 1232 - 11 = 1221\nStep 17: 1221 - 12 = 1209\nStep 18: 1209 + 12 = 1221\nStep 19: 1221 - 7 = 1214\nStep 20: 1214 - 8 = 1206\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      }
+    ]
+  },
+  "prompt": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "I'll work through this step-by-step, verifying each answer.\n\nStart: 83\n\nStep 1: 83 + 4 = 87 \u2713\n\nStep 2: 87 + 10 = 97 \u2713\n\nStep 3: 97 - 13 = 84 \u2713\n\nStep 4: 84 - 5 = 79 \u2713\n\nStep 5: 79 \u00d7 2 = 158 \u2713\n\nStep 6: 158 + 3 = 161 \u2713\n\nStep 7: 161 - 13 = 148 \u2713\n\nStep 8: 148 + 4 = 152 \u2713\n\nStep 9: 152 + 10 = 162 \u2713\n\nStep 10: 162 - 11 = 151 \u2713\n\nStep 11: 151 + 15 = 166 \u2713\n\nStep 12: 166 - 12 = 154 \u2713\n\nStep 13: 154 \u00d7 2 = 308 \u2713\n\nStep 14: 308 \u00d7 2 = 616 \u2713\n\nStep 15: 616 \u00d7 2 = 1232 \u2713\n\nStep 16: 1232 - 11 = 1221 \u2713\n\nStep 17: 1221 - 12 = 1209 \u2713\n\nStep 18: 1209 + 12 = 1221 \u2713\n\nStep 19: 1221 - 7 = 1214 \u2713\n\nStep 20: 1214 - 8 = 1206 \u2713\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "I'll work through this step-by-step, verifying each result.\n\nStart: 83\n\nStep 1: 83 + 4 = 87\nStep 2: 87 + 10 = 97\nStep 3: 97 - 13 = 84\nStep 4: 84 - 5 = 79\nStep 5: 79 \u00d7 2 = 158\nStep 6: 158 + 3 = 161\nStep 7: 161 - 13 = 148\nStep 8: 148 + 4 = 152\nStep 9: 152 + 10 = 162\nStep 10: 162 - 11 = 151\nStep 11: 151 + 15 = 166\nStep 12: 166 - 12 = 154\nStep 13: 154 \u00d7 2 = 308\nStep 14: 308 \u00d7 2 = 616\nStep 15: 616 \u00d7 2 = 1232\nStep 16: 1232 - 11 = 1221\nStep 17: 1221 - 12 = 1209\nStep 18: 1209 + 12 = 1221\nStep 19: 1221 - 7 = 1214\nStep 20: 1214 - 8 = 1206\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "I'll work through this step-by-step, verifying each result.\n\nStart: 83\n\nStep 1: 83 + 4 = 87 \u2713\n\nStep 2: 87 + 10 = 97 \u2713\n\nStep 3: 97 - 13 = 84 \u2713\n\nStep 4: 84 - 5 = 79 \u2713\n\nStep 5: 79 \u00d7 2 = 158 \u2713\n\nStep 6: 158 + 3 = 161 \u2713\n\nStep 7: 161 - 13 = 148 \u2713\n\nStep 8: 148 + 4 = 152 \u2713\n\nStep 9: 152 + 10 = 162 \u2713\n\nStep 10: 162 - 11 = 151 \u2713\n\nStep 11: 151 + 15 = 166 \u2713\n\nStep 12: 166 - 12 = 154 \u2713\n\nStep 13: 154 \u00d7 2 = 308 \u2713\n\nStep 14: 308 \u00d7 2 = 616 \u2713\n\nStep 15: 616 \u00d7 2 = 1232 \u2713\n\nStep 16: 1232 - 11 = 1221 \u2713\n\nStep 17: 1221 - 12 = 1209 \u2713\n\nStep 18: 1209 + 12 = 1221 \u2713\n\nStep 19: 1221 - 7 = 1214 \u2713\n\nStep 20: 1214 - 8 = 1206 \u2713\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "I'll work through this step-by-step, verifying each result.\n\nStart: 83\n\nStep 1: 83 + 4 = 87\nStep 2: 87 + 10 = 97\nStep 3: 97 - 13 = 84\nStep 4: 84 - 5 = 79\nStep 5: 79 \u00d7 2 = 158\nStep 6: 158 + 3 = 161\nStep 7: 161 - 13 = 148\nStep 8: 148 + 4 = 152\nStep 9: 152 + 10 = 162\nStep 10: 162 - 11 = 151\nStep 11: 151 + 15 = 166\nStep 12: 166 - 12 = 154\nStep 13: 154 \u00d7 2 = 308\nStep 14: 308 \u00d7 2 = 616\nStep 15: 616 \u00d7 2 = 1232\nStep 16: 1232 - 11 = 1221\nStep 17: 1221 - 12 = 1209\nStep 18: 1209 + 12 = 1221\nStep 19: 1221 - 7 = 1214\nStep 20: 1214 - 8 = 1206\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "I'll work through this step-by-step, verifying each result.\n\nStart: 83\n\nStep 1: 83 + 4 = 87\nStep 2: 87 + 10 = 97\nStep 3: 97 - 13 = 84\nStep 4: 84 - 5 = 79\nStep 5: 79 \u00d7 2 = 158\nStep 6: 158 + 3 = 161\nStep 7: 161 - 13 = 148\nStep 8: 148 + 4 = 152\nStep 9: 152 + 10 = 162\nStep 10: 162 - 11 = 151\nStep 11: 151 + 15 = 166\nStep 12: 166 - 12 = 154\nStep 13: 154 \u00d7 2 = 308\nStep 14: 308 \u00d7 2 = 616\nStep 15: 616 \u00d7 2 = 1232\nStep 16: 1232 - 11 = 1221\nStep 17: 1221 - 12 = 1209\nStep 18: 1209 + 12 = 1221\nStep 19: 1221 - 7 = 1214\nStep 20: 1214 - 8 = 1206\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      }
+    ]
+  },
+  "framework": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "I'll work through this step-by-step, applying filter (verify each step) and attend (focus on what matters).\n\nStarting value: 83\n\nStep 1: 83 + 4 = 87\nStep 2: 87 + 10 = 97\nStep 3: 97 - 13 = 84\nStep 4: 84 - 5 = 79\nStep 5: 79 \u00d7 2 = 158\nStep 6: 158 + 3 = 161\nStep 7: 161 - 13 = 148\nStep 8: 148 + 4 = 152\nStep 9: 152 + 10 = 162\nStep 10: 162 - 11 = 151\nStep 11: 151 + 15 = 166\nStep 12: 166 - 12 = 154\nStep 13: 154 \u00d7 2 = 308\nStep 14: 308 \u00d7 2 = 616\nStep 15: 616 \u00d7 2 = 1232\nStep 16: 1232 - 11 = 1221\nStep 17: 1221 - 12 = 1209\nStep 18: 1209 + 12 = 1221\nStep 19: 1221 - 7 = 1214\nStep 20: 1214 - 8 = 1206\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "I'll work through this step-by-step, applying filter (verify each step) and attend (focus on what matters).\n\nStarting value: 83\n\nStep 1: 83 + 4 = 87\nStep 2: 87 + 10 = 97\nStep 3: 97 - 13 = 84\nStep 4: 84 - 5 = 79\nStep 5: 79 \u00d7 2 = 158\nStep 6: 158 + 3 = 161\nStep 7: 161 - 13 = 148\nStep 8: 148 + 4 = 152\nStep 9: 152 + 10 = 162\nStep 10: 162 - 11 = 151\nStep 11: 151 + 15 = 166\nStep 12: 166 - 12 = 154\nStep 13: 154 \u00d7 2 = 308\nStep 14: 308 \u00d7 2 = 616\nStep 15: 616 \u00d7 2 = 1232\nStep 16: 1232 - 11 = 1221\nStep 17: 1221 - 12 = 1209\nStep 18: 1209 + 12 = 1221\nStep 19: 1221 - 7 = 1214\nStep 20: 1214 - 8 = 1206\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "I'll work through this step-by-step, applying the framework's principles of careful filtering (verifying each calculation) and attention (tracking the running value).\n\n**Starting value: 83**\n\nStep 1: 83 + 4 = 87\nStep 2: 87 + 10 = 97\nStep 3: 97 - 13 = 84\nStep 4: 84 - 5 = 79\nStep 5: 79 \u00d7 2 = 158\nStep 6: 158 + 3 = 161\nStep 7: 161 - 13 = 148\nStep 8: 148 + 4 = 152\nStep 9: 152 + 10 = 162\nStep 10: 162 - 11 = 151\nStep 11: 151 + 15 = 166\nStep 12: 166 - 12 = 154\nStep 13: 154 \u00d7 2 = 308\nStep 14: 308 \u00d7 2 = 616\nStep 15: 616 \u00d7 2 = 1232\nStep 16: 1232 - 11 = 1221\nStep 17: 1221 - 12 = 1209\nStep 18: 1209 + 12 = 1221\nStep 19: 1221 - 7 = 1214\nStep 20: 1214 - 8 = 1206\n\n**1206**",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "I'll apply the framework's filter and attend principles: verify each step and focus on accuracy.\n\nStarting value: 83\n\nStep 1: 83 + 4 = 87\nStep 2: 87 + 10 = 97\nStep 3: 97 - 13 = 84\nStep 4: 84 - 5 = 79\nStep 5: 79 \u00d7 2 = 158\nStep 6: 158 + 3 = 161\nStep 7: 161 - 13 = 148\nStep 8: 148 + 4 = 152\nStep 9: 152 + 10 = 162\nStep 10: 162 - 11 = 151\nStep 11: 151 + 15 = 166\nStep 12: 166 - 12 = 154\nStep 13: 154 \u00d7 2 = 308\nStep 14: 308 \u00d7 2 = 616\nStep 15: 616 \u00d7 2 = 1232\nStep 16: 1232 - 11 = 1221\nStep 17: 1221 - 12 = 1209\nStep 18: 1209 + 12 = 1221\nStep 19: 1221 - 7 = 1214\nStep 20: 1214 - 8 = 1206\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "I'll work through this step-by-step, filtering each calculation to verify accuracy before proceeding.\n\nStart: 83\n\nStep 1: 83 + 4 = 87\nStep 2: 87 + 10 = 97\nStep 3: 97 - 13 = 84\nStep 4: 84 - 5 = 79\nStep 5: 79 \u00d7 2 = 158\nStep 6: 158 + 3 = 161\nStep 7: 161 - 13 = 148\nStep 8: 148 + 4 = 152\nStep 9: 152 + 10 = 162\nStep 10: 162 - 11 = 151\nStep 11: 151 + 15 = 166\nStep 12: 166 - 12 = 154\nStep 13: 154 \u00d7 2 = 308\nStep 14: 308 \u00d7 2 = 616\nStep 15: 616 \u00d7 2 = 1232\nStep 16: 1232 - 11 = 1221\nStep 17: 1221 - 12 = 1209\nStep 18: 1209 + 12 = 1221\nStep 19: 1221 - 7 = 1214\nStep 20: 1214 - 8 = 1206\n\n1206",
+        "extracted": 1206,
+        "correct": true
+      }
+    ]
+  }
+}

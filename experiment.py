@@ -1,22 +1,26 @@
 #!/usr/bin/env python3
-"""Metacognition experiment runner."""
+"""Metacognition experiment runner.
+
+Usage:
+  python3 experiment.py [--model codex|sonnet] [step_counts...]
+  python3 experiment.py 10 15 20           # GPT-5.4 via codex (default)
+  python3 experiment.py --model sonnet 10 15 20  # Claude Sonnet
+"""
 
 import random
 import subprocess
 import json
+import re
 import sys
 import os
 
 FRAMEWORK_PATH = "/Users/junekim/Documents/kimjune01.github.io/_posts/2026/2026-03-13-the-natural-framework.md"
 TRIALS = 5
-RESULTS_DIR = "results"
 
 
-def generate_problem(steps: int, seed: int = 42) -> tuple[str, int]:
+def generate_problem(steps: int, seed: int = 42):
     """Generate a multi-step arithmetic problem. Returns (problem_text, answer)."""
     random.seed(seed + steps)
-    # Only add/subtract/multiply — no modulo/division which clamp values
-    # and make step count irrelevant to difficulty
     ops = [
         ("add", lambda a, b: a + b),
         ("subtract", lambda a, b: a - b),
@@ -26,8 +30,6 @@ def generate_problem(steps: int, seed: int = 42) -> tuple[str, int]:
     lines = [f"Start with {value}."]
     for i in range(steps):
         op_name, op_fn = random.choice(ops)
-        # Small operands for add/subtract, very small for multiply
-        # to keep numbers trackable but non-trivial
         if op_name == "multiply":
             operand = random.randint(2, 4)
         else:
@@ -39,8 +41,8 @@ def generate_problem(steps: int, seed: int = 42) -> tuple[str, int]:
     return problem, value
 
 
-def run_codex(prompt: str) -> str:
-    """Run codex exec and return the response."""
+def run_codex(prompt: str):
+    """Run GPT-5.4 via codex exec."""
     result = subprocess.run(
         ["codex", "exec", "-c", 'model="gpt-5.4"', prompt],
         capture_output=True, text=True, timeout=60,
@@ -48,16 +50,27 @@ def run_codex(prompt: str) -> str:
     return result.stdout.strip()
 
 
+def run_sonnet(prompt: str):
+    """Run Claude Sonnet via Anthropic API."""
+    import anthropic
+    client = anthropic.Anthropic()
+    message = client.messages.create(
+        model="claude-sonnet-4-5-20250929",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    return message.content[0].text.strip()
+
+
 def extract_number(response: str):
     """Extract the last integer from a response."""
-    import re
     numbers = re.findall(r"-?\d+", response)
     if numbers:
         return int(numbers[-1])
     return None
 
 
-def run_experiment(steps: int, trials: int = TRIALS):
+def run_experiment(steps: int, model: str = "codex", trials: int = TRIALS):
     """Run all three conditions for a given step count."""
     problem, answer = generate_problem(steps)
 
@@ -82,15 +95,15 @@ def run_experiment(steps: int, trials: int = TRIALS):
         ),
     }
 
-    outdir = os.path.join(RESULTS_DIR, f"steps-{steps}")
+    run_fn = run_sonnet if model == "sonnet" else run_codex
+    outdir = os.path.join("results", model, f"steps-{steps}")
     os.makedirs(outdir, exist_ok=True)
 
-    # Save problem
     with open(os.path.join(outdir, "problem.json"), "w") as f:
-        json.dump({"problem": problem, "answer": answer, "steps": steps}, f, indent=2)
+        json.dump({"problem": problem, "answer": answer, "steps": steps, "model": model}, f, indent=2)
 
     print(f"\n{'='*60}")
-    print(f"STEPS: {steps}  |  ANSWER: {answer}")
+    print(f"MODEL: {model}  |  STEPS: {steps}  |  ANSWER: {answer}")
     print(f"{'='*60}")
     print(f"Problem:\n{problem}\n")
 
@@ -101,9 +114,9 @@ def run_experiment(steps: int, trials: int = TRIALS):
         responses = []
         for t in range(1, trials + 1):
             try:
-                resp = run_codex(prompt_text)
-            except subprocess.TimeoutExpired:
-                resp = "TIMEOUT"
+                resp = run_fn(prompt_text)
+            except (subprocess.TimeoutExpired, Exception) as e:
+                resp = f"ERROR: {e}"
             got = extract_number(resp)
             is_correct = got == answer
             if is_correct:
@@ -112,14 +125,12 @@ def run_experiment(steps: int, trials: int = TRIALS):
             mark = "OK" if is_correct else "WRONG"
             print(f"  Trial {t}: {got} ({mark})")
 
-            # Save individual response
             with open(os.path.join(outdir, f"{condition}-{t}.txt"), "w") as f:
                 f.write(resp)
 
         results[condition] = {"correct": correct, "total": trials, "responses": responses}
         print(f"  Score: {correct}/{trials}")
 
-    # Save results
     with open(os.path.join(outdir, "results.json"), "w") as f:
         json.dump(results, f, indent=2)
 
@@ -127,14 +138,20 @@ def run_experiment(steps: int, trials: int = TRIALS):
 
 
 if __name__ == "__main__":
-    step_counts = [int(x) for x in sys.argv[1:]] if len(sys.argv) > 1 else [10]
+    args = sys.argv[1:]
+    model = "codex"
+    if "--model" in args:
+        idx = args.index("--model")
+        model = args[idx + 1]
+        args = args[:idx] + args[idx+2:]
+
+    step_counts = [int(x) for x in args] if args else [10]
     all_results = {}
     for steps in step_counts:
-        all_results[steps] = run_experiment(steps)
+        all_results[steps] = run_experiment(steps, model=model)
 
-    # Summary
     print(f"\n{'='*60}")
-    print("SUMMARY")
+    print(f"SUMMARY ({model})")
     print(f"{'='*60}")
     for steps, results in all_results.items():
         print(f"\nSteps: {steps}")

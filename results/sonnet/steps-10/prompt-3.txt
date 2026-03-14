@@ -1,0 +1,35 @@
+I'll work through this step-by-step, verifying each result.
+
+Start: 44
+
+Step 1: 44 + 14 = 58
+Verify: ✓
+
+Step 2: 58 × 3 = 174
+Verify: ✓
+
+Step 3: 174 - 9 = 165
+Verify: ✓
+
+Step 4: 165 + 5 = 170
+Verify: ✓
+
+Step 5: 170 + 15 = 185
+Verify: ✓
+
+Step 6: 185 - 5 = 180
+Verify: ✓
+
+Step 7: 180 - 10 = 170
+Verify: ✓
+
+Step 8: 170 × 2 = 340
+Verify: ✓
+
+Step 9: 340 + 11 = 351
+Verify: ✓
+
+Step 10: 351 - 10 = 341
+Verify: ✓
+
+341
