@@ -102,7 +102,7 @@ def run_model(prompt, model):
     if model == "codex":
         result = subprocess.run(
             ["codex", "exec", "-c", 'model="gpt-5.4"', prompt],
-            capture_output=True, text=True, timeout=90,
+            capture_output=True, text=True, timeout=120,
         )
         return result.stdout.strip()
     elif model == "sonnet":
