@@ -1,0 +1,5 @@
+{
+  "problem": "Start with 15.\nStep 1: multiply 11.\nStep 2: modulo 3.\nStep 3: modulo 5.\nStep 4: multiply 8.\nStep 5: integer divide by 7.\nStep 6: subtract 10.\nStep 7: modulo 5.\nStep 8: integer divide by 7.\nStep 9: modulo 5.\nStep 10: modulo 7.\nStep 11: modulo 6.\nStep 12: subtract 4.\nStep 13: integer divide by 3.\nStep 14: modulo 6.\nStep 15: subtract 11.\n\nWhat is the final value? Reply with just the number.",
+  "answer": -7,
+  "steps": 15
+}

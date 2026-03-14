@@ -1,0 +1,110 @@
+{
+  "bare": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      }
+    ]
+  },
+  "prompt": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      }
+    ]
+  },
+  "framework": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "-7",
+        "extracted": -7,
+        "correct": true
+      }
+    ]
+  }
+}
