@@ -1,0 +1,5 @@
+{
+  "problem": "Start with 19.\nStep 1: multiply 4.\nStep 2: add 8.\nStep 3: multiply 4.\nStep 4: multiply 3.\nStep 5: subtract 14.\nStep 6: multiply 4.\nStep 7: multiply 2.\nStep 8: multiply 4.\nStep 9: subtract 6.\nStep 10: subtract 5.\nStep 11: multiply 2.\nStep 12: multiply 2.\nStep 13: subtract 15.\nStep 14: add 10.\nStep 15: add 15.\nStep 16: subtract 4.\nStep 17: multiply 3.\nStep 18: multiply 2.\nStep 19: subtract 7.\nStep 20: subtract 8.\nStep 21: subtract 6.\nStep 22: subtract 10.\nStep 23: multiply 2.\nStep 24: subtract 12.\nStep 25: subtract 14.\nStep 26: add 7.\nStep 27: subtract 12.\nStep 28: subtract 5.\nStep 29: subtract 6.\nStep 30: add 3.\n\nWhat is the final value? Reply with just the number.",
+  "answer": 1526227,
+  "steps": 30
+}

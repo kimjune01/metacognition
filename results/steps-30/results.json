@@ -1,0 +1,110 @@
+{
+  "bare": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      }
+    ]
+  },
+  "prompt": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      }
+    ]
+  },
+  "framework": {
+    "correct": 5,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      },
+      {
+        "trial": 2,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      },
+      {
+        "trial": 3,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "1526227",
+        "extracted": 1526227,
+        "correct": true
+      }
+    ]
+  }
+}
