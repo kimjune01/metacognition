@@ -5,32 +5,32 @@
     "responses": [
       {
         "trial": 1,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       },
       {
         "trial": 2,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       },
       {
         "trial": 3,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       },
       {
         "trial": 4,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       },
       {
         "trial": 5,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       }
     ]
@@ -41,68 +41,68 @@
     "responses": [
       {
         "trial": 1,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       },
       {
         "trial": 2,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       },
       {
         "trial": 3,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       },
       {
         "trial": 4,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       },
       {
         "trial": 5,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       }
     ]
   },
   "framework": {
-    "correct": 5,
+    "correct": 4,
     "total": 5,
     "responses": [
       {
         "trial": 1,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       },
       {
         "trial": 2,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       },
       {
         "trial": 3,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       },
       {
         "trial": 4,
-        "response": "-7",
-        "extracted": -7,
-        "correct": true
+        "response": "51120",
+        "extracted": 51120,
+        "correct": false
       },
       {
         "trial": 5,
-        "response": "-7",
-        "extracted": -7,
+        "response": "8784",
+        "extracted": 8784,
         "correct": true
       }
     ]

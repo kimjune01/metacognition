@@ -1,5 +1,5 @@
 {
-  "problem": "Start with 44.\nStep 1: add 10.\nStep 2: integer divide by 5.\nStep 3: add 4.\nStep 4: subtract 8.\nStep 5: subtract 7.\nStep 6: integer divide by 2.\nStep 7: add 10.\nStep 8: integer divide by 2.\nStep 9: subtract 3.\nStep 10: subtract 4.\n\nWhat is the final value? Reply with just the number.",
-  "answer": -3,
+  "problem": "Start with 44.\nStep 1: add 14.\nStep 2: multiply 3.\nStep 3: subtract 9.\nStep 4: add 5.\nStep 5: add 15.\nStep 6: subtract 5.\nStep 7: subtract 10.\nStep 8: multiply 2.\nStep 9: add 11.\nStep 10: subtract 10.\n\nWhat is the final value? Reply with just the number.",
+  "answer": 341,
   "steps": 10
 }

@@ -1,109 +1,109 @@
 {
   "bare": {
-    "correct": 4,
-    "total": 5,
-    "responses": [
-      {
-        "trial": 1,
-        "response": "0",
-        "extracted": 0,
-        "correct": true
-      },
-      {
-        "trial": 2,
-        "response": "0",
-        "extracted": 0,
-        "correct": true
-      },
-      {
-        "trial": 3,
-        "response": "2",
-        "extracted": 2,
-        "correct": false
-      },
-      {
-        "trial": 4,
-        "response": "0",
-        "extracted": 0,
-        "correct": true
-      },
-      {
-        "trial": 5,
-        "response": "0",
-        "extracted": 0,
-        "correct": true
-      }
-    ]
-  },
-  "prompt": {
     "correct": 5,
     "total": 5,
     "responses": [
       {
         "trial": 1,
-        "response": "0",
-        "extracted": 0,
+        "response": "1206",
+        "extracted": 1206,
         "correct": true
       },
       {
         "trial": 2,
-        "response": "0",
-        "extracted": 0,
+        "response": "1206",
+        "extracted": 1206,
         "correct": true
       },
       {
         "trial": 3,
-        "response": "0",
-        "extracted": 0,
+        "response": "1206",
+        "extracted": 1206,
         "correct": true
       },
       {
         "trial": 4,
-        "response": "0",
-        "extracted": 0,
+        "response": "1206",
+        "extracted": 1206,
         "correct": true
       },
       {
         "trial": 5,
-        "response": "0",
-        "extracted": 0,
+        "response": "1206",
+        "extracted": 1206,
         "correct": true
       }
     ]
   },
-  "framework": {
+  "prompt": {
     "correct": 4,
     "total": 5,
     "responses": [
       {
         "trial": 1,
-        "response": "0",
-        "extracted": 0,
+        "response": "1206",
+        "extracted": 1206,
         "correct": true
       },
       {
         "trial": 2,
-        "response": "0",
-        "extracted": 0,
-        "correct": true
+        "response": "371",
+        "extracted": 371,
+        "correct": false
       },
       {
         "trial": 3,
-        "response": "0",
-        "extracted": 0,
+        "response": "1206",
+        "extracted": 1206,
         "correct": true
       },
       {
         "trial": 4,
-        "response": "2",
-        "extracted": 2,
+        "response": "1206",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 5,
+        "response": "1206",
+        "extracted": 1206,
+        "correct": true
+      }
+    ]
+  },
+  "framework": {
+    "correct": 1,
+    "total": 5,
+    "responses": [
+      {
+        "trial": 1,
+        "response": "339",
+        "extracted": 339,
+        "correct": false
+      },
+      {
+        "trial": 2,
+        "response": "402",
+        "extracted": 402,
+        "correct": false
+      },
+      {
+        "trial": 3,
+        "response": "1206",
+        "extracted": 1206,
+        "correct": true
+      },
+      {
+        "trial": 4,
+        "response": "327",
+        "extracted": 327,
         "correct": false
       },
       {
         "trial": 5,
-        "response": "0",
-        "extracted": 0,
-        "correct": true
+        "response": "401",
+        "extracted": 401,
+        "correct": false
       }
     ]
   }

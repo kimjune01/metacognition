@@ -1,5 +1,5 @@
 {
-  "problem": "Start with 83.\nStep 1: subtract 3.\nStep 2: subtract 9.\nStep 3: multiply 12.\nStep 4: multiply 4.\nStep 5: modulo 3.\nStep 6: add 6.\nStep 7: subtract 3.\nStep 8: add 9.\nStep 9: integer divide by 2.\nStep 10: multiply 11.\nStep 11: subtract 5.\nStep 12: add 7.\nStep 13: modulo 6.\nStep 14: add 11.\nStep 15: integer divide by 4.\nStep 16: multiply 9.\nStep 17: add 6.\nStep 18: multiply 11.\nStep 19: integer divide by 7.\nStep 20: modulo 3.\n\nWhat is the final value? Reply with just the number.",
-  "answer": 0,
+  "problem": "Start with 83.\nStep 1: add 4.\nStep 2: add 10.\nStep 3: subtract 13.\nStep 4: subtract 5.\nStep 5: multiply 2.\nStep 6: add 3.\nStep 7: subtract 13.\nStep 8: add 4.\nStep 9: add 10.\nStep 10: subtract 11.\nStep 11: add 15.\nStep 12: subtract 12.\nStep 13: multiply 2.\nStep 14: multiply 2.\nStep 15: multiply 2.\nStep 16: subtract 11.\nStep 17: subtract 12.\nStep 18: add 12.\nStep 19: subtract 7.\nStep 20: subtract 8.\n\nWhat is the final value? Reply with just the number.",
+  "answer": 1206,
   "steps": 20
 }

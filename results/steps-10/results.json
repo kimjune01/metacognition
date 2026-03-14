@@ -5,68 +5,68 @@
     "responses": [
       {
         "trial": 1,
-        "response": "-3",
-        "extracted": -3,
+        "response": "341",
+        "extracted": 341,
         "correct": true
       },
       {
         "trial": 2,
-        "response": "-3",
-        "extracted": -3,
+        "response": "341",
+        "extracted": 341,
         "correct": true
       },
       {
         "trial": 3,
-        "response": "-3",
-        "extracted": -3,
+        "response": "341",
+        "extracted": 341,
         "correct": true
       },
       {
         "trial": 4,
-        "response": "-3",
-        "extracted": -3,
+        "response": "341",
+        "extracted": 341,
         "correct": true
       },
       {
         "trial": 5,
-        "response": "-3",
-        "extracted": -3,
+        "response": "341",
+        "extracted": 341,
         "correct": true
       }
     ]
   },
   "prompt": {
-    "correct": 1,
+    "correct": 5,
     "total": 5,
     "responses": [
       {
         "trial": 1,
-        "response": "1",
-        "extracted": 1,
-        "correct": false
+        "response": "341",
+        "extracted": 341,
+        "correct": true
       },
       {
         "trial": 2,
-        "response": "-2",
-        "extracted": -2,
-        "correct": false
+        "response": "341",
+        "extracted": 341,
+        "correct": true
       },
       {
         "trial": 3,
-        "response": "-2",
-        "extracted": -2,
-        "correct": false
+        "response": "341",
+        "extracted": 341,
+        "correct": true
       },
       {
         "trial": 4,
-        "response": "0",
-        "extracted": 0,
-        "correct": false
+        "response": "341",
+        "extracted": 341,
+        "correct": true
       },
       {
         "trial": 5,
-        "response": "-3",
-        "extracted": -3,
+        "response": "341",
+        "extracted": 341,
         "correct": true
       }
     ]
@@ -77,32 +77,32 @@
     "responses": [
       {
         "trial": 1,
-        "response": "-2",
-        "extracted": -2,
-        "correct": false
-      },
-      {
-        "trial": 2,
-        "response": "-3",
-        "extracted": -3,
+        "response": "341",
+        "extracted": 341,
         "correct": true
       },
       {
+        "trial": 2,
+        "response": "269",
+        "extracted": 269,
+        "correct": false
+      },
+      {
         "trial": 3,
-        "response": "-3",
-        "extracted": -3,
+        "response": "341",
+        "extracted": 341,
         "correct": true
       },
       {
         "trial": 4,
-        "response": "-2",
-        "extracted": -2,
+        "response": "253",
+        "extracted": 253,
         "correct": false
       },
       {
         "trial": 5,
-        "response": "-3",
-        "extracted": -3,
+        "response": "341",
+        "extracted": 341,
         "correct": true
       }
     ]

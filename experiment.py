@@ -15,20 +15,23 @@ RESULTS_DIR = "results"
 def generate_problem(steps: int, seed: int = 42) -> tuple[str, int]:
     """Generate a multi-step arithmetic problem. Returns (problem_text, answer)."""
     random.seed(seed + steps)
+    # Only add/subtract/multiply — no modulo/division which clamp values
+    # and make step count irrelevant to difficulty
     ops = [
         ("add", lambda a, b: a + b),
         ("subtract", lambda a, b: a - b),
         ("multiply", lambda a, b: a * b),
-        ("integer divide by", lambda a, b: a // b if b != 0 else a),
-        ("modulo", lambda a, b: a % b if b != 0 else 0),
     ]
     value = random.randint(10, 99)
     lines = [f"Start with {value}."]
     for i in range(steps):
         op_name, op_fn = random.choice(ops)
-        operand = random.randint(2, 12)
-        if "divide" in op_name or "modulo" in op_name:
-            operand = random.randint(2, 7)
+        # Small operands for add/subtract, very small for multiply
+        # to keep numbers trackable but non-trivial
+        if op_name == "multiply":
+            operand = random.randint(2, 4)
+        else:
+            operand = random.randint(3, 15)
         value = op_fn(value, operand)
         lines.append(f"Step {i+1}: {op_name} {operand}.")
     problem = "\n".join(lines)
