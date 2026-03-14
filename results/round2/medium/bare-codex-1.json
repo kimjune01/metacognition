@@ -1,0 +1,62 @@
+{
+  "condition": "bare",
+  "model": "codex",
+  "difficulty": "medium",
+  "trial": 1,
+  "passed": 8,
+  "total": 8,
+  "score": 1.0,
+  "time_s": 5.4,
+  "prompt_len": 539,
+  "response_len": 336,
+  "tests": [
+    {
+      "expr": "balanced_brackets('({[]})')",
+      "expected": "True",
+      "actual": "True",
+      "pass": true
+    },
+    {
+      "expr": "balanced_brackets('([)]')",
+      "expected": "False",
+      "actual": "False",
+      "pass": true
+    },
+    {
+      "expr": "balanced_brackets('hello (world)')",
+      "expected": "True",
+      "actual": "True",
+      "pass": true
+    },
+    {
+      "expr": "balanced_brackets('')",
+      "expected": "True",
+      "actual": "True",
+      "pass": true
+    },
+    {
+      "expr": "balanced_brackets('(((')",
+      "expected": "False",
+      "actual": "False",
+      "pass": true
+    },
+    {
+      "expr": "balanced_brackets('{[()()]}')",
+      "expected": "True",
+      "actual": "True",
+      "pass": true
+    },
+    {
+      "expr": "balanced_brackets('}{)')",
+      "expected": "False",
+      "actual": "False",
+      "pass": true
+    },
+    {
+      "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+      "expected": "True",
+      "actual": "True",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,1490 @@
+[
+  {
+    "condition": "bare",
+    "model": "codex",
+    "difficulty": "medium",
+    "trial": 1,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 5.4,
+    "prompt_len": 539,
+    "response_len": 336,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "bare",
+    "model": "codex",
+    "difficulty": "medium",
+    "trial": 2,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 4.3,
+    "prompt_len": 539,
+    "response_len": 334,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "bare",
+    "model": "codex",
+    "difficulty": "medium",
+    "trial": 3,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 3.9,
+    "prompt_len": 539,
+    "response_len": 336,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "bare",
+    "model": "sonnet",
+    "difficulty": "medium",
+    "trial": 1,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 2.7,
+    "prompt_len": 539,
+    "response_len": 384,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "bare",
+    "model": "sonnet",
+    "difficulty": "medium",
+    "trial": 2,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 2.4,
+    "prompt_len": 539,
+    "response_len": 357,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "bare",
+    "model": "sonnet",
+    "difficulty": "medium",
+    "trial": 3,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 2.3,
+    "prompt_len": 539,
+    "response_len": 370,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "prompt",
+    "model": "codex",
+    "difficulty": "medium",
+    "trial": 1,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 7.5,
+    "prompt_len": 724,
+    "response_len": 358,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "prompt",
+    "model": "codex",
+    "difficulty": "medium",
+    "trial": 2,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 3.8,
+    "prompt_len": 724,
+    "response_len": 358,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "prompt",
+    "model": "codex",
+    "difficulty": "medium",
+    "trial": 3,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 3.6,
+    "prompt_len": 724,
+    "response_len": 358,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "prompt",
+    "model": "sonnet",
+    "difficulty": "medium",
+    "trial": 1,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 3.0,
+    "prompt_len": 724,
+    "response_len": 460,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "prompt",
+    "model": "sonnet",
+    "difficulty": "medium",
+    "trial": 2,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 2.0,
+    "prompt_len": 724,
+    "response_len": 357,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "prompt",
+    "model": "sonnet",
+    "difficulty": "medium",
+    "trial": 3,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 2.8,
+    "prompt_len": 724,
+    "response_len": 357,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "framework",
+    "model": "codex",
+    "difficulty": "medium",
+    "trial": 1,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 5.2,
+    "prompt_len": 24666,
+    "response_len": 330,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "framework",
+    "model": "codex",
+    "difficulty": "medium",
+    "trial": 2,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 3.8,
+    "prompt_len": 24666,
+    "response_len": 336,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "framework",
+    "model": "codex",
+    "difficulty": "medium",
+    "trial": 3,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 4.2,
+    "prompt_len": 24666,
+    "response_len": 336,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "framework",
+    "model": "sonnet",
+    "difficulty": "medium",
+    "trial": 1,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 2.9,
+    "prompt_len": 24666,
+    "response_len": 357,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "framework",
+    "model": "sonnet",
+    "difficulty": "medium",
+    "trial": 2,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 3.2,
+    "prompt_len": 24666,
+    "response_len": 357,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "framework",
+    "model": "sonnet",
+    "difficulty": "medium",
+    "trial": 3,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 2.3,
+    "prompt_len": 24666,
+    "response_len": 345,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "filler",
+    "model": "codex",
+    "difficulty": "medium",
+    "trial": 1,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 4.3,
+    "prompt_len": 24520,
+    "response_len": 336,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "filler",
+    "model": "codex",
+    "difficulty": "medium",
+    "trial": 2,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 4.4,
+    "prompt_len": 24520,
+    "response_len": 336,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "filler",
+    "model": "codex",
+    "difficulty": "medium",
+    "trial": 3,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 4.1,
+    "prompt_len": 24520,
+    "response_len": 336,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "filler",
+    "model": "sonnet",
+    "difficulty": "medium",
+    "trial": 1,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 2.9,
+    "prompt_len": 24520,
+    "response_len": 357,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "filler",
+    "model": "sonnet",
+    "difficulty": "medium",
+    "trial": 2,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 3.2,
+    "prompt_len": 24520,
+    "response_len": 460,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "condition": "filler",
+    "model": "sonnet",
+    "difficulty": "medium",
+    "trial": 3,
+    "passed": 8,
+    "total": 8,
+    "score": 1.0,
+    "time_s": 2.0,
+    "prompt_len": 24520,
+    "response_len": 357,
+    "tests": [
+      {
+        "expr": "balanced_brackets('({[]})')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('([)]')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('hello (world)')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('(((')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('{[()()]}')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('}{)')",
+        "expected": "False",
+        "actual": "False",
+        "pass": true
+      },
+      {
+        "expr": "balanced_brackets('a(b[c{d}e]f)g')",
+        "expected": "True",
+        "actual": "True",
+        "pass": true
+      }
+    ]
+  }
+]

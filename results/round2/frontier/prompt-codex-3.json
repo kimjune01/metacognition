@@ -1,0 +1,74 @@
+{
+  "condition": "prompt",
+  "model": "codex",
+  "difficulty": "frontier",
+  "trial": 3,
+  "passed": 2,
+  "total": 10,
+  "score": 0.2,
+  "time_s": 82.8,
+  "prompt_len": 1216,
+  "response_len": 6799,
+  "tests": [
+    {
+      "expr": "r = solve_constraints(3, [('lt', 0, 1), ('lt', 1, 2)]); assert len(r)==3 and len(set(r))==3 and all(1<=v<=3 for v in r) and r[0]<r[1]<r[2]; print(True)",
+      "expected": "True",
+      "actual": "ERROR: Traceback (most recent call last):\n  File \"<string>\", line 253, in <module>\n  File \"<string>\", line 78, in solve_constraints\n  File \"<string>\", line 78, in <listcomp>\nAttributeError: 'int' object has no attribute 'bit_count'",
+      "pass": false
+    },
+    {
+      "expr": "r = solve_constraints(3, [('lt', 0, 1), ('lt', 1, 2), ('lt', 2, 0)]); print(r == [])",
+      "expected": "True",
+      "actual": "True",
+      "pass": true
+    },
+    {
+      "expr": "r = solve_constraints(4, [('diff', 0, 1)]); assert len(r)==4 and len(set(r))==4 and all(1<=v<=4 for v in r) and abs(r[0]-r[1])>=2; print(True)",
+      "expected": "True",
+      "actual": "ERROR: Traceback (most recent call last):\n  File \"<string>\", line 253, in <module>\n  File \"<string>\", line 78, in solve_constraints\n  File \"<string>\", line 78, in <listcomp>\nAttributeError: 'int' object has no attribute 'bit_count'",
+      "pass": false
+    },
+    {
+      "expr": "r = solve_constraints(4, [('adj', 0, 1)]); assert len(r)==4 and len(set(r))==4 and all(1<=v<=4 for v in r) and abs(r[0]-r[1])==1; print(True)",
+      "expected": "True",
+      "actual": "ERROR: Traceback (most recent call last):\n  File \"<string>\", line 253, in <module>\n  File \"<string>\", line 78, in solve_constraints\n  File \"<string>\", line 78, in <listcomp>\nAttributeError: 'int' object has no attribute 'bit_count'",
+      "pass": false
+    },
+    {
+      "expr": "r = solve_constraints(4, [('lt', 0, 1), ('diff', 0, 1)]); assert len(r)==4 and len(set(r))==4 and all(1<=v<=4 for v in r) and r[0]<r[1] and abs(r[0]-r[1])>=2; print(True)",
+      "expected": "True",
+      "actual": "ERROR: Traceback (most recent call last):\n  File \"<string>\", line 253, in <module>\n  File \"<string>\", line 78, in solve_constraints\n  File \"<string>\", line 78, in <listcomp>\nAttributeError: 'int' object has no attribute 'bit_count'",
+      "pass": false
+    },
+    {
+      "expr": "r = solve_constraints(5, [('lt', 0, 1), ('adj', 0, 1), ('lt', 2, 3), ('adj', 2, 3)]); assert len(r)==5 and len(set(r))==5 and all(1<=v<=5 for v in r) and r[0]<r[1] and abs(r[0]-r[1])==1 and r[2]<r[3] and abs(r[2]-r[3])==1; print(True)",
+      "expected": "True",
+      "actual": "ERROR: Traceback (most recent call last):\n  File \"<string>\", line 253, in <module>\n  File \"<string>\", line 78, in solve_constraints\n  File \"<string>\", line 78, in <listcomp>\nAttributeError: 'int' object has no attribute 'bit_count'",
+      "pass": false
+    },
+    {
+      "expr": "r = solve_constraints(3, [('adj', 0, 1), ('diff', 0, 1)]); print(r == [])",
+      "expected": "True",
+      "actual": "True",
+      "pass": true
+    },
+    {
+      "expr": "r = solve_constraints(6, [('lt', i, i+1) for i in range(5)]); assert len(r)==6 and len(set(r))==6 and all(1<=v<=6 for v in r) and all(r[i]<r[i+1] for i in range(5)); print(True)",
+      "expected": "True",
+      "actual": "ERROR: Traceback (most recent call last):\n  File \"<string>\", line 253, in <module>\n  File \"<string>\", line 78, in solve_constraints\n  File \"<string>\", line 78, in <listcomp>\nAttributeError: 'int' object has no attribute 'bit_count'",
+      "pass": false
+    },
+    {
+      "expr": "r = solve_constraints(3, [('diff', 0, 1), ('diff', 1, 2), ('diff', 0, 2)]); print(r == [])",
+      "expected": "True",
+      "actual": "ERROR: Traceback (most recent call last):\n  File \"<string>\", line 253, in <module>\n  File \"<string>\", line 78, in solve_constraints\n  File \"<string>\", line 78, in <listcomp>\nAttributeError: 'int' object has no attribute 'bit_count'",
+      "pass": false
+    },
+    {
+      "expr": "r = solve_constraints(4, [('adj', 0, 1), ('adj', 1, 2), ('adj', 2, 3)]); assert len(r)==4 and len(set(r))==4 and all(1<=v<=4 for v in r) and all(abs(r[i]-r[i+1])==1 for i in range(3)); print(True)",
+      "expected": "True",
+      "actual": "ERROR: Traceback (most recent call last):\n  File \"<string>\", line 253, in <module>\n  File \"<string>\", line 78, in solve_constraints\n  File \"<string>\", line 78, in <listcomp>\nAttributeError: 'int' object has no attribute 'bit_count'",
+      "pass": false
+    }
+  ]
+}
