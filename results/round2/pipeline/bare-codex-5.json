@@ -1,0 +1,74 @@
+{
+  "condition": "bare",
+  "model": "codex",
+  "difficulty": "pipeline",
+  "trial": 5,
+  "passed": 10,
+  "total": 10,
+  "score": 1.0,
+  "time_s": 18.0,
+  "prompt_len": 1404,
+  "response_len": 2018,
+  "tests": [
+    {
+      "expr": "g = stabilize_board([['A','A','A']]); print(g)",
+      "expected": "[['.', '.', '.']]",
+      "actual": "[['.', '.', '.']]",
+      "pass": true
+    },
+    {
+      "expr": "g = stabilize_board([['A','B','A']]); print(g)",
+      "expected": "[['A', 'B', 'A']]",
+      "actual": "[['A', 'B', 'A']]",
+      "pass": true
+    },
+    {
+      "expr": "g = stabilize_board([['A','*','A']]); print(g)",
+      "expected": "[['.', '.', '.']]",
+      "actual": "[['.', '.', '.']]",
+      "pass": true
+    },
+    {
+      "expr": "g = stabilize_board([['A','#','A','A','A']]); print(g)",
+      "expected": "[['A', '#', '.', '.', '.']]",
+      "actual": "[['A', '#', '.', '.', '.']]",
+      "pass": true
+    },
+    {
+      "expr": "g = stabilize_board([['A'],['A'],['A']]); print(g)",
+      "expected": "[['.'], ['.'], ['.']]",
+      "actual": "[['.'], ['.'], ['.']]",
+      "pass": true
+    },
+    {
+      "expr": "g = stabilize_board([['B','C','D'],['A','A','A']]); print(g)",
+      "expected": "[['.', '.', '.'], ['B', 'C', 'D']]",
+      "actual": "[['.', '.', '.'], ['B', 'C', 'D']]",
+      "pass": true
+    },
+    {
+      "expr": "g = stabilize_board([['A','B','B'],['C','B','B'],['C','A','A'],['C','A','A']]); print(g)",
+      "expected": "[['.', '.', '.'], ['.', 'B', 'B'], ['.', 'B', 'B'], ['.', 'A', 'A']]",
+      "actual": "[['.', '.', '.'], ['.', 'B', 'B'], ['.', 'B', 'B'], ['.', 'A', 'A']]",
+      "pass": true
+    },
+    {
+      "expr": "g = stabilize_board([['*','*','*']]); print(g)",
+      "expected": "[['*', '*', '*']]",
+      "actual": "[['*', '*', '*']]",
+      "pass": true
+    },
+    {
+      "expr": "g = stabilize_board([['A','A','A'],['B','A','B'],['C','A','C']]); print(g)",
+      "expected": "[['.', '.', '.'], ['B', '.', 'B'], ['C', '.', 'C']]",
+      "actual": "[['.', '.', '.'], ['B', '.', 'B'], ['C', '.', 'C']]",
+      "pass": true
+    },
+    {
+      "expr": "g = stabilize_board([['#','B','C'],['A','A','A']]); print(g)",
+      "expected": "[['.', '.', '.'], ['#', 'B', 'C']]",
+      "actual": "[['.', '.', '.'], ['#', 'B', 'C']]",
+      "pass": true
+    }
+  ]
+}
