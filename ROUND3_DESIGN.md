@@ -417,6 +417,76 @@ Delta 2: Is the "why" load-bearing? (only evaluated if Delta 1 confirms)
 
 ---
 
+## Logging
+
+Every artifact is saved. If the judge prompt is miscalibrated, we re-judge from raw reports without re-generating. If a reviewer questions the scoring, they can inspect any trial end-to-end.
+
+### Directory structure
+
+```
+results/round3/
+├── phase0a/
+│   └── queries.md                    # 10 search queries codex generated (verbatim)
+├── phase0b/
+│   ├── ROUND3_SOURCES.md             # Full selection log
+│   └── repos/                        # Git submodules of selected repos
+├── phase1/
+│   └── pilot_{problem}_{model}_{trial}.json
+├── phase2/
+│   ├── reports/
+│   │   └── {problem}_{model}_{condition}_{batch}_{trial}.md   # Raw diagnostic report
+│   ├── judgments/
+│   │   └── {problem}_{model}_{condition}_{batch}_{trial}_judge{1,2,3}.json
+│   └── scores/
+│       └── {problem}_{model}_{condition}_{batch}_{trial}.json  # Majority-vote result
+├── phase3/
+│   ├── posteriors.json               # Final Beta parameters per condition per problem
+│   └── stopping_log.csv              # Batch-by-batch posterior evolution
+└── prompts/
+    ├── directive.md                  # The directive (identical across conditions)
+    ├── compressed_framework.md       # Pre-registered, immutable
+    ├── filler_short.md               # Token-matched to compressed
+    ├── filler_long.md                # Token-matched to framework
+    └── judge_prompt.md               # The judge prompt template
+```
+
+### Per-trial record (JSON)
+
+```json
+{
+  "problem": "repo_name",
+  "model": "gpt-5.4 | sonnet-4.5",
+  "condition": "bare | compressed | framework | filler",
+  "batch": 3,
+  "trial": 1,
+  "timestamp": "2026-03-17T14:32:00Z",
+  "prompt_tokens": 1847,
+  "report_file": "reports/repo_name_gpt-5.4_framework_b03_t01.md",
+  "judge_files": ["...judge1.json", "...judge2.json", "...judge3.json"],
+  "gap_coverage": {"gap_1": true, "gap_2": false, "gap_3": true},
+  "observation_accuracy": "accurate",
+  "plan_specificity": {"gap_1": "concrete", "gap_3": "directional"},
+  "score": 0.67
+}
+```
+
+### Stopping log (CSV)
+
+One row per batch per problem. Columns: `problem, batch, n_trials, fw_alpha, fw_beta, bare_alpha, bare_beta, compressed_alpha, compressed_beta, filler_alpha, filler_beta, p_fw_gt_bare, p_fw_gt_filler, decision`.
+
+This lets anyone reconstruct the posterior evolution and verify the stopping decision.
+
+### Commit policy
+
+- Phase 0 artifacts: committed immediately after codex completes, before researcher inspects.
+- Pre-registered prompts and documents: committed before Phase 0a begins, never modified after.
+- Raw reports and judgments: committed after each batch, before posteriors are computed.
+- Posteriors and stopping log: committed after each batch.
+
+No data is overwritten. Append-only.
+
+---
+
 ## Predictions
 
 ### Directional priors
