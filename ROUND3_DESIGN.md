@@ -230,7 +230,7 @@ No framework text. No hypothesis. No problem descriptions.
 - Run the 10 queries from Phase 0a in order
 - For each query, evaluate repos top-to-bottom (GitHub's `--sort=updated` order)
 - Take the first repo that passes ALL acceptance criteria
-- Stop after 5 repos accepted (Phase 1 selects best 3; minimum 2 for go)
+- Stop after 10 repos accepted (one per query; Phase 1 drops ceiling/floor)
 - A repo found via query 1 might have gaps unrelated to its search term — that's fine
 - Document every repo evaluated: name, acceptance/rejection, reason
 
@@ -244,7 +244,7 @@ No framework text. No hypothesis. No problem descriptions.
 > a single file under 300 lines, not a tutorial or homework with < 5
 > stars, has at least one working function that can be called and tested.
 >
-> Stop after accepting 5 repos total.
+> Stop after accepting 10 repos total (one per query).
 >
 > For each repo you evaluate, answer these questions first:
 > 1. What does this system do? (one sentence)
@@ -280,13 +280,11 @@ Neither Phase 0a nor Phase 0b mentions the Natural Framework, pipeline stages, o
 
 ```
 Phase 0a: codex generates 10 search queries
-Phase 0b: codex runs queries, selects repos, identifies gaps
-  ├─ Found 5 suitable repos?
-  │   └─ GO: Add as git submodules, proceed to Phase 1 (which selects best 3)
-  ├─ Found 3-4 repos?
-  │   └─ GO WITH REDUCED BUFFER: Proceed to Phase 1, note reduced margin
+Phase 0b: codex runs all 10 queries, selects up to 10 repos, identifies gaps
+  ├─ Found 3+ repos?
+  │   └─ GO: Add as git submodules, proceed to Phase 1
   ├─ Found 2 repos?
-  │   └─ GO MINIMAL: Proceed to Phase 1, but no room for drops
+  │   └─ GO MINIMAL: Cross-problem posterior will be weak
   └─ Cannot find 2 repos?
       └─ ABORT: Document why. Do not fall back to synthetic code or
          researcher-owned repos. Both are conflicted.
@@ -296,12 +294,12 @@ Phase 0b: codex runs queries, selects repos, identifies gaps
 
 ### Phase 1: Pilot Calibration
 
-**Goal:** From the 5 candidate repos, select the 3 whose gap lists are in the discriminative range — not so obvious that bare condition finds all of them, not so subtle that no condition finds any.
+**Goal:** From the up-to-10 candidate repos, drop those at ceiling or floor. Keep every survivor — Phase 2 determines how many to run.
 
-Run 3 trials × bare condition × both models for each of the 5 problems. Score each plan against the gap list using the judge.
+Run 3 trials × bare condition × both models for each problem. Score each report against the gap list using the judge.
 
 ```
-For each of the 5 problems:
+For each problem:
   ├─ Bare gap-coverage score in [0.15, 0.80] for at least one model?
   │   └─ KEEP: Problem is in the discriminative range
   ├─ Bare score > 0.80 for both models?
@@ -310,56 +308,73 @@ For each of the 5 problems:
       └─ DROP: Gaps are invisible to current models
 
 After calibration:
-  ├─ 3+ problems survive?
-  │   └─ TAKE BEST 3: Rank by variance across trials, take 3 with
-  │      highest variance (most room for conditions to differentiate)
-  ├─ 2 problems survive?
-  │   └─ GO WITH 2: Note reduced power
+  ├─ 2+ problems survive?
+  │   └─ GO to Phase 2 with all survivors
   └─ Fewer than 2 problems survive?
       └─ ABORT: The task class is either trivial or invisible for
          current frontier models. Document the finding. This is a result.
 ```
 
-No substitutions or simplifications. The 5→3 funnel replaces the tweak-and-retry approach — cleaner and no researcher discretion in adjustments.
+No substitutions or simplifications. No researcher discretion.
 
-**Pilot budget:** 5 problems × 3 trials × 2 models × 1 condition = 30 generation runs. Each plan judged 3× = 90 judge runs. Total: 120 CLI runs.
+**Pilot budget:** Up to 10 problems × 3 trials × 2 models × 1 condition = max 60 generation runs + 180 judge runs = 240 CLI runs.
 
-### Phase 2: Full Experiment (Bayesian adaptive stopping)
+### Phase 2: Full Experiment (two-level Bayesian adaptive stopping)
 
-**Goal:** Measure condition effects on surviving problems with honest statistical power.
+**Goal:** Measure condition effects with adaptive stopping at two levels: within each problem (batch-by-batch) and across problems (problem-by-problem).
 
-We cannot run enough problems to generalize broadly — we have 2-3 systems, not 200. Bayesian adaptive stopping lets us be efficient about what we *can* measure: the effect on these specific problems. We run trials until posteriors are decisive or the budget is exhausted.
+No code execution — just text in, text out. Cheap enough to run many trials across many problems.
 
-**Procedure:**
+#### Level 1: Within-problem stopping
 
-One batch = 1 trial per condition per model = 4 × 2 = 8 generation runs per problem (+ 24 judge runs for inter-rater reliability: 8 reports × 3 judge runs). Total per batch: 32 CLI runs. No code execution — just text in, text out. Cheap enough to run many batches.
+One batch = 1 trial per condition per model = 4 × 2 = 8 generation runs per problem (+ 24 judge runs for inter-rater reliability: 8 reports × 3 judge runs). Total per batch: 32 CLI runs.
 
 ```
 Initialize posteriors from pre-registered Beta priors (see Predictions)
 
 After each batch:
-  Score all plans via blind judge (3 runs each, majority vote)
+  Score all reports via blind judge (3 runs each, majority vote)
   Update Beta posteriors with observed gap-coverage scores
   Compute P(framework > bare | data) and P(framework > filler | data)
   via 10,000 Monte Carlo samples from each posterior
 
   ├─ P(fw > bare) >= 0.95 AND P(fw > filler) >= 0.95?
-  │   └─ STOP: CONFIRMED — framework helps on this problem
-  │      Then compare: P(fw > compressed) to determine if "why" is load-bearing
+  │   └─ STOP PROBLEM: CONFIRMED — framework helps on this problem
+  │      Record: P(fw > compressed) for Delta 2
   ├─ P(fw > bare) <= 0.05 OR P(fw > filler) <= 0.05?
-  │   └─ STOP: DISCONFIRMED — framework hurts on this problem
+  │   └─ STOP PROBLEM: DISCONFIRMED — framework hurts on this problem
   ├─ Batch count < 30?
   │   └─ CONTINUE: Run another batch
   └─ Batch count = 30 (max)?
-      └─ STOP: Report posterior as-is (inconclusive or weak effect)
+      └─ STOP PROBLEM: Report posterior as-is (inconclusive)
 ```
 
-**Budget per problem:** Min 1 batch (32 runs), max 30 batches (960 runs).
-**Maximum total budget:** 3 problems × 960 = 2,880 CLI runs + pilot.
-**Expected budget (if effects are clear):** ~4-8 batches per problem.
-**Why we can afford this:** No code execution. Each trial is a CLI run for generation + 3 CLI runs for judging. At 30 batches we get 30 trials per arm per model — enough to detect a 15-point gap-coverage difference with the 0.95 threshold.
+#### Level 2: Across-problem stopping
 
-**Why Bayesian, not frequentist:** With 2-3 problems, we don't have the sample to claim population-level significance. Bayesian posteriors say "given this data, here's our updated belief" — which is the honest statement for small N. We report the posteriors, not p-values.
+Problems are run sequentially. After each problem reaches its within-problem stopping criterion, update the cross-problem posterior.
+
+```
+After each problem completes:
+  Record: confirmed / disconfirmed / inconclusive
+  Update cross-problem tally: k_confirmed, k_disconfirmed, k_inconclusive
+
+  ├─ P(framework generally helps) >= 0.95?
+  │   (At least 3 confirmed, 0 disconfirmed — or Bayesian equivalent
+  │    using Beta(k_confirmed + 1, k_disconfirmed + 1) > 0.95)
+  │   └─ STOP EXPERIMENT: Confirmed across problems
+  ├─ P(framework generally helps) <= 0.05?
+  │   └─ STOP EXPERIMENT: Disconfirmed across problems
+  ├─ More problems available from Phase 1 survivors?
+  │   └─ CONTINUE: Run next problem
+  └─ No more problems?
+      └─ STOP EXPERIMENT: Report cross-problem posterior as-is
+```
+
+This means we might run 3 problems or 8, depending on how consistent the effect is. A strong, consistent effect stops early. Mixed results keep running until the evidence converges or we exhaust the pool.
+
+**Budget per problem:** Min 1 batch (32 runs), max 30 batches (960 runs).
+**Maximum total budget:** 10 problems × 960 = 9,600 CLI runs + pilot. In practice, early stopping at both levels will be much less.
+**Why we can afford this:** No code execution. Each trial is a CLI run for generation + 3 CLI runs for judging.
 
 ### Phase 3: Analysis
 
@@ -394,7 +409,7 @@ Delta 2: Is the "why" load-bearing? (only evaluated if Delta 1 confirms)
          Ship the checklist. The theory is a liability at scale.
 ```
 
-**Small-sample honesty:** With 2-3 problems, a confirmed result means "the framework helped diagnose these specific systems." It does not mean "the framework helps on all diagnosis tasks." We report the scope explicitly. A skeptic can say the sample was too small. They'd be right. The counter is that the selection was blinded and mechanical — whatever we got, we ran.
+**Adaptive sample:** The number of problems is not fixed. With up to 10 Phase 1 survivors and Bayesian stopping across problems, the experiment runs until the cross-problem evidence is decisive or the pool is exhausted. A consistent effect across 4-5 problems is stronger than a fixed n=3 design. An inconsistent effect runs the full pool, giving maximum information about when the framework helps and when it doesn't.
 
 ### Phase 4: Reporting
 
