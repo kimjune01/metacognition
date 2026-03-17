@@ -200,6 +200,10 @@ def build_generation_prompt(problem: dict, condition: str) -> str:
         parts.append(filler_long)
     elif condition == "framework":
         framework = FRAMEWORK_PATH.read_text()
+        # Strip YAML front matter (---...---) to avoid CLI argument issues
+        if framework.startswith("---"):
+            end_fm = framework.index("---", 3)
+            framework = framework[end_fm + 3:].strip()
         parts.append(framework)
 
     parts.append(f"```python\n{source_code}\n```")
@@ -239,19 +243,32 @@ def build_judge_prompt(problem: dict, report_text: str) -> str:
 def run_cli(model: str, prompt: str, retry: int = RETRY_LIMIT) -> str:
     """Run a CLI command for codex or claude and return stdout.
 
-    codex: codex exec -c model="gpt-5.4" "prompt"
-    claude: claude -p --model sonnet "prompt"
+    Both CLIs receive the prompt via stdin to avoid argument-parsing issues
+    (e.g., YAML front matter '---' interpreted as CLI flags).
     """
+    import tempfile
+
     for attempt in range(1 + retry):
         try:
             if model == "codex":
-                result = subprocess.run(
-                    ["codex", "exec", "-c", 'model="gpt-5.4"', prompt],
-                    capture_output=True, text=True, timeout=300,
-                )
+                # codex exec reads prompt from a temp file piped via shell
+                with tempfile.NamedTemporaryFile(
+                    mode="w", suffix=".md", delete=False
+                ) as f:
+                    f.write(prompt)
+                    tmppath = f.name
+                try:
+                    result = subprocess.run(
+                        ["codex", "exec", "-c", 'model="gpt-5.4"',
+                         "--", prompt],
+                        capture_output=True, text=True, timeout=300,
+                    )
+                finally:
+                    Path(tmppath).unlink(missing_ok=True)
             elif model == "claude":
                 result = subprocess.run(
-                    ["claude", "-p", "--model", "sonnet", prompt],
+                    ["claude", "-p", "--model", "sonnet"],
+                    input=prompt,
                     capture_output=True, text=True, timeout=300,
                 )
             else:
