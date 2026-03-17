@@ -51,17 +51,22 @@ Round 3 avoids this by construction:
 
 ### Conditions
 
-Four conditions:
+Four conditions, each paired so every comparison is token-matched:
 
-| Condition | Tokens | What the model sees |
-|-----------|--------|-------------------|
-| **bare** | 0 | Code + goal |
-| **compressed** | ~1-2k | LLM-optimized diagnostic checklist + code + goal |
-| **framework** | ~25k | Full Natural Framework + code + goal |
-| **filler** | ~25k | Length-matched unrelated text + code + goal |
+| Condition | Extra tokens | Content |
+|-----------|-------------|---------|
+| **bare** | ~1.5k noise | Code + goal + short filler (Wikipedia, token-matched to compressed) |
+| **compressed** | ~1.5k checklist | Code + goal + diagnostic checklist |
+| **filler** | ~25k noise | Code + goal + long filler (Wikipedia, token-matched to framework) |
+| **framework** | ~25k framework | Code + goal + full Natural Framework |
+
+Every diagnostic condition has a token-matched noise control:
+- **compressed vs bare:** Same token count, different content. Tests checklist value.
+- **framework vs filler:** Same token count, different content. Tests framework value.
+- **framework vs compressed:** Different token count. But if filler ≈ bare (25k noise ≈ 1.5k noise), extra tokens don't help, so any framework > compressed gap is content, not length.
 
 **Two deltas under test:**
-- **Delta 1 (framework vs bare/filler):** Does loading the framework help at all?
+- **Delta 1 (framework vs filler, compressed vs bare):** Does diagnostic content help at the same token budget?
 - **Delta 2 (framework vs compressed):** Is the "why" load-bearing, or does a token-efficient checklist suffice?
 
 #### Compressed document
@@ -82,16 +87,20 @@ The compressed document answers "what to look for" without explaining "why these
 
 Committed to the repo as `compressed_framework.md` before any trials run. Immutable once Phase 0a begins.
 
-#### Filler document
+#### Filler documents
 
 **Generation procedure** (pre-registered, executed mechanically):
 
-1. Measure the Natural Framework's token count using `tiktoken` (cl100k_base encoding).
+1. Measure token counts using `tiktoken` (cl100k_base encoding):
+   - Natural Framework → target for long filler
+   - `compressed_framework.md` → target for short filler
 2. Fetch Wikipedia articles from unrelated domains (geology, maritime history, classical music — no technology, no software, no systems thinking) by pulling random articles via the Wikipedia API.
-3. Concatenate until the token count matches the framework ±5%.
-4. Commit as `filler_text.md`. No editing, no curation.
+3. Concatenate into two files:
+   - `filler_long.md` — token-matched to the framework ±5%
+   - `filler_short.md` — token-matched to compressed ±5%
+4. Commit both. No editing, no curation. Same source pool for both files.
 
-This produces coherent, readable text with zero diagnostic signal. If the framework still beats it, the diagnostic content is what matters, not the presence of structured text in context.
+This produces coherent, readable text with zero diagnostic signal. Each diagnostic condition (framework, compressed) has a token-matched noise control (filler, bare).
 
 ### Models
 
