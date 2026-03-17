@@ -68,17 +68,30 @@ All generation and judging runs use codex/claude CLI, not raw API calls.
 
 ### Directive (identical across all conditions)
 
-> Here is a Python system that works but is incomplete. Write a work plan
-> for making it production-ready. For each item in the plan, describe what
-> is currently missing and what needs to change. Be specific and concrete.
+> Here is a Python system that works but is incomplete. Write a
+> diagnostic report with three sections:
+>
+> **Observations.** What does this system currently do? List its
+> working capabilities.
+>
+> **Triage.** What is missing? What would a production version need
+> that this code doesn't have? Rank the gaps by importance.
+>
+> **Plan.** For each gap, describe concretely what needs to change.
+> Be specific enough that a developer could act on it.
+
+This mirrors the SOAP note structure from [Diagnosis LLM](/diagnosis-llm): observe what works, triage what's missing, plan the fix. The model doesn't need to know it's a SOAP note — the directive just asks for observations, triage, and plan.
 
 ### Scoring
 
-Each work plan is scored by a blind judge against the ground-truth gap list from Phase 0b.
+Each diagnostic report is scored by a blind judge against the ground-truth gap list from Phase 0b. Three dimensions:
 
-**Score = fraction of ground-truth gaps covered by the work plan.**
+1. **Observation accuracy.** Does the report correctly describe what the system does? (Prevents hallucinated gaps — if you misunderstand what works, your gaps are wrong.)
+2. **Gap coverage.** What fraction of ground-truth gaps does the triage section identify? A gap is "covered" if the report identifies the issue in substance, regardless of vocabulary. It doesn't need to say "add a Filter" — it needs to say something like "the system doesn't reject low-quality input." Substance, not terminology.
+3. **Plan specificity.** Are the proposed steps concrete and actionable, or vague? Scored per gap as: concrete (could act on it), directional (right idea, vague), or absent.
 
-A gap is "covered" if the plan identifies the issue in substance, regardless of vocabulary. The plan doesn't need to say "add a Filter" — it needs to say something like "the system doesn't reject low-quality input." Substance, not terminology.
+**Primary metric:** Gap coverage (dimension 2). This is what the Bayesian stopping rule uses.
+**Secondary metrics:** Observation accuracy and plan specificity, reported but not used for stopping.
 
 ### Judge
 
@@ -86,25 +99,34 @@ A gap is "covered" if the plan identifies the issue in substance, regardless of 
 
 **Judge prompt** (used verbatim):
 
-> You are evaluating work plans for improving a Python system.
+> You are evaluating a diagnostic report for a Python system.
 >
-> Here is the ground truth: a list of gaps that a production version
-> of this system would need to address.
+> Here is what the system actually does:
+> [working capabilities from Phase 0b inserted here]
 >
+> Here are the ground-truth gaps — things a production version needs
+> but this code doesn't have:
 > [gap list from Phase 0b inserted here]
 >
-> Below is a work plan written by a developer. For each ground-truth
-> gap, answer: does the plan address this gap? (yes/no)
-> A gap is "addressed" if the plan identifies the issue in substance,
-> even if it uses different words.
+> Below is a diagnostic report. Score it on three dimensions:
 >
-> Return a JSON object: {"gap_1": true/false, "gap_2": true/false, ...}
+> 1. OBSERVATION ACCURACY: Does the Observations section correctly
+>    describe the system's working capabilities?
+>    Score: accurate / mostly_accurate / inaccurate
 >
-> [work plan inserted here, with no condition label]
+> 2. GAP COVERAGE: For each ground-truth gap, does the Triage section
+>    identify this gap in substance (even if it uses different words)?
+>    Return: {"gap_1": true/false, "gap_2": true/false, ...}
+>
+> 3. PLAN SPECIFICITY: For each gap the report DID identify, is the
+>    Plan section concrete enough to act on?
+>    Return: {"gap_1": "concrete" / "directional" / "absent", ...}
+>
+> [diagnostic report inserted here, with no condition label]
 
-The judge sees no condition labels, no framework text, no hypothesis. It just checks coverage.
+The judge sees no condition labels, no framework text, no hypothesis.
 
-**Inter-rater reliability:** Run the judge 3 times per plan. A gap is scored as covered only if the majority (2/3) of judge runs agree. This controls for judge stochasticity.
+**Inter-rater reliability:** Run the judge 3 times per report. A gap is scored as covered only if the majority (2/3) of judge runs agree. This controls for judge stochasticity.
 
 ---
 
