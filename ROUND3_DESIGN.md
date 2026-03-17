@@ -1,16 +1,16 @@
-# Round 3: Incomplete Pipeline Diagnosis
+# Round 3: Diagnostic Work Plans
 
 *Extension of Round 2. Pre-registered before running any trials.*
 
 ## Hypothesis
 
-Round 2 showed that the Natural Framework actively hurts on well-specified algorithmic tasks (search problems) and is uninformative at ceiling (pipeline transformations). Round 3 tests a different regime: systems that work partially but are structurally incomplete.
+Round 2 showed that the Natural Framework actively hurts on well-specified algorithmic tasks (search problems) and is uninformative at ceiling (pipeline transformations). Round 3 tests a different regime: diagnosing what a partially working system is missing.
 
-**Primary hypothesis (H1):** On tasks where a working system fails behavioral tests due to missing structural stages, the framework condition outperforms bare, prompt, and filler on test-pass rate.
+**Primary hypothesis (H1):** When given a goal and a partially working system, the framework condition produces work plans that identify more ground-truth gaps than bare or filler conditions.
 
-**Null hypothesis (H0):** The framework condition does not improve repair performance relative to controls.
+**Null hypothesis (H0):** The framework condition does not improve diagnostic quality relative to controls.
 
-**Falsifiable prediction:** If framework underperforms or matches filler on these tasks, the "structural vocabulary" account is disconfirmed.
+**Falsifiable prediction:** If framework underperforms or matches filler on gap coverage, the "structural vocabulary" account is disconfirmed.
 
 ---
 
@@ -22,7 +22,7 @@ Git history shows the transition:
 - **March 12** (before framework): crawl, embed, store, search. Data pipeline with no quality gates.
 - **March 13** (after framework): quality reviews, compilable filter, diversity reranker, contributor fingerprinting, leaderboard.
 
-The framework didn't improve function-level code. It surfaced architectural gaps. Round 3 tests whether the same effect occurs in LLMs.
+The framework didn't improve function-level code. It surfaced architectural gaps. Round 2 tested implementation. Round 3 tests diagnosis.
 
 ---
 
@@ -32,12 +32,12 @@ A naive version of this experiment would be tautological: design problems where 
 
 Round 3 avoids this by construction:
 
-1. **The directive is identical across all conditions.** Every arm sees the same starter code, the same failing tests, and the same instruction: "fix the code so all tests pass."
-2. **No mention of pipelines, stages, or diagnosis.** The directive never says "a stage is missing." It just presents failing tests.
-3. **Tests measure behavioral outcomes only.** Tests assert observable correctness — output content, ordering, persistence — not structural properties like "did you add a Filter." The model can fix it however it wants.
-4. **The scoring harness is the same for all conditions.** Framework-agnostic measurement.
-5. **Starter code comes from real open-source projects**, not synthetic code designed to match the framework. See Phase 0.
-6. **Problems are selected blind to the framework.** Codex (GPT-5.4) selects repos and writes tests without seeing the Natural Framework, the hypothesis, or this document.
+1. **The directive is identical across all conditions.** Every arm sees the same code and the same goal.
+2. **The goal says what, not how.** "Make this system production-ready" — not "add missing pipeline stages."
+3. **Ground truth comes from a blind evaluator.** Codex identifies gaps without knowing the framework. The gap list is the answer key. If the framework's vocabulary doesn't map to real gaps, it can't help.
+4. **The judge is blind to conditions.** It sees anonymized work plans and checks them against the gap list. It doesn't know which plan had framework context.
+5. **Starter code comes from real open-source projects**, selected blind to the framework. See Phase 0.
+6. **No code execution.** The product is a work plan, not an implementation. This isolates diagnostic value from coding skill.
 
 ---
 
@@ -45,33 +45,58 @@ Round 3 avoids this by construction:
 
 ### Conditions
 
-Same four conditions as Round 2:
+Three conditions. The "prompt" arm from Round 2 is dropped — it muddied the signal between "any metacognitive nudge" and "this specific framework."
 
 | Condition | What the model sees |
 |-----------|-------------------|
-| **bare** | Starter code + failing tests + "fix the code so all tests pass" |
-| **prompt** | Short metacognitive hint + starter code + failing tests + directive |
-| **framework** | Full Natural Framework (~25k chars) + starter code + failing tests + directive |
-| **filler** | Length-matched irrelevant text (~25k chars) + starter code + failing tests + directive |
+| **bare** | Code + goal |
+| **framework** | Natural Framework (~25k tokens) + code + goal |
+| **filler** | Length-matched irrelevant text (~25k tokens) + code + goal |
 
 ### Models
 
 - **GPT-5.4** via Codex CLI
 - **Claude Sonnet 4.5** via Anthropic API
 
-### Scoring
-
-- Test-pass rate per trial (identical to Round 2)
-- Single-shot: no feedback loop, no retries
-- Score = passed / total tests
-
 ### Directive (identical across all conditions)
 
-> Here is a Python system. The tests below currently fail. Fix the code so all tests pass. Return ONLY the complete fixed Python code.
+> Here is a Python system that works but is incomplete. Write a work plan
+> for making it production-ready. For each item in the plan, describe what
+> is currently missing and what needs to change. Be specific and concrete.
 
-The **prompt** condition adds before the directive:
+### Scoring
 
-> Before writing code, think about what the system already does correctly and what behavior is missing. What would need to change for the failing tests to pass?
+Each work plan is scored by a blind judge against the ground-truth gap list from Phase 0b.
+
+**Score = fraction of ground-truth gaps covered by the work plan.**
+
+A gap is "covered" if the plan identifies the issue in substance, regardless of vocabulary. The plan doesn't need to say "add a Filter" — it needs to say something like "the system doesn't reject low-quality input." Substance, not terminology.
+
+### Judge
+
+**Executor:** Codex (GPT-5.4) in a separate session, blind to conditions.
+
+**Judge prompt** (used verbatim):
+
+> You are evaluating work plans for improving a Python system.
+>
+> Here is the ground truth: a list of gaps that a production version
+> of this system would need to address.
+>
+> [gap list from Phase 0b inserted here]
+>
+> Below is a work plan written by a developer. For each ground-truth
+> gap, answer: does the plan address this gap? (yes/no)
+> A gap is "addressed" if the plan identifies the issue in substance,
+> even if it uses different words.
+>
+> Return a JSON object: {"gap_1": true/false, "gap_2": true/false, ...}
+>
+> [work plan inserted here, with no condition label]
+
+The judge sees no condition labels, no framework text, no hypothesis. It just checks coverage.
+
+**Inter-rater reliability:** Run the judge 3 times per plan. A gap is scored as covered only if the majority (2/3) of judge runs agree. This controls for judge stochasticity.
 
 ---
 
@@ -164,13 +189,12 @@ No framework text. No hypothesis. No problem descriptions.
 > 3. Strip external dependencies (network calls, interactive I/O,
 >    framework imports) into pure functions that accept and return
 >    data. Document every transformation.
-> 4. Write 8-10 behavioral test cases for gaps you identified —
->    things a production version would need but this code doesn't do.
->    Use realistic test data. Tests should be deterministic Python
->    assertions that can run via `python3 -c`.
+> 4. List 8-10 specific gaps: things a production version would need
+>    but this code doesn't do. Each gap should be a concrete, verifiable
+>    claim about missing behavior.
 > 5. Write a ROUND3_SOURCES.md entry with: repo URL, license, commit
 >    hash, every repo you evaluated and why you accepted/rejected it,
->    the dependency-stripping transformations, and the test cases.
+>    the dependency-stripping transformations, and the gap list.
 >
 > [Phase 0a queries inserted here verbatim]
 >
@@ -183,7 +207,7 @@ Neither Phase 0a nor Phase 0b mentions the Natural Framework, pipeline stages, o
 
 ```
 Phase 0a: codex generates 10 search queries
-Phase 0b: codex runs queries and selects repos
+Phase 0b: codex runs queries, selects repos, identifies gaps
   ├─ Found 3 suitable repos?
   │   └─ GO: Add as git submodules, proceed to Phase 1
   ├─ Found repos but they have external dependencies?
@@ -196,28 +220,28 @@ Phase 0b: codex runs queries and selects repos
          researcher-owned repos. Both are conflicted.
 ```
 
-**Deliverable:** `ROUND3_SOURCES.md` documenting the Phase 0a queries (verbatim), every repo considered, acceptance/rejection reason, the selected commit hash, dependency-stripping transformations, and test cases.
+**Deliverable:** `ROUND3_SOURCES.md` documenting the Phase 0a queries (verbatim), every repo considered, acceptance/rejection reason, the selected commit hash, dependency-stripping transformations, and the gap list per repo.
 
 ### Phase 1: Pilot Calibration
 
-**Goal:** Confirm problems are in the discriminative range for at least one model.
+**Goal:** Confirm the gap lists are in a discriminative range — not so obvious that bare condition finds all of them, not so subtle that no condition finds any.
 
-Run 3 trials × bare condition × both models for each problem.
+Run 3 trials × bare condition × both models for each problem. Score each plan against the gap list using the judge.
 
 ```
 For each problem:
-  ├─ Bare score in [0.20, 0.85] for at least one model?
+  ├─ Bare gap-coverage score in [0.15, 0.80] for at least one model?
   │   └─ KEEP: Problem is in the discriminative range
-  ├─ Bare score > 0.85 for both models?
-  │   └─ TOO EASY: Problem is at ceiling
-  │      ├─ Can we use a harder variant (earlier commit, more edge cases)?
-  │      │   └─ SUBSTITUTE and re-pilot (one substitution allowed per problem)
-  │      └─ No harder variant available?
+  ├─ Bare score > 0.80 for both models?
+  │   └─ TOO EASY: Gaps are obvious without any scaffold
+  │      ├─ Can we use more subtle gaps from the same repo?
+  │      │   └─ SUBSTITUTE and re-pilot (one substitution allowed)
+  │      └─ No subtler gaps available?
   │          └─ DROP: Remove problem from experiment, note in results
-  └─ Bare score < 0.20 for both models?
-      └─ TOO HARD: Problem is at floor
-         ├─ Can we add hints to test names or use a simpler commit?
-         │   └─ SIMPLIFY and re-pilot (one simplification allowed per problem)
+  └─ Bare score < 0.15 for both models?
+      └─ TOO HARD: Gaps are invisible to current models
+         ├─ Can we make the goal more specific?
+         │   └─ SIMPLIFY and re-pilot (one simplification allowed)
          └─ No simpler variant available?
              └─ DROP: Remove problem from experiment, note in results
 
@@ -225,11 +249,11 @@ After calibration:
   ├─ At least 2 problems survive?
   │   └─ GO to Phase 2
   └─ Fewer than 2 problems survive?
-      └─ ABORT: The task class is either trivial or impossible for
+      └─ ABORT: The task class is either trivial or invisible for
          current frontier models. Document the finding. This is a result.
 ```
 
-**Pilot budget:** 3 problems × 3 trials × 2 models × 1 condition = 18 API calls.
+**Pilot budget:** 3 problems × 3 trials × 2 models × 1 condition × 3 judge runs = 18 generation calls + 54 judge calls.
 
 ### Phase 2: Full Experiment (Bayesian adaptive stopping)
 
@@ -239,13 +263,14 @@ We cannot run enough problems to generalize broadly — we have 2-3 systems, not
 
 **Procedure:**
 
-One batch = 1 trial per condition per model = 4 × 2 = 8 API calls per problem.
+One batch = 1 trial per condition per model = 3 × 2 = 6 generation calls per problem (+ 18 judge calls for inter-rater reliability: 6 plans × 3 judge runs).
 
 ```
 Initialize posteriors from pre-registered Beta priors (see Predictions)
 
 After each batch:
-  Update Beta posteriors with observed pass rates
+  Score all plans via blind judge (3 runs each, majority vote)
+  Update Beta posteriors with observed gap-coverage scores
   Compute P(framework > bare | data) and P(framework > filler | data)
   via 10,000 Monte Carlo samples from each posterior
 
@@ -259,9 +284,9 @@ After each batch:
       └─ STOP: Report posterior as-is (inconclusive or weak effect)
 ```
 
-**Budget:** Min 1 batch (8 calls/problem), max 12 batches (96 calls/problem).
-**Maximum total budget:** 3 problems × 96 = 288 calls + 18 pilot = 306 calls.
-**Expected budget (if effects are clear):** ~4-6 batches = 96-144 calls + pilot.
+**Budget per problem:** Min 1 batch (6 + 18 = 24 calls), max 12 batches (288 calls).
+**Maximum total budget:** 3 problems × 288 = 864 calls + pilot.
+**Expected budget (if effects are clear):** ~4-6 batches per problem.
 
 **Why Bayesian, not frequentist:** With 2-3 problems, we don't have the sample to claim population-level significance. Bayesian posteriors say "given this data, here's our updated belief" — which is the honest statement for small N. We report the posteriors, not p-values.
 
@@ -285,21 +310,18 @@ Aggregate posteriors across problems
   ├─ framework < filler on any problem?
   │   └─ DISCONFIRMED: Framework actively hurts even on matched tasks
   │      └─ The structural vocabulary account fails. The framework is broadly harmful.
-  ├─ prompt > framework on majority of problems?
-  │   └─ PARTIAL DISCONFIRMATION: Short metacognitive hint suffices,
-  │      long framework is distracting even when domain-matched
-  └─ All conditions > 0.85 on all problems?
-      └─ UNINFORMATIVE (ceiling): Problems were too easy despite calibration.
+  └─ All conditions > 0.80 on all problems?
+      └─ UNINFORMATIVE (ceiling): Gaps were too obvious despite calibration.
          Report as limitation. Do not claim confirmation or disconfirmation.
 ```
 
-**Small-sample honesty:** With 2-3 problems, a confirmed result means "the framework helped on these specific systems." It does not mean "the framework helps on all diagnosis tasks." We report the scope explicitly. A skeptic can say the sample was too small. They'd be right. The counter is that the selection was blinded and mechanical — whatever we got, we ran.
+**Small-sample honesty:** With 2-3 problems, a confirmed result means "the framework helped diagnose these specific systems." It does not mean "the framework helps on all diagnosis tasks." We report the scope explicitly. A skeptic can say the sample was too small. They'd be right. The counter is that the selection was blinded and mechanical — whatever we got, we ran.
 
 ### Phase 4: Reporting
 
 ```
 ├─ Confirmed?
-│   └─ Write ROUND3_RESULTS.md with effect sizes
+│   └─ Write ROUND3_RESULTS.md with effect sizes and posteriors
 │      Update README.md with Round 3 findings
 │      Write blog post: "The framework helps diagnosis, not algorithms"
 ├─ Disconfirmed?
@@ -324,12 +346,11 @@ Aggregate posteriors across problems
 |-----------|-------------------|
 | `P(framework > bare)` | 0.70 |
 | `P(framework > filler)` | 0.80 |
-| `P(framework > prompt)` | 0.60 |
 
 ### Predicted ordering reversal from Round 2
 
-- **Round 2 (search task):** `framework < filler < bare`
-- **Round 3 (diagnosis task):** `framework > prompt >= bare >= filler`
+- **Round 2 (implementation task):** `framework < filler < bare`
+- **Round 3 (diagnosis task):** `framework > bare >= filler`
 
 ### Beta priors for adaptive stopping (GPT-5.4)
 
@@ -339,7 +360,6 @@ weak beliefs (effective sample size ~10) so data dominates after a few batches.
 | Condition | Prior | Mean |
 |-----------|-------|------|
 | bare | Beta(5, 5) | 0.50 |
-| prompt | Beta(5.5, 4.5) | 0.55 |
 | framework | Beta(6.5, 3.5) | 0.65 |
 | filler | Beta(4.5, 5.5) | 0.45 |
 
@@ -347,7 +367,7 @@ weak beliefs (effective sample size ~10) so data dominates after a few batches.
 
 ## Positioning
 
-**Round 2:** Framework hurts when it primes wrong abstractions for search.
+**Round 2:** Framework hurts when it primes wrong abstractions for implementation.
 **Round 3:** Framework helps (or doesn't) when the task is diagnosing what a partially working system is missing.
 
 The claim under test: **the framework's value is diagnostic, not algorithmic — it helps identify missing stages, not implement known algorithms.**
