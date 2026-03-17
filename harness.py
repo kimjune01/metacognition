@@ -9,7 +9,7 @@ import os
 import time
 import textwrap
 
-FRAMEWORK_PATH = "/Users/junekim/Documents/kimjune01.github.io/_posts/2026/2026-03-13-the-natural-framework.md"
+FRAMEWORK_PATH = "/Users/junekim/Documents/june.kim/_posts/2026/2026-03-13-the-natural-framework.md"
 RESULTS_DIR = "results/round2"
 
 from problems import PROBLEMS
