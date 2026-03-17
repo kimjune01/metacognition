@@ -79,33 +79,45 @@ The **prompt** condition adds before the directive:
 
 All decisions are pre-registered. No ad-hoc choices after seeing data.
 
-### Phase 0: Source Selection (blinded)
+### Phase 0: Source Selection (double-blind)
 
 **Goal:** Obtain 3 real, permissively-licensed Python systems that are naturally incomplete.
 
-**Executor:** Codex (GPT-5.4) in a single autonomous session. The researcher and Claude do not see candidate repos until codex has completed selection and written ROUND3_SOURCES.md. This prevents peeking — once you've seen a repo's code, you can't make an unbiased accept/reject decision.
+The researcher choosing search queries is a bias vector: the researcher knows the framework and might unconsciously pick categories that map to it. Phase 0 removes this by splitting into two blinded steps.
+
+#### Phase 0a: Vocabulary Generation
+
+**Executor:** Codex (GPT-5.4), single session, no framework context.
+
+**Codex Phase 0a prompt** (used verbatim):
+
+> List 10 types of small, single-purpose Python programs that handle,
+> process, or manage information. These should be the kind of thing a
+> solo developer might write in under 300 lines and put on GitHub.
+>
+> For each, provide:
+> 1. A plain-language name (2-3 words)
+> 2. A one-sentence description of what it does
+> 3. A GitHub search query that would find examples:
+>    `gh search repos "<your term>" --language=python --license=mit --sort=updated --limit=20`
+>
+> Use everyday language. Think of common utility scripts and tools,
+> not frameworks or libraries.
+
+This prompt says "information" because that's the layperson word for what these systems process. It does not mention the Natural Framework, pipelines, stages, morphisms, or any theoretical vocabulary. Codex generates the search space; the researcher does not.
+
+**Deliverable:** A numbered list of 10 search queries. These are used verbatim in Phase 0b. The researcher does not edit, reorder, or filter them.
+
+#### Phase 0b: Search and Selection
+
+**Executor:** Codex (GPT-5.4), single autonomous session. The researcher and Claude do not see candidate repos until codex has completed selection and written ROUND3_SOURCES.md. This prevents peeking — once you've seen a repo's code, you can't make an unbiased accept/reject decision.
 
 **Codex receives only:**
-1. The search queries below
+1. The search queries generated in Phase 0a (verbatim, unedited)
 2. The acceptance criteria below
 3. The instruction below
 
 No framework text. No hypothesis. No problem descriptions.
-
-**Pre-registered search queries** (run in order, take first qualifying repo from each, no skipping):
-
-1. `gh search repos "inverted index" --language=python --license=mit --sort=updated --limit=20`
-2. `gh search repos "alert handler" --language=python --license=mit --sort=updated --limit=20`
-3. `gh search repos "csv processor" --language=python --license=mit --sort=updated --limit=20`
-4. `gh search repos "log parser" --language=python --license=mit --sort=updated --limit=20`
-5. `gh search repos "feed reader" --language=python --license=mit --sort=updated --limit=20`
-6. `gh search repos "webhook dispatcher" --language=python --license=mit --sort=updated --limit=20`
-7. `gh search repos "report generator" --language=python --license=mit --sort=updated --limit=20`
-8. `gh search repos "data pipeline" --language=python --license=mit --sort=updated --limit=20`
-9. `gh search repos "task queue" --language=python --license=mit --sort=updated --limit=20`
-10. `gh search repos "file watcher" --language=python --license=mit --sort=updated --limit=20`
-
-These queries span different system types deliberately. They were chosen to be common software categories, not to map to framework stages.
 
 **Acceptance criteria (binary pass/fail, no judgment calls):**
 - Permissive license (MIT, Apache 2.0, BSD)
@@ -117,16 +129,16 @@ These queries span different system types deliberately. They were chosen to be c
 - Does not reference the Natural Framework or any metacognitive theory
 
 **Selection procedure:**
-- Run queries 1-10 in order
+- Run the 10 queries from Phase 0a in order
 - For each query, evaluate repos top-to-bottom (GitHub's `--sort=updated` order)
 - Take the first repo that passes ALL acceptance criteria
 - Stop after 3 repos accepted (minimum 2 for go, see decision tree below)
-- A repo found via query 1 might have gaps unrelated to "indexing" — that's fine
+- A repo found via query 1 might have gaps unrelated to its search term — that's fine
 - Document every repo evaluated: name, acceptance/rejection, reason
 
 **Anti-p-hacking rule:** Take the first repo from each search query that passes the acceptance criteria. Do not skip repos because their gaps "don't match the hypothesis" or because they seem "too easy" or "too hard." Difficulty is calibrated in Phase 1, not Phase 0. The selection order within each search result list is determined by GitHub's sort, not by the researcher. If a repo passes, it's in. No discretion.
 
-**Codex Phase 0 instruction** (used verbatim):
+**Codex Phase 0b instruction** (used verbatim):
 
 > Run the following GitHub search queries in order. For each query,
 > evaluate repos top-to-bottom until you find one that passes ALL of
@@ -160,17 +172,18 @@ These queries span different system types deliberately. They were chosen to be c
 >    hash, every repo you evaluated and why you accepted/rejected it,
 >    the dependency-stripping transformations, and the test cases.
 >
-> [search queries listed here]
+> [Phase 0a queries inserted here verbatim]
 >
 > Do not skip repos because they seem easy or hard. Accept the first
 > that passes the binary criteria. Difficulty is not your concern.
 
-This instruction does not mention the Natural Framework, pipeline stages, or any metacognitive vocabulary. Codex evaluates what the repo does and doesn't do in its own terms. The gaps are whatever the repo naturally has, not what the framework predicts.
+Neither Phase 0a nor Phase 0b mentions the Natural Framework, pipeline stages, or any metacognitive vocabulary. Codex generates the search vocabulary, then codex applies it. The researcher touches neither step. Double-blind.
 
-**Disclosure:** The search queries (inverted index, alert handler, csv processor, etc.) were chosen because they describe common system types, not because they map to specific framework stages. A skeptic could argue the categories themselves are biased. This is acknowledged as a limitation. The mitigation is that the acceptance criteria are structural (size, license, dependencies) not semantic (matching the framework), and the first qualifying repo per query is taken regardless of what gaps it has.
+**Disclosure:** The Phase 0a prompt says "handle, process, or manage information." A skeptic could argue this biases toward systems that have pipeline-like structure. This is acknowledged as a limitation. The mitigation: (1) "information system" is the layperson term for what these programs are — it's descriptive, not theoretical; (2) the specific search terms come from codex, not the researcher; (3) the first qualifying repo per query is taken regardless of what gaps it has.
 
 ```
-Search GitHub for candidates
+Phase 0a: codex generates 10 search queries
+Phase 0b: codex runs queries and selects repos
   ├─ Found 3 suitable repos?
   │   └─ GO: Add as git submodules, proceed to Phase 1
   ├─ Found repos but they have external dependencies?
@@ -183,7 +196,7 @@ Search GitHub for candidates
          researcher-owned repos. Both are conflicted.
 ```
 
-**Deliverable:** `ROUND3_SOURCES.md` documenting every repo considered, acceptance/rejection reason, the selected commit hash, dependency-stripping transformations, and test cases.
+**Deliverable:** `ROUND3_SOURCES.md` documenting the Phase 0a queries (verbatim), every repo considered, acceptance/rejection reason, the selected commit hash, dependency-stripping transformations, and test cases.
 
 ### Phase 1: Pilot Calibration
 
@@ -218,47 +231,69 @@ After calibration:
 
 **Pilot budget:** 3 problems × 3 trials × 2 models × 1 condition = 18 API calls.
 
-### Phase 2: Full Experiment
+### Phase 2: Full Experiment (Bayesian adaptive stopping)
 
-**Goal:** Measure condition effects on surviving problems.
+**Goal:** Measure condition effects on surviving problems with honest statistical power.
 
-Run 8 trials × 4 conditions × 2 models for each surviving problem.
+We cannot run enough problems to generalize broadly — we have 2-3 systems, not 200. Bayesian adaptive stopping lets us be efficient about what we *can* measure: the effect on these specific problems. We run trials until posteriors are decisive or the budget is exhausted.
+
+**Procedure:**
+
+One batch = 1 trial per condition per model = 4 × 2 = 8 API calls per problem.
 
 ```
-For each problem:
-  Run all arms
-  Record: condition, model, problem, trial, passed, total, score, time_s
-  Save generated code for post-hoc analysis
+Initialize posteriors from pre-registered Beta priors (see Predictions)
+
+After each batch:
+  Update Beta posteriors with observed pass rates
+  Compute P(framework > bare | data) and P(framework > filler | data)
+  via 10,000 Monte Carlo samples from each posterior
+
+  ├─ P(fw > bare) >= 0.95 AND P(fw > filler) >= 0.95?
+  │   └─ STOP: CONFIRMED — framework helps on this problem
+  ├─ P(fw > bare) <= 0.05 OR P(fw > filler) <= 0.05?
+  │   └─ STOP: DISCONFIRMED — framework hurts on this problem
+  ├─ Batch count < 12?
+  │   └─ CONTINUE: Run another batch
+  └─ Batch count = 12 (max)?
+      └─ STOP: Report posterior as-is (inconclusive or weak effect)
 ```
 
-**Full budget per problem:** 8 × 4 × 2 = 64 API calls.
-**Maximum total budget:** 3 problems × 64 = 192 calls + 18 pilot = 210 calls.
+**Budget:** Min 1 batch (8 calls/problem), max 12 batches (96 calls/problem).
+**Maximum total budget:** 3 problems × 96 = 288 calls + 18 pilot = 306 calls.
+**Expected budget (if effects are clear):** ~4-6 batches = 96-144 calls + pilot.
+
+**Why Bayesian, not frequentist:** With 2-3 problems, we don't have the sample to claim population-level significance. Bayesian posteriors say "given this data, here's our updated belief" — which is the honest statement for small N. We report the posteriors, not p-values.
 
 ### Phase 3: Analysis
 
 **Goal:** Update beliefs using pre-registered criteria.
 
+After all problems reach stopping criteria:
+
 ```
-Compute per-arm averages and posteriors
-  ├─ framework > bare AND framework > filler with P >= 0.95 (any model)?
+Aggregate posteriors across problems
+  ├─ framework > bare AND framework > filler on majority of problems?
   │   └─ CONFIRMED: Framework helps on diagnosis tasks
   │      ├─ Sign reversal from Round 2 (framework helped here, hurt there)?
   │      │   └─ STRONG CONFIRMATION: Metacognitive scaffolds are task-structure dependent
   │      └─ No sign reversal (framework helped here, neutral there)?
   │          └─ WEAK CONFIRMATION: Framework may help on diagnosis but Round 2 was noisy
-  ├─ framework ≈ filler (within posterior uncertainty)?
+  ├─ framework ≈ filler (overlapping posteriors) on all problems?
   │   └─ UNINFORMATIVE: Framework content has no effect beyond token displacement
   │      └─ Report as null result. The framework is noise at this token count.
-  ├─ framework < filler?
+  ├─ framework < filler on any problem?
   │   └─ DISCONFIRMED: Framework actively hurts even on matched tasks
   │      └─ The structural vocabulary account fails. The framework is broadly harmful.
-  ├─ prompt > framework?
+  ├─ prompt > framework on majority of problems?
   │   └─ PARTIAL DISCONFIRMATION: Short metacognitive hint suffices,
   │      long framework is distracting even when domain-matched
-  └─ All conditions > 0.85?
+  └─ All conditions > 0.85 on all problems?
       └─ UNINFORMATIVE (ceiling): Problems were too easy despite calibration.
          Report as limitation. Do not claim confirmation or disconfirmation.
 ```
+
+**Small-sample honesty:** With 2-3 problems, a confirmed result means "the framework helped on these specific systems." It does not mean "the framework helps on all diagnosis tasks." We report the scope explicitly. A skeptic can say the sample was too small. They'd be right. The counter is that the selection was blinded and mechanical — whatever we got, we ran.
 
 ### Phase 4: Reporting
 
@@ -296,7 +331,10 @@ Compute per-arm averages and posteriors
 - **Round 2 (search task):** `framework < filler < bare`
 - **Round 3 (diagnosis task):** `framework > prompt >= bare >= filler`
 
-### Beta priors for test-pass rate (GPT-5.4)
+### Beta priors for adaptive stopping (GPT-5.4)
+
+These priors initialize the Bayesian stopping rule in Phase 2. They encode
+weak beliefs (effective sample size ~10) so data dominates after a few batches.
 
 | Condition | Prior | Mean |
 |-----------|-------|------|
