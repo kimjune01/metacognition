@@ -56,14 +56,14 @@ Five conditions: a true zero baseline, token-matched noise controls at two scale
 | Condition | Extra tokens | Content |
 |-----------|-------------|---------|
 | **zero** | 0 | Code + goal |
-| **bare** | ~1.5k noise | Code + goal + short filler (Wikipedia, token-matched to compressed) |
-| **compressed** | ~1.5k checklist | Code + goal + diagnostic checklist |
-| **filler** | ~25k noise | Code + goal + long filler (Wikipedia, token-matched to framework) |
-| **framework** | ~25k framework | Code + goal + full Natural Framework |
+| **bare** | ~520 noise | Code + goal + short filler (Wikipedia, token-matched to compressed) |
+| **compressed** | ~520 checklist | Code + goal + diagnostic checklist |
+| **filler** | ~8.3k noise | Code + goal + long filler (Wikipedia, token-matched to framework) |
+| **framework** | ~8.3k framework | Code + goal + full Natural Framework |
 
 Every comparison is clean:
-- **zero vs bare:** Does 1.5k of noise hurt? (small-scale length penalty)
-- **zero vs filler:** Does 25k of noise hurt? (large-scale length penalty)
+- **zero vs bare:** Does 520 tokens of noise hurt? (small-scale length penalty)
+- **zero vs filler:** Does 8.3k tokens of noise hurt? (large-scale length penalty)
 - **bare vs compressed:** Does the checklist help at matched token count?
 - **filler vs framework:** Does the framework help at matched token count?
 - **compressed vs framework:** Is the "why" load-bearing, or does the checklist suffice?
@@ -71,7 +71,7 @@ Every comparison is clean:
 
 **Three deltas under test:**
 - **Delta 1 (content value):** compressed vs bare, framework vs filler — does diagnostic content help at the same token budget?
-- **Delta 2 (theory tax):** framework vs compressed — is the theoretical grounding worth the extra 23k tokens?
+- **Delta 2 (theory tax):** framework vs compressed — is the theoretical grounding worth the extra ~7.8k tokens?
 - **Delta 3 (length penalty):** zero vs bare, zero vs filler — does context length alone hurt? Conventional wisdom says yes.
 
 #### Compressed document
@@ -413,7 +413,7 @@ Delta 2: Is the "why" load-bearing? (only evaluated if Delta 1 confirms)
   │      Ship the full framework.
   ├─ framework ≈ compressed?
   │   └─ CHECKLIST SUFFICES: The "why" is not load-bearing.
-  │      Ship the compressed checklist — same effect, 15× fewer tokens.
+  │      Ship the compressed checklist — same effect, 16× fewer tokens.
   └─ compressed > framework?
       └─ THEORY HURTS: The grounding dilutes the diagnostic signal.
          Ship the checklist. The theory is a liability at scale.
@@ -518,8 +518,8 @@ No data is overwritten. Append-only.
 
 | Comparison | Prior | Tests |
 |-----------|-------|-------|
-| `P(framework > filler)` | 0.80 | Delta 1: content value at 25k |
-| `P(compressed > bare)` | 0.70 | Delta 1: content value at 1.5k |
+| `P(framework > filler)` | 0.80 | Delta 1: content value at 8.3k |
+| `P(compressed > bare)` | 0.70 | Delta 1: content value at 520 |
 | `P(framework > compressed)` | 0.45 | Delta 2: theory tax (against conventional wisdom) |
 | `P(zero > bare)` | 0.55 | Delta 3: small-scale length penalty |
 | `P(zero > filler)` | 0.65 | Delta 3: large-scale length penalty |
