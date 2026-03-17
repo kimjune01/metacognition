@@ -169,7 +169,12 @@ Each diagnostic report is scored by a blind judge against the ground-truth gap l
 
 The judge sees no condition labels, no framework text, no hypothesis.
 
-**Inter-rater reliability:** Run the judge 3 times per report. A gap is scored as covered only if the majority (2/3) of judge runs agree. This controls for judge stochasticity.
+**Inter-rater reliability:** Two layers:
+
+1. **Within-model:** Run each judge model 3 times per report. A gap is scored as covered only if the majority (2/3) of runs agree. Controls for generation stochasticity.
+2. **Across-model:** Both GPT-5.4 and Claude Sonnet 4.5 judge every report independently. If the two models disagree systematically by condition (e.g., one model consistently scores framework higher), the judge is biased — flag and report as a limitation. If they agree, the score is robust to judge choice.
+
+The judge is the single point of failure in this design. Dual-model judging is the primary safeguard.
 
 ---
 
@@ -317,7 +322,7 @@ After calibration:
 
 No substitutions or simplifications. No researcher discretion.
 
-**Pilot budget:** Up to 10 problems × 3 trials × 2 models × 1 condition = max 60 generation runs + 180 judge runs = 240 CLI runs.
+**Pilot budget:** Up to 10 problems × 3 trials × 2 models × 1 condition = max 60 generation runs + 360 judge runs (2 judge models × 3 runs) = 420 CLI runs.
 
 ### Phase 2: Full Experiment (two-level Bayesian adaptive stopping)
 
@@ -327,7 +332,7 @@ No code execution — just text in, text out. Cheap enough to run many trials ac
 
 #### Level 1: Within-problem stopping
 
-One batch = 1 trial per condition per model = 4 × 2 = 8 generation runs per problem (+ 24 judge runs for inter-rater reliability: 8 reports × 3 judge runs). Total per batch: 32 CLI runs.
+One batch = 1 trial per condition per model = 4 × 2 = 8 generation runs per problem (+ 48 judge runs: 8 reports × 2 judge models × 3 runs each). Total per batch: 56 CLI runs.
 
 ```
 Initialize posteriors from pre-registered Beta priors (see Predictions)
@@ -372,9 +377,9 @@ After each problem completes:
 
 This means we might run 3 problems or 8, depending on how consistent the effect is. A strong, consistent effect stops early. Mixed results keep running until the evidence converges or we exhaust the pool.
 
-**Budget per problem:** Min 1 batch (32 runs), max 30 batches (960 runs).
-**Maximum total budget:** 10 problems × 960 = 9,600 CLI runs + pilot. In practice, early stopping at both levels will be much less.
-**Why we can afford this:** No code execution. Each trial is a CLI run for generation + 3 CLI runs for judging.
+**Budget per problem:** Min 1 batch (56 runs), max 30 batches (1,680 runs).
+**Maximum total budget:** 10 problems × 1,680 = 16,800 CLI runs + pilot. In practice, early stopping at both levels will be much less.
+**Why we can afford this:** No code execution. Each trial is a CLI run for generation + 6 CLI runs for dual-model judging.
 
 ### Phase 3: Analysis
 
