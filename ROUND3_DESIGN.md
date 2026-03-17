@@ -51,23 +51,28 @@ Round 3 avoids this by construction:
 
 ### Conditions
 
-Four conditions, each paired so every comparison is token-matched:
+Five conditions: a true zero baseline, token-matched noise controls at two scales, and two diagnostic documents.
 
 | Condition | Extra tokens | Content |
 |-----------|-------------|---------|
+| **zero** | 0 | Code + goal |
 | **bare** | ~1.5k noise | Code + goal + short filler (Wikipedia, token-matched to compressed) |
 | **compressed** | ~1.5k checklist | Code + goal + diagnostic checklist |
 | **filler** | ~25k noise | Code + goal + long filler (Wikipedia, token-matched to framework) |
 | **framework** | ~25k framework | Code + goal + full Natural Framework |
 
-Every diagnostic condition has a token-matched noise control:
-- **compressed vs bare:** Same token count, different content. Tests checklist value.
-- **framework vs filler:** Same token count, different content. Tests framework value.
-- **framework vs compressed:** Different token count. But if filler ≈ bare (25k noise ≈ 1.5k noise), extra tokens don't help, so any framework > compressed gap is content, not length.
+Every comparison is clean:
+- **zero vs bare:** Does 1.5k of noise hurt? (small-scale length penalty)
+- **zero vs filler:** Does 25k of noise hurt? (large-scale length penalty)
+- **bare vs compressed:** Does the checklist help at matched token count?
+- **filler vs framework:** Does the framework help at matched token count?
+- **compressed vs framework:** Is the "why" load-bearing, or does the checklist suffice?
+- **zero vs compressed:** Does the checklist help vs nothing at all?
 
-**Two deltas under test:**
-- **Delta 1 (framework vs filler, compressed vs bare):** Does diagnostic content help at the same token budget?
-- **Delta 2 (framework vs compressed):** Is the "why" load-bearing, or does a token-efficient checklist suffice?
+**Three deltas under test:**
+- **Delta 1 (content value):** compressed vs bare, framework vs filler — does diagnostic content help at the same token budget?
+- **Delta 2 (theory tax):** framework vs compressed — is the theoretical grounding worth the extra 23k tokens?
+- **Delta 3 (length penalty):** zero vs bare, zero vs filler — does context length alone hurt? Conventional wisdom says yes.
 
 #### Compressed document
 
@@ -332,7 +337,7 @@ No code execution — just text in, text out. Cheap enough to run many trials ac
 
 #### Level 1: Within-problem stopping
 
-One batch = 1 trial per condition per model = 4 × 2 = 8 generation runs per problem (+ 48 judge runs: 8 reports × 2 judge models × 3 runs each). Total per batch: 56 CLI runs.
+One batch = 1 trial per condition per model = 5 × 2 = 10 generation runs per problem (+ 60 judge runs: 10 reports × 2 judge models × 3 runs each). Total per batch: 70 CLI runs.
 
 ```
 Initialize posteriors from pre-registered Beta priors (see Predictions)
@@ -343,11 +348,11 @@ After each batch:
   Compute P(framework > bare | data) and P(framework > filler | data)
   via 10,000 Monte Carlo samples from each posterior
 
-  ├─ P(fw > bare) >= 0.95 AND P(fw > filler) >= 0.95?
-  │   └─ STOP PROBLEM: CONFIRMED — framework helps on this problem
-  │      Record: P(fw > compressed) for Delta 2
-  ├─ P(fw > bare) <= 0.05 OR P(fw > filler) <= 0.05?
-  │   └─ STOP PROBLEM: DISCONFIRMED — framework hurts on this problem
+  ├─ P(fw > filler) >= 0.95 AND P(compressed > bare) >= 0.95?
+  │   └─ STOP PROBLEM: CONFIRMED — diagnostic content helps at both scales
+  │      Record: P(fw > compressed) for Delta 2, P(zero > bare) for Delta 3
+  ├─ P(fw > filler) <= 0.05 OR P(compressed > bare) <= 0.05?
+  │   └─ STOP PROBLEM: DISCONFIRMED — diagnostic content doesn't help
   ├─ Batch count < 30?
   │   └─ CONTINUE: Run another batch
   └─ Batch count = 30 (max)?
@@ -377,8 +382,8 @@ After each problem completes:
 
 This means we might run 3 problems or 8, depending on how consistent the effect is. A strong, consistent effect stops early. Mixed results keep running until the evidence converges or we exhaust the pool.
 
-**Budget per problem:** Min 1 batch (56 runs), max 30 batches (1,680 runs).
-**Maximum total budget:** 10 problems × 1,680 = 16,800 CLI runs + pilot. In practice, early stopping at both levels will be much less.
+**Budget per problem:** Min 1 batch (70 runs), max 30 batches (2,100 runs).
+**Maximum total budget:** 10 problems × 2,100 = 21,000 CLI runs + pilot. In practice, early stopping at both levels will be much less.
 **Why we can afford this:** No code execution. Each trial is a CLI run for generation + 6 CLI runs for dual-model judging.
 
 ### Phase 3: Analysis
@@ -511,17 +516,22 @@ No data is overwritten. Append-only.
 
 ### Directional priors
 
-| Comparison | Prior probability |
-|-----------|-------------------|
-| `P(framework > bare)` | 0.70 |
-| `P(framework > filler)` | 0.80 |
-| `P(framework > compressed)` | 0.55 |
-| `P(compressed > bare)` | 0.65 |
+| Comparison | Prior | Tests |
+|-----------|-------|-------|
+| `P(framework > filler)` | 0.80 | Delta 1: content value at 25k |
+| `P(compressed > bare)` | 0.70 | Delta 1: content value at 1.5k |
+| `P(framework > compressed)` | 0.45 | Delta 2: theory tax (against conventional wisdom) |
+| `P(zero > bare)` | 0.55 | Delta 3: small-scale length penalty |
+| `P(zero > filler)` | 0.65 | Delta 3: large-scale length penalty |
 
-### Predicted ordering reversal from Round 2
+Note: P(framework > compressed) = 0.45 reflects conventional wisdom that shorter prompts perform better. The researcher's PageLeft experience suggests the theory is load-bearing, but the prior defers to the base rate.
+
+### Predicted ordering
 
 - **Round 2 (implementation task):** `framework < filler < bare`
-- **Round 3 (diagnosis task):** `framework >= compressed > bare >= filler`
+- **Round 3 (diagnosis task):** `compressed >= framework > zero > bare >= filler`
+
+This predicts the checklist matches or beats the full framework (conventional wisdom), both diagnostic conditions beat no-context, and noise hurts.
 
 ### Beta priors for adaptive stopping (GPT-5.4)
 
@@ -530,10 +540,11 @@ weak beliefs (effective sample size ~10) so data dominates after a few batches.
 
 | Condition | Prior | Mean |
 |-----------|-------|------|
-| bare | Beta(5, 5) | 0.50 |
-| compressed | Beta(6, 4) | 0.60 |
-| framework | Beta(6.5, 3.5) | 0.65 |
-| filler | Beta(4.5, 5.5) | 0.45 |
+| zero | Beta(5, 5) | 0.50 |
+| bare | Beta(4.5, 5.5) | 0.45 |
+| compressed | Beta(6.5, 3.5) | 0.65 |
+| framework | Beta(6, 4) | 0.60 |
+| filler | Beta(4, 6) | 0.40 |
 
 ---
 
