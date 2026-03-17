@@ -56,7 +56,9 @@ Three conditions. The "prompt" arm from Round 2 is dropped — it muddied the si
 ### Models
 
 - **GPT-5.4** via Codex CLI
-- **Claude Sonnet 4.5** via Anthropic API
+- **Claude Sonnet 4.5** via Claude Code CLI
+
+All generation and judging runs use codex/claude CLI, not raw API calls.
 
 ### Directive (identical across all conditions)
 
@@ -249,7 +251,7 @@ After calibration:
 
 No substitutions or simplifications. The 5→3 funnel replaces the tweak-and-retry approach — cleaner and no researcher discretion in adjustments.
 
-**Pilot budget:** 5 problems × 3 trials × 2 models × 1 condition × 3 judge runs = 30 generation calls + 90 judge calls.
+**Pilot budget:** 5 problems × 3 trials × 2 models × 1 condition = 30 generation runs. Each plan judged 3× = 90 judge runs. Total: 120 CLI runs.
 
 ### Phase 2: Full Experiment (Bayesian adaptive stopping)
 
@@ -259,7 +261,7 @@ We cannot run enough problems to generalize broadly — we have 2-3 systems, not
 
 **Procedure:**
 
-One batch = 1 trial per condition per model = 3 × 2 = 6 generation calls per problem (+ 18 judge calls for inter-rater reliability: 6 plans × 3 judge runs). Total cost per batch: 24 API calls. No code execution — just text in, text out. This is cheap enough to run many batches, giving real statistical power.
+One batch = 1 trial per condition per model = 3 × 2 = 6 generation runs per problem (+ 18 judge runs for inter-rater reliability: 6 plans × 3 judge runs). Total per batch: 24 CLI runs. No code execution — just text in, text out. Cheap enough to run many batches.
 
 ```
 Initialize posteriors from pre-registered Beta priors (see Predictions)
@@ -280,10 +282,10 @@ After each batch:
       └─ STOP: Report posterior as-is (inconclusive or weak effect)
 ```
 
-**Budget per problem:** Min 1 batch (24 calls), max 30 batches (720 calls).
-**Maximum total budget:** 3 problems × 720 = 2,160 calls + pilot.
+**Budget per problem:** Min 1 batch (24 runs), max 30 batches (720 runs).
+**Maximum total budget:** 3 problems × 720 = 2,160 CLI runs + pilot.
 **Expected budget (if effects are clear):** ~4-8 batches per problem.
-**Why we can afford this:** No code execution. Each trial is generation + judging. At 30 batches we get 30 trials per arm per model — enough to detect a 15-point gap-coverage difference with the 0.95 threshold.
+**Why we can afford this:** No code execution. Each trial is a CLI run for generation + 3 CLI runs for judging. At 30 batches we get 30 trials per arm per model — enough to detect a 15-point gap-coverage difference with the 0.95 threshold.
 
 **Why Bayesian, not frequentist:** With 2-3 problems, we don't have the sample to claim population-level significance. Bayesian posteriors say "given this data, here's our updated belief" — which is the honest statement for small N. We report the posteriors, not p-values.
 
