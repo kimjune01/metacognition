@@ -2,27 +2,33 @@
 
 *Extension of Round 2. Pre-registered before running any trials.*
 
+## Goal
+
+Can a human load the Natural Framework into an LLM's context and get analytical clarity on codified information systems?
+
+The framework is a human tool that operates through LLMs. The human loads the document, points the LLM at a system, and gets a diagnostic work plan. Round 3 tests whether this workflow produces better diagnoses than the same LLM without the framework.
+
 ## Hypothesis
 
-Round 2 showed that the Natural Framework actively hurts on well-specified algorithmic tasks (search problems) and is uninformative at ceiling (pipeline transformations). Round 3 tests a different regime: diagnosing what a partially working system is missing.
+Round 2 tested the wrong question: can LLMs use the framework to write better code? They can't — it actively hurts on algorithmic tasks. But that was never the claim. The claim is that loading the framework into context gives the human+LLM system better diagnostic vision: it helps identify what a partially working information system is missing.
 
-**Primary hypothesis (H1):** When given a goal and a partially working system, the framework condition produces work plans that identify more ground-truth gaps than bare or filler conditions.
+**Primary hypothesis (H1):** Work plans produced with the framework in context identify more ground-truth gaps than work plans produced without it.
 
-**Null hypothesis (H0):** The framework condition does not improve diagnostic quality relative to controls.
+**Null hypothesis (H0):** The framework in context does not improve diagnostic quality relative to controls.
 
-**Falsifiable prediction:** If framework underperforms or matches filler on gap coverage, the "structural vocabulary" account is disconfirmed.
+**Falsifiable prediction:** If framework-loaded plans match or underperform filler-loaded plans on gap coverage, the framework has no diagnostic value beyond token displacement.
 
 ---
 
 ## Extension Rationale
 
-Round 2's negative result (framework 0.30 vs bare 0.76 on constraint satisfaction) established that the framework primes wrong abstractions for search problems. But the researcher's own experience building PageLeft showed a different effect: the framework helped identify *what was missing* from a partially working system — not how to implement a specific algorithm.
+Round 2's negative result (framework 0.30 vs bare 0.76 on constraint satisfaction) established that the framework primes wrong abstractions for implementation tasks. But the researcher's own experience building PageLeft showed a different effect: loading the framework into context helped identify *what was missing* from a partially working system — not how to implement a specific algorithm.
 
 Git history shows the transition:
 - **March 12** (before framework): crawl, embed, store, search. Data pipeline with no quality gates.
 - **March 13** (after framework): quality reviews, compilable filter, diversity reranker, contributor fingerprinting, leaderboard.
 
-The framework didn't improve function-level code. It surfaced architectural gaps. Round 2 tested implementation. Round 3 tests diagnosis.
+The framework didn't improve function-level code. It surfaced architectural gaps. Round 2 tested implementation. Round 3 tests the diagnostic workflow.
 
 ---
 
@@ -366,10 +372,10 @@ weak beliefs (effective sample size ~10) so data dominates after a few batches.
 
 ## Positioning
 
-**Round 2:** Framework hurts when it primes wrong abstractions for implementation.
-**Round 3:** Framework helps (or doesn't) when the task is diagnosing what a partially working system is missing.
+**Round 2:** Does the framework help LLMs write better code? No. It actively hurts.
+**Round 3:** Does loading the framework into context help a human get better diagnostic output from an LLM? That's the workflow under test.
 
-The claim under test: **the framework's value is diagnostic, not algorithmic — it helps identify missing stages, not implement known algorithms.**
+The claim: **the framework is a diagnostic lens, not a coding aid. You load it, point the LLM at a system, and get clearer analysis of what's missing.**
 
 ---
 
