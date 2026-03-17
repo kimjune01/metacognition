@@ -157,7 +157,7 @@ No framework text. No hypothesis. No problem descriptions.
 - Run the 10 queries from Phase 0a in order
 - For each query, evaluate repos top-to-bottom (GitHub's `--sort=updated` order)
 - Take the first repo that passes ALL acceptance criteria
-- Stop after 3 repos accepted (minimum 2 for go, see decision tree below)
+- Stop after 5 repos accepted (Phase 1 selects best 3; minimum 2 for go)
 - A repo found via query 1 might have gaps unrelated to its search term — that's fine
 - Document every repo evaluated: name, acceptance/rejection, reason
 
@@ -171,7 +171,7 @@ No framework text. No hypothesis. No problem descriptions.
 > a single file under 300 lines, not a tutorial or homework with < 5
 > stars, has at least one working function that can be called and tested.
 >
-> Stop after accepting 3 repos total.
+> Stop after accepting 5 repos total.
 >
 > For each repo you evaluate, answer these questions first:
 > 1. What does this system do? (one sentence)
@@ -208,13 +208,12 @@ Neither Phase 0a nor Phase 0b mentions the Natural Framework, pipeline stages, o
 ```
 Phase 0a: codex generates 10 search queries
 Phase 0b: codex runs queries, selects repos, identifies gaps
-  ├─ Found 3 suitable repos?
-  │   └─ GO: Add as git submodules, proceed to Phase 1
-  ├─ Found repos but they have external dependencies?
-  │   └─ GO WITH TRANSFORMATION: Strip dependencies, preserve logic
-  │      and variable names, document in ROUND3_SOURCES.md
-  ├─ Found 2 repos but not 3?
-  │   └─ GO WITH 2: Run experiment on 2 problems, note reduced power
+  ├─ Found 5 suitable repos?
+  │   └─ GO: Add as git submodules, proceed to Phase 1 (which selects best 3)
+  ├─ Found 3-4 repos?
+  │   └─ GO WITH REDUCED BUFFER: Proceed to Phase 1, note reduced margin
+  ├─ Found 2 repos?
+  │   └─ GO MINIMAL: Proceed to Phase 1, but no room for drops
   └─ Cannot find 2 repos?
       └─ ABORT: Document why. Do not fall back to synthetic code or
          researcher-owned repos. Both are conflicted.
@@ -224,36 +223,33 @@ Phase 0b: codex runs queries, selects repos, identifies gaps
 
 ### Phase 1: Pilot Calibration
 
-**Goal:** Confirm the gap lists are in a discriminative range — not so obvious that bare condition finds all of them, not so subtle that no condition finds any.
+**Goal:** From the 5 candidate repos, select the 3 whose gap lists are in the discriminative range — not so obvious that bare condition finds all of them, not so subtle that no condition finds any.
 
-Run 3 trials × bare condition × both models for each problem. Score each plan against the gap list using the judge.
+Run 3 trials × bare condition × both models for each of the 5 problems. Score each plan against the gap list using the judge.
 
 ```
-For each problem:
+For each of the 5 problems:
   ├─ Bare gap-coverage score in [0.15, 0.80] for at least one model?
   │   └─ KEEP: Problem is in the discriminative range
   ├─ Bare score > 0.80 for both models?
-  │   └─ TOO EASY: Gaps are obvious without any scaffold
-  │      ├─ Can we use more subtle gaps from the same repo?
-  │      │   └─ SUBSTITUTE and re-pilot (one substitution allowed)
-  │      └─ No subtler gaps available?
-  │          └─ DROP: Remove problem from experiment, note in results
+  │   └─ DROP: Gaps are obvious without any scaffold
   └─ Bare score < 0.15 for both models?
-      └─ TOO HARD: Gaps are invisible to current models
-         ├─ Can we make the goal more specific?
-         │   └─ SIMPLIFY and re-pilot (one simplification allowed)
-         └─ No simpler variant available?
-             └─ DROP: Remove problem from experiment, note in results
+      └─ DROP: Gaps are invisible to current models
 
 After calibration:
-  ├─ At least 2 problems survive?
-  │   └─ GO to Phase 2
+  ├─ 3+ problems survive?
+  │   └─ TAKE BEST 3: Rank by variance across trials, take 3 with
+  │      highest variance (most room for conditions to differentiate)
+  ├─ 2 problems survive?
+  │   └─ GO WITH 2: Note reduced power
   └─ Fewer than 2 problems survive?
       └─ ABORT: The task class is either trivial or invisible for
          current frontier models. Document the finding. This is a result.
 ```
 
-**Pilot budget:** 3 problems × 3 trials × 2 models × 1 condition × 3 judge runs = 18 generation calls + 54 judge calls.
+No substitutions or simplifications. The 5→3 funnel replaces the tweak-and-retry approach — cleaner and no researcher discretion in adjustments.
+
+**Pilot budget:** 5 problems × 3 trials × 2 models × 1 condition × 3 judge runs = 30 generation calls + 90 judge calls.
 
 ### Phase 2: Full Experiment (Bayesian adaptive stopping)
 
@@ -263,7 +259,7 @@ We cannot run enough problems to generalize broadly — we have 2-3 systems, not
 
 **Procedure:**
 
-One batch = 1 trial per condition per model = 3 × 2 = 6 generation calls per problem (+ 18 judge calls for inter-rater reliability: 6 plans × 3 judge runs).
+One batch = 1 trial per condition per model = 3 × 2 = 6 generation calls per problem (+ 18 judge calls for inter-rater reliability: 6 plans × 3 judge runs). Total cost per batch: 24 API calls. No code execution — just text in, text out. This is cheap enough to run many batches, giving real statistical power.
 
 ```
 Initialize posteriors from pre-registered Beta priors (see Predictions)
@@ -278,15 +274,16 @@ After each batch:
   │   └─ STOP: CONFIRMED — framework helps on this problem
   ├─ P(fw > bare) <= 0.05 OR P(fw > filler) <= 0.05?
   │   └─ STOP: DISCONFIRMED — framework hurts on this problem
-  ├─ Batch count < 12?
+  ├─ Batch count < 30?
   │   └─ CONTINUE: Run another batch
-  └─ Batch count = 12 (max)?
+  └─ Batch count = 30 (max)?
       └─ STOP: Report posterior as-is (inconclusive or weak effect)
 ```
 
-**Budget per problem:** Min 1 batch (6 + 18 = 24 calls), max 12 batches (288 calls).
-**Maximum total budget:** 3 problems × 288 = 864 calls + pilot.
-**Expected budget (if effects are clear):** ~4-6 batches per problem.
+**Budget per problem:** Min 1 batch (24 calls), max 30 batches (720 calls).
+**Maximum total budget:** 3 problems × 720 = 2,160 calls + pilot.
+**Expected budget (if effects are clear):** ~4-8 batches per problem.
+**Why we can afford this:** No code execution. Each trial is generation + judging. At 30 batches we get 30 trials per arm per model — enough to detect a 15-point gap-coverage difference with the 0.95 threshold.
 
 **Why Bayesian, not frequentist:** With 2-3 problems, we don't have the sample to claim population-level significance. Bayesian posteriors say "given this data, here's our updated belief" — which is the honest statement for small N. We report the posteriors, not p-values.
 
