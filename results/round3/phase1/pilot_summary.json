@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-03-17T13:17:08+00:00",
+  "n_problems": 2,
+  "n_survivors": 2,
+  "results": {
+    "Hearthstone Deckstring Parser": {
+      "codex": 0.5333333333333333,
+      "claude": 0.5666666666666667
+    },
+    "RSS Feed Reader": {
+      "codex": 0.4000000000000001,
+      "claude": 0.5666666666666668
+    }
+  },
+  "survivors": [
+    "Hearthstone Deckstring Parser",
+    "RSS Feed Reader"
+  ]
+}
