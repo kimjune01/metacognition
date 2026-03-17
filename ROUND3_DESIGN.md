@@ -51,13 +51,47 @@ Round 3 avoids this by construction:
 
 ### Conditions
 
-Three conditions. The "prompt" arm from Round 2 is dropped — it muddied the signal between "any metacognitive nudge" and "this specific framework."
+Four conditions:
 
-| Condition | What the model sees |
-|-----------|-------------------|
-| **bare** | Code + goal |
-| **framework** | Natural Framework (~25k tokens) + code + goal |
-| **filler** | Length-matched irrelevant text (~25k tokens) + code + goal |
+| Condition | Tokens | What the model sees |
+|-----------|--------|-------------------|
+| **bare** | 0 | Code + goal |
+| **compressed** | ~1-2k | LLM-optimized diagnostic checklist + code + goal |
+| **framework** | ~25k | Full Natural Framework + code + goal |
+| **filler** | ~25k | Length-matched unrelated text + code + goal |
+
+**Two deltas under test:**
+- **Delta 1 (framework vs bare/filler):** Does loading the framework help at all?
+- **Delta 2 (framework vs compressed):** Is the "why" load-bearing, or does a token-efficient checklist suffice?
+
+#### Compressed document
+
+The diagnostic checklist from the framework, stripped of all theory. Pure checklist, no philosophy.
+
+**Compression procedure** (pre-registered):
+
+1. The researcher extracts from the Natural Framework only:
+   - The six stage names and one-sentence definitions
+   - For each stage: what it does, what "missing" looks like, one diagnostic question
+   - The forward/backward distinction (5 forward stages, 1 backward pass)
+2. No content from: the stochasticity proof, Landauer's principle, functor/category theory arguments, the intelligence-as-compression claim, the life-as-recursion claim, historical examples, philosophical grounding.
+3. Format: structured markdown, optimized for LLM consumption (headers, bullet points, no prose).
+4. Target: under 1,500 tokens (cl100k_base). If the first draft exceeds this, cut examples before cutting definitions.
+
+The compressed document answers "what to look for" without explaining "why these six and not others." If the "why" is load-bearing, the full framework will outperform it. If not, the checklist is the deployable artifact.
+
+Committed to the repo as `compressed_framework.md` before any trials run. Immutable once Phase 0a begins.
+
+#### Filler document
+
+**Generation procedure** (pre-registered, executed mechanically):
+
+1. Measure the Natural Framework's token count using `tiktoken` (cl100k_base encoding).
+2. Fetch Wikipedia articles from unrelated domains (geology, maritime history, classical music — no technology, no software, no systems thinking) by pulling random articles via the Wikipedia API.
+3. Concatenate until the token count matches the framework ±5%.
+4. Commit as `filler_text.md`. No editing, no curation.
+
+This produces coherent, readable text with zero diagnostic signal. If the framework still beats it, the diagnostic content is what matters, not the presence of structured text in context.
 
 ### Models
 
@@ -289,7 +323,7 @@ We cannot run enough problems to generalize broadly — we have 2-3 systems, not
 
 **Procedure:**
 
-One batch = 1 trial per condition per model = 3 × 2 = 6 generation runs per problem (+ 18 judge runs for inter-rater reliability: 6 plans × 3 judge runs). Total per batch: 24 CLI runs. No code execution — just text in, text out. Cheap enough to run many batches.
+One batch = 1 trial per condition per model = 4 × 2 = 8 generation runs per problem (+ 24 judge runs for inter-rater reliability: 8 reports × 3 judge runs). Total per batch: 32 CLI runs. No code execution — just text in, text out. Cheap enough to run many batches.
 
 ```
 Initialize posteriors from pre-registered Beta priors (see Predictions)
@@ -302,6 +336,7 @@ After each batch:
 
   ├─ P(fw > bare) >= 0.95 AND P(fw > filler) >= 0.95?
   │   └─ STOP: CONFIRMED — framework helps on this problem
+  │      Then compare: P(fw > compressed) to determine if "why" is load-bearing
   ├─ P(fw > bare) <= 0.05 OR P(fw > filler) <= 0.05?
   │   └─ STOP: DISCONFIRMED — framework hurts on this problem
   ├─ Batch count < 30?
@@ -310,8 +345,8 @@ After each batch:
       └─ STOP: Report posterior as-is (inconclusive or weak effect)
 ```
 
-**Budget per problem:** Min 1 batch (24 runs), max 30 batches (720 runs).
-**Maximum total budget:** 3 problems × 720 = 2,160 CLI runs + pilot.
+**Budget per problem:** Min 1 batch (32 runs), max 30 batches (960 runs).
+**Maximum total budget:** 3 problems × 960 = 2,880 CLI runs + pilot.
 **Expected budget (if effects are clear):** ~4-8 batches per problem.
 **Why we can afford this:** No code execution. Each trial is a CLI run for generation + 3 CLI runs for judging. At 30 batches we get 30 trials per arm per model — enough to detect a 15-point gap-coverage difference with the 0.95 threshold.
 
@@ -324,22 +359,30 @@ After each batch:
 After all problems reach stopping criteria:
 
 ```
-Aggregate posteriors across problems
+Delta 1: Does the framework help?
   ├─ framework > bare AND framework > filler on majority of problems?
   │   └─ CONFIRMED: Framework helps on diagnosis tasks
   │      ├─ Sign reversal from Round 2 (framework helped here, hurt there)?
   │      │   └─ STRONG CONFIRMATION: Metacognitive scaffolds are task-structure dependent
-  │      └─ No sign reversal (framework helped here, neutral there)?
-  │          └─ WEAK CONFIRMATION: Framework may help on diagnosis but Round 2 was noisy
+  │      └─ No sign reversal?
+  │          └─ WEAK CONFIRMATION: Framework may help but Round 2 was noisy
   ├─ framework ≈ filler (overlapping posteriors) on all problems?
-  │   └─ UNINFORMATIVE: Framework content has no effect beyond token displacement
-  │      └─ Report as null result. The framework is noise at this token count.
+  │   └─ UNINFORMATIVE: No effect beyond token displacement. Framework is noise.
   ├─ framework < filler on any problem?
-  │   └─ DISCONFIRMED: Framework actively hurts even on matched tasks
-  │      └─ The structural vocabulary account fails. The framework is broadly harmful.
+  │   └─ DISCONFIRMED: Framework actively hurts. Broadly harmful.
   └─ All conditions > 0.80 on all problems?
       └─ UNINFORMATIVE (ceiling): Gaps were too obvious despite calibration.
-         Report as limitation. Do not claim confirmation or disconfirmation.
+
+Delta 2: Is the "why" load-bearing? (only evaluated if Delta 1 confirms)
+  ├─ framework > compressed on majority of problems?
+  │   └─ THEORY MATTERS: The philosophical grounding improves diagnosis.
+  │      Ship the full framework.
+  ├─ framework ≈ compressed?
+  │   └─ CHECKLIST SUFFICES: The "why" is not load-bearing.
+  │      Ship the compressed checklist — same effect, 15× fewer tokens.
+  └─ compressed > framework?
+      └─ THEORY HURTS: The grounding dilutes the diagnostic signal.
+         Ship the checklist. The theory is a liability at scale.
 ```
 
 **Small-sample honesty:** With 2-3 problems, a confirmed result means "the framework helped diagnose these specific systems." It does not mean "the framework helps on all diagnosis tasks." We report the scope explicitly. A skeptic can say the sample was too small. They'd be right. The counter is that the selection was blinded and mechanical — whatever we got, we ran.
@@ -373,11 +416,13 @@ Aggregate posteriors across problems
 |-----------|-------------------|
 | `P(framework > bare)` | 0.70 |
 | `P(framework > filler)` | 0.80 |
+| `P(framework > compressed)` | 0.55 |
+| `P(compressed > bare)` | 0.65 |
 
 ### Predicted ordering reversal from Round 2
 
 - **Round 2 (implementation task):** `framework < filler < bare`
-- **Round 3 (diagnosis task):** `framework > bare >= filler`
+- **Round 3 (diagnosis task):** `framework >= compressed > bare >= filler`
 
 ### Beta priors for adaptive stopping (GPT-5.4)
 
@@ -387,6 +432,7 @@ weak beliefs (effective sample size ~10) so data dominates after a few batches.
 | Condition | Prior | Mean |
 |-----------|-------|------|
 | bare | Beta(5, 5) | 0.50 |
+| compressed | Beta(6, 4) | 0.60 |
 | framework | Beta(6.5, 3.5) | 0.65 |
 | filler | Beta(4.5, 5.5) | 0.45 |
 
