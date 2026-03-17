@@ -33,11 +33,45 @@ A naive version of this experiment would be tautological: design problems where 
 Round 3 avoids this by construction:
 
 1. **The directive is identical across all conditions.** Every arm sees the same starter code, the same failing tests, and the same instruction: "fix the code so all tests pass."
-2. **No mention of pipelines, stages, or diagnosis.** The bare prompt never says "a stage is missing." It just presents failing tests.
-3. **Tests measure behavioral outcomes.** "Search returns only quality results." "Queue covers distinct services." "State persists across runs." Not "did you add a Filter."
-4. **The model can fix it however it wants.** The framework might suggest a structural approach, but the tests don't care about structure — only behavior.
-5. **The scoring harness is the same for all conditions.** Framework-agnostic measurement.
-6. **Starter code comes from real open-source projects**, not synthetic code designed to match the framework. See Phase 0.
+2. **No mention of pipelines, stages, or diagnosis.** The directive never says "a stage is missing." It just presents failing tests.
+3. **Tests measure behavioral outcomes only.** Tests assert observable correctness — output content, ordering, persistence — not structural properties like "did you add a Filter." The model can fix it however it wants.
+4. **The scoring harness is the same for all conditions.** Framework-agnostic measurement.
+5. **Starter code comes from real open-source projects**, not synthetic code designed to match the framework. See Phase 0.
+6. **Problems are selected blind to the framework.** Codex (GPT-5.4) selects repos and writes tests without seeing the Natural Framework, the hypothesis, or this document.
+
+---
+
+## Experimental Design
+
+### Conditions
+
+Same four conditions as Round 2:
+
+| Condition | What the model sees |
+|-----------|-------------------|
+| **bare** | Starter code + failing tests + "fix the code so all tests pass" |
+| **prompt** | Short metacognitive hint + starter code + failing tests + directive |
+| **framework** | Full Natural Framework (~25k chars) + starter code + failing tests + directive |
+| **filler** | Length-matched irrelevant text (~25k chars) + starter code + failing tests + directive |
+
+### Models
+
+- **GPT-5.4** via Codex CLI
+- **Claude Sonnet 4.5** via Anthropic API
+
+### Scoring
+
+- Test-pass rate per trial (identical to Round 2)
+- Single-shot: no feedback loop, no retries
+- Score = passed / total tests
+
+### Directive (identical across all conditions)
+
+> Here is a Python system. The tests below currently fail. Fix the code so all tests pass. Return ONLY the complete fixed Python code.
+
+The **prompt** condition adds before the directive:
+
+> Before writing code, think about what the system already does correctly and what behavior is missing. What would need to change for the failing tests to pass?
 
 ---
 
@@ -45,41 +79,20 @@ Round 3 avoids this by construction:
 
 All decisions are pre-registered. No ad-hoc choices after seeing data.
 
-### Phase 0: Source Selection
+### Phase 0: Source Selection (blinded)
 
-**Goal:** Obtain 3 real, permissively-licensed Python systems that are naturally incomplete pipelines.
+**Goal:** Obtain 3 real, permissively-licensed Python systems that are naturally incomplete.
 
-```
-Search GitHub for candidates (single-file, <200 lines, MIT/Apache/BSD)
-  ├─ Found 3 suitable repos with no heavy dependencies?
-  │   └─ GO: Add as git submodules, use as-is
-  ├─ Found repos but they have external dependencies (Flask, lxml, etc.)?
-  │   └─ GO WITH TRANSFORMATION: Strip dependencies, preserve logic
-  │      and variable names, document the transformation in ROUND3_SOURCES.md
-  ├─ Cannot find 3 repos but found 2?
-  │   └─ GO WITH 2: Run experiment on 2 problems, note reduced power
-  └─ Cannot find 2 repos?
-      └─ ABORT: Document why. Do not fall back to synthetic code or
-         researcher-owned repos. Both are conflicted.
-         Synthetic problems are tautological (designed to match the framework).
-         Researcher repos are not falsifiably neutral (could have been
-         written with this experiment in mind, even if they weren't).
-```
+**Executor:** Codex (GPT-5.4) in a single autonomous session. The researcher and Claude do not see candidate repos until codex has completed selection and written ROUND3_SOURCES.md. This prevents peeking — once you've seen a repo's code, you can't make an unbiased accept/reject decision.
 
-**Source selection criteria (designed to be defensible against cherry-picking):**
-- Code must be written by someone other than the researcher. No repos the researcher owns, contributes to, or has forked. This is not falsifiably neutral otherwise.
-- Code must not reference the Natural Framework or any metacognitive theory
-- Structural incompleteness must be naturally occurring, not injected
-- Selection process must be mechanical and reproducible:
-  1. Define search queries before searching (pre-registered below)
-  2. Take the first repo that meets size/license/dependency criteria
-  3. Do not skip repos because they "don't fit the hypothesis"
-  4. Document every repo considered and why it was accepted or rejected
-- Tests must be written before running any model on the code
-- A skeptic who believes the framework is useless should still trust this setup
+**Codex receives only:**
+1. The search queries below
+2. The acceptance criteria below
+3. The instruction below
 
-**Pre-registered search queries** (run in order, take first qualifying repo
-from each, no skipping):
+No framework text. No hypothesis. No problem descriptions.
+
+**Pre-registered search queries** (run in order, take first qualifying repo from each, no skipping):
 
 1. `gh search repos "inverted index" --language=python --license=mit --sort=updated --limit=20`
 2. `gh search repos "alert handler" --language=python --license=mit --sort=updated --limit=20`
@@ -92,31 +105,26 @@ from each, no skipping):
 9. `gh search repos "task queue" --language=python --license=mit --sort=updated --limit=20`
 10. `gh search repos "file watcher" --language=python --license=mit --sort=updated --limit=20`
 
-These queries span different system types deliberately. They were chosen to
-be common software categories, not to map to framework stages.
+These queries span different system types deliberately. They were chosen to be common software categories, not to map to framework stages.
+
+**Acceptance criteria (binary pass/fail, no judgment calls):**
+- Permissive license (MIT, Apache 2.0, BSD)
+- Core logic in a single file under 300 lines
+- No dependencies beyond Python stdlib (or strippable with documented transformation)
+- Not a tutorial, homework assignment, or toy example with < 5 stars
+- Has at least one working function that can be called and tested
+- Not owned by, contributed to, or forked by the researcher (kimjune01)
+- Does not reference the Natural Framework or any metacognitive theory
 
 **Selection procedure:**
 - Run queries 1-10 in order
-- For each query, evaluate repos top-to-bottom (GitHub's sort order)
-- Take the first repo that passes binary acceptance criteria
-- Stop after 3 repos accepted (minimum 2 for go, see Phase 0 tree)
+- For each query, evaluate repos top-to-bottom (GitHub's `--sort=updated` order)
+- Take the first repo that passes ALL acceptance criteria
+- Stop after 3 repos accepted (minimum 2 for go, see decision tree below)
 - A repo found via query 1 might have gaps unrelated to "indexing" — that's fine
 - Document every repo evaluated: name, acceptance/rejection, reason
 
-**Blinding:** Phase 0 is executed entirely by codex (GPT-5.4) in a single
-autonomous session with no prior context about the Natural Framework. The
-researcher and any other agent (including Claude) do not see the candidate
-repos until codex has completed selection and written ROUND3_SOURCES.md.
-This prevents peeking — once you've seen a repo's code, you can't
-make an unbiased accept/reject decision.
-
-Codex receives only:
-1. The search queries listed above
-2. The binary acceptance criteria listed above
-3. The evaluation prompt listed above
-4. The instruction below
-
-No framework text. No hypothesis. No problem descriptions.
+**Anti-p-hacking rule:** Take the first repo from each search query that passes the acceptance criteria. Do not skip repos because their gaps "don't match the hypothesis" or because they seem "too easy" or "too hard." Difficulty is calibrated in Phase 1, not Phase 0. The selection order within each search result list is determined by GitHub's sort, not by the researcher. If a repo passes, it's in. No discretion.
 
 **Codex Phase 0 instruction** (used verbatim):
 
@@ -127,6 +135,16 @@ No framework text. No hypothesis. No problem descriptions.
 > stars, has at least one working function that can be called and tested.
 >
 > Stop after accepting 3 repos total.
+>
+> For each repo you evaluate, answer these questions first:
+> 1. What does this system do? (one sentence)
+> 2. What does it do well? (list working capabilities)
+> 3. What doesn't it do that a production version would need? (list gaps)
+> 4. Is the core logic in a single file under 300 lines?
+> 5. Does it depend on anything beyond the Python standard library?
+> 6. License?
+>
+> Do not suggest fixes. Just describe what exists and what is absent.
 >
 > For each accepted repo:
 > 1. Read the source code
@@ -147,53 +165,25 @@ No framework text. No hypothesis. No problem descriptions.
 > Do not skip repos because they seem easy or hard. Accept the first
 > that passes the binary criteria. Difficulty is not your concern.
 
-**Pre-registered codex prompt for repo evaluation** (used verbatim, no additional context):
+This instruction does not mention the Natural Framework, pipeline stages, or any metacognitive vocabulary. Codex evaluates what the repo does and doesn't do in its own terms. The gaps are whatever the repo naturally has, not what the framework predicts.
 
-> You are evaluating a Python repository for use in an experiment.
-> Read the source code and answer these questions:
-> 1. What does this system do? (one sentence)
-> 2. What does it do well? (list working capabilities)
-> 3. What doesn't it do that a production version would need? (list gaps)
-> 4. Is the core logic in a single file under 300 lines?
-> 5. Does it depend on anything beyond the Python standard library?
-> 6. License?
->
-> Do not suggest fixes. Just describe what exists and what is absent.
+**Disclosure:** The search queries (inverted index, alert handler, csv processor, etc.) were chosen because they describe common system types, not because they map to specific framework stages. A skeptic could argue the categories themselves are biased. This is acknowledged as a limitation. The mitigation is that the acceptance criteria are structural (size, license, dependencies) not semantic (matching the framework), and the first qualifying repo per query is taken regardless of what gaps it has.
 
-This prompt does not mention the Natural Framework, pipeline stages, or any
-metacognitive vocabulary. Codex evaluates what the repo does and doesn't do
-in its own terms. The researcher then writes behavioral tests for whatever gaps codex
-identifies — but the identification of gaps is done blind to the framework.
-The gaps are whatever the repo naturally has, not what the framework predicts.
+```
+Search GitHub for candidates
+  ├─ Found 3 suitable repos?
+  │   └─ GO: Add as git submodules, proceed to Phase 1
+  ├─ Found repos but they have external dependencies?
+  │   └─ GO WITH TRANSFORMATION: Strip dependencies, preserve logic
+  │      and variable names, document in ROUND3_SOURCES.md
+  ├─ Found 2 repos but not 3?
+  │   └─ GO WITH 2: Run experiment on 2 problems, note reduced power
+  └─ Cannot find 2 repos?
+      └─ ABORT: Document why. Do not fall back to synthetic code or
+         researcher-owned repos. Both are conflicted.
+```
 
-**Disclosure:** The search queries (inverted index, alert handler, csv processor)
-were chosen because they describe common system types, not because they map to
-specific framework stages. A skeptic could argue the categories themselves are
-biased. This is acknowledged as a limitation. The mitigation is that the
-acceptance criteria are structural (size, license, dependencies) not semantic
-(matching the framework), and the first qualifying repo per query is taken
-regardless of what gaps it has.
-
-**Acceptance criteria per repo (binary pass/fail, no judgment calls):**
-- Permissive license (MIT, Apache 2.0, BSD)
-- Core logic in a single file under 300 lines
-- No dependencies beyond Python stdlib (or strippable with documented transformation)
-- Not a tutorial, homework assignment, or toy example with < 5 stars
-- Has at least one working function that can be called and tested
-
-**Anti-p-hacking rule:** Take the first repo from each search query that
-passes the acceptance criteria above. Do not skip repos because their gaps
-"don't match the hypothesis" or because they seem "too easy" or "too hard."
-Difficulty is calibrated in Phase 1, not Phase 0. If the first qualifying
-repo turns out to be at ceiling or floor, that is handled by the Phase 1
-drop/substitute procedure — not by choosing a different repo in Phase 0.
-
-The selection order within each search result list is determined by GitHub's
-`--sort=updated` flag, not by the researcher. The researcher's only role is
-applying the binary acceptance criteria. If a repo passes, it's in. No
-discretion.
-
-**Deliverable:** `ROUND3_SOURCES.md` documenting every repo considered, acceptance/rejection reason, the selected commit hash, and any dependency-stripping transformations applied.
+**Deliverable:** `ROUND3_SOURCES.md` documenting every repo considered, acceptance/rejection reason, the selected commit hash, dependency-stripping transformations, and test cases.
 
 ### Phase 1: Pilot Calibration
 
@@ -207,13 +197,13 @@ For each problem:
   │   └─ KEEP: Problem is in the discriminative range
   ├─ Bare score > 0.85 for both models?
   │   └─ TOO EASY: Problem is at ceiling
-  │      ├─ Can we use a harder variant from the same repo (earlier commit, more edge cases)?
+  │      ├─ Can we use a harder variant (earlier commit, more edge cases)?
   │      │   └─ SUBSTITUTE and re-pilot (one substitution allowed per problem)
   │      └─ No harder variant available?
   │          └─ DROP: Remove problem from experiment, note in results
   └─ Bare score < 0.20 for both models?
       └─ TOO HARD: Problem is at floor
-         ├─ Can we add hints to the test names or use a simpler commit?
+         ├─ Can we add hints to test names or use a simpler commit?
          │   └─ SIMPLIFY and re-pilot (one simplification allowed per problem)
          └─ No simpler variant available?
              └─ DROP: Remove problem from experiment, note in results
@@ -288,83 +278,6 @@ Compute per-arm averages and posteriors
     └─ Write ROUND3_ABORT.md documenting the reason
        This is still a result: document what was learned
 ```
-
----
-
-## Experimental Design
-
-### Conditions
-
-Same four conditions as Round 2:
-
-| Condition | What the model sees |
-|-----------|-------------------|
-| **bare** | Starter code + failing tests + "fix the code so all tests pass" |
-| **prompt** | Short metacognitive hint + starter code + failing tests + directive |
-| **framework** | Full Natural Framework (~25k chars) + starter code + failing tests + directive |
-| **filler** | Length-matched irrelevant text (~25k chars) + starter code + failing tests + directive |
-
-### Models
-
-- **GPT-5.4** via Codex CLI
-- **Claude Sonnet 4.5** via Anthropic API
-
-### Scoring
-
-- Test-pass rate per trial (identical to Round 2)
-- Single-shot: no feedback loop, no retries
-- Score = passed / total tests
-
-### Directive (identical across all conditions)
-
-> Here is a Python system. The tests below currently fail. Fix the code so all tests pass. Return ONLY the complete fixed Python code.
-
-The **prompt** condition adds before the directive:
-
-> Before writing code, think about what the system already does correctly and what behavior is missing. What would need to change for the failing tests to pass?
-
----
-
-## Problems (pending Phase 0 source selection)
-
-### Problem 1: Search Index — missing quality gating
-
-A document indexing system that ingests pages, tokenizes text, builds an inverted index, and returns search results. Everything works — but the index accepts all records indiscriminately.
-
-**Failing tests check behavioral outcomes:**
-- Uncompilable pages don't appear in results
-- Low-quality pages don't appear in results
-- Duplicate content produces only one hit
-- Stub pages with minimal text don't appear in results
-- Valid high-quality pages DO appear
-
-The tests never mention "filter" or "gate." They just assert search results are clean.
-
-### Problem 2: Alert Triage — missing priority selection
-
-An incident-processing system that parses alerts, removes resolved events, deduplicates, and builds a review queue. The queue is populated but dominated by one noisy service.
-
-**Failing tests check behavioral outcomes:**
-- Queue covers distinct services, not just the noisiest one
-- Same-cluster alerts are collapsed to one representative
-- Higher-severity alerts appear before lower-severity
-- Queue respects the limit parameter
-- Resolved alerts never appear
-
-The tests never mention "attend" or "prioritize." They assert queue composition.
-
-### Problem 3: Batch Reporter — missing cross-run memory
-
-An analytics pipeline that reads transaction batches, filters invalid rows, computes totals, and renders a report. Works perfectly for one batch. Forgets everything between batches.
-
-**Failing tests check behavioral outcomes:**
-- State accumulates across multiple calls
-- Duplicate transaction IDs across batches are not double-counted
-- Report includes both current-batch and cumulative totals
-- Top account reflects cumulative, not just current batch
-- Batch count increments correctly
-
-The tests never mention "remember" or "consolidate." They assert multi-run correctness.
 
 ---
 
