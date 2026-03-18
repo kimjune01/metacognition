@@ -646,5 +646,50 @@ If maintainers respond positively (implement fixes, confirm gaps), that's empiri
 
 **Status:** Final design locked. Budget: $10. Affordable. Ready to execute when resources align.
 
-**Next:** None - design complete. Implementation when ready (extract Handshake, select repos, execute).
+**Next:** Codex review on final design.
+
+
+## 2026-03-18 00:30 - Audit Layer Added (Codex Calibration Concern)
+
+**Codex's verdict on $10 design:** "Not ready to execute as-is. Codex-only judging is not a fatal flaw if you add an external calibration layer."
+
+**Main concern:** 5 × Codex addresses variance, not bias
+- Repeated sampling finds consistent answer
+- But if Codex has systematic blind spots, 5 repeats won't fix it
+- Correlated judge error is the risk
+
+**Codex recommendation:**
+- Keep 5 × Codex majority vote for all 300 reports (cheap, handles variance)
+- Add independent audit on 20% subset (60 reports)
+- Best: human adjudication on subset
+- Cheapest: Claude judge on subset only
+- Report agreement between codex-majority and audit judge
+- Pre-register failure rule: if agreement < 70%, invalidate results
+
+**Why this works:**
+- 5 × Codex handles variance (repeated sampling)
+- Audit layer handles bias (independent judge catches systematic error)
+- 20% sample balances cost vs detection power
+- Pre-registered failure rule prevents post-hoc rationalization
+
+**Updated preregistration (ROUND4_PREREGISTRATION.md):**
+
+1. **Judging protocol:**
+   - Primary: 5 × Codex on all 300 reports ($0)
+   - Audit: 1 × independent judge on 60 reports (20% sample)
+   - Options: human (best, $0 but time) or Claude ($3)
+   - Agreement threshold: ≥70% or invalidate
+
+2. **Budget:**
+   - Without audit: $10 (generation only)
+   - With Claude audit: $13 (generation + 60 audit judges)
+   - Still affordable
+
+3. **Open items:**
+   - Added: "Select audit method" (human vs Claude)
+   - Pre-register choice before execution
+
+**Status:** Design complete with calibration layer. Addresses codex's concern about single-model bias. Ready for implementation when resources align.
+
+**Next:** Implementation (extract Handshake, select repos, lock protocols, execute).
 

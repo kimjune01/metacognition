@@ -1,7 +1,7 @@
 # Round 4 Preregistration
 
 **Date Started:** 2026-03-17
-**Status:** DRAFT - Refinement in progress
+**Status:** DRAFT - Audit layer integrated (2026-03-18)
 **Preregistered By:** June Kim
 **Repository:** github.com/kimjune01/metacognition
 
@@ -164,21 +164,31 @@ Current rubric (Round 3):
 
 ## Judging Protocol
 
-**Single-model judging (budget constraint):**
+**Primary judging (all reports):**
 - GPT-5.4 via codex CLI (included in subscription, $0 marginal cost)
 - 5 runs per diagnostic report (increased from 3 for reliability)
 - Majority vote across 5 judgments
 - Rate limiting: 2s delay between calls (ToS compliance)
 
-**Change from Round 3:**
-- Round 3: dual-model (codex + claude, 3 runs each)
-- Round 4: codex-only (5 runs)
-- Rationale: Budget constraint (~$10 vs ~$45). Codex is harsh critic. 5 runs handle variance.
+**Audit layer (calibration subset):**
+- Independent judge on 20% random sample (60 reports from 300)
+- Options (pre-register which):
+  - **Best:** Human adjudication on 60 reports
+  - **Fallback:** Claude Opus 4.6 on 60 reports (~$3 additional)
+- Measure agreement rate between codex-majority and audit judge
+- **Pre-registered failure rule:** If agreement < 70%, invalidate results (judge bias detected)
+- Report: agreement rate, confusion matrix, systematic disagreement patterns
 
-**Limitation noted:**
-- Single-model judging (no cross-model validation)
-- But: increased runs (5 vs 3) improve reliability
-- Codex has been reliable harsh critic in Round 3
+**Rationale:**
+- 5 × Codex handles variance (repeated sampling)
+- Audit layer handles bias (correlated judge error)
+- 20% sample balances cost vs detection power
+- Pre-registered failure rule prevents post-hoc rationalization
+
+**Change from Round 3:**
+- Round 3: dual-model on all reports (codex + claude, 3 runs each)
+- Round 4: single-model with audit layer (codex 5 runs + audit on 20%)
+- Rationale: Budget constraint (~$10-13 vs ~$45). Codex is harsh critic. Audit catches systematic bias.
 
 ---
 
@@ -295,22 +305,26 @@ Per codex feedback: Don't just use P(hs > fw) ≥ 0.95. Add practical margin.
 **Round 4 broad design (single round):**
 - 30 repos × 5 conditions × 2 models = 300 diagnostic reports
 - Generation: 150 codex ($0) + 150 claude (~$10)
-- Judging: 300 reports × 5 codex judges = 1,500 calls ($0, subscription)
+- Primary judging: 300 reports × 5 codex judges = 1,500 calls ($0, subscription)
+- Audit layer: 60 reports × 1 claude judge ≈ $3 (if using Claude fallback)
 - Rate limiting: 2s delays between codex calls
 
-**Total cost: ~$10** (just Claude API generation)
+**Total cost: ~$10-13** (Claude generation + optional audit)
+- Without audit (human): $10
+- With Claude audit: $13
 
 **Comparison to Round 3:**
 - Round 3: 2 problems × 30 batches = 1,200 reports + 7,200 judges = ~$300
-- Round 4: 30 repos × 1 round = 300 reports + 1,500 judges = ~$10
+- Round 4: 30 repos × 1 round = 300 reports + 1,500 judges + 60 audit = ~$10-13
 
 **Why so cheap:**
 - Broad & shallow (1 round per repo, not 30 batches)
-- Codex subscription (judging is free)
-- Single model judging (no expensive Claude judges)
+- Codex subscription (primary judging is free)
+- Audit only 20% (not all reports)
 
 **Execution timeline:**
 - With 2s rate limiting: ~1 hour per repo (300 gen + 1,500 judge calls)
+- Audit layer: +30 minutes (60 Claude judges)
 - 30 repos = ~30 hours spread over days/weeks
 - ToS compliant, no suspicious burst traffic
 
@@ -320,28 +334,34 @@ Per codex feedback: Don't just use P(hs > fw) ≥ 0.95. Add practical margin.
 
 **Critical path:**
 
-1. **Null-case protocol** (selection + scoring)
+1. **Select audit method** (judge calibration)
+   - Option A: Human adjudication on 60 reports ($0, time cost)
+   - Option B: Claude Opus 4.6 on 60 reports (~$3)
+   - Pre-register choice before execution
+   - Both are valid (best vs cheapest)
+
+2. **Null-case protocol** (selection + scoring)
    - Define search procedure (artifacts, count, timebox)
    - Define feature-complete check
    - Add null-case scoring to judge rubric
 
-2. **Evidence protocol** (gap-case selection)
+3. **Evidence protocol** (gap-case selection)
    - Which artifacts count (issues, PRs, postmortems, TODOs)
    - How many required
    - Search procedure and time limit
 
-3. **Update prompts**
+4. **Update prompts**
    - directive.md: remove old scaffold, use "Generate SOAP notes"
    - judge_prompt.md: add null-case scoring
 
-4. **Effect size operationalization**
+5. **Effect size operationalization**
    - Define practical margin
    - Integrate into decision tree
 
-5. **Shared sampling frame**
+6. **Shared sampling frame**
    - Define single process for both gap and null cases
 
-6. **Extract Handshake content**
+7. **Extract Handshake content**
    - ~9k tokens from full post
    - Core sections: contracts, DPI, budget, fractal tower
    - Diagnostic-focused (remove objections, prior art)
