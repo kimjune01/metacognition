@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 8 working capabilities with accurate technical detail (varint I/O, trisort algorithm, bidirectional codec, sideboard support, format validation, OOP interface).\n\n**Gap Coverage:**\n- **gap_1** (truncated deckstring handling): \u2705 Identified in Triage #1 \"Zero error handling\" and Plan #1 mentions EOFError\n- **gap_2** (trailing bytes): \u2705 Identified in Plan #1 \"Handle trailing garbage bytes after parsing completes\"\n- **gap_3** (card-count validation): \u2705 Identified in Triage #2 and Plan #2 \"Card copy limits (max 2 for most cards, 1 for Legendaries)\"\n- **gap_4** (deck-size validation): \u2705 Identified in Plan #2 \"Total card count matches format rules (30 for Standard, 40 for Twist)\"\n- **gap_5** (card-ID validation): \u2705 Identified in Plan #1 \"verify card counts > 0, hero IDs are valid DBF ranges\" and Plan #2 \"Accept optional CardDatabase parameter\"\n- **gap_6** (human-readable output): \u274c Not identified. Report focuses on JSON/HearthPwn export (Plan #10) but doesn't mention card name resolution or metadata lookup\n- **gap_7** (format-version migration): \u274c Not identified. Plan #3 mentions \"Version upgrade scenarios\" in tests but no graceful degradation strategy\n- **gap_8** (logging/error context): \u2705 Identified in Triage #6 and Plan #6 with detailed logging levels\n- **gap_9** (serialization formats): \u2705 Identified in Triage #10 and Plan #9 \"to_dict() \u2192 dict for JSON serialization\"\n- **gap_10** (batch processing): \u274c Not identified. No mention of concurrent, streaming, or async capabilities\n\n**Plan Specificity:**\n- **gap_1-5, gap_8-9**: \"concrete\" - Specific code changes, function signatures, parameters, and validation rules provided\n- **gap_6, gap_7, gap_10**: \"absent\" - These gaps were not identified, so no plan exists",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

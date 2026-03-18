@@ -1,0 +1,36 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": false,\n    \"gap_9\": true,\n    \"gap_10\": false,\n    \"gap_11\": true,\n    \"gap_12\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\",\n    \"gap_11\": \"concrete\",\n    \"gap_12\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\n- Correctly identifies varint encoding/decoding, parse/write functions, tri-sort optimization, Deck class, sideboard support, version checking, and format validation\n- Accurately describes what the system can and cannot do\n- No significant mischaracterizations of existing functionality\n\n**Gap Coverage Analysis:**\n- **gap_1 (truncated/corrupted input)**: \u2713 Identified as \"Gap 2: Input sanitization\" - mentions EOF checking\n- **gap_2 (trailing bytes)**: \u2713 Identified in \"Gap 2: Input sanitization\" - explicitly mentions \"Reject deckstrings with trailing garbage bytes\"\n- **gap_3 (card count validation)**: \u2713 Identified in \"Gap 3: Game rules validation\" - mentions checking card count limits\n- **gap_4 (deck size validation)**: \u2713 Identified in \"Gap 3: Game rules validation\" - explicitly mentions \"Check deck size (typically 30 cards)\"\n- **gap_5 (card ID validation)**: \u2713 Identified as \"Gap 5: Semantic validation\" - mentions validating card existence\n- **gap_6 (human-readable output)**: \u2717 Identified as \"Gap 7: Human-readable output\" BUT the report discusses card names/metadata resolution, while the ground truth gap is specifically about returning raw tuples vs structured objects with metadata. The report conflates two issues.\n- **gap_7 (format version migration)**: \u2713 Identified as \"Gap 11: Versioning strategy\" - discusses supporting multiple versions\n- **gap_8 (logging/error context)**: \u2717 The report has \"Gap 4: Logging and observability\" but focuses on general logging infrastructure, not specifically on including parse position/section context in error messages\n- **gap_9 (serialization formats)**: \u2713 Identified in \"Gap 7: Human-readable output\" - mentions `to_dict()`, `to_text()` methods\n- **gap_10 (batch processing)**: \u2717 Not identified - no mention of concurrent, batch, streaming, or async processing\n\n**Plan Specificity Analysis:**\n- **gap_1**: concrete - specific error types, try-except blocks, bounds checking, position tracking\n- **gap_2**: concrete - specific checks for max length, trailing bytes, EOF validation\n- **gap_3**: concrete - validate() method, specific rule checks, is_valid property\n- **gap_4**: concrete - logging levels, specific log messages, strict parameter\n- **gap_5**: concrete - CardDatabase interface, specific validation methods, ValidationResult structure\n- **gap_7**: concrete - specific method signatures, format examples\n- **gap_9**: concrete - specific methods (__str__, to_dict, to_text), format example\n- **gap_11**: concrete - version registry pattern, refactoring approach, migration function",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": false,
+      "gap_9": true,
+      "gap_10": false,
+      "gap_11": true,
+      "gap_12": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "absent",
+      "gap_9": "concrete",
+      "gap_10": "absent",
+      "gap_11": "concrete",
+      "gap_12": "absent"
+    }
+  }
+}

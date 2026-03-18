@@ -1,0 +1,29 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- Point 6 (\"Deduplication: Uses timestamp-based keys to prevent duplicate entries within a category\") is incorrect. The system doesn't deduplicate at all\u2014each fetch overwrites the entire output file, and entries from different feeds with the same content will both appear.\n- Most other observations are accurate descriptions of working capabilities.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified as \"No Error Recovery\" and \"No HTTP Timeouts\"\n- **gap_2 (feed validation)**: \u2705 Identified as \"No Validation: Malformed feed JSON or missing fields cause crashes\"\n- **gap_3 (deduplication across fetches)**: \u274c Not identified. The report incorrectly claims deduplication exists in Observations #6\n- **gap_4 (no content extraction)**: \u274c Not identified. Report doesn't mention missing description/summary/content/tags/media\n- **gap_5 (no caching/conditional fetching)**: \u2705 Identified as \"No Incremental Updates\" (plan #14) discussing If-Modified-Since and 304 responses\n- **gap_6 (rate limiting)**: \u2705 Identified as \"No Rate Limiting\" (critical gap #2)\n- **gap_7 (no persistent state)**: \u2705 Partially identified as \"No Stale Data Handling\" and feed health monitoring, though doesn't explicitly mention read/unread tracking\n- **gap_8 (error recovery/retry)**: \u2705 Identified as \"No Error Recovery\" and \"No Retry Logic\"\n- **gap_9 (OPML import/export)**: \u2705 Identified as \"No Feed Discovery\" (plan #16)\n- **gap_10 (output format flexibility)**: \u274c Not identified. No mention of hardcoded JSON output or need for HTML/terminal/email formats\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific code changes with line numbers, exception types, and data structures\n- **gap_2**: \"concrete\" - Specific validation checks, null checks, schema validation\n- **gap_5**: \"concrete\" - Specific HTTP headers, status codes, and caching logic\n- **gap_6**: \"concrete\" - Specific timing values (0.5s sleep, 2 req/s), session setup, config fields\n- **gap_7**: \"directional\" - Mentions health_status and metrics but doesn't address read/unread tracking or \"last fetched\" per feed in concrete terms\n- **gap_8**: \"concrete\" - Specific retry parameters, backoff factors, status codes\n- **gap_9**: \"concrete\" - Specific HTML parsing approach, BeautifulSoup, link rel attributes",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete"
+    }
+  }
+}

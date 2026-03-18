@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "I'll evaluate this diagnostic report against the ground-truth gaps and the actual system capabilities.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": false,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"absent\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"directional\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 5 major working capabilities without false claims or mischaracterizations.\n\n**Gap Coverage:**\n- **gap_1 (input sanitization/truncation)**: NOT identified - Report mentions \"No Validation\" but focuses on game rules, not parsing robustness\n- **gap_2 (trailing bytes)**: NOT identified - No mention of unparsed data detection\n- **gap_3 (card-count validation)**: IDENTIFIED - Triage #1 mentions \"max 2x per card\"\n- **gap_4 (deck-size validation)**: IDENTIFIED - Triage #1 mentions \"30 cards\"\n- **gap_5 (card-ID validation)**: IDENTIFIED - Triage #3 mentions \"validate card existence\"\n- **gap_6 (human-readable output)**: IDENTIFIED - Triage #6 covers text export formats\n- **gap_7 (format-version migration)**: NOT identified - No mention of version compatibility\n- **gap_8 (error context)**: IDENTIFIED - Triage #2 is exactly this\n- **gap_9 (serialization to dict/json)**: NOT identified - Triage #6 mentions `to_json()` but only in the Plan, not identified as a current gap in Triage\n- **gap_10 (batch processing)**: NOT identified - No mention of concurrent/streaming operations\n\n**Plan Specificity:**\n- **gap_3, gap_4, gap_5**: Plan #1 provides concrete validation method signature but card database integration (Plan #3) is only directional\n- **gap_6**: Plan #6 shows concrete text format example and method signatures\n- **gap_8**: Plan #2 provides concrete implementation approach with exception class and byte tracking",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": false,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "absent",
+      "gap_2": "absent",
+      "gap_3": "directional",
+      "gap_4": "concrete",
+      "gap_5": "directional",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

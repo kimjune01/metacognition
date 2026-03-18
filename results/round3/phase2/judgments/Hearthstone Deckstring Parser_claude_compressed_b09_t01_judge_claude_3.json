@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": false,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"absent\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly identifies the working capabilities: base64 decoding, varint encoding/decoding, format validation, hero validation, card trisort, sideboard support, and round-trip conversion\n- All listed capabilities accurately describe what the system does\n\n**Gap Coverage Analysis:**\n- **gap_1 (truncation/EOFError)**: NOT identified. The report mentions \"Silent failures possible (e.g., trailing bytes ignored)\" but doesn't identify the truncation/EOFError issue\n- **gap_2 (trailing bytes)**: NOT identified. While #5 mentions \"trailing bytes ignored,\" this is listed under telemetry/warnings, not as a validation gap\n- **gap_3 (card count validation)**: IDENTIFIED in Triage #1 as \"invalid card counts\"\n- **gap_4 (deck size validation)**: IDENTIFIED in Plan #1 with concrete check for 30-card requirement\n- **gap_5 (card ID validation)**: IDENTIFIED in Triage #1 as semantic validation gap\n- **gap_6 (human-readable output)**: IDENTIFIED in Triage #7 and Plan #7\n- **gap_7 (version migration)**: NOT identified. The report doesn't mention handling future format versions\n- **gap_8 (error context)**: IDENTIFIED in Triage #3 and Plan #3\n- **gap_9 (serialization formats)**: IDENTIFIED in Triage #7 and Plan #6/#7\n- **gap_10 (batch processing)**: NOT identified. No mention of concurrent/bulk processing\n\n**Plan Specificity:**\n- For identified gaps (3, 4, 5, 6, 8, 9), the Plan section provides concrete code examples and implementation details\n- For unidentified gaps (1, 2, 7, 10), no plan exists (marked \"absent\")",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": false,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "absent",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

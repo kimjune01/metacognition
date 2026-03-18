@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "Looking at this diagnostic report, I'll evaluate it systematically against the ground truth.\n\n## Analysis\n\n**OBSERVATION ACCURACY:**\nThe Observations section correctly describes all 8 core capabilities of the system. It accurately identifies varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, the Deck class, sideboard support, version checking, and format type handling. All descriptions match the actual implementation.\n\n**GAP COVERAGE:**\nLet me map each ground-truth gap to the report's triage:\n\n- **gap_1** (no truncation validation): Identified in Triage #1 - \"Add length validation before reading varints to prevent infinite loops on malformed data\"\n- **gap_2** (no trailing-byte detection): NOT identified - the report never mentions checking for unparsed trailing bytes\n- **gap_3** (no card-count validation): Identified in Triage #1 - \"Validate card counts are positive and reasonable\"\n- **gap_4** (no deck-size validation): Identified in Triage #2 - \"30-card minimum (Standard/Wild)\" with example code `validate_deck_size()`\n- **gap_5** (no card-ID validation): Identified in Triage #2 - \"Validate hero-class alignment\" and Triage #3 discusses card database integration for metadata validation\n- **gap_6** (no human-readable output): Identified in Triage #3 - \"Add `Deck.to_human_readable() -> str`\"\n- **gap_7** (no format-version migration): Identified in Triage #1 - \"Add custom exceptions: `UnsupportedVersionError`\" (though migration strategy not detailed)\n- **gap_8** (no logging/error context): Identified in Triage #4 - dedicated logging section\n- **gap_9** (no serialization to standard formats): NOT identified - the report doesn't mention to_dict(), to_json(), or __repr__\n- **gap_10** (no concurrent/batch processing): NOT identified - no mention of async, streaming, or batch operations\n\n**PLAN SPECIFICITY:**\nFor gaps the report DID identify:\n\n- **gap_1**: Concrete - shows specific try-except blocks, custom exceptions, and length validation\n- **gap_3**: Concrete - shows validation logic and provides code examples\n- **gap_4**: Concrete - provides example `validate_deck_size()` method with clear implementation\n- **gap_5**: Concrete - detailed Card dataclass, CardDatabase interface, and validation methods\n- **gap_6**: Concrete - exact method signature and example implementation provided\n- **gap_7**: Directional - mentions UnsupportedVersionError but doesn't detail migration/fallback strategy\n- **gap_8**: Concrete - specific logging statements for debug/warning/info levels with use cases\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

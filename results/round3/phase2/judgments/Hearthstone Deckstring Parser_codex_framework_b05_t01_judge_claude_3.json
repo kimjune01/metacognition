@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "I'll evaluate this diagnostic report systematically against the ground truth.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: base64 deckstring decode/encode, header validation, format enum handling, card multiplicity grouping, sideboard parsing, sorting, and round-trip support. It accurately captures the working capabilities without overstating them.\n\n**Gap Coverage:**\n- **gap_1 (truncated deckstring \u2192 EOFError)**: \u2713 Identified in Triage #2 \"EOF during parse can surface as low-level exceptions\"\n- **gap_2 (trailing bytes not detected)**: \u2713 Identified in Triage #2 \"trailing bytes are ignored\"\n- **gap_3 (no card-count validation)**: \u2713 Identified in Triage #2 \"counts are not validated\"\n- **gap_4 (no deck-size validation)**: \u2717 Not mentioned. The report validates individual card counts but never mentions total deck size (30/40 cards)\n- **gap_5 (no card-ID validation)**: \u2713 Identified in Triage #2 \"card IDs are not validated\"\n- **gap_6 (no human-readable output)**: \u2717 Not mentioned. The report focuses on data structures and validation but never addresses the lack of card name resolution or metadata\n- **gap_7 (no format-version migration)**: \u2713 Identified in Triage #5 \"version and format behavior without explicit compatibility guarantees\" and Plan #5 mentions future versions\n- **gap_8 (no logging/error context)**: \u2713 Identified in Triage #3 \"callers get a mix of ValueError and EOFError without context\"\n- **gap_9 (no serialization to JSON/dict)**: \u2713 Identified in Triage #4 \"data model is under-specified\" and the Deck class issues, though somewhat indirect\n- **gap_10 (no batch processing)**: \u2717 Not mentioned. The report focuses on single-deckstring processing without considering bulk/async scenarios\n\n**Plan Specificity:**\n- **gap_1**: concrete - \"compare against b''\" and \"c[0]\" with bounds protection\n- **gap_2**: concrete - \"reject trailing unread bytes after the sideboard section\"\n- **gap_3**: concrete - \"Validate that card counts are positive integers\"\n- **gap_4**: absent - Not in plan\n- **gap_5**: concrete - \"Validate tuple arity and types before serializing\"\n- **gap_6**: absent - Not in plan\n- **gap_7**: directional - Plan #5 mentions \"future deckstring versions can be added cleanly\" but doesn't specify migration strategy\n- **gap_8**: concrete - \"Wrap decode and parse failures in a single module-specific exception\"\n- **gap_9**: concrete - \"Introduce dataclasses or NamedTuple\" addresses serialization structure\n- **gap_10**: absent - Not in plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "problem": "Hearthstone Deckstring Parser",
+  "model": "codex",
+  "condition": "framework",
+  "batch": 4,
+  "trial": 1,
+  "timestamp": "2026-03-17T15:10:53+00:00",
+  "prompt_tokens": 10202,
+  "report_file": "/Users/junekim/Documents/metacognition/results/round3/phase2/reports/Hearthstone Deckstring Parser_codex_framework_b04_t01.md",
+  "score": 0.4,
+  "gap_coverage": {
+    "gap_1": true,
+    "gap_10": false,
+    "gap_2": true,
+    "gap_3": true,
+    "gap_4": false,
+    "gap_5": false,
+    "gap_6": false,
+    "gap_7": false,
+    "gap_8": true,
+    "gap_9": false
+  },
+  "observation_accuracy": {
+    "codex": "mostly_accurate",
+    "claude": "accurate"
+  },
+  "plan_specificity": {
+    "codex": {
+      "gap_1": "concrete",
+      "gap_10": "absent",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent"
+    },
+    "claude": {
+      "gap_1": "concrete",
+      "gap_10": "absent",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent"
+    }
+  },
+  "disagreements": {
+    "gap_5": {
+      "codex": false,
+      "claude": true
+    },
+    "gap_7": {
+      "codex": false,
+      "claude": true
+    }
+  }
+}

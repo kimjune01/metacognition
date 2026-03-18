@@ -1,0 +1,28 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parse/write, tri-sort grouping, sideboard support, version checking, format validation, and the Deck wrapper class. It accurately identifies the narrow scope and valid-input assumptions.\n\n**Gap Coverage:**\n- **gap_1** (truncated deckstring validation): \u2713 Identified in Triage #2 as \"does not validate truncated payloads robustly\"\n- **gap_2** (trailing-byte detection): \u2713 Identified in Triage #2 as \"trailing garbage\" and Plan #2 as \"verify there is no trailing data\"\n- **gap_3** (card-count validation): \u2713 Identified in Triage #2 as \"invalid counts\" and Plan #2 as \"counts must be positive\"\n- **gap_4** (deck-size validation): \u2717 Not mentioned anywhere in the report\n- **gap_5** (card-ID validation): \u2713 Identified in Triage #2 as validation needed and Plan #2/5 as \"card IDs must be positive integers\"\n- **gap_6** (human-readable output): \u2717 Not mentioned anywhere in the report\n- **gap_7** (format-version migration): \u2713 Identified in Triage #6 as \"No compatibility policy\" and Plan #6 as version-specific payload parsing\n- **gap_8** (logging/error context): \u2713 Identified in Triage #3 as \"generic ValueError/EOFError with limited context\" and Plan #3 as adding actionable context\n- **gap_9** (serialization to standard formats): \u2717 Not mentioned anywhere in the report\n- **gap_10** (batch processing): \u2717 Not mentioned anywhere in the report\n\n**Plan Specificity:**\nFor gaps identified, the Plan section provides:\n- **gap_1**: Concrete (specific code changes for varint parsing with byte handling)\n- **gap_2**: Concrete (specific validation step to check trailing data)\n- **gap_3**: Concrete (specific validation rules for counts being positive)\n- **gap_5**: Concrete (specific validation that IDs must be positive integers)\n- **gap_7**: Concrete (refactor into version-specific parsing with header/version separation)\n- **gap_8**: Concrete (introduce specific exception types with actionable context)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_5": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_8\": \"directional\"\n  }\n}\n```\n\n## Scoring Rationale\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: base64 decoding, varint parsing, format/hero/card/sideboard parsing, trisort grouping, round-trip conversion, and the object model. It accurately states what validation exists (version, format enum, hero count).\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (truncation/EOFError)**: \u2705 Identified - \"Fix `_read_varint()` to detect `b\"\"` and raise a domain-appropriate truncation error\"\n- **gap_2 (trailing bytes)**: \u2705 Identified - Implicitly covered by \"The code only validates a few structural fields\" and the call for comprehensive validation\n- **gap_3 (card-count validation)**: \u2705 Identified - \"positive counts\" mentioned explicitly in validation list\n- **gap_4 (deck-size validation)**: \u274c Not identified - No mention of total card count or 30/40 card deck limits\n- **gap_5 (card-ID validation)**: \u2705 Identified - \"nonnegative ids\" covers the lack of database validation\n- **gap_6 (human-readable output)**: \u274c Not identified - No mention of card name resolution or metadata\n- **gap_7 (version migration)**: \u274c Not identified - Only mentions version must match, no discussion of graceful degradation\n- **gap_8 (error context)**: \u2705 Identified - \"Make parse/write error messages precise enough for callers to log and act on\"\n- **gap_9 (serialization formats)**: \u274c Not identified - No mention of to_dict/to_json/__repr__\n- **gap_10 (batch processing)**: \u274c Not identified - No discussion of concurrent or bulk operations\n\n**Plan Specificity for Identified Gaps:**\n\n- **gap_1**: concrete - Specific fix provided with implementation detail\n- **gap_2**: concrete - Covered by comprehensive validation plan in step 1\n- **gap_3**: concrete - Explicitly listed in validation additions\n- **gap_5**: concrete - Listed as \"nonnegative ids\" in validation plan\n- **gap_8**: directional - States goal (\"precise error messages\") but lacks concrete implementation details about what context to include",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_5": "concrete",
+      "gap_8": "directional"
+    }
+  }
+}

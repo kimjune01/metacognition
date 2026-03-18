@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies all working capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, Deck class wrapper, sideboard support, version checking, and format validation. No false claims about capabilities.\n\n**Gap Coverage:**\n- **gap_1** (truncated input handling): \u2713 Identified in Triage #2 as \"No checks for... malformed counts\" and \"unsafe failure modes\"\n- **gap_2** (trailing bytes): \u2713 Identified in Plan #2 as \"After parsing, verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3** (card count validation): \u2713 Identified in Triage #2 and Plan #2 as \"Validate decoded values: ...counts > 0\"\n- **gap_4** (deck size validation): \u2713 Identified in Triage #8 and Plan #8 as \"legal deck size\" enforcement\n- **gap_5** (card ID validation): \u2713 Identified in Plan #2 as \"card ids > 0\" (though not database validation)\n- **gap_6** (human-readable output): \u2717 Not mentioned anywhere\n- **gap_7** (format version migration): \u2717 Plan #3 mentions \"unsupported version 2\" error but no migration strategy\n- **gap_8** (error context): \u2713 Identified in Triage #3 and Plan #3 as \"Make messages actionable\"\n- **gap_9** (serialization formats): \u2713 Implicitly covered by Triage #6 noting minimal Deck model\n- **gap_10** (batch processing): \u2717 Not mentioned anywhere\n\n**Plan Specificity:**\n- **gap_1**: concrete (specific code changes for EOF handling and byte comparison)\n- **gap_2**: concrete (explicit validation steps listed)\n- **gap_3**: concrete (specific validation rules: \"counts > 0\")\n- **gap_4**: directional (mentions \"legal deck size\" but no implementation detail)\n- **gap_5**: concrete (specific validation: \"card ids > 0\")\n- **gap_8**: concrete (specific exception types and message examples)\n- **gap_9**: concrete (suggests add_card(), normalize() methods and dataclass conversion)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

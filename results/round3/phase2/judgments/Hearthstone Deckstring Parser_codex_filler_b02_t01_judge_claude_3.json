@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the working capabilities of the system, including varint support, header parsing, hero/card/sideboard handling, the Deck wrapper, and what validation exists.\n\n**Gap Coverage:**\n- **gap_1 (truncated deckstring \u2192 unhandled EOFError)**: \u2705 Identified in Triage #2 \"No validation for truncated payloads beyond varint EOF\"\n- **gap_2 (no trailing-byte detection)**: \u2705 Identified in Triage #2 and Plan #2 \"verify there is no trailing garbage\"\n- **gap_3 (no card-count validation)**: \u2705 Identified in Triage #5 \"invalid counts\" and Plan #2 \"counts >= 1\"\n- **gap_4 (no deck-size validation)**: \u2705 Identified in Triage #5 \"empty deck\" and the general domain constraints discussion\n- **gap_5 (no card-ID validation)**: \u2705 Identified in Triage #2 \"negative IDs\" and Plan #2 \"card IDs > 0\"\n- **gap_6 (no human-readable output)**: \u274c Not identified. The report focuses on serialization correctness, not card name resolution or metadata lookup\n- **gap_7 (no format-version migration)**: \u274c Not identified. The report mentions version checks but doesn't discuss graceful degradation for future versions\n- **gap_8 (no logging or error context)**: \u2705 Identified in Triage #3 \"Errors are generic... with limited context\" and Plan #3 about domain-specific exceptions with field context\n- **gap_9 (no serialization to standard formats)**: \u2705 Identified in Triage #6 and Plan #6 \"to_dict() / from_dict()\"\n- **gap_10 (no batch/concurrent processing)**: \u274c Not identified. The report doesn't mention batch or async processing\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific code changes shown (change empty string check to bytes, use `c[0]` instead of `ord(c)`)\n- **gap_2**: \"concrete\" - Explicit action \"verify there is no trailing garbage unless explicitly allowed\"\n- **gap_3**: \"concrete\" - Specific validation \"counts >= 1\"\n- **gap_4**: \"absent\" - While \"empty deck\" is mentioned in Triage #5, the Plan doesn't specify deck-size validation (e.g., checking for exactly 30 cards)\n- **gap_5**: \"concrete\" - Specific validations \"hero IDs > 0\", \"card IDs > 0\"\n- **gap_6**: \"absent\" - Not identified, so no plan\n- **gap_7**: \"absent\" - Not identified, so no plan\n- **gap_8**: \"concrete\" - Specific custom exception classes listed and \"field-specific context\" directive\n- **gap_9**: \"concrete\" - Specific methods listed \"to_dict() / from_dict()\"\n- **gap_10**: \"absent\" - Not identified, so no plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

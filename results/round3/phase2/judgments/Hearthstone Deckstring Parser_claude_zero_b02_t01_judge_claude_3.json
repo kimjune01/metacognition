@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies all major working capabilities: bidirectional conversion, varint encoding, trisort optimization, sideboard support, OOP interface, and format validation. The descriptions are technically accurate.\n\n**Gap Coverage:**\n- **gap_1 (truncated deckstring)**: \u2705 Identified in Critical Gap #1 as \"buffer underrun\" and Plan #1 mentions catching `EOFError`\n- **gap_2 (trailing bytes)**: \u274c Not mentioned anywhere\n- **gap_3 (card-count validation)**: \u2705 Important Gap #2 mentions \"invalid card counts\"\n- **gap_4 (deck-size validation)**: \u2705 Plan #2 explicitly adds \"max_cards\" parameter with 30-card default\n- **gap_5 (card-ID validation)**: \u2705 Plan #2 mentions \"card IDs > 0\" validation\n- **gap_6 (human-readable output)**: \u274c Not mentioned (Plan #4 adds `__repr__` but for debugging, not card-name resolution)\n- **gap_7 (format-version migration)**: \u274c Not mentioned (Plan #1 only improves error message for version mismatches)\n- **gap_8 (logging/error context)**: \u2705 Critical Gap #1 and entire Plan #7 dedicated to logging\n- **gap_9 (serialization formats)**: \u2705 Nice-to-Have Gap #9 mentions \"no CLI or examples\" and Plan #4 adds `__repr__`\n- **gap_10 (batch processing)**: \u274c Not mentioned\n\n**Plan Specificity:**\nFor gaps that were identified, most plans are concrete with specific line numbers, code examples, or module names (e.g., \"Add position tracking to BytesIO stream\", \"Use `bisect` module\", \"Create `tests/test_deckstrings.py`\"). The unidentified gaps naturally have no plan entries.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

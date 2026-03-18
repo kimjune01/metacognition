@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- The report correctly identifies most working capabilities (feed parsing, multi-category support, timezone handling, date formatting, configuration management, sorting)\n- However, observation #6 claims \"Deduplication: Uses timestamps as IDs to prevent duplicate entries\" which is misleading - using timestamps as IDs doesn't actually deduplicate across feeds or prevent collisions; it's the gap itself, not a working feature\n- The observations are otherwise accurate descriptions of what the system does\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2713 Identified as \"No Error Recovery\" - describes feed failure killing entire process\n- **gap_2 (feed validation)**: \u2717 The report mentions config validation (#5) but not validation of parsed feed data itself\n- **gap_3 (deduplication)**: \u2717 Mentions \"ID Collision Risk\" (#4) but doesn't identify the lack of cross-feed or cross-run deduplication\n- **gap_4 (content extraction)**: \u2717 Not mentioned - no gap identified about missing description/summary/content fields\n- **gap_5 (caching/conditional fetching)**: \u2713 Identified as \"No Caching Headers\" (#7)\n- **gap_6 (rate limiting)**: \u2713 Identified as \"No Rate Limiting\" (#3)\n- **gap_7 (persistent state)**: \u2717 Not identified - no mention of missing read/unread tracking or \"last fetched\" state\n- **gap_8 (error recovery/retry)**: \u2713 Covered by \"No Error Recovery\" (#1) which mentions no retry logic\n- **gap_9 (OPML import/export)**: \u2713 Identified as \"No OPML Import/Export\" (#17) and \"No Feed Discovery\" (#16)\n- **gap_10 (output format flexibility)**: \u2717 Not mentioned - no gap about hardcoded JSON output format\n\n**Plan Specificity:**\n- **gap_1**: Concrete - provides actual code with try-except wrapper and continue statement\n- **gap_5**: Concrete - shows code for storing/using ETags and Last-Modified headers\n- **gap_6**: Concrete - shows time.sleep() implementation with configurable delays\n- **gap_8**: Concrete - detailed in the error recovery plan (#1) with code\n- **gap_9**: Directional - mentions it as a gap (#16, #17) but provides no implementation details or code",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}

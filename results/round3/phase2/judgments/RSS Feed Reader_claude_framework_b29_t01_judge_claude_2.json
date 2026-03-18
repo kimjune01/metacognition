@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n## Rationale\n\n**Observation Accuracy: mostly_accurate**\n- Most observations are correct (feed parsing, multi-category, timestamp normalization, sorted output, JSON persistence, author display)\n- However, observation #5 \"Deduplication: Uses timestamp as ID to prevent duplicate entries within a single fetch\" is misleading. The system does use timestamp as ID, but this actually *causes* problems (collisions) rather than preventing duplicates across feeds, which is noted correctly in the Triage section\n- Observation #9 about \"graceful degradation\" is partially incorrect - the bare except with sys.exit() is not graceful\n\n**Gap Coverage Analysis:**\n- **gap_1** \u2713 Identified as Critical #1 \"No error recovery or retry logic\"\n- **gap_2** \u2717 Not identified. The report mentions checking `d.bozo` flag in the plan, but doesn't call out the lack of feed validation as a gap\n- **gap_3** \u2713 Identified as Critical #4 \"Timestamp collision overwrites entries\" \n- **gap_4** \u2713 Identified as Low #13 \"No entry content/summary\"\n- **gap_5** \u2713 Identified as High #6 \"Missing HTTP client configuration\" (mentions ETag/Last-Modified)\n- **gap_6** \u2717 Not identified. Medium #11 discusses serial vs concurrent fetching for performance, but doesn't mention rate limiting or throttling to be respectful to servers\n- **gap_7** \u2713 Identified as High #7 \"No incremental updates\" (mentions tracking \"seen\" vs \"new\")\n- **gap_8** \u2713 Identified as Critical #1 \"No error recovery or retry logic\"\n- **gap_9** \u2717 Not identified. No mention of OPML import/export or feed discovery\n- **gap_10** \u2713 Identified as Low #14 \"Inflexible output format\"\n\n**Plan Specificity Analysis:**\n- **gap_1**: concrete - Provides specific code with retry logic, exception handling, exponential backoff\n- **gap_3**: concrete - Shows exact code for generating non-colliding IDs using hash of timestamp+source+link\n- **gap_4**: concrete - Shows how to extract and truncate summary/content fields\n- **gap_5**: concrete - Demonstrates requests session configuration, ETag storage and conditional requests\n- **gap_7**: concrete - Shows code for loading existing entries, merging, and adding seen field\n- **gap_8**: concrete - Same as gap_1, includes retry logic and continuation instead of exit\n- **gap_10**: concrete - Shows format parameter and dispatch pattern with specific example",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "concrete"
+    }
+  }
+}

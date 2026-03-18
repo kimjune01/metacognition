@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all seven working capabilities of the system without false claims or significant omissions.\n\n**Gap Coverage:**\n- **gap_1 (truncation/corruption handling): true** - Identified in Triage #2 \"Silent error handling - EOFError and ValueError are raised but not documented; malformed deckstrings crash\"\n- **gap_2 (trailing-byte detection): false** - Not mentioned anywhere in the report\n- **gap_3 (card-count validation): true** - Identified in Triage #1 \"wrong card counts for format\"\n- **gap_4 (deck-size validation): true** - Identified in Plan #1 \"Card count limits (30 for Standard/Wild...)\" and Plan #10 \"total_cards()\"\n- **gap_5 (card-ID validation): true** - Identified in Triage #5 \"Cannot validate DBF IDs\"\n- **gap_6 (human-readable output): true** - Identified in Triage #9 \"No human-readable output\"\n- **gap_7 (format-version migration): true** - Identified in Triage #11 \"No format conversion\"\n- **gap_8 (logging/error context): true** - Identified in Triage #3 \"No logging\" and #8 \"Error messages lack context\"\n- **gap_9 (serialization formats): true** - Identified in Triage #15 \"No alternative serialization - Cannot export to JSON\"\n- **gap_10 (batch/concurrent processing): false** - Not mentioned anywhere in the report\n\n**Plan Specificity:**\nFor gaps identified in Triage, all have concrete plans with specific implementation details (file names, method signatures, code examples) except gap_2 and gap_10 which weren't identified at all (marked \"absent\").",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

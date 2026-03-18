@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll evaluate this diagnostic report systematically against the ground truth.\n\n## Analysis\n\n**OBSERVATION ACCURACY:**\nThe Observations section correctly describes the system's working capabilities. It accurately identifies:\n- Core encode/decode functionality\n- Varint serialization\n- Deck class with proper attributes\n- Trisort card grouping\n- Format validation\n- Sideboard support\n- Version checking\n\nAll claims are verifiable against the stated system behavior. **Score: accurate**\n\n**GAP COVERAGE:**\nComparing each ground-truth gap to the Triage section:\n\n- **gap_1** (no length validation, unhandled EOFError): \u2705 Identified in point #2 \"No validation for truncated payloads beyond the varint loop\"\n- **gap_2** (no trailing-byte detection): \u2705 Identified in point #2 \"No explicit rejection of malformed extra trailing bytes\" and Plan #2 \"After parsing expected fields, check for unexpected trailing bytes\"\n- **gap_3** (no card-count validation): \u2705 Identified in point #2 \"Counts, IDs, and format assumptions are mostly trusted\" and Plan #2 \"Validate card IDs and counts are positive integers\"\n- **gap_4** (no deck-size validation): \u274c Not identified. The report never mentions validating total deck size (30/40 cards)\n- **gap_5** (no card-ID validation against database): \u2705 Partially identified in point #2 \"Counts, IDs, and format assumptions are mostly trusted\" but this is about validation in general, not specifically database lookup\n- **gap_6** (no human-readable output): \u274c Not identified. The report never mentions card name resolution or metadata lookup\n- **gap_7** (no format-version migration): \u2705 Identified in point #3 \"Versioning support is rigid; future protocol revisions would require direct code edits\" and Plan #3 \"Consider a version-dispatch parser\"\n- **gap_8** (no logging/error context): \u2705 Identified in point #8 \"No logging hooks or diagnostics for failure cases\"\n- **gap_9** (no serialization to dict/json): \u274c Not identified. The report mentions \"raw tuples/lists\" but doesn't specifically call out missing to_dict(), to_json(), or __repr__ methods\n- **gap_10** (no batch/async processing): \u274c Not identified. The report never mentions concurrent or batch processing capabilities\n\n**PLAN SPECIFICITY:**\nFor gaps the report DID identify:\n\n- **gap_1**: **concrete** - Plan #2 includes \"convert decode errors into a domain-specific exception\" and \"Add clearer error messages for...truncated streams\"\n- **gap_2**: **concrete** - Plan #2 explicitly states \"After parsing expected fields, check for unexpected trailing bytes\"\n- **gap_3**: **concrete** - Plan #2 states \"Validate card IDs and counts are positive integers\"\n- **gap_4**: N/A (not identified)\n- **gap_5**: **directional** - Plan #2 mentions validation but doesn't specify database lookup or external validation\n- **gap_6**: N/A (not identified)\n- **gap_7**: **concrete** - Plan #3 includes \"Consider a version-dispatch parser if multiple deckstring versions may need support\"\n- **gap_8**: **directional** - Plan #8 says \"document failure modes\" but doesn't specify adding structured logging with position/context\n- **gap_9**: N/A (not identified)\n- **gap_10**: N/A (not identified)\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "directional",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

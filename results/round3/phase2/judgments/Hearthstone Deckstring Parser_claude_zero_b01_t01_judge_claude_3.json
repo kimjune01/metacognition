@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": false,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"absent\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"directional\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes all working capabilities: varint encoding/decoding, parsing, generation, the Deck class, tri-sorting, version handling, format types, and sideboard support.\n\n**Gap Coverage:**\n- **gap_1 (truncated stream validation)**: NOT identified. The report mentions \"Add length validation before reading varints\" but doesn't specifically address the lack of validation that the byte stream has expected length or the EOFError on truncated input.\n- **gap_2 (trailing-byte detection)**: NOT identified. No mention of checking for unparsed trailing bytes.\n- **gap_3 (card-count validation)**: IDENTIFIED in Critical Gap #2 \"No validation logic\" and Plan #2 mentions validating counts are positive.\n- **gap_4 (deck-size validation)**: IDENTIFIED in Critical Gap #2 and Plan #2 explicitly adds `validate_deck_size()` with 30-card minimum.\n- **gap_5 (card-ID validation)**: IDENTIFIED in Critical Gap #3 and Plan #3 addresses card database integration for validation.\n- **gap_6 (human-readable output)**: IDENTIFIED in Critical Gap #3 and Plan #3 adds `to_human_readable()`.\n- **gap_7 (format-version migration)**: NOT identified. The report mentions \"UnsupportedVersionError\" but doesn't address graceful degradation or migration for version 2.\n- **gap_8 (logging/error context)**: IDENTIFIED in Critical Gap #4 and Plan #4 adds structured logging.\n- **gap_9 (serialization formats)**: IDENTIFIED in Minor Gap #10 (though focused on CLI, the lack of to_dict/to_json is implied by \"Library-only\").\n- **gap_10 (batch processing)**: IDENTIFIED in Minor Gap #10 as \"No CLI or API interface\" implicitly covers the single-deckstring-at-a-time limitation, though not explicitly about async/batch.\n\n**Plan Specificity:**\n- **gap_3**: \"directional\" - mentions validating positive counts but lacks specifics on where/how to enforce game-rule limits\n- **gap_4**: \"concrete\" - includes specific method signature and 30-card check\n- **gap_5**: \"concrete\" - detailed CardDatabase interface and validation approach\n- **gap_6**: \"concrete\" - exact method signature and implementation example\n- **gap_8**: \"concrete\" - specific logging levels and use cases\n- **gap_9**: \"concrete\" - includes method signatures for statistics and human-readable output\n- Absent for gaps 1, 2, 7, 10 since they weren't identified",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": false,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "absent",
+      "gap_2": "absent",
+      "gap_3": "directional",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

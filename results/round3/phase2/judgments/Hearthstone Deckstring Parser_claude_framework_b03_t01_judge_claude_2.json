@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": false,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"absent\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Analysis:**\n\n**Observation Accuracy: accurate** - The Observations section correctly describes what the system does: decoding/encoding deckstrings, varint I/O, card organization, sideboard support, format validation, hero handling, and the Deck class interface. These are all factually accurate descriptions of the working capabilities.\n\n**Gap Coverage: 0/10** - The report identifies completely different gaps than the ground truth:\n\n- **Ground truth gaps 1-2** (input validation: truncation, trailing bytes) \u2192 Report has \"No error recovery\" which is about exception handling, not validation of stream bounds\n- **Ground truth gaps 3-5** (validation: card counts, deck size, card IDs) \u2192 Report's \"Missing validation logic\" is about game rules (card limits, format restrictions, banned cards), not basic data validation\n- **Ground truth gap 6** (human-readable output) \u2192 Not mentioned; report discusses \"card database integration\" for validation, not display\n- **Ground truth gap 7** (format-version migration) \u2192 Not mentioned; report discusses \"format coverage\" for enum completeness, not version handling\n- **Ground truth gap 8** (logging/error context) \u2192 Report mentions \"No logging\" for \"silent failures\" but doesn't identify the specific issue of missing position/section context in errors\n- **Ground truth gap 9** (serialization formats) \u2192 Not mentioned; report discusses \"convenience methods\" for deck manipulation, not serialization\n- **Ground truth gap 10** (batch processing) \u2192 Not mentioned at all\n\nThe report focuses on higher-level product features (game rule validation, card databases, hero support) rather than the low-level robustness issues in the ground truth (input sanitization, stream validation, error context, serialization formats).\n\n**Plan Specificity: all \"absent\"** - Since none of the ground truth gaps were identified, there are no plans addressing them.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": false,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "absent",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

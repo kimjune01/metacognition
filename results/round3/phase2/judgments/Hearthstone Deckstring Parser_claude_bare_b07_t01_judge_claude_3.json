@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Analysis:**\n\n**Observation Accuracy: accurate** - The Observations section correctly describes all working capabilities: bidirectional conversion, varint I/O, multi-section parsing, card optimization, sideboard support, format validation, and the Deck abstraction.\n\n**Gap Coverage:**\n- \u2705 **gap_1** (truncated deckstring \u2192 EOFError): Identified in Critical #1 \"No error recovery\" - mentions EOF errors from malformed deckstrings\n- \u274c **gap_2** (trailing bytes ignored): Not identified - no mention of unparsed trailing data\n- \u2705 **gap_3** (card count validation): Identified in Critical #2 \"Missing validation\" and Critical #3 mentions validating counts > 0\n- \u2705 **gap_4** (deck size validation): Identified in Critical #2 - explicitly mentions \"30-card main deck\" enforcement\n- \u2705 **gap_5** (card ID validation): Identified in High #5 \"No card database integration\" - mentions inability to validate cards exist\n- \u2705 **gap_6** (human-readable output): Identified in High #5 - \"can't provide human-readable names\"\n- \u274c **gap_7** (version migration): Not identified - report mentions version checks but not forward-compatibility or graceful degradation\n- \u2705 **gap_8** (error context): Identified in Critical #1 - \"minimal context\" in error messages\n- \u274c **gap_9** (serialization): Not identified - no mention of to_dict/to_json methods (though Low #12 adds them as \"nice to have\" utility)\n- \u274c **gap_10** (batch processing): Not identified - no mention of concurrent/bulk/async processing\n\n**Plan Specificity:**\n- **gap_1**: concrete - Detailed exception handling, custom exception classes, context in messages, validate_deckstring function\n- **gap_3**: concrete - Specific validation checks, count > 0 validation in Plan #3\n- **gap_4**: concrete - Deck.validate() method with 30-card check in Plan #2\n- **gap_5**: concrete - CardDatabase interface, validation methods, example implementations in Plan #5\n- **gap_6**: concrete - get_card_names() method, CardDatabase integration in Plan #5\n- **gap_8**: concrete - Logging at DEBUG/INFO/WARNING levels with specific details in Plan #8",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

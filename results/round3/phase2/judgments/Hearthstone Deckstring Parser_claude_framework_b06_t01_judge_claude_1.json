@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes all major working capabilities: decoding, encoding, varint handling, tri-sort optimization, OOP interface, and format enumeration. No false claims or mischaracterizations.\n\n**Gap Coverage:**\n- \u2705 **gap_1** (input sanitization): Covered by Critical Gap #1 \"No error handling for malformed input\"\n- \u274c **gap_2** (trailing-byte detection): Not identified anywhere in the report\n- \u2705 **gap_3** (card-count validation): Covered by Critical Gap #3 \"No validation of deck construction rules\" (mentions \"card counts\")\n- \u2705 **gap_4** (deck-size validation): Covered by Critical Gap #3 \"max 30 cards total\"\n- \u2705 **gap_5** (card-ID validation): Covered by Critical Gap #3 \"All cards are legal in the specified format\" (requires card database)\n- \u2705 **gap_6** (human-readable output): Covered by Important Gap #8 \"integrating hearthstone-data or creating CardDatabase\"\n- \u274c **gap_7** (format-version migration): Not mentioned (report only notes hardcoded hero count, not version rejection)\n- \u2705 **gap_8** (logging/error context): Covered by Critical Gap #1 (better error messages) and Minor Gap #11 (add logging)\n- \u2705 **gap_9** (serialization formats): Covered by Important Gap #8 \"to_dict() -> dict for JSON serialization\"\n- \u274c **gap_10** (batch processing): Not identified\n\n**Plan Specificity:**\n- **gap_1**: Concrete - specific code examples, exception class name, validation checks\n- **gap_3**: Concrete - specific validation logic with card limits\n- **gap_4**: Concrete - mentions \"Total card count == 30\" in validate() method\n- **gap_5**: Concrete - provides exact code snippet for validation\n- **gap_6**: Concrete - mentions CardDatabase class and hearthstone-data integration\n- **gap_8**: Concrete - specific logger calls and import statement\n- **gap_9**: Concrete - lists exact method signatures like `to_dict() -> dict`",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

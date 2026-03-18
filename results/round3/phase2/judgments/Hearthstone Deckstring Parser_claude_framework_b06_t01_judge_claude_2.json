@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly identifies all working capabilities: decoding, encoding, varint handling, card sorting, OOP interface, and format enumeration. No incorrect claims about what the system does.\n\n**Gap Coverage:**\n- \u2705 **gap_1** (truncated input): Identified as Critical Gap #1 \"No error handling for malformed input\" - mentions \"truncated data\"\n- \u274c **gap_2** (trailing bytes): Not identified - the report discusses input validation but never mentions checking for unparsed trailing data\n- \u2705 **gap_3** (card-count validation): Identified as Critical Gap #3 - mentions \"card counts\" and \"max 2 per card\"\n- \u2705 **gap_4** (deck-size validation): Identified as Critical Gap #3 - mentions \"max 30 cards total\"\n- \u2705 **gap_5** (card-ID validation): Identified as Critical Gap #3 - the plan mentions needing \"card database integration\" and checking \"cards are legal\"\n- \u2705 **gap_6** (human-readable output): Identified as Important Gap #8 - mentions missing \"CardDatabase class for lookups\" to resolve IDs\n- \u274c **gap_7** (format-version migration): Not identified - the report never mentions version compatibility or graceful degradation for future format versions\n- \u2705 **gap_8** (error context): Identified as Minor Gap #11 - mentions \"binary parsing failures would benefit from debug logging\"\n- \u2705 **gap_9** (serialization formats): Identified as Important Gap #8 - explicitly mentions missing \"to_dict() \u2192 dict for JSON serialization\"\n- \u274c **gap_10** (batch processing): Not identified - no mention of concurrent, async, or batch processing capabilities\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - specific code examples for try/except, EOF checking, custom exception class\n- **gap_3**: \"concrete\" - detailed `validate()` method with specific checks listed\n- **gap_4**: \"concrete\" - same as gap_3, includes total card count validation with concrete implementation\n- **gap_5**: \"concrete\" - complete code snippet provided for sideboard owner validation\n- **gap_8**: \"concrete\" - specific logging statements and logger setup provided\n- **gap_9**: \"concrete\" - lists specific methods to add including `to_dict()` with type signature",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, the Deck class wrapper, sideboard support, version checking, and format validation. All stated capabilities are present in the code.\n\n**Gap Coverage:**\n- **gap_1 (truncated/corrupted input)**: \u2713 Identified in Triage #2 \"No checks for trailing garbage after parsing\" and \"insufficient input validation and unsafe failure modes\"\n- **gap_2 (trailing-byte detection)**: \u2713 Explicitly mentioned in Plan #2 \"After parsing, verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3 (card-count validation)**: \u2713 Covered in Plan #2 \"counts > 0\" and \"no duplicate card entries\"\n- **gap_4 (deck-size validation)**: \u2713 Addressed in Triage #8 and Plan #8 \"legal deck size\"\n- **gap_5 (card-ID validation)**: \u2713 Covered in Plan #2 \"card ids > 0\" and Plan #8 domain validation layer\n- **gap_6 (human-readable output)**: \u2717 Not mentioned anywhere in the report\n- **gap_7 (format-version migration)**: \u2717 Not identified as a gap (report mentions rejection of non-version-1 but doesn't discuss graceful degradation)\n- **gap_8 (logging/error context)**: \u2713 Triage #3 and Plan #3 address error messages with \"Make messages actionable, e.g. 'invalid base64', 'unsupported version 2', 'trailing bytes after sideboards section'\"\n- **gap_9 (serialization formats)**: \u2713 Identified in Triage #6 \"Deck model is minimal\" though not explicitly calling out JSON/dict serialization\n- **gap_10 (batch processing)**: \u2717 Not mentioned\n\n**Plan Specificity:**\n- **gap_1**: concrete - Specific code changes provided for EOF handling\n- **gap_2**: concrete - Explicit step to verify stream is consumed after parsing\n- **gap_3**: concrete - Specific validation rules listed (counts > 0, card ids > 0, etc.)\n- **gap_4**: directional - Mentions \"legal deck size\" in Plan #8 but doesn't specify how to implement it\n- **gap_5**: concrete - Plan #2 and #8 provide specific validation steps\n- **gap_8**: concrete - Plan #3 provides specific exception types and example error messages\n- **gap_9**: concrete - Plan #6 suggests specific methods and dataclass conversion\n- **gap_6, gap_7, gap_10**: absent - Not identified, so no plan provided",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

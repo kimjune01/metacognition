@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Justification:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: RSS fetching, basic normalization of fields, timezone handling, category processing, config management, and JSON output. It accurately notes the limitations (shallow cache/filter/attend/remember, absent consolidate) without claiming capabilities the system doesn't have.\n\n**Gap Coverage:**\n\n- **gap_1 (HTTP error handling)**: TRUE - Triage point 5 explicitly mentions \"broad `except:` blocks and can terminate the whole process\" and Plan point 5 addresses replacing broad except with narrow exception handling.\n\n- **gap_2 (feed validation)**: TRUE - Triage point 3 states \"does not validate URLs, titles, missing fields, malformed feeds\" and Plan point 3 details validation rules.\n\n- **gap_3 (deduplication)**: TRUE - Triage point 1 identifies the timestamp-as-id collision problem, and Plan point 1 addresses stable per-item keys and proper deduplication.\n\n- **gap_4 (content extraction)**: TRUE - Plan point 1 mentions storing `summary` and `raw_source` fields beyond the current basic extraction, indicating awareness that more content should be captured.\n\n- **gap_5 (caching/conditional fetching)**: FALSE - The report discusses internal caching/storage but does not mention HTTP-level caching, ETags, Last-Modified headers, or If-Modified-Since requests.\n\n- **gap_6 (rate limiting)**: FALSE - Not mentioned. The \"Other production gaps\" section mentions \"network hygiene such as rate limiting\" but it's a passing reference without any plan detail.\n\n- **gap_7 (persistent state)**: TRUE - Triage point 2 identifies \"no durable item history, no read/update merge, no 'seen before' tracking\" and Plan point 2 details adding lifecycle tracking fields.\n\n- **gap_8 (error recovery/retry)**: TRUE - Triage point 5 mentions no retry policy, and Plan point 5 explicitly adds \"retry/backoff and timeout settings.\"\n\n- **gap_9 (OPML/feed discovery)**: FALSE - Not mentioned anywhere in the report.\n\n- **gap_10 (output format flexibility)**: TRUE - Triage point 2 mentions the output is \"only a flat JSON snapshot\" and Plan point 2 distinguishes between \"historical store\" and \"materialized/exported\" presentation layer, showing awareness of format rigidity.\n\n**Plan Specificity:**\n\n- **gap_1**: concrete - Plan point 5 gives specific actions: \"Replace broad `except:` with narrow exception handling. Do not call `sys.exit` inside feed fetch logic; collect per-feed failures and continue.\"\n\n- **gap_2**: concrete - Plan point 3 provides specific validation rules with examples: \"reject entries missing both GUID and link,\" \"reject empty or obviously broken titles,\" etc.\n\n- **gap_3**: concrete - Plan point 1 specifies: \"Replace `id = timestamp` with a stable per-item key, preferably derived from feed GUID, link, or a content hash\" and Plan point 3 details deduplication by GUID/link/content hash.\n\n- **gap_4**: concrete - Plan point 1 explicitly lists fields to store including `summary` and `raw_source`.\n\n- **gap_5**: absent - Not addressed in the plan.\n\n- **gap_6**: absent - Not addressed in the plan beyond a passing mention.\n\n- **gap_7**: concrete - Plan point 2 provides specific implementation: \"Track item lifecycle fields such as `first_seen_at`, `last_seen_at`, `seen_count`, and `status`\" with tables for feeds, items, and fetch_runs.\n\n- **gap_8**: concrete - Plan point 5 specifies: \"Add retry/backoff and timeout settings. Record fetch metadata in storage so failures are visible historically.\"\n\n- **gap_9**: absent - Not addressed.\n\n- **gap_10**: directional - Plan point 2 mentions separating \"current view\" from \"historical store\" and \"materialized/exported `rss_<category>.json` for the latest presentation layer,\" indicating awareness but without concrete implementation details for multiple output formats.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "directional"
+    }
+  }
+}

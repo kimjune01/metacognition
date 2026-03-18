@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: bidirectional encoding, varint serialization, card quantity optimization (trisort), format type support, hero tracking, sideboard support, OOP interface, and sorted output. No false claims or mischaracterizations.\n\n**Gap Coverage:**\n- \u2705 **gap_1** (truncated input): Identified as \"No error handling for malformed input\" with specific mention of crashes on truncated/corrupted deckstrings\n- \u274c **gap_2** (trailing bytes): Not identified - report doesn't mention checking for unparsed remaining data\n- \u2705 **gap_3** (card count validation): Identified in gap #2 \"No validation - Accepts invalid decks (wrong card counts...)\"\n- \u2705 **gap_4** (deck size validation): Identified in gap #2 and explicitly addressed in Plan section 2 with \"Total card count matches format rules\"\n- \u2705 **gap_5** (card ID validation): Identified in gap #6 \"No card database integration - Can't validate card IDs\"\n- \u2705 **gap_6** (human-readable output): Identified in gap #6 \"Can't validate card IDs or look up card names/properties\"\n- \u274c **gap_7** (version migration): Not identified - report mentions \"UnsupportedVersionError\" but doesn't discuss graceful degradation or version migration\n- \u2705 **gap_8** (logging/error context): Identified in gap #1 with \"Add context to errors (e.g., 'Failed at byte position 15...')\"\n- \u2705 **gap_9** (serialization formats): Identified in gap #9 \"No convenience methods\" with specific mention of `to_dict()`, `from_dict()`\n- \u274c **gap_10** (batch processing): Not identified - gap #10 mentions performance but focuses on sorting/caching, not concurrent/batch/async processing\n\n**Plan Specificity:**\n- **gap_1**: Concrete - specific exception classes, try/except patterns, validation steps, and code example provided\n- **gap_3**: Concrete - detailed validation method with specific checks and ValidationResult class example\n- **gap_4**: Concrete - addressed in same plan section as gap_3 with specific card count checks\n- **gap_5**: Concrete - Plan section 6 provides CardDatabase class approach and integration points\n- **gap_6**: Concrete - Plan section 6 includes get_card_name helper and database integration\n- **gap_8**: Concrete - Plan section 1 explicitly includes \"Add context to errors\" with example\n- **gap_9**: Concrete - Plan section 9 lists specific methods with signatures (to_dict, from_dict, __eq__, __repr__)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's actual capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, Deck class with round-trip conversion, sideboard support, version checking, and format type validation. All listed capabilities match the ground truth.\n\n**Gap Coverage:**\n- **gap_1 (no length validation)**: \u2705 Identified as Triage #1 \"No input validation\" and #8 \"Silent data truncation - Reading beyond stream end in `_read_varint` gives generic `EOFError`\"\n- **gap_2 (no trailing-byte detection)**: \u2705 Identified in Plan #1 under \"Check for trailing data: After parsing, verify `data.read(1) == b\"\"` to catch corrupted deckstrings\"\n- **gap_3 (no card-count validation)**: \u2705 Identified in Plan #1 \"Validate card counts: `if count < 1 or count > 99: raise ValueError(f\"Invalid card count {count}\")`\"\n- **gap_4 (no deck-size validation)**: \u2705 Identified in Triage #6 \"No deck legality checking\" and Plan #6 which mentions \"card count limits (30 for Standard)\"\n- **gap_5 (no card-ID validation)**: \u2705 Identified as Triage #5 \"No card database validation - Accepts invalid card IDs\"\n- **gap_6 (no human-readable output)**: \u2705 Identified as Triage #10 \"No human-readable export\" with Plan #10 providing `to_dict()` method\n- **gap_7 (no format-version migration)**: \u2705 Identified as Triage #12 \"No version migration - If Blizzard releases v2 deckstrings, parser will reject them entirely\"\n- **gap_8 (no logging/error context)**: \u2705 Identified as Triage #9 \"No logging or debugging\" and Plan #8 \"Better Error Messages\"\n- **gap_9 (no serialization to interchange formats)**: \u2705 Identified as Triage #10 and addressed in Plan #10 with `to_dict()` method (though no `__repr__` mentioned)\n- **gap_10 (no concurrent/batch processing)**: \u274c Not mentioned anywhere in the report\n\n**Plan Specificity:**\nFor gaps 1-9 that were identified, all have concrete, actionable plans with specific code changes, line numbers, function names, and implementation details. Gap 10 was not identified, so it's marked as \"absent\".",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

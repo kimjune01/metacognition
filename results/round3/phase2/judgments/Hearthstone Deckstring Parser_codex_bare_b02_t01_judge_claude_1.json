@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, the Deck class wrapper, sideboard support, version checking, and format validation. It accurately captures the working capabilities without overstating or missing major functionality.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (truncated deckstring handling)**: \u2713 Identified in Triage #1: \"Invalid/truncated input can raise the wrong exception type or fail unclearly\" and \"reject unterminated varints\"\n- **gap_2 (trailing-byte detection)**: \u2713 Identified in Triage #1 Plan: \"reject unexpected trailing bytes after the parse finishes\"\n- **gap_3 (card-count validation)**: \u2713 Identified in Triage #3: \"Invalid counts like `0` or negative counts are not rejected\" and Plan #3 validates \"counts are positive ints\"\n- **gap_4 (deck-size validation)**: \u2717 Not mentioned. The report discusses domain validation but doesn't specifically call out total deck size (30/40 cards)\n- **gap_5 (card-ID validation)**: \u2717 Not mentioned. While Plan #3 validates \"card IDs are positive ints\", it doesn't mention validating against a card database\n- **gap_6 (human-readable output)**: \u2717 Not mentioned. The report doesn't discuss resolving card IDs to names or metadata\n- **gap_7 (format-version migration)**: \u2717 Not mentioned. The report notes version must equal 1 but doesn't discuss graceful degradation for future versions\n- **gap_8 (logging/error context)**: \u2713 Identified in Triage #6: \"Error messages are minimal and not structured\" and Plan #1 mentions \"actionable messages\"\n- **gap_9 (serialization to standard formats)**: \u2717 Not mentioned. No discussion of to_dict(), to_json(), or __repr__\n- **gap_10 (batch processing)**: \u2717 Not mentioned. No discussion of concurrent or batch operations\n\n**Plan Specificity Analysis:**\n\nFor gaps the report DID identify:\n- **gap_1**: \"concrete\" - Specific fixes listed: change EOF check to `b\"\"`, use `c[0]` instead of `ord(c)`, add bounds checks\n- **gap_2**: \"concrete\" - Explicit action: \"reject unexpected trailing bytes after the parse finishes\"\n- **gap_3**: \"concrete\" - Clear validation steps: \"counts are positive ints\", \"reject negative or zero counts\"\n- **gap_8**: \"concrete\" - Actionable guidance: standardize exceptions, provide \"actionable messages\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

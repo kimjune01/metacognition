@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's working capabilities without false claims or significant omissions.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2713 Covered in Triage #2 \"No input validation for malformed or hostile data\" and Plan #2 mentions validating structure\n- **gap_2 (trailing bytes)**: \u2713 Explicitly mentioned in Plan #2 \"unexpected trailing bytes after parse\"\n- **gap_3 (card-count validation)**: \u2713 Covered in Plan #2 \"nonpositive counts\" rejection\n- **gap_4 (deck-size validation)**: \u2717 Not mentioned anywhere\n- **gap_5 (card-ID validation)**: \u2717 Not mentioned anywhere\n- **gap_6 (human-readable output)**: \u2717 Not mentioned anywhere\n- **gap_7 (format-version migration)**: \u2717 Triage #3 mentions \"unsupported format\" errors but doesn't discuss graceful degradation or migration\n- **gap_8 (logging/error context)**: \u2713 Covered in Triage #3 and Plan #3 which discuss richer exception types with field-level context\n- **gap_9 (serialization formats)**: \u2717 Not mentioned anywhere\n- **gap_10 (batch processing)**: \u2717 Not mentioned anywhere\n\n**Plan Specificity:**\n- **gap_1**: concrete - Plan #2 gives specific validation checks and Plan #1 addresses the EOF handling\n- **gap_2**: concrete - Plan #2 explicitly calls out \"unexpected trailing bytes after parse\"\n- **gap_3**: concrete - Plan #2 explicitly says \"Reject: nonpositive counts\"\n- **gap_8**: concrete - Plan #3 provides specific exception class names and mentions \"field-level context in messages\"\n- All unidentified gaps: absent",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

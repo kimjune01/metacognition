@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "I'll analyze this diagnostic report against the ground truth systematically.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: feed catalog loading, category selection, feedparser usage, timestamp extraction/conversion, timezone formatting, per-category JSON output, entry normalization structure, sorting, author display, and logging.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (HTTP error handling): TRUE** - Triage #1 explicitly identifies \"broad bare `except:` blocks hide real errors\" and \"single parse or filesystem problem can terminate the process\"\n\n- **gap_2 (feed validation): FALSE** - While Triage #4 mentions \"malformed JSON, invalid URLs\" for config validation, it does NOT identify the specific gap of validating whether parsed feeds contain valid RSS/Atom data vs empty/HTML responses\n\n- **gap_3 (deduplication): TRUE** - Triage #2 directly addresses \"Multiple posts in the same second will collide\" and \"Different feeds can overwrite each other\"\n\n- **gap_4 (content extraction): TRUE** - Triage #8 identifies \"No summary/content, GUID, feed name, canonical published time, tags\"\n\n- **gap_5 (caching/conditional fetching): FALSE** - While Triage #9 mentions \"Full reparse every run\" and \"No concurrency, caching headers, or conditional requests,\" this is listed as a performance concern, not as a missing reliability/efficiency feature. Plan #6 mentions ETag/Last-Modified but only as metadata to store, not as a missing capability\n\n- **gap_6 (rate limiting): FALSE** - Not identified. Triage #9 mentions serial fetching but as a performance issue, not the absence of rate limiting/throttling\n\n- **gap_7 (persistent state): TRUE** - Triage #6 identifies \"No persistence strategy beyond overwrite snapshots\" and \"no incremental update metadata, no history\"\n\n- **gap_8 (error recovery): TRUE** - Triage #1 and #5 both address this: \"single parse...can terminate\" and \"No timeout, retry, backoff\"\n\n- **gap_9 (OPML/discovery): FALSE** - Not identified anywhere in the report\n\n- **gap_10 (output format flexibility): TRUE** - Triage #8 mentions the thin data model and Plan #8 discusses making output schema explicit and versioned, implicitly acknowledging the hardcoded format limitation\n\n**Plan Specificity Analysis:**\n\n- **gap_1: concrete** - Plan #1 provides specific steps: replace bare except with specific exceptions, return structured results with defined fields, allow per-feed failures\n\n- **gap_3: concrete** - Plan #2 gives explicit priority order for building stable keys (feed.id, canonicalized link, hash fallback) and separates timestamp from primary key\n\n- **gap_4: concrete** - Plan #8 lists specific fields to add (feed_url, feed_name, author, published_at, updated_at, summary, etc.)\n\n- **gap_7: directional** - Plan #6 mentions storing \"per-feed fetch metadata\" but doesn't specify how to track read/unread state or implement \"show only new entries\" logic\n\n- **gap_8: concrete** - Plan #5 specifies \"Add request timeout and retry policy\" and \"Emit a final run summary\"\n\n- **gap_10: concrete** - Plan #8 defines explicit schema fields and mentions versioning the schema for dependent clients",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "concrete"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll evaluate this diagnostic report against the ground truth systematically.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"concrete\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, version/format validation, sideboard support, and the Deck wrapper class. All claims are factually correct.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (truncated deckstring \u2192 EOFError)**: \u2705 Identified in Triage #2 as \"Insufficient input validation and unsafe failure modes\" and explicitly mentioned in Plan #2 \"Add tests covering normal decode and unexpected EOF\"\n- **gap_2 (no trailing-byte detection)**: \u2705 Explicitly called out in Triage #2 and Plan #2: \"After parsing, verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3 (no card-count validation)**: \u2705 Identified in Plan #2: \"counts > 0\" and Triage #6 mentions lack of validation in the Deck model\n- **gap_4 (no deck-size validation)**: \u2705 Covered in Triage #8 and Plan #8: \"legal deck size\" is explicitly mentioned as missing gameplay validation\n- **gap_5 (no card-ID validation)**: \u2705 Addressed in Plan #2: \"card ids > 0\" and Triage #8 discusses lack of domain-level validation\n- **gap_6 (no human-readable output)**: \u274c Not mentioned anywhere in the report\n- **gap_7 (no format-version migration)**: \u274c Not discussed; the report mentions version validation but not graceful degradation or migration\n- **gap_8 (no logging/error context)**: \u274c While Triage #3 discusses better exception types and \"actionable messages\", it doesn't specifically mention positional context or section-level error reporting\n- **gap_9 (no to_dict/to_json)**: \u274c Not mentioned in the report\n- **gap_10 (no batch processing)**: \u274c Not discussed at all\n\n**Plan Specificity Analysis:**\n\nFor the 5 gaps that were identified:\n\n- **gap_1**: \"concrete\" - Plan #1 provides specific code changes with exact comparisons (`c == b\"\"`) and exception types\n- **gap_2**: \"concrete\" - Plan #2 gives actionable steps: \"verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3**: \"concrete\" - Plan #2 specifies validation rules: \"counts > 0\", \"card ids > 0\"\n- **gap_4**: \"directional\" - Plan #8 mentions \"legal deck size\" should be enforced but doesn't specify the exact validation rules (30 cards for constructed, etc.)\n- **gap_5**: \"concrete\" - Plan #2 specifies \"card ids > 0\" validation, though it doesn't mention checking against a card database (which would be the more complete solution)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "concrete"
+    }
+  }
+}

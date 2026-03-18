@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: config bootstrapping, category-based execution, feedparser integration, timestamp normalization, timezone conversion, author attribution, and JSON output. It accurately captures the working capabilities without claiming features that don't exist.\n\n**Gap Coverage:**\n\n- **gap_1 (HTTP error handling)**: TRUE - Triage item #1 explicitly addresses \"bare except blocks,\" \"single feed parse failure can terminate the whole process with sys.exit,\" and notes that feedparser is being used in its simplest mode without timeout/retry in item #4.\n\n- **gap_2 (feed validation)**: FALSE - The report mentions config validation (#5) and lack of schema validation, but does not identify the gap of validating whether parsed feeds contain valid RSS/Atom data vs empty/HTML/non-feed responses.\n\n- **gap_3 (deduplication)**: TRUE - Triage item #2 directly addresses this: \"Entries are keyed only by ts,\" \"Multiple posts published in the same second will collide,\" and \"Same article appearing across feeds is not deduplicated meaningfully.\"\n\n- **gap_4 (content extraction)**: FALSE - Not mentioned. The report does not note that only title/link/author/date are captured while description, content, tags, enclosures, and media are discarded.\n\n- **gap_5 (caching/conditional fetching)**: FALSE - While item #4 mentions \"No request timeout, retry, backoff,\" it does not identify the lack of ETag, Last-Modified, or If-Modified-Since support for conditional fetching.\n\n- **gap_6 (rate limiting)**: FALSE - Not mentioned. The report does not identify the lack of delays or throttling between rapid sequential requests.\n\n- **gap_7 (persistent state)**: FALSE - Triage item #6 mentions \"Full category output is rewritten every run\" and \"No incremental updates,\" but does not identify the absence of read/unread tracking, last-fetched timestamps, or new-entries-only filtering.\n\n- **gap_8 (error recovery/retry)**: TRUE - Covered in triage items #1 (\"single feed parse failure can terminate\") and #4 (\"No request timeout, retry, backoff\").\n\n- **gap_9 (feed discovery/OPML)**: FALSE - Not mentioned. The report does not identify the lack of auto-discovery or OPML import/export capabilities.\n\n- **gap_10 (output format flexibility)**: FALSE - Item #6 mentions output is \"rewritten every run\" but does not identify that output is hardcoded to JSON with no HTML, terminal, email, or other format support.\n\n**Plan Specificity:**\n\n- **gap_1**: CONCRETE - Plan item #1 provides specific actions: \"Replace all bare except with specific exceptions,\" \"Do not call sys.exit() from helpers,\" \"Return structured per-feed results,\" \"Continue processing other feeds,\" with clear failure semantics.\n\n- **gap_3**: CONCRETE - Plan item #2 gives concrete guidance: \"Build a stable entry ID from feed GUID if available, otherwise hash a tuple,\" \"Deduplicate on that stable ID,\" with specific policy decisions to make.\n\n- **gap_8**: CONCRETE - Plan item #4 provides actionable steps: \"Wrap feed fetches with timeout and retry,\" \"fetch with requests first if needed,\" \"Record feed-level failures without aborting,\" \"Add backoff for transient errors.\"\n\n- All other gaps: ABSENT - Since they weren't identified in triage, there are no corresponding plan items.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

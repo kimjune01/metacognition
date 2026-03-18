@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate** - The report correctly describes all major working capabilities: parsing/writing deckstrings, varint encoding, card organization, the Deck class interface, and format validation.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2705 Identified in \"Error Handling\" - mentions \"if stream ends unexpectedly, raise ValueError\"\n- **gap_2 (trailing bytes)**: \u274c Not identified - report doesn't mention checking for unparsed remaining data\n- **gap_3 (card count validation)**: \u2705 Identified in \"Error Handling\" - explicitly validates \"card counts are positive\"\n- **gap_4 (deck size validation)**: \u2705 Identified in \"Validation Logic\" - checks total card count against expected deck size\n- **gap_5 (card ID validation)**: \u274c Not identified - no mention of validating against card database during parsing\n- **gap_6 (human-readable output)**: \u2705 Identified in \"Pretty Printing\" - addresses card name resolution\n- **gap_7 (format version migration)**: \u2705 Identified in \"Version Compatibility\" - discusses supporting multiple versions\n- **gap_8 (logging/error context)**: \u2705 Identified in \"Error Handling\" - mentions \"contextual error messages\"\n- **gap_9 (serialization formats)**: \u2705 Identified in \"Documentation\" and \"Pretty Printing\" - addresses `__str__` and human-readable output\n- **gap_10 (batch processing)**: \u274c Not identified - no mention of concurrent/async/batch capabilities\n\n**Plan Specificity:**\n- **gap_1**: concrete - Provides specific try/except blocks, error messages, and exception class\n- **gap_3**: concrete - Shows exact validation code with error message format\n- **gap_4**: concrete - Provides complete `validate()` method implementation\n- **gap_6**: concrete - Shows full `__str__` implementation with card name mapping\n- **gap_7**: directional - Mentions supporting multiple versions but lacks detail on migration logic\n- **gap_8**: concrete - Specifies wrapping parse function and adding contextual messages\n- **gap_9**: concrete - Shows `__str__` method implementation for human-readable output",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

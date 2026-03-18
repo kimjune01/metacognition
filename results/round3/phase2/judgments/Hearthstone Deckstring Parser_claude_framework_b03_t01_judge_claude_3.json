@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": false,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"absent\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Analysis:**\n\n**Observation Accuracy: accurate** - The Observations section correctly identifies all 8 working capabilities of the system without fabricating non-existent features.\n\n**Gap Coverage:**\n- **gap_1 (input sanitization/truncation)**: NOT identified - The report mentions \"malformed deckstrings raise exceptions\" but doesn't specifically identify the lack of length validation or EOFError handling\n- **gap_2 (trailing bytes)**: NOT identified - No mention of detecting extra data after parsing\n- **gap_3 (card-count validation)**: NOT identified - The report mentions \"card limits\" in validation logic but this refers to game rules (max 2 copies), not validating that counts are positive\n- **gap_4 (deck-size validation)**: NOT identified - While mentioned in validation logic (#2), it's bundled with format legality checks rather than identified as a separate missing validation\n- **gap_5 (card-ID validation)**: IDENTIFIED - Triage #4 \"cannot validate card existence\"\n- **gap_6 (human-readable output)**: IDENTIFIED - Triage #4 \"Works with raw DBF IDs; cannot... retrieve metadata\"\n- **gap_7 (format-version migration)**: NOT identified - The report mentions unknown formats (#5) but not version migration or graceful degradation for future versions\n- **gap_8 (logging/error context)**: IDENTIFIED - Triage #10 \"No logging - Silent failures in parsing make debugging difficult\"\n- **gap_9 (serialization to standard formats)**: IDENTIFIED - Triage #8 mentions missing convenience methods, though doesn't explicitly call out to_dict/to_json\n- **gap_10 (batch processing)**: NOT identified - No mention of concurrent or bulk processing capabilities\n\n**Plan Specificity:**\nFor the 4 gaps identified (5, 6, 8, 9), all have concrete implementation guidance with code snippets or specific method signatures.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": false,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "absent",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

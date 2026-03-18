@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: base64 deckstring encoding/decoding, varint support, hero/card/sideboard handling, the Deck class API, and the validation checks that do exist (version, format, hero count).\n\n**Gap Coverage:**\n- **gap_1 (truncated stream \u2192 EOFError)**: \u2713 Identified in Triage #2 \"truncated...not checked\" and Plan #2 \"reject truncated streams\"\n- **gap_2 (trailing bytes ignored)**: \u2713 Identified in Plan #2 \"reject unexpected trailing bytes after a valid payload\"\n- **gap_3 (no card-count validation)**: \u2713 Identified in Triage #2 \"negative values...not checked\" and Plan #2 \"reject zero or negative counts\"\n- **gap_4 (no deck-size validation)**: \u2717 Never mentioned (total card count requirement)\n- **gap_5 (no card-ID validation)**: \u2713 Identified in Plan #2 \"validate card IDs are positive ints\" (though only checks positive, not existence in DB)\n- **gap_6 (no human-readable output)**: \u2717 Not mentioned\n- **gap_7 (no format-version migration)**: \u2713 Identified in Triage #6 \"Versioning support is rigid\" and Plan #6 \"Make format/version support more future-proof\"\n- **gap_8 (no logging/error context)**: \u2713 Identified in Triage #3 and Plan #3 with \"clearer messages that include where decoding failed\"\n- **gap_9 (no serialization to standard formats)**: \u2717 Not mentioned\n- **gap_10 (no batch processing)**: \u2717 Not mentioned\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific fix for varint EOF handling and bounds protection\n- **gap_2**: \"concrete\" - Explicit action to \"reject unexpected trailing bytes\"\n- **gap_3**: \"concrete\" - Explicit validation to \"reject zero or negative counts\"\n- **gap_5**: \"directional\" - Says to validate card IDs but only specifies \"positive ints\", not checking against a DB\n- **gap_7**: \"directional\" - Says to \"isolate wire-format constants\" and \"Make format/version support more future-proof\" but no concrete migration strategy\n- **gap_8**: \"concrete\" - Detailed exception model with specific exception types and context",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

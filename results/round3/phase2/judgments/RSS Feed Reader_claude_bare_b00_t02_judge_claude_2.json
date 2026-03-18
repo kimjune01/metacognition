@@ -1,0 +1,27 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\"\n  }\n}\n```\n\n## Summary\n\n**Observation Accuracy: mostly_accurate**\n- The Observations section contains 11 items, 10 of which are accurate\n- Item #6 incorrectly claims deduplication exists when gap_3 explicitly states there is none\n- Timestamp-based IDs can collide, and duplicates from multiple feeds are not prevented\n\n**Gap Coverage: 5 of 10 gaps identified**\n- \u2705 Identified: gaps 1, 2, 6, 7, 8 (error handling, validation, rate limiting, state persistence, retry logic)\n- \u274c Missed: gaps 3, 4, 5, 9, 10 (deduplication, content extraction, caching/conditional fetching, OPML/discovery, output formats)\n\n**Plan Specificity: Concrete for all identified gaps**\n- All 5 identified gaps have concrete, actionable plans with specific code changes and parameter values\n- Plan #1 (error recovery): specific exception types, line numbers, return structures\n- Plan #6 (validation): hasattr checks, JSONDecodeError handling, null checks\n- Plan #2 (rate limiting): exact sleep duration, retry counts, time thresholds",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete"
+    }
+  }
+}

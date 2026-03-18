@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, trisort optimization, deck class wrapper, sideboard support, version checking, and format validation. It accurately notes that these work \"at a basic level\" for the \"happy path.\"\n\n**Gap Coverage:**\n- **gap_1 (truncated/corrupted input)**: \u2705 Covered in Triage #2 \"does not validate malformed/truncated payloads\" and Plan #2 \"reject truncated sections cleanly\"\n- **gap_2 (trailing bytes)**: \u2705 Covered in Triage #2 \"does not check for trailing garbage\" and Plan #2 \"verify that the stream is fully consumed\"\n- **gap_3 (card-count validation)**: \u2705 Covered in Triage #2 \"does not validate negative/invalid counts\" and Plan #2 \"reject impossible counts such as 0\"\n- **gap_4 (deck-size validation)**: \u2705 Covered in Triage #4 \"does not check deck size\" and Plan #4 \"deck size requirements\"\n- **gap_5 (card-ID validation)**: \u2705 Covered in Triage #4 \"or whether IDs are real cards\" and Plan #4 \"allowed cards for a given format\"\n- **gap_6 (human-readable output)**: \u274c Not mentioned. The report focuses on validation and API expansion but never addresses card name resolution or metadata lookup.\n- **gap_7 (format-version migration)**: \u274c Not mentioned. The report notes the code \"rejects...unsupported deckstring version\" but doesn't discuss graceful degradation or migration strategies.\n- **gap_8 (logging/error context)**: \u2705 Covered in Triage #3 \"limited context\" and Plan #3 \"Include context in messages, for example which section failed\"\n- **gap_9 (serialization to interchange formats)**: \u2705 Covered in Triage #6 \"No equality/hash/representation helpers\" and Plan #6 \"Add `__repr__`\" (though it's more directional than fully addressing to_dict/to_json)\n- **gap_10 (batch processing)**: \u274c Not mentioned. The report focuses on single-deckstring correctness and validation, not concurrency or batch operations.\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific code changes given (replace `\"\"` with `b\"\"`, replace `ord(c)` with `c[0]`)\n- **gap_2**: \"concrete\" - Clear action: \"verify that the stream is fully consumed after parsing\"\n- **gap_3**: \"concrete\" - Explicit: \"reject impossible counts such as 0\" and \"validate counts are positive integers\"\n- **gap_4**: \"concrete\" - Listed in Plan #4: \"deck size requirements\"\n- **gap_5**: \"concrete\" - Listed in Plan #2: \"validate that card IDs...are positive integers\" and Plan #4 mentions validation needs \"external card database\"\n- **gap_6**: \"absent\" - Not addressed in the plan\n- **gap_7**: \"absent\" - Not addressed in the plan\n- **gap_8**: \"concrete\" - Plan #3 gives specific approach: introduce exception classes, include context in messages\n- **gap_9**: \"directional\" - Plan #6 mentions `__repr__` but doesn't specify to_dict/to_json or serialization formats\n- **gap_10**: \"absent\" - Not addressed in the plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}

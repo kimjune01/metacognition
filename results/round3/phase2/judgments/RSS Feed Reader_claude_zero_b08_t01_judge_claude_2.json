@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: mostly_accurate**\n- The observations correctly describe most working capabilities (feed parsing, multi-category support, timestamp management, configuration management)\n- However, point 5 \"Deduplication: Uses timestamp as ID to prevent duplicate entries within a category\" is misleading - the system doesn't actually deduplicate across feeds; it only uses timestamp as an ID which can cause collisions rather than prevent duplicates\n- The overall description is substantially correct about what the system does\n\n**Gap Coverage Analysis:**\n- **gap_1 (HTTP error handling)**: TRUE - Identified as \"Critical Gap #1: No Error Recovery\"\n- **gap_2 (feed validation)**: FALSE - Not identified; the report mentions `d.bozo` flag in the plan but doesn't identify the lack of feed content validation as a gap\n- **gap_3 (deduplication across fetches)**: FALSE - Actually misunderstood; observation claims deduplication exists when it doesn't\n- **gap_4 (content extraction)**: FALSE - Not mentioned; the report doesn't identify that description/summary, content body, tags, or media are missing\n- **gap_5 (caching/conditional fetching)**: TRUE - Identified as \"Medium Priority Gap #9: No Conditional GET Support\" and \"#8 Feed Metadata Persistence\"\n- **gap_6 (rate limiting)**: TRUE - Identified as \"High Priority Gap #6: No Rate Limiting\"\n- **gap_7 (persistent state)**: FALSE - While metadata persistence is mentioned, it's only for ETags/Last-Modified, not for read/unread tracking or showing only new entries\n- **gap_8 (error recovery/retry)**: TRUE - Identified as \"Critical Gap #1: No Error Recovery\"\n- **gap_9 (feed discovery/OPML)**: FALSE - Not mentioned\n- **gap_10 (output format flexibility)**: FALSE - Not mentioned\n\n**Plan Specificity:**\n- Gaps identified with concrete plans: 1, 5, 6, 8 all have specific code examples and implementation details\n- Gaps not identified have \"absent\" specificity",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

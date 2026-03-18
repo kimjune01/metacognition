@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate** - The Observations section correctly describes what the system does: parsing/writing deckstrings, handling sideboards, format validation, varint encoding, tri-sort optimization, and the Deck class wrapper.\n\n**Gap Coverage:**\n- **gap_1 (true)**: Triage #1 identifies the binary parsing fragility that would cause EOFError on truncated input\n- **gap_2 (false)**: No mention of trailing-byte detection or checking for unparsed remaining data\n- **gap_3 (true)**: Triage #2 mentions \"card counts can be zero or negative\" \n- **gap_4 (false)**: Total deck-size validation (30/40 card limits) is not mentioned\n- **gap_5 (true)**: Triage #2 mentions no validation of card IDs against a database\n- **gap_6 (false)**: Human-readable output and card name resolution not mentioned\n- **gap_7 (true)**: Triage #8 mentions version handling is \"hardcoded to one deckstring version\"\n- **gap_8 (true)**: Triage #3 explicitly addresses lack of error context and position information\n- **gap_9 (false)**: Serialization to JSON/dict or __repr__ not mentioned\n- **gap_10 (false)**: Batch/concurrent processing not mentioned\n\n**Plan Specificity:**\n- **gap_1: concrete** - Plan #1 gives exact code fixes with before/after snippets\n- **gap_3: concrete** - Plan #2 specifies validation for positive integers, duplicate rejection, etc.\n- **gap_5: concrete** - Plan #2 includes validating card IDs as positive integers (though not against a database)\n- **gap_7: directional** - Plan #8 suggests version-dispatch layer but lacks implementation details\n- **gap_8: concrete** - Plan #3 defines specific exception types and context requirements",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

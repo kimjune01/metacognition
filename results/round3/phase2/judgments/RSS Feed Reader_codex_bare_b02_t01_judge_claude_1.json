@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll evaluate this diagnostic report against the ground truth systematically.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: RSS fetching, entry normalization, timezone-aware formatting, per-category output, chronological sorting, feeds config management, author attribution, and selective category fetching. All working capabilities are accurately captured.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified in Triage #2 - \"A single bad feed can call sys.exit(...) and stop the program\"\n- **gap_2 (feed validation)**: \u2705 Identified in Triage #5 - \"does not check feedparser bozo flags, HTTP status, redirects, malformed feeds\"\n- **gap_3 (deduplication)**: \u2705 Identified in Triage #1 - \"Different articles published in the same second will collide\"\n- **gap_4 (content extraction)**: \u274c Not mentioned - the report doesn't note that description, summary, content body, tags, enclosures are discarded\n- **gap_5 (caching/conditional fetching)**: \u2705 Identified in Triage #8 - \"No caching headers, conditional GET... Re-fetches everything every run\"\n- **gap_6 (rate limiting)**: \u274c Not mentioned - no discussion of throttling or delays between requests\n- **gap_7 (persistent state)**: \u2705 Identified in Triage #8 and Plan #8 - mentions tracking \"per-feed fetch metadata in a local state file\"\n- **gap_8 (error recovery/retry)**: \u2705 Identified in Triage #2 and #8 - \"No retries, backoff\"\n- **gap_9 (OPML/feed discovery)**: \u274c Not mentioned - no discussion of OPML import/export or feed discovery\n- **gap_10 (output format flexibility)**: \u274c Not mentioned - only discusses JSON schema versioning, not alternative output formats\n\n**Plan Specificity:**\n- **gap_1**: concrete - Plan #2 provides specific error handling approach with result objects and structured exceptions\n- **gap_2**: concrete - Plan #5 provides specific validation steps (check bozo, inspect required fields)\n- **gap_3**: concrete - Plan #1 provides specific ID selection priority (feed.id \u2192 guid \u2192 link \u2192 hash)\n- **gap_5**: concrete - Plan #8 mentions ETag, Last-Modified, conditional requests with specific implementation guidance\n- **gap_7**: directional - Plan #8 mentions \"track per-feed fetch metadata\" but doesn't specify what metadata or how to show new vs. seen entries\n- **gap_8**: concrete - Plan #8 and #2 provide specific retry policy and error handling approach",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

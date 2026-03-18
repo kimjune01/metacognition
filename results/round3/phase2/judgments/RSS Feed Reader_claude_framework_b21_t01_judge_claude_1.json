@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"inaccurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**OBSERVATION ACCURACY: inaccurate**\n- Observation #4 claims \"Deduplication by timestamp: Uses Unix timestamp as entry ID to prevent duplicates within a category\" - This is **incorrect**. The system does NOT deduplicate across fetches; it overwrites the entire file each time. Entries with the same timestamp would collide on the ID, not deduplicate.\n- Observation #9 claims \"Graceful fallback\" - While the fallback for timestamps exists, calling `sys.exit()` on errors is the opposite of graceful.\n- These mischaracterizations of actual behavior make the observations inaccurate overall.\n\n**GAP COVERAGE:**\n- **gap_1 (HTTP error handling)**: \u2713 Identified as Critical #1 \"No error recovery\"\n- **gap_2 (Feed validation)**: \u2717 High #6 is about config validation, not feed content validation\n- **gap_3 (No deduplication across fetches)**: \u2717 Not identified; report incorrectly claims deduplication exists in Observations\n- **gap_4 (No content extraction)**: \u2713 Identified as Low #15 \"No entry content\"\n- **gap_5 (No caching/conditional fetching)**: \u2713 Identified as Critical #3 \"No caching headers\"\n- **gap_6 (No rate limiting)**: \u2713 Identified as Critical #2 \"No rate limiting\"\n- **gap_7 (No persistent state)**: \u2717 Medium #9 mentions incremental updates but misses the broader lack of state (read/unread, last-fetched timestamps)\n- **gap_8 (No error recovery/retry)**: \u2713 Covered by Critical #1 and implicitly High #5\n- **gap_9 (No feed discovery/OPML)**: \u2717 Not mentioned\n- **gap_10 (No output format flexibility)**: \u2717 Not mentioned\n\n**PLAN SPECIFICITY:**\n- **gap_1**: Concrete - provides specific code changes\n- **gap_4**: Concrete - shows exact fields to extract\n- **gap_5**: Concrete - detailed caching implementation\n- **gap_6**: Concrete - specific code with time.sleep()",
+  "parsed": {
+    "observation_accuracy": "inaccurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

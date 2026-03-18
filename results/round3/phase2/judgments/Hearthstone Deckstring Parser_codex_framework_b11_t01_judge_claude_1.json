@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies what the system does: varint encoding/decoding, deckstring parsing/writing, card grouping, deck class wrapper, sideboard support, and basic validation. It accurately describes the working capabilities without overstating or misstating functionality.\n\n**Gap Coverage:**\n- **gap_1 (truncated/corrupted input handling)**: \u2713 Identified in Triage #2 as \"parser accepts arbitrary section sizes\" and Plan #2 \"validate parsed values\" and \"verify stream is fully consumed\"\n- **gap_2 (trailing-byte detection)**: \u2713 Explicitly mentioned in Plan #2: \"After parsing, verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3 (card-count validation)**: \u2713 Identified in Triage #2 as \"Counts...are trusted blindly\" and Plan #2 \"counts > 0\"\n- **gap_4 (deck-size validation)**: \u2713 Mentioned in Plan #2 as \"Add upper bounds for...total cards\"\n- **gap_5 (card-ID validation)**: \u2713 Identified in Triage #2 as \"card IDs...are trusted blindly\" and Plan #2 \"card IDs > 0\"\n- **gap_6 (human-readable output)**: \u2717 Not mentioned anywhere in the diagnostic\n- **gap_7 (format-version migration)**: \u2713 Identified in Triage #3 as \"assumes a single fixed deckstring version...needs clearer compatibility story\" and Plan #3 \"Document supported deckstring versions\"\n- **gap_8 (logging/error context)**: \u2713 Identified in Triage #5 as \"Exceptions are generic...not useful for callers\" and Plan #5 \"Introduce custom exceptions\"\n- **gap_9 (serialization to standard formats)**: \u2713 Mentioned in Triage #5 as \"uses raw tuples and mutable lists\" and Plan #5 \"Replace tuple-heavy structures with small typed models\"\n- **gap_10 (concurrent/batch processing)**: \u2717 Not mentioned anywhere in the diagnostic\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific actions like \"check EOF with `if c == b'':`\", \"reject overly long varints\", \"wrap decode errors\"\n- **gap_2**: \"concrete\" - Explicit instruction: \"After parsing, verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3**: \"concrete\" - Explicit validation rule: \"counts > 0\"\n- **gap_4**: \"concrete\" - Specific action: \"Add upper bounds for section lengths and total cards\"\n- **gap_5**: \"concrete\" - Explicit validation rules: \"hero IDs > 0\", \"card IDs > 0\"\n- **gap_6**: \"absent\" - Gap not identified, no plan\n- **gap_7**: \"directional\" - High-level guidance (\"Document supported deckstring versions\") but no concrete implementation steps for migration/fallback\n- **gap_8**: \"directional\" - Mentions custom exceptions but doesn't specify what context to include (position, section, etc.)\n- **gap_9**: \"concrete\" - Specific model changes proposed: \"CardCount(card_id, count)\", \"SideboardCard(...)\", typed models\n- **gap_10**: \"absent\" - Gap not identified, no plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "directional",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

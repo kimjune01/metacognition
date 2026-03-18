@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": false,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"absent\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate** - The Observations section correctly describes all working capabilities: varint encoding, parsing/writing deckstrings, tri-sort optimization, the Deck class interface, sideboard support, version checking, and format validation.\n\n**Gap Coverage Analysis:**\n- **gap_1 (truncated deckstring handling)**: Not identified. The report mentions \"Add try/except to catch EOF gracefully\" but doesn't recognize the lack of stream length validation as a distinct gap.\n- **gap_2 (trailing-byte detection)**: Not identified. The report doesn't mention checking for unparsed bytes after parsing completes.\n- **gap_3 (card-count validation)**: Not identified. While the report mentions validating \"No more than 2 copies\" (game rules), it doesn't identify the absence of basic sanity checks for zero/negative counts.\n- **gap_4 (deck-size validation)**: \u2713 Identified in Triage #2 and Plan #2 (\"Total cards equals 30\").\n- **gap_5 (card-ID validation)**: Not identified. The report assumes a card database will be added for other purposes but doesn't explicitly call out the lack of card-ID validation against valid DBF IDs.\n- **gap_6 (human-readable output)**: \u2713 Identified in Triage #10 and Plan #10 (missing `__str__`, `__repr__`, `to_text()`).\n- **gap_7 (format-version migration)**: Not identified. The report mentions the version check but doesn't identify the lack of migration/graceful degradation strategy.\n- **gap_8 (logging/error context)**: \u2713 Identified in Triage #5 and Plan #5 (logging and debugging support).\n- **gap_9 (serialization formats)**: \u2713 Identified in Triage #10 and Plan #10 (missing `to_dict()`, `to_json()`, `__repr__`).\n- **gap_10 (batch processing)**: \u2713 Identified in Triage #11 as performance optimization, though framed more as caching than batch/async processing.\n\n**Plan Specificity:**\n- Gaps 1, 2, 3, 5, 7: No plans provided (absent).\n- Gaps 4, 6, 8, 9: Concrete plans with code examples and specific implementation details.\n- Gap 10: Directional guidance (caching, profiling) but no concrete batch/async processing strategy.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": false,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "absent",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "directional"
+    }
+  }
+}

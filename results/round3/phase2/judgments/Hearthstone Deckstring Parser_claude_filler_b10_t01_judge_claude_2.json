@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: varint I/O, parsing/generation, deck object model, card organization, and version handling. No false claims or missing core features.\n\n**Gap Coverage:**\n- **gap_1 (truncated data \u2192 EOFError)**: \u2713 Identified in Critical Gap #1 \"Invalid data causes cryptic failures\"\n- **gap_2 (trailing bytes ignored)**: \u2713 Identified in Important Gap #8 \"Incomplete Trailing Data Handling\"\n- **gap_3 (no card-count validation)**: \u2713 Identified in Critical Gap #2 \"Missing Validation\" and explicitly mentioned in Plan #2 (\"Card counts are positive\")\n- **gap_4 (no deck-size validation)**: \u2713 Identified in Plan #2 validation section (\"Total card count meets format rules (30 for Standard, 40 for Twist)\")\n- **gap_5 (no card-ID validation)**: \u2717 Not mentioned. The report discusses validating counts, duplicates, and legendary rules, but never mentions validating that card IDs exist in a database\n- **gap_6 (no human-readable output)**: \u2713 Identified in Nice-to-Have Gap #10 and Plan #7 (\"get_card_name\") and Plan #10 (text export)\n- **gap_7 (no version migration)**: \u2717 Not mentioned. The report notes \"currently v1 only\" in Observations but doesn't identify the lack of graceful degradation for future versions as a gap\n- **gap_8 (no error context/logging)**: \u2713 Identified in Critical Gap #1 (\"cryptic failures rather than actionable errors\") and Nice-to-Have Gap #11\n- **gap_9 (no to_dict/to_json)**: \u2713 Identified in Nice-to-Have Gap #10 and Plan #10 with concrete JSON schema\n- **gap_10 (no batch processing)**: \u2717 Not mentioned anywhere in the report\n\n**Plan Specificity:**\n- **gap_1**: concrete (shows exact try-except pattern, error message format, new exception class)\n- **gap_2**: concrete (shows exact code to detect trailing bytes, warnings import)\n- **gap_3**: concrete (shows validation checklist with positive counts, specific checks)\n- **gap_4**: concrete (shows format-specific card count rules: 30/40)\n- **gap_5**: absent (not identified)\n- **gap_6**: concrete (shows get_card_name signature, text format example with \"2x Frostbolt\")\n- **gap_7**: absent (not identified)\n- **gap_8**: concrete (shows logger setup, specific log messages with format strings)\n- **gap_9**: concrete (shows complete JSON schema, method signatures)\n- **gap_10**: absent (not identified)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

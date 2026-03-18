@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "I'll evaluate this diagnostic report against the ground-truth gaps and the actual system capabilities.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does:\n- Correctly identifies the codec functionality (bidirectional deckstring encoding/decoding)\n- Accurately maps capabilities to the metacognitive framework (Perceive, Cache, Filter present; Attend minimal; Remember, Consolidate absent)\n- Correctly notes what validation exists (version check, format validation, hero count) and what the system handles well\n- No material errors in describing the working system\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (truncated input)**: \u2705 **Identified** - \"truncated varint input via `EOFError`\" in Filter section, and Plan section #3 mentions \"Replace generic `ValueError`/`EOFError` surfaces\"\n  \n- **gap_2 (trailing bytes)**: \u2705 **Identified** - \"trailing unread bytes are accepted silently\" explicitly called out in Triage\n\n- **gap_3 (card-count validation)**: \u2705 **Identified** - \"negative or nonsensical card counts are not rejected on write\" and Plan #3 includes \"invalid counts (`<= 0`)\"\n\n- **gap_4 (deck-size validation)**: \u274c **Not identified** - No mention of total deck size constraints (30/40 cards)\n\n- **gap_5 (card-ID validation)**: \u274c **Not identified** - No mention of validating card IDs against a database or checking for non-existent IDs\n\n- **gap_6 (human-readable output)**: \u274c **Not identified** - No mention of card name resolution or metadata lookup\n\n- **gap_7 (format-version migration)**: \u274c **Not identified** - While version rejection is noted, there's no discussion of graceful degradation or version migration strategy\n\n- **gap_8 (logging/error context)**: \u274c **Not identified** - No mention of improving error messages with parse position or section context\n\n- **gap_9 (serialization formats)**: \u274c **Not identified** - No mention of `to_dict()`, `to_json()`, or `__repr__` methods\n\n- **gap_10 (batch processing)**: \u274c **Not identified** - No mention of concurrent, streaming, or async processing\n\n**Plan Specificity Analysis:**\n\nFor the gaps that WERE identified:\n\n- **gap_1**: **concrete** - Plan #3 specifically addresses exception handling and Plan #5 mentions fixing `_read_varint()` byte handling\n  \n- **gap_2**: **concrete** - Plan #3 explicitly includes \"unexpected trailing bytes after parse completion\"\n\n- **gap_3**: **concrete** - Plan #3 explicitly lists \"invalid counts (`<= 0`)\" as a check to add\n\nFor gaps NOT identified, all are marked **absent** since they don't appear in the plan.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

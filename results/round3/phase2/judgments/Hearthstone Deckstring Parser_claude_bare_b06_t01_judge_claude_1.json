@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes all 5 working capabilities: deckstring parsing, generation, binary protocol implementation, data structures, and card organization\n- Details are technically accurate (varint encoding, trisort, sideboard support, etc.)\n\n**Gap Coverage:**\n- \u2705 **gap_1** (truncation handling): Identified as \"No Error Recovery\" - mentions \"crash on corrupted deckstrings\"\n- \u274c **gap_2** (trailing bytes): Not identified anywhere in the report\n- \u2705 **gap_3** (card-count validation): Identified in \"Missing Card Validation\" - specifically mentions \"counts are legal\"\n- \u2705 **gap_4** (deck-size validation): Identified in \"Missing Card Validation\" - mentions \"deck size limits\"\n- \u2705 **gap_5** (card-ID validation): Identified in \"Missing Card Validation\" - \"No checks that card IDs are valid\"\n- \u2705 **gap_6** (human-readable output): Identified as \"No Export Formats\" and \"Limited Introspection\"\n- \u2705 **gap_7** (format-version migration): Identified as \"Weak error handling for version mismatches\" in Plan #1\n- \u2705 **gap_8** (logging/error context): Identified in \"No Error Recovery\" - the plan addresses improving error messages\n- \u2705 **gap_9** (serialization): Identified as \"No Export Formats\" - explicitly mentions \"Can't convert to JSON\"\n- \u274c **gap_10** (batch processing): Not identified anywhere in the report\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific exception classes, exact wrapping locations, conversion strategy\n- **gap_3**: \"concrete\" - Specific validation checks, parameters, return behavior\n- **gap_4**: \"concrete\" - Included in the validation method with specific deck size check (30 cards)\n- **gap_5**: \"concrete\" - Validation method includes card ID checking with card_db parameter\n- **gap_6**: \"concrete\" - Specific methods listed (to_card_list with card_db parameter)\n- **gap_7**: \"directional\" - Mentions handling version mismatches but doesn't specify migration strategy or backward compatibility approach\n- **gap_8**: \"concrete\" - Error recovery plan includes converting EOFError with context\n- **gap_9**: \"concrete\" - Specific methods (to_dict, from_dict) with signatures",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

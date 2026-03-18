@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 7 working capabilities without hallucination or mischaracterization. It accurately identifies the binary codec, card bucketing, sideboard support, format tracking, and OOP wrapper.\n\n**Gap Coverage Analysis:**\n- \u2705 **gap_1** (truncated input): Identified as \"No validation - Accepts malformed data\"\n- \u274c **gap_2** (trailing bytes): Not mentioned anywhere\n- \u2705 **gap_3** (card count validation): Explicitly mentioned in validation plan (\"Check card counts are positive\")\n- \u2705 **gap_4** (deck size validation): Explicitly mentioned (\"Verify total deck size (Standard = 30 cards)\")\n- \u2705 **gap_5** (card ID validation): Mentioned (\"Check DBF IDs are in valid range\")\n- \u274c **gap_6** (human-readable output): Not identified as a gap\n- \u274c **gap_7** (format version migration): Not mentioned; the report doesn't discuss version handling beyond current state\n- \u2705 **gap_8** (error context): Explicitly identified (\"No error context - Generic exceptions make debugging impossible\")\n- \u274c **gap_9** (serialization formats): Not mentioned; no discussion of to_dict/to_json/repr\n- \u274c **gap_10** (batch processing): Not mentioned; no discussion of concurrent/async capabilities\n\n**Plan Specificity Analysis:**\n- **gap_1**: \"concrete\" - Plan section 1 provides specific validation function, what to check, where to call it\n- **gap_3**: \"concrete\" - Plan section 1 explicitly lists \"Check card counts are positive (reject `count < 1`)\"\n- **gap_4**: \"concrete\" - Plan section 1 specifies \"Verify total deck size (Standard = 30 cards)\"\n- **gap_5**: \"concrete\" - Plan section 1 includes \"Check DBF IDs are in valid range (positive integers)\"\n- **gap_8**: \"concrete\" - Plan section 2 provides concrete exception class structure with code examples and offset tracking",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

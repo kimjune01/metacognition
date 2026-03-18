@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities without claiming features that don't exist or misrepresenting what the system does.\n\n**Gap Coverage:**\n- **gap_1 (truncated deckstring)**: \u2713 Identified in Triage #1 \"No validation\" and Plan #1 mentions checking decoded length\n- **gap_2 (trailing bytes)**: \u2717 Not mentioned anywhere\n- **gap_3 (card-count validation)**: \u2713 Triage #1 mentions \"card counts\" and Plan #1 includes validating card counts don't exceed limits\n- **gap_4 (deck-size validation)**: \u2713 Plan #1 explicitly mentions \"raise ValueError if count exceeds 30\"\n- **gap_5 (card-ID validation)**: \u2713 Triage #3 \"can't...validate card existence\" and Plan #3 addresses card database integration\n- **gap_6 (human-readable output)**: \u2713 Triage #3 \"can't translate to/from card names\" and Plan #3 adds `get_card_names()` method\n- **gap_7 (format-version migration)**: \u2717 Not mentioned (report doesn't address handling future versions)\n- **gap_8 (logging/error context)**: \u2713 Triage #2 \"Missing error context\" and Plan #2 & #7 address this\n- **gap_9 (serialization formats)**: \u2717 Not mentioned (no to_dict/to_json/repr discussed)\n- **gap_10 (batch processing)**: \u2717 Not mentioned\n\n**Plan Specificity:**\nFor gaps that were identified, most plans are concrete with specific line numbers, code examples, and clear implementation steps. Gap #8 gets \"concrete\" because both Plan #2 (error messages) and Plan #7 (logging) provide actionable details.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

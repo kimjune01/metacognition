@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate** - The Observations section correctly describes what the system does: bidirectional conversion, varint encoding, card organization, hero support, format tracking, sideboard support, and the Deck wrapper class. All statements are factually correct.\n\n**Gap Coverage:**\n- **gap_1 (truncated deckstring \u2192 EOFError): TRUE** - Identified as \"No error recovery: EOF handling exists but most parsing failures raise generic exceptions without context\"\n- **gap_2 (trailing bytes ignored): FALSE** - Not mentioned anywhere in the report\n- **gap_3 (no card-count validation): TRUE** - Identified as \"Card IDs, counts, and format values are not validated against known constraints\" and elaborated in Plan #2\n- **gap_4 (no deck-size validation): FALSE** - The report mentions card count validation but not total deck size (30/40 cards)\n- **gap_5 (no card-ID validation): TRUE** - Identified in Triage #2 \"Card IDs...are not validated\" and Plan #2 mentions `validate_dbf_id`\n- **gap_6 (no human-readable output): FALSE** - Not mentioned. The report discusses data structures but not card name resolution\n- **gap_7 (no format-version migration): TRUE** - Identified as \"Hard-coded version check: Will reject future deckstring versions instead of attempting compatibility\" with a plan in #10\n- **gap_8 (no error context): TRUE** - Identified as \"No error recovery\" in Triage #1 and addressed with specific byte offset tracking in Plan #1\n- **gap_9 (no to_dict/to_json): FALSE** - Not mentioned. The report discusses type hints and named tuples but not serialization to JSON/dict\n- **gap_10 (no batch processing): FALSE** - Not mentioned anywhere\n\n**Plan Specificity:**\n- **gap_1: concrete** - Provides specific exception class design, byte offset tracking, and partial parse result inclusion\n- **gap_3: concrete** - Shows specific validation function signatures and constraints (count \u2265 1, max values, deck size 30)\n- **gap_5: concrete** - Provides optional `validate_dbf_id(card_id: int, known_cards: Set[int])` signature\n- **gap_7: directional** - Plan #10 says \"attempt parse anyway\" and \"add version-specific parsing branches if/when version 2 arrives\" but doesn't specify the graceful degradation strategy\n- **gap_8: concrete** - Provides specific logging statements with logger setup and example debug messages",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

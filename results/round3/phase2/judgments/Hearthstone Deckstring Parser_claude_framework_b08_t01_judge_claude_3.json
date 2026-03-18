@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint I/O, encoding/decoding deckstrings, card organization by quantity, format type support, hero validation, sideboard support, and sorting utilities. All statements are factually correct about the working capabilities.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2713 Identified as \"No error recovery - Malformed deckstrings crash rather than returning useful errors\"\n- **gap_2 (trailing bytes)**: \u2717 Not mentioned anywhere in the report\n- **gap_3 (card count validation)**: \u2713 Identified as \"No card count limits\" in Triage #3 and detailed in Plan #3\n- **gap_4 (deck size validation)**: \u2713 Covered in Plan #3 \"Check total card count (30 for Standard/Wild, 40 for Twist)\"\n- **gap_5 (card ID validation)**: \u2713 Identified as \"Cannot validate card IDs\" in Triage #4\n- **gap_6 (no human-readable output)**: \u2713 Identified as \"No way to convert 'Fireball' \u2192 DBF ID\" in Plan #4\n- **gap_7 (version migration)**: \u2713 Explicitly identified as \"Version lock-in\" in Triage #2\n- **gap_8 (no error context)**: \u2713 Identified as \"Silent failures make debugging hard\" in Plan #10\n- **gap_9 (no serialization formats)**: \u2713 CLI plan mentions \"decode (deckstring \u2192 JSON)\" support in Plan #8\n- **gap_10 (no batch processing)**: \u2717 Not mentioned anywhere in the report\n\n**Plan Specificity:**\n- **gap_1**: concrete - Specific exception hierarchy, wrapping strategy, and code changes described\n- **gap_3**: concrete - Exact validation checks listed (legendary limit, card count \u22642, total cards)\n- **gap_4**: concrete - Specific numbers given (30 for Standard/Wild, 40 for Twist)\n- **gap_5**: concrete - Specific method signatures and implementation approach (`is_valid_dbf_id`, lazy-loading JSON)\n- **gap_7**: concrete - Specific parameter names, version-specific parsing paths, and migration strategy\n- **gap_8**: concrete - Specific logging levels and what to log at each level\n- **gap_9**: concrete - Specific CLI arguments and JSON support mentioned",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

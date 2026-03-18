@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 8 working capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, Deck class with round-trip methods, sideboard support, version checking, and format validation.\n\n**Gap Coverage: All 10 gaps identified**\n- gap_1 (no input sanitization): Identified in Triage #1 \"No Error Handling\" and Plan #1 \"Handle partial reads\" + \"Validate stream position\"\n- gap_2 (no trailing-byte detection): Identified in Plan #1 \"Validate stream position matches expected length after parsing\"\n- gap_3 (no card-count validation): Identified in Triage #2 and Plan #2 \"Max copies per card\"\n- gap_4 (no deck-size validation): Identified in Triage #2 and Plan #2 \"Total card count (30 for Standard, 40 for Twist)\"\n- gap_5 (no card-ID validation): Identified in Plan #2 \"Cards legal in specified format\"\n- gap_6 (no human-readable output): Identified in Triage #10 and Plans #9-10\n- gap_7 (no format-version migration): Identified in Plan #1 \"UnsupportedVersion\" exception\n- gap_8 (no logging/error context): Identified in Triage #7 and Plan #7 \"Add Logging Support\"\n- gap_9 (no serialization to standard formats): Identified in Triage #10 and Plan #10 \"to_text()\" method\n- gap_10 (no concurrent/batch processing): Identified in Triage #12 \"Performance Not Optimized\" and Plan #12 \"Profile on large datasets\"\n\n**Plan Specificity:**\n- gap_1-9: All have concrete code examples, specific function signatures, detailed steps, and implementation guidance\n- gap_10: Directional only - mentions profiling and benchmarking but doesn't provide concrete batch processing architecture or async patterns",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "directional"
+    }
+  }
+}

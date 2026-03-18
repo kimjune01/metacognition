@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Rationale\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies all 8 working capabilities of the system without hallucinating features that don't exist.\n\n**Gap Coverage Analysis:**\n- **gap_1** (truncated deckstring handling): \u2705 Identified in Triage #2 \"No error handling - corrupt data could crash silently\"\n- **gap_2** (trailing-byte detection): \u274c Not identified - no mention of checking for unparsed remaining bytes\n- **gap_3** (card-count validation): \u2705 Identified in Triage #1 \"No validation - card limits\" and Plan #1 \"Verify card count limits\"\n- **gap_4** (deck-size validation): \u2705 Identified in Triage #1 and Plan #1 \"Check deck size (30 cards for Standard...)\"\n- **gap_5** (card-ID validation against database): \u274c Not identified - while metadata is mentioned, validating DBF IDs exist isn't\n- **gap_6** (human-readable output): \u2705 Identified in Triage #10 \"No card metadata\" and Plan #12 \"Add export formats\"\n- **gap_7** (format-version migration): \u2705 Identified in Triage #14 and Plan #14 \"Version Migration Strategy\"\n- **gap_8** (logging/error context): \u2705 Identified in Triage #7 and Plan #7 \"Add Structured Logging\"\n- **gap_9** (serialization to standard formats): \u2705 Identified in Triage #12 and Plan #12 \"to_json(), to_human_readable()\"\n- **gap_10** (batch/concurrent processing): \u274c Not identified - no mention of bulk processing capabilities\n\n**Plan Specificity Analysis:**\n- **gap_1**: concrete - Plan #2 provides specific error types, handling approaches\n- **gap_3**: concrete - Plan #1 specifies \"max 2 per card, legendaries max 1\"\n- **gap_4**: concrete - Plan #1 gives exact numbers \"30 cards for Standard, up to 40\"\n- **gap_6**: concrete - Plan #10 and #12 provide specific method names and return formats\n- **gap_7**: directional - Plan #14 mentions strategy but lacks detail on actual v2 handling\n- **gap_8**: concrete - Plan #7 specifies logging module, logger setup, what to log\n- **gap_9**: concrete - Plan #12 lists exact method names like `to_json()`, `from_json()`",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

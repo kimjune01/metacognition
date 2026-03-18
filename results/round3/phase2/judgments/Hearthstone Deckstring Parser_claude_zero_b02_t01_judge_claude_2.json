@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities without inventing functionality that doesn't exist or mischaracterizing what the code does.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2705 Identified in Triage #1 as \"buffer underrun\" causing exceptions without context\n- **gap_2 (trailing bytes)**: \u274c Not mentioned anywhere\n- **gap_3 (card count validation)**: \u2705 Identified in Triage #2 as \"accepts invalid card counts\"\n- **gap_4 (deck size validation)**: \u2705 Identified in Triage #2 and Plan #2 mentions \"30 cards\" limit\n- **gap_5 (card ID validation)**: \u2705 Identified in Triage #2 as \"negative IDs\" and Plan #2 mentions \"card IDs > 0\"\n- **gap_6 (human-readable output)**: \u274c Not mentioned; the report focuses on data structures but doesn't identify lack of card name resolution\n- **gap_7 (format version migration)**: \u274c Not mentioned; the report only notes version checking exists, not the brittleness around version changes\n- **gap_8 (logging/error context)**: \u2705 Identified in Triage #1 and #7, with concrete logging plan\n- **gap_9 (serialization formats)**: \u2705 Identified in Triage #4 and Plan #4 mentions `__repr__`\n- **gap_10 (batch processing)**: \u274c Not mentioned anywhere\n\n**Plan Specificity:**\n- **gap_1**: concrete (specific exception types, byte offset tracking, section markers)\n- **gap_3**: concrete (validation rules specified: counts >= 1, IDs > 0, no duplicates)\n- **gap_4**: concrete (max_cards parameter with default of 30)\n- **gap_5**: concrete (card IDs > 0 validation in write_deckstring)\n- **gap_8**: concrete (specific logging levels, example log messages)\n- **gap_9**: concrete (`__repr__`, `__eq__`, specific methods named)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

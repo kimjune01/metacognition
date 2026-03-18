@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate** - The Observations section correctly describes all 11 working capabilities, including feed parsing, multi-source aggregation, timestamp normalization, deduplication (within single fetch), sorting, date formatting, JSON persistence, configuration management, author display, selective refresh, and logging.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified as \"No Error Recovery\" - correctly notes `sys.exit(0)` masking errors and lack of retry logic\n- **gap_2 (feed validation)**: \u274c Not identified - the report doesn't mention checking for empty feeds, non-RSS URLs, or HTML redirects\n- **gap_3 (deduplication)**: \u2705 Identified as \"Duplicate ID Collisions\" - correctly notes timestamp-only IDs cause collisions\n- **gap_4 (content extraction)**: \u2705 Identified as \"Limited Metadata\" - notes missing summaries, descriptions, and full-text storage\n- **gap_5 (caching/conditional fetching)**: \u2705 Identified as \"No Cache Validation\" - explicitly mentions missing ETags and Last-Modified support\n- **gap_6 (rate limiting)**: \u2705 Identified as \"No Rate Limiting\" - notes rapid successive fetches without respect for update intervals\n- **gap_7 (persistent state/read tracking)**: \u274c Not identified - the report doesn't mention lack of read/unread tracking or \"last fetched\" timestamps\n- **gap_8 (error recovery/retry)**: \u2705 Identified as part of \"No Error Recovery\" - mentions lack of retry logic and backoff strategy\n- **gap_9 (feed discovery/OPML)**: \u2705 Identified as \"No Feed Discovery\" - explicitly mentions missing OPML import/export\n- **gap_10 (output format flexibility)**: \u274c Not identified - the report doesn't mention lack of HTML rendering, terminal display, or alternative output formats\n\n**Plan Specificity:**\n- **gap_1**: concrete - Detailed error handling with specific exception types, error tracking schema, and timeout parameters\n- **gap_3**: concrete - Specific ID generation algorithm using hash or GUID with code examples\n- **gap_4**: concrete - Detailed schema changes with field names and truncation logic\n- **gap_5**: concrete - Complete cache validation implementation with storage schema and HTTP headers\n- **gap_6**: concrete - Specific rate limiting with interval checking and configuration schema\n- **gap_8**: concrete - ThreadPoolExecutor implementation with connection pooling code\n- **gap_9**: concrete - Discovery and OPML functions with library choices (BeautifulSoup) and command structure",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

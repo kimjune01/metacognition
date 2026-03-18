@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's working capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, the Deck class with bidirectional conversion, sideboard support, version checking, and format type handling. All descriptions match the actual implementation.\n\n**Gap Coverage:**\n- **gap_1** (input sanitization): \u2705 Identified as \"No input validation - System crashes on malformed input\" and \"Silent data truncation\"\n- **gap_2** (trailing-byte detection): \u2705 Identified as \"Check for trailing data\" in Plan section 1\n- **gap_3** (card-count validation): \u2705 Identified as \"Validate card counts\" in Plan section 1\n- **gap_4** (deck-size validation): \u2705 Identified in Plan section 6 as \"card count limits (30 for Standard)\"\n- **gap_5** (card-ID validation): \u2705 Identified as \"No card database validation\"\n- **gap_6** (human-readable output): \u2705 Identified as \"No human-readable export\"\n- **gap_7** (format-version migration): \u2705 Identified as \"No version migration\"\n- **gap_8** (logging/error context): \u2705 Identified as \"No logging or debugging\" and \"Better Error Messages\"\n- **gap_9** (serialization to standard formats): \u2705 Identified as needing `to_dict()` method in Plan section 10\n- **gap_10** (concurrent/batch processing): \u274c Not mentioned anywhere in the report\n\n**Plan Specificity:**\nAll identified gaps (1-9) have concrete plans with specific code examples, file locations, function signatures, and implementation details. Gap 10 was not identified, so it's marked as \"absent\".",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

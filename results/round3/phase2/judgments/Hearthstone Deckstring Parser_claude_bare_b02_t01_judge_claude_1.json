@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the working capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, Deck class wrapper, sideboard support, and version checking. All four main capabilities are accurately characterized.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2705 Identified as \"Truncated deckstrings cause EOFError\" in Critical Gap #1\n- **gap_2 (trailing bytes)**: \u274c Not mentioned anywhere in the report\n- **gap_3 (card count validation)**: \u2705 Identified as \"No validation of card counts\" in Critical Gap #1 and \"Doesn't validate deck size limits\" in High Priority Gap #4\n- **gap_4 (deck size validation)**: \u2705 Explicitly identified as \"Doesn't validate deck size limits (typically 30 cards in Hearthstone)\" in High Priority Gap #4\n- **gap_5 (card ID validation)**: \u2705 Identified as \"No validation that card IDs exist\" in High Priority Gap #4\n- **gap_6 (human-readable output)**: \u274c Not mentioned; the report discusses `__repr__` for the Deck object but not card name resolution\n- **gap_7 (format migration)**: \u2705 Identified as \"Only supports v1\" in Low Priority Gap #9\n- **gap_8 (error context)**: \u2705 Identified as \"No observability\" and \"Silent parsing failures\" in Medium Priority Gap #7\n- **gap_9 (serialization formats)**: \u2705 Identified as \"No `__repr__`\" in Low Priority Gap #10\n- **gap_10 (batch processing)**: \u2705 Identified as \"noticeable for batch operations\" in Medium Priority Gap #8\n\n**Plan Specificity:**\nFor each gap that WAS identified, the Plan section provides concrete implementation details with code examples, making them all \"concrete\" except for the two gaps that weren't identified (gap_2 and gap_6), which are \"absent\".",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

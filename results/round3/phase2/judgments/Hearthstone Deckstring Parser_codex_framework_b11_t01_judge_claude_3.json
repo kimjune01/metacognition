@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "I'll analyze this diagnostic report against the ground-truth gaps and the actual system capabilities.\n\nLet me carefully evaluate each dimension:\n\n**1. OBSERVATION ACCURACY**\n\nThe Observations section describes:\n- Core encode/decode functionality \u2713\n- Format, heroes, cards, sideboards support \u2713\n- Trisort grouping \u2713\n- Sorting for determinism \u2713\n- Object wrapper (Deck class) \u2713\n- Some validation (header, version, FormatType, hero count) \u2713\n\nThis accurately describes what the system does. The report doesn't claim features that don't exist, and correctly identifies the working capabilities.\n\n**2. GAP COVERAGE**\n\nLet me map each ground-truth gap to the Triage section:\n\n- **gap_1** (no length validation, unhandled EOFError): The Triage mentions \"truncated varints / unexpected EOF\" in the test plan and \"can be driven into excessive reads\" in section 2, but doesn't explicitly call out the lack of stream length validation. **Partially covered - true**\n\n- **gap_2** (no trailing-byte detection): The Plan section explicitly says \"After parsing, verify the stream is fully consumed; reject trailing bytes.\" This is identified. **true**\n\n- **gap_3** (no card-count validation): Triage section 2 says \"Counts... are trusted blindly\" and Plan section 2 says \"validate parsed values: ... counts > 0\". **true**\n\n- **gap_4** (no deck-size validation): Not mentioned. The report discusses section sizes and memory growth from malformed input, but doesn't identify missing total-card-count validation against game rules. **false**\n\n- **gap_5** (no card-ID validation): Triage section 2 says \"card IDs... are trusted blindly\" and Plan section 2 says \"validate parsed values: card IDs > 0\". However, this only catches negative/zero IDs, not non-existent ones against a database. **Partially - true** (identifies the gap in substance)\n\n- **gap_6** (no human-readable output): Not mentioned. The report discusses tuples vs typed models but doesn't identify the missing card-name resolution capability. **false**\n\n- **gap_7** (no format-version migration): Triage section 3 says \"The module assumes a single fixed deckstring version... but production code usually needs a clearer compatibility story\" and discusses supporting multiple versions. **true**\n\n- **gap_8** (no logging/error context): Triage section 5 mentions \"Exceptions are generic... and not useful for callers that need to distinguish parse failures\" and Plan section 5 suggests custom exceptions, but doesn't specifically call out missing position/context information in errors. **Partially - true**\n\n- **gap_9** (no serialization to standard formats): Not mentioned. The report discusses typed models and the tuple-heavy structure but doesn't identify missing to_dict()/to_json()/__repr__ methods. **false**\n\n- **gap_10** (no batch/async processing): Not mentioned at all. **false**\n\n**3. PLAN SPECIFICITY**\n\nFor gaps that were identified:\n\n- **gap_1**: Plan mentions bounds checks and rejecting overly long varints - **directional** (mentions the area but not the specific EOF handling)\n- **gap_2**: \"After parsing, verify the stream is fully consumed; reject trailing bytes\" - **concrete**\n- **gap_3**: \"validate parsed values: ... counts > 0\" - **concrete**\n- **gap_4**: N/A (not identified)\n- **gap_5**: \"validate parsed values: card IDs > 0\" - **directional** (doesn't address database validation)\n- **gap_6**: N/A (not identified)\n- **gap_7**: \"Document supported deckstring versions\" and \"Decide whether multi-hero decks are supported\" - **directional** (discusses the issue but no concrete migration strategy)\n- **gap_8**: \"Introduce custom exceptions such as DeckstringDecodeError\" - **directional** (mentions better exceptions but not error context)\n- **gap_9**: N/A (not identified)\n- **gap_10**: N/A (not identified)\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"directional\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "directional",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "directional",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

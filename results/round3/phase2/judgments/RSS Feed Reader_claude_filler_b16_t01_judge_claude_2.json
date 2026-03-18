@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"inaccurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Justification:**\n\n**Observation Accuracy: inaccurate**\n- The report claims \"Deduplication: Uses timestamp-based IDs to prevent duplicate entries within a category\" (Observation #3), but the ground truth explicitly states gap_3: \"If two feeds in the same category contain the same article, both copies appear in the output.\" The system does NOT deduplicate.\n- The report claims \"Timestamp Tracking: Records when each feed was last updated\" (Observation #9), but there's no evidence in the ground truth that individual feeds are tracked - only that the category JSON file has a created_at timestamp.\n- These are factual errors about what the system actually does, making the observations inaccurate.\n\n**Gap Coverage:**\n- **gap_1** (HTTP error handling): \u2713 Identified as \"No Error Recovery\" - mentions silent failures and crashes\n- **gap_2** (feed validation): \u2713 Identified as \"No Feed Validation\" - mentions malformed feeds and schema validation\n- **gap_3** (no deduplication): \u2717 Not identified. The report incorrectly claims deduplication EXISTS in Observation #3\n- **gap_4** (no content extraction): \u2713 Identified as \"No Content Extraction\" - mentions only title/link stored\n- **gap_5** (no caching/conditional fetching): \u2713 Identified as \"No Caching Strategy\" - mentions re-fetching everything and ETag support\n- **gap_6** (no rate limiting): \u2717 Not identified. The report mentions \"No Concurrency\" as slow but doesn't mention the rapid-succession request problem or rate limiting\n- **gap_7** (no persistent state): \u2713 Identified as \"No Read State Tracking\" - covers the lack of state about what's been seen\n- **gap_8** (no error recovery/retry): \u2713 Identified as \"No Error Recovery\" with explicit mention of retry logic needed\n- **gap_9** (no OPML/feed discovery): \u2713 Identified separately as \"No Feed Discovery\" (#16) and \"No OPML Import/Export\" (#17)\n- **gap_10** (no output format flexibility): \u2713 Identified as \"No Export Capability\" (#13) mentioning data locked in JSON format\n\n**Plan Specificity:**\n- **gap_1**: Concrete - specific code with try-except, retry logic, exponential backoff implementation\n- **gap_2**: Concrete - JSON schema, specific validation steps, code examples\n- **gap_3**: Absent - not identified as a gap\n- **gap_4**: Concrete - specific fields to extract, code for HTML stripping\n- **gap_5**: Concrete - TTL checking, ETag/If-Modified-Since headers, specific implementation\n- **gap_6**: Absent - not identified as a gap\n- **gap_7**: Concrete - specific file structure, functions, pruning logic\n- **gap_8**: Concrete - covered in gap_1 plan with retry logic\n- **gap_9**: Directional - mentions using `feedfinder2` and `listparser` libraries but minimal implementation detail\n- **gap_10**: Directional - mentions export formats but brief \"Remaining Gaps\" section with minimal detail",
+  "parsed": {
+    "observation_accuracy": "inaccurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "directional"
+    }
+  }
+}

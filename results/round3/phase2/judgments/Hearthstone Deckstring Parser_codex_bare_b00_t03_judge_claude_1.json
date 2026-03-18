@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, deck class wrapper, sideboard support, version checking, and format validation. It accurately notes that it \"can round-trip a well-formed deckstring\" and validates \"basic header structure.\"\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2713 Covered in Triage #2 \"No checks for truncated payloads beyond partial varint EOF\"\n- **gap_2 (trailing bytes)**: \u2713 Covered in Triage #2 \"or leftover trailing bytes\" and Plan #2 \"verify there is no unexpected trailing data\"\n- **gap_3 (card-count validation)**: \u2713 Covered in Triage #2 \"No validation of impossible counts, negative-like semantics\" and Plan #2 \"counts > 0\"\n- **gap_4 (deck-size validation)**: \u2713 Covered in Triage #3 \"No enforcement of deck legality\" (though not explicitly mentioning 30/40 card limits, the substance is there)\n- **gap_5 (card-ID validation)**: \u2713 Covered in Plan #2 \"card IDs > 0\" validates positivity, though doesn't mention database lookup\n- **gap_6 (human-readable output)**: \u2717 Not mentioned. The report focuses on validation and robustness, not card name resolution\n- **gap_7 (format-version migration)**: \u2713 Covered in Triage #7 \"No compatibility/versioning strategy beyond version 1\" and Plan #7 with concrete migration strategy\n- **gap_8 (logging/error context)**: \u2713 Covered in Triage #4 \"limited context\" and Plan #4 \"Include actionable context in messages: offending field, position/section\"\n- **gap_9 (serialization formats)**: \u2713 Covered in Triage #5 \"API is minimal and exposes raw tuples\" and Plan #5 suggests dataclass\n- **gap_10 (batch processing)**: \u2717 Not mentioned. The report doesn't address concurrent or batch processing capabilities\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific steps to fix EOF handling, read byte values correctly, add tests\n- **gap_2**: \"concrete\" - \"verify there is no unexpected trailing data unless explicitly allowed\"\n- **gap_3**: \"concrete\" - \"counts > 0\" with explicit validation\n- **gap_4**: \"directional\" - Mentions \"deck legality\" but doesn't specify 30/40 card limits or how to validate them\n- **gap_5**: \"concrete\" - \"card IDs > 0\" is explicit\n- **gap_6**: \"absent\" - Not addressed\n- **gap_7**: \"concrete\" - Suggests version dispatcher with `parse_v1` pattern\n- **gap_8**: \"concrete\" - Lists specific context to include (offending field, position/section, actual value)\n- **gap_9**: \"concrete\" - Suggests dataclass and named structures like `CardEntry`\n- **gap_10**: \"absent\" - Not addressed",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

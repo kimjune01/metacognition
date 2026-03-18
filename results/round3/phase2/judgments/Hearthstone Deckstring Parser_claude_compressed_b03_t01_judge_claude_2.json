@@ -1,0 +1,31 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n## Scoring Rationale\n\n**OBSERVATION ACCURACY: accurate**\nThe Observations section correctly identifies all working capabilities: base64 decoding, varint handling, format validation, hero count checking, round-trip encoding, and trisort optimization. It accurately notes what validation exists (header, version, format enum, hero count) without overstating or missing capabilities.\n\n**GAP COVERAGE: 9/10 identified**\n\n- **gap_1** (input sanitization/truncation): \u2705 Triage #1 & #4 - \"crashes on malformed input\" and \"truncated streams\"\n- **gap_2** (trailing-byte detection): \u2705 Triage #4 - \"buffer overruns\" and edge case handling\n- **gap_3** (card-count validation): \u2705 Triage #3 - \"accepts invalid decks (wrong card counts)\"\n- **gap_4** (deck-size validation): \u2705 Triage #3 - Plan section includes \"Check total card count (usually 30)\"\n- **gap_5** (card-ID validation): \u2705 Triage #3 - \"invalid card IDs\" and Plan includes \"Check card IDs exist in card_db\"\n- **gap_6** (human-readable output): \u274c NOT identified - Triage #8 mentions introspection but focuses on `__repr__` and `diff()`, not card name resolution\n- **gap_7** (format-version migration): \u2705 Triage #10 - explicit migration plan\n- **gap_8** (logging/error context): \u2705 Triage #2 - \"No logging/observability\"\n- **gap_9** (serialization formats): \u2705 Triage #8 & Plan #6 - `to_dict()`, `to_json()`, `save()`\n- **gap_10** (batch processing): \u2705 Triage #5 - \"Can't process multiple deckstrings\"\n\n**PLAN SPECIFICITY: All concrete except gap_6 (which wasn't identified)**\n\nEach identified gap has a concrete plan with:\n- Code snippets showing exact API signatures\n- Specific implementation steps\n- Clear acceptance criteria\n\nFor example, gap_1 gets custom exception classes with names, gap_3 gets a `validate()` method with bullet points, gap_10 gets a `migrate()` function signature with version-specific parsers.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

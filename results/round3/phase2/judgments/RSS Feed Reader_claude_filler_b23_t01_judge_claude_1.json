@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: mostly_accurate**\n- Most observations are correct (feed parsing, multi-source aggregation, timezone handling, sorting, configuration management, selective updates)\n- However, observation #5 (\"Deduplication: Uses timestamps as IDs to prevent duplicate entries from the same feed\") is misleading. The system actually has poor deduplication - timestamp-based IDs cause collisions and there's no cross-fetch deduplication\n- Observation #11 (\"Error Handling: Graceful continuation when individual feeds fail\") is incorrect - the code has `sys.exit()` at line 32, which kills the entire process on first failure\n\n**Gap Coverage:**\n- **gap_1** (HTTP error handling): \u2705 Identified as \"No Error Logging\" + mentions `sys.exit()` problem\n- **gap_2** (feed validation): \u274c Not identified - report doesn't mention checking for valid RSS structure or empty feeds\n- **gap_3** (deduplication): \u2705 Identified as item #7 \"No Duplicate Detection Across Updates\"\n- **gap_4** (content extraction): \u2705 Identified as item #10 \"Limited Metadata Storage\"\n- **gap_5** (caching): \u2705 Identified as item #4 \"No Caching/Conditional Requests\"\n- **gap_6** (rate limiting): \u2705 Identified as item #3 \"No Rate Limiting\"\n- **gap_7** (persistent state): \u2705 Identified as item #17 \"No Read/Unread Tracking\"\n- **gap_8** (error recovery): \u2705 Identified in items #2 and the error handling discussion\n- **gap_9** (OPML/discovery): \u2705 Identified as items #15 and #16\n- **gap_10** (output format): \u2705 Identified as item #1 \"No User Interface\"\n\n**Plan Specificity:**\n- **gap_1**: Concrete - provides specific code for logging and exception handling with `continue` instead of `sys.exit()`\n- **gap_2**: Absent - no plan provided since gap wasn't identified\n- **gap_3**: Concrete - shows hash-based ID generation and duplicate checking code\n- **gap_4**: Concrete - provides code for storing description, images, categories, enclosures\n- **gap_5**: Concrete - detailed implementation with `requests_cache`, ETags, and If-Modified-Since headers\n- **gap_6**: Concrete - shows rate limiting implementation with sleep and domain tracking\n- **gap_7**: Concrete - provides code for read tracking with JSON file\n- **gap_8**: Concrete - shows exception handling and retry logic\n- **gap_9**: Directional - mentions `feedfinder2` and function names but lacks implementation details\n- **gap_10**: Directional - mentions multiple output options (HTML, terminal, email) but only provides concrete code for CLI display, not other formats",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "directional"
+    }
+  }
+}

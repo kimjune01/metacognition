@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"directional\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: mostly_accurate**\n- The working capabilities are correctly described (RSS parsing, JSON caching, timestamp normalization, selective refresh)\n- However, the claim about \"deduplicates by timestamp\" is misleading - the system does NOT deduplicate; it uses timestamp as an ID which actually creates collision issues (gap_3)\n- The description of what works is otherwise accurate\n\n**Gap Coverage:**\n- \u2705 **gap_1** (HTTP error handling): Identified as \"No error recovery\" - correctly notes sys.exit() kills entire process\n- \u274c **gap_2** (feed validation): NOT identified - report mentions filtering entries, but doesn't note missing validation that feeds contain valid RSS data\n- \u2705 **gap_3** (deduplication): Identified as \"No Remember stage\" and \"Shallow Filter\" - notes cache overwrite and lack of cross-run duplicate detection\n- \u274c **gap_4** (content extraction): NOT identified - report doesn't mention missing description/summary, categories, enclosures, or media\n- \u2705 **gap_5** (caching/conditional fetching): Identified as \"No Remember stage\" - notes complete cache overwrite each run\n- \u2705 **gap_6** (rate limiting): Explicitly identified as \"No rate limiting\"\n- \u2705 **gap_7** (persistent state): Identified as \"No Remember stage\" - correctly notes no read/unread tracking or state between runs\n- \u2705 **gap_8** (error recovery/retry): Identified as \"No error recovery\" with specific mention of sys.exit() behavior\n- \u274c **gap_9** (feed discovery/OPML): NOT identified - no mention of missing import/export or auto-discovery features\n- \u274c **gap_10** (output format flexibility): NOT identified - no mention that output is hardcoded to JSON\n\n**Plan Specificity:**\n- **gap_1**: **concrete** - Specific code replacement at lines 28-34, exact exception handling pattern provided\n- **gap_3**: **concrete** - Detailed implementation with history tracking, specific data structures, file locations, and insertion points\n- **gap_5**: **concrete** - Multiple concrete changes: history.json structure, load/save functions, specific placement\n- **gap_6**: **directional** - Mentions sleep(), ThreadPoolExecutor, and ETag support, but lacks specifics like which headers to send, how to store ETags, etc.\n- **gap_7**: **concrete** - Specific data structures (feed_stats.json with exact fields), new module name, CLI command syntax\n- **gap_8**: **concrete** - Exact code replacement with error handling pattern and return value structure",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "directional",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

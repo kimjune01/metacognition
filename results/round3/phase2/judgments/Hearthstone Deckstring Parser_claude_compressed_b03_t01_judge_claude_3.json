@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate** - The report correctly identifies all working capabilities: base64 decode/encode, varint handling, trisort optimization, version validation, format type validation, hero count validation, and round-trip conversion. It accurately notes the absence of consolidate/attend stages.\n\n**Gap Coverage:**\n- **gap_1 (truncated stream) = true**: Identified in Triage #1 \"crashes on malformed input\" and Plan #4 \"truncated deckstrings at every byte offset\"\n- **gap_2 (trailing bytes) = false**: Not mentioned anywhere. The report discusses truncated data but not extra trailing data\n- **gap_3 (card count validation) = true**: Triage #3 \"wrong card counts\" and Plan #3 validate() checks for this\n- **gap_4 (deck size validation) = true**: Triage #3 \"wrong card counts\" and Plan #3 \"Check total card count (usually 30)\"\n- **gap_5 (card ID validation) = true**: Triage #3 \"invalid card IDs\" and Plan #3 \"Check card IDs exist in card_db\"\n- **gap_6 (human-readable output) = false**: While Plan #8 mentions a summary() method with card names, this is listed as a \"nice-to-have\" developer quality-of-life feature, not identified as a core missing capability\n- **gap_7 (format migration) = true**: Triage #10 and Plan #10 cover this extensively\n- **gap_8 (logging/error context) = true**: Triage #2 and entire Plan #2 section address this\n- **gap_9 (serialization formats) = true**: Triage #8 \"No __repr__\" and Plan #6 to_dict()/from_dict()/save()/load()\n- **gap_10 (batch processing) = true**: Triage #5 and Plan #5 with DeckCollection class\n\n**Plan Specificity:**\n- All identified gaps have concrete plans with code sketches, class definitions, and specific method signatures, except gap_2 and gap_6 which weren't identified as gaps",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

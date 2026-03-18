@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll evaluate this diagnostic report systematically against the ground-truth gaps and system description.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes all the working capabilities: feed loading, merging, fetching, extraction of fields, timezone conversion, date formatting, JSON output, optional logging, directory creation, and import flexibility.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (HTTP error handling)**: \u2705 Identified in Triage #1 and #5 - notes bare except, sys.exit killing process, and uncontrolled network behavior\n- **gap_2 (feed validation)**: \u274c Not identified - report doesn't mention validating whether parsed feeds contain valid RSS data vs empty/HTML responses\n- **gap_3 (deduplication)**: \u2705 Identified in Triage #2 - explicitly describes timestamp collision issue\n- **gap_4 (content extraction)**: \u2705 Identified in Triage #8 - notes limited metadata extraction, missing summary/content, GUID, categories/tags\n- **gap_5 (caching/conditional fetching)**: \u274c Not identified - report doesn't mention ETag, Last-Modified, If-Modified-Since, or local caching\n- **gap_6 (rate limiting)**: \u274c Not identified - report mentions \"uncontrolled network behavior\" but doesn't specifically call out lack of rate limiting or throttling between feeds\n- **gap_7 (persistent state)**: \u274c Not identified - report doesn't mention read/unread tracking, last-fetched timestamps, or showing only new entries\n- **gap_8 (error recovery/retry)**: \u2705 Identified in Triage #1 and #5 - mentions no retry policy, backoff, or fault isolation\n- **gap_9 (feed discovery/OPML)**: \u274c Not identified - report doesn't mention auto-discovery or OPML import/export\n- **gap_10 (output format flexibility)**: \u274c Not identified - report mentions schema versioning but doesn't call out lack of alternative output formats (HTML, terminal, email)\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: concrete - specific steps to replace bare except, return structured results, log failures, continue processing\n- **gap_3**: concrete - detailed deduplication strategy using entry.id/guid/link with fallback hash\n- **gap_4**: concrete - lists specific fields to capture (feed title, summary/content, tags, guid/id)\n- **gap_8**: concrete - wrap with timeout/retry, use requests first, record HTTP status, continue on failure",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

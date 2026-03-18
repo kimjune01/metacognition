@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: mostly_accurate**\n- The report correctly identifies most working capabilities (feed parsing, multi-source aggregation, time localization, configuration management, etc.)\n- However, observation #3 claims \"Deduplication: Uses timestamp-based IDs to prevent duplicate entries within a category\" which is misleading. The system uses timestamps as IDs, which doesn't actually prevent duplicates\u2014it's the exact issue described in gap_3 (entries published at the same second will collide, and there's no cross-feed deduplication)\n- Observation #10 mentions \"Basic Error Handling\" but doesn't acknowledge that it's critically flawed (sys.exit() kills the process)\n\n**Gap Coverage:**\n- **gap_1** (HTTP error handling): \u2713 Identified as \"No Error Recovery\" and \"Missing Feed Validation\"\n- **gap_2** (feed validation): \u2713 Identified as \"Missing Feed Validation\"\n- **gap_3** (no deduplication): \u2717 Not identified; in fact, the Observations incorrectly claim deduplication exists\n- **gap_4** (no content extraction): \u2713 Identified as \"No Entry Content\"\n- **gap_5** (no caching): \u2713 Identified as \"Missing Caching Strategy\"\n- **gap_6** (no rate limiting): \u2713 Identified as \"No Rate Limiting\"\n- **gap_7** (no persistent state): \u2713 Identified as \"No Read/Unread Tracking\" and related gaps\n- **gap_8** (no error recovery): \u2713 Identified as \"No Error Recovery\"\n- **gap_9** (no feed discovery/OPML): \u2713 Identified as \"Missing Export Functionality\" and \"No Feed Discovery\"\n- **gap_10** (no output format flexibility): \u2717 Not identified; report doesn't mention inability to render to HTML, terminal, or other formats\n\n**Plan Specificity:**\n- For identified gaps, the plans are generally concrete with code examples\n- gap_3 and gap_10 are \"absent\" because they weren't identified as gaps",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

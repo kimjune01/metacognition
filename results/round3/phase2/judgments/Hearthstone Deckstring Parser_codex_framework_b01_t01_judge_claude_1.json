@@ -1,0 +1,27 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll evaluate this diagnostic report against the ground truth systematically.\n\nLet me analyze each dimension:\n\n## 1. OBSERVATION ACCURACY\n\nThe Observations section describes:\n- Base64 encode/decode \u2713\n- Header parsing (version, FormatType) \u2713\n- Heroes, cards, sideboards parsing \u2713\n- Three card-count buckets (1, 2, n) \u2713\n- Sorting \u2713\n- Deck class API \u2713\n- Sideboard support \u2713\n- Version/format validation \u2713\n\nAll of these are correct descriptions of what the system does. The observations are factual and accurate.\n\n## 2. GAP COVERAGE\n\nLet me check each ground-truth gap:\n\n**gap_1** (No input sanitization - truncated/corrupted deckstring causes EOFError): \n- Triage #1 mentions \"_read_varint() EOF check\" and discusses the wrong exception\n- Triage #2 mentions \"malformed or nonsensical input\" and \"truncated varints, truncated payloads\"\n- **TRUE** - identified\n\n**gap_2** (No trailing-byte detection):\n- Triage #2 explicitly mentions \"extra trailing bytes\"\n- Plan #2 says \"reject trailing unread bytes after the expected payload\"\n- **TRUE** - identified\n\n**gap_3** (No card-count validation - accepts zero/negative):\n- Triage #2 mentions \"zero or negative counts at write time\"\n- Plan #2 says \"Validate that counts are >= 1\"\n- **TRUE** - identified\n\n**gap_4** (No deck-size validation - total card count):\n- Not mentioned in Triage or Plan\n- **FALSE** - not identified\n\n**gap_5** (No card-ID validation against database):\n- Plan #2 mentions \"Validate that card IDs and hero IDs are positive integers\" but this is just range validation, not database validation\n- The gap is about checking against a valid card database for existence\n- **FALSE** - not identified (only superficial numeric validation mentioned)\n\n**gap_6** (No human-readable output - no card name resolution):\n- Not mentioned anywhere\n- **FALSE** - not identified\n\n**gap_7** (No format-version migration):\n- Triage #7: \"No forward-compatibility or spec-evolution story. The code hard-fails on unknown versions\"\n- Plan #7: \"Define compatibility policy\" with version-specific parsing paths\n- **TRUE** - identified\n\n**gap_8** (No logging or error context - position in byte stream):\n- Triage #4: \"Weak error handling and diagnostics\"\n- Plan #4: \"Include enough context in errors to identify the failing section: header, heroes, cards, or sideboards\"\n- **TRUE** - identified (though not as detailed as the ground truth)\n\n**gap_9** (No serialization to standard formats - to_dict/to_json):\n- Not mentioned\n- **FALSE** - not identified\n\n**gap_10** (No concurrent/batch processing):\n- Not mentioned\n- **FALSE** - not identified\n\n## 3. PLAN SPECIFICITY\n\nFor gaps that WERE identified:\n\n**gap_1**: Plan #1 has concrete fixes - change `\"\"` to `b\"\"`, use `c[0]`, add max varint guard. **CONCRETE**\n\n**gap_2**: Plan #2 says \"reject trailing unread bytes after the expected payload\" - specific action. **CONCRETE**\n\n**gap_3**: Plan #2 says \"Validate that counts are >= 1\" - specific validation. **CONCRETE**\n\n**gap_7**: Plan #7 mentions \"isolate version-specific parsing/serialization paths\" and \"compatibility tests\" but doesn't specify how to handle v2. **DIRECTIONAL**\n\n**gap_8**: Plan #4 specifies error classes and section identification, fairly concrete. **CONCRETE**\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\"\n  }\n}\n```",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_7": "directional",
+      "gap_8": "concrete"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort bucketing, deck class wrapper, sideboard support, version checking, and format validation. It accurately notes the one-hero constraint on serialization and deterministic sorting.\n\n**Gap Coverage:**\n- **gap_1 (truncated stream handling)**: \u2705 Identified as \"unexpected EOF\" and \"Malformed or partial input can fail in unclear ways\"\n- **gap_2 (trailing bytes)**: \u2705 Identified as \"After parsing, verify no unexpected trailing bytes remain\" and \"validation for... trailing garbage\"\n- **gap_3 (card-count validation)**: \u2705 Identified as \"no validation for negative counts\"\n- **gap_4 (deck-size validation)**: \u274c Not mentioned anywhere in the report\n- **gap_5 (card-ID validation)**: \u2705 Identified as \"validation for... invalid card IDs\"\n- **gap_6 (human-readable output)**: \u274c Not mentioned; report focuses on binary format correctness\n- **gap_7 (format-version migration)**: \u2705 Identified as \"no versioning strategy beyond constant\" and rejection of unsupported versions\n- **gap_8 (error context)**: \u2705 Identified as \"can fail in unclear ways\" and \"Add clear exception types\"\n- **gap_9 (serialization formats)**: \u274c Not mentioned; report doesn't address to_dict/to_json\n- **gap_10 (batch processing)**: \u274c Not mentioned; report doesn't address concurrency or bulk operations\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific actions: check for unexpected EOF, add clear exception types\n- **gap_2**: \"concrete\" - Specific action: \"After parsing, verify no unexpected trailing bytes remain\"\n- **gap_3**: \"concrete\" - Specific action: validate \"invalid counts or IDs\"\n- **gap_5**: \"directional\" - Mentions validation needed but doesn't specify how to implement card ID validation\n- **gap_7**: \"directional\" - Notes need for versioning strategy but doesn't provide concrete migration approach\n- **gap_8**: \"concrete\" - \"Add clear exception types or standardized ValueError messages\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, sideboard support, version checking, format validation, and the Deck wrapper class. It accurately characterizes this as \"a functional codec layer for a narrow slice of the deckstring format.\"\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2713 Identified in Triage #2: \"It does not reject trailing garbage after a valid payload\" and \"It does not validate counts or IDs beyond enum conversion\" (implies no length validation)\n- **gap_2 (trailing bytes)**: \u2713 Identified in Triage #2: \"It does not reject trailing garbage after a valid payload\" and Plan #2: \"After parsing, verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3 (card-count validation)**: \u2713 Identified in Triage #2: \"It does not validate counts or IDs beyond enum conversion\" and \"invalid sideboard references\" and Plan #2: \"card counts must be positive\"\n- **gap_4 (deck-size validation)**: \u2717 Not mentioned. The report discusses card counts being positive but never mentions total deck size (30/40 cards)\n- **gap_5 (card-ID validation)**: \u2713 Identified in Triage #2: \"It does not validate counts or IDs beyond enum conversion\" and Plan #2: \"card IDs must be positive integers\"\n- **gap_6 (human-readable output)**: \u2717 Not mentioned. The report doesn't discuss card name resolution or metadata\n- **gap_7 (format-version migration)**: \u2713 Identified in Triage #3: \"Only deckstring version 1 is accepted\" and Plan #3: \"Refactor version handling so parsing is dispatch-based\"\n- **gap_8 (logging/error context)**: \u2713 Identified in Triage #4: \"Failures do not include enough context to debug malformed inputs\" and Plan #4: \"Include actionable context in messages\"\n- **gap_9 (serialization formats)**: \u2717 Not mentioned. No discussion of to_dict(), to_json(), or __repr__\n- **gap_10 (batch processing)**: \u2717 Not mentioned. No discussion of concurrent or batch processing\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Plan #2 gives specific instructions: strict base64 decoding, verify stream consumption, validate constraints with explicit examples\n- **gap_2**: \"concrete\" - Plan #2 explicitly states: \"After parsing, verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3**: \"concrete\" - Plan #2 provides specific validation rules: \"card counts must be positive\"\n- **gap_5**: \"concrete\" - Plan #2 states: \"card IDs must be positive integers\"\n- **gap_7**: \"directional\" - Plan #3 mentions \"dispatch-based\" parsing and supporting future versions, but doesn't provide concrete implementation details\n- **gap_8**: \"concrete\" - Plan #4 provides specific guidance: introduce domain exceptions, include section/value context in messages",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

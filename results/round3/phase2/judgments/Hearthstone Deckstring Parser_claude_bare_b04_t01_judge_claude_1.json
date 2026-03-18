@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: bidirectional encoding/decoding, varint compression, format support (heroes, cards, sideboards), the Deck class interface, and sorting conventions. It accurately reflects what the system does without claiming functionality it lacks.\n\n**Gap Coverage:**\n- **gap_1 (truncated input \u2192 EOFError)**: \u2713 Identified as \"No error handling for malformed input - Silent failures or unclear exceptions on corrupted deckstrings\"\n- **gap_2 (trailing bytes ignored)**: \u2713 Covered under the same \"malformed input\" critique - the report notes the system doesn't validate input properly\n- **gap_3 (no card-count validation)**: \u2713 Explicitly called out: \"No validation - Accepts invalid deck configurations (duplicate cards, wrong counts, invalid DBF IDs)\"\n- **gap_4 (no deck-size validation)**: \u2717 Not mentioned. The report discusses card counts and duplicates but never mentions total deck size constraints (30 cards for constructed, 40 for other formats)\n- **gap_5 (no card-ID validation)**: \u2713 Covered in validation section: \"invalid DBF IDs\"\n- **gap_6 (no human-readable output)**: \u2713 \"No card name resolution - Works only with numeric DBF IDs, not human-readable card names\"\n- **gap_7 (no format migration)**: \u2713 Listed as custom exception type: \"UnsupportedVersionError\"\n- **gap_8 (no error context/logging)**: \u2713 Error handling section mentions \"descriptive error messages\" and better exception types\n- **gap_9 (no serialization)**: \u2713 \"Limited Deck class functionality\" and the Plan mentions adding `__str__` and `__repr__`\n- **gap_10 (no batch processing)**: \u2713 Performance section mentions \"large batch operations\" profiling\n\n**Plan Specificity:**\n- **gap_1**: **concrete** - Specifies exception types, wrapping logic, and exact validation steps\n- **gap_2**: **concrete** - Covered by the error handling plan (wrapping decode logic, validating base64)\n- **gap_3**: **concrete** - Details validation checks (positive integers, no duplicates), exact method signatures\n- **gap_4**: **absent** - No plan item addresses deck size\n- **gap_5**: **concrete** - Validation plan includes checking card IDs (though external DB lookup isn't specified)\n- **gap_6**: **concrete** - Specifies `from_card_names()`, `get_card_names()`, dependency handling\n- **gap_7**: **directional** - Mentions \"UnsupportedVersionError\" but doesn't provide concrete migration strategy\n- **gap_8**: **concrete** - Specifies custom exception classes with descriptive messages\n- **gap_9**: **concrete** - Shows exact methods to add (`__str__`, `__repr__`, mutation methods)\n- **gap_10**: **concrete** - Provides caching decorator, profiling approach, and alternative implementation",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

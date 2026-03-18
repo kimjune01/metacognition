@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint handling, deckstring parsing/writing, trisort optimization, the Deck class, sideboard support, version checking, and format validation. It accurately characterizes this as covering \"the core happy path.\"\n\n**Gap Coverage:**\n- **gap_1 (truncated stream handling)**: \u2705 Identified in Triage #1 and #3 (\"Truncated streams can fail with low-level exceptions\")\n- **gap_2 (trailing bytes)**: \u2705 Identified in Plan #3 (\"Detect trailing garbage after a valid payload\")\n- **gap_3 (card-count validation)**: \u2705 Identified in Triage #2 (\"No validation that count >= 1\") and Plan #2\n- **gap_4 (deck-size validation)**: \u274c Not mentioned. The report discusses validating individual card counts but never mentions total deck size (30/40 cards)\n- **gap_5 (card-ID validation)**: \u2705 Identified in Triage #2 (\"No validation for negative IDs\") and Plan #2, though phrased as range validation rather than database lookup\n- **gap_6 (human-readable output)**: \u274c Not mentioned. The report focuses on serialization correctness but doesn't discuss card name resolution or metadata\n- **gap_7 (format-version migration)**: \u2705 Identified in Triage #6 (\"No forward-compatibility strategy for future deckstring versions\") and Plan #6\n- **gap_8 (logging/error context)**: \u2705 Identified in Triage #3 (\"Errors lack context about where parsing failed\") and Plan #3\n- **gap_9 (serialization formats)**: \u2705 Identified in Triage #4 implicitly and Plan #4 mentions making Deck a dataclass, which would enable dict/JSON serialization\n- **gap_10 (batch processing)**: \u274c Not mentioned. The report focuses on single-deckstring correctness, not performance or concurrency\n\n**Plan Specificity:**\n- **gap_1**: concrete - Specific changes to `_read_varint()`, EOF handling, max shift guards\n- **gap_2**: concrete - \"Detect trailing garbage after a valid payload\" with exception handling\n- **gap_3**: concrete - Create `_validate_cards()` functions, check counts >= 1\n- **gap_4**: absent - Not addressed\n- **gap_5**: directional - Mentions validating \"IDs must be integers and positive\" but doesn't specify checking against a card database\n- **gap_6**: absent - Not addressed\n- **gap_7**: directional - Mentions \"unknown future versions\" in Plan #6 but doesn't specify a migration strategy\n- **gap_8**: concrete - Create specific exception types, wrap sections with context messages\n- **gap_9**: concrete - Convert to dataclass with `to_deckstring()` method\n- **gap_10**: absent - Not addressed",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

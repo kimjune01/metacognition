@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: entry point signature, bootstrap logic, feedparser usage, normalization, sorting, JSON output, show_author support, and logging. No false claims about capabilities.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified in Triage #1 and #4\n- **gap_2 (feed validation)**: \u274c Not mentioned. Report discusses network errors and malformed feeds briefly in #4 but doesn't identify the lack of validation that an empty/invalid feed would pass silently\n- **gap_3 (deduplication)**: \u2705 Identified in Triage #2\n- **gap_4 (content extraction)**: \u2705 Identified in Triage #5 \"Missing useful fields like summary, content snippet...\"\n- **gap_5 (caching/conditional fetching)**: \u2705 Identified in Triage #4 \"no conditional requests\" and Plan #4 \"Support ETag and Last-Modified\"\n- **gap_6 (rate limiting)**: \u274c Not mentioned anywhere\n- **gap_7 (persistent state/read tracking)**: \u274c Not mentioned. Report discusses deduplication within a single run but doesn't identify lack of cross-run state\n- **gap_8 (error recovery/retry)**: \u2705 Identified in Triage #1 and #4, Plan #1 and #4\n- **gap_9 (OPML/feed discovery)**: \u274c Not mentioned\n- **gap_10 (output format flexibility)**: \u274c Not mentioned. Report only discusses JSON schema improvements, not alternative output formats\n\n**Plan Specificity:**\n- **gap_1**: concrete (specific steps: replace bare except, return per-feed results, structured logging)\n- **gap_3**: concrete (use GUID/hash, keep timestamp separate, deduplicate by stable ID)\n- **gap_4**: concrete (lists specific fields to add: feed_url, feed_title, author, summary, tags, etc.)\n- **gap_5**: concrete (mentions ETag, Last-Modified, HTTP client with timeout/retry)\n- **gap_8**: concrete (retry policy, capture HTTP status, mark failed feeds without aborting)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

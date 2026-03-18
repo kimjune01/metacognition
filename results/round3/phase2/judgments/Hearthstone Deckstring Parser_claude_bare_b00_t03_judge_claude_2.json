@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate** - The observations section correctly describes all working capabilities: varint encoding/decoding, deckstring parsing/writing, trisort optimization, the Deck class with round-trip conversion, sideboard support, version checking (implicitly mentioned), and format type support.\n\n**Gap Coverage Analysis:**\n- **gap_1 (input sanitization/truncation)**: \u2705 Identified as \"No Error Context\" - mentions parsing failures give minimal debug info, implicitly covers lack of validation for expected length\n- **gap_2 (trailing-byte detection)**: \u274c Not identified - the report doesn't mention checking for unparsed trailing data\n- **gap_3 (card-count validation)**: \u2705 Identified in \"No Validation\" - explicitly mentions \"max 2x per card\"\n- **gap_4 (deck-size validation)**: \u2705 Identified in \"No Validation\" - explicitly mentions \"30 cards\" check\n- **gap_5 (card-ID validation)**: \u2705 Identified as \"No Card Database Integration\" - mentions \"validate card existence\"\n- **gap_6 (human-readable output)**: \u2705 Identified as \"No Export Formats\" - mentions lack of human-readable formats and text output in Plan #6\n- **gap_7 (format-version migration)**: \u274c Not identified - no mention of version compatibility or graceful degradation\n- **gap_8 (logging/error context)**: \u2705 Identified as \"No Error Context\" - explicitly mentions minimal debug info and byte offset tracking needed\n- **gap_9 (serialization formats)**: \u274c Not identified - while \"No Export Formats\" covers human-readable output, it doesn't mention standard interchange formats like `to_dict()`, `to_json()`, or `__repr__` for inspection\n- **gap_10 (concurrent/batch processing)**: \u274c Not identified - no mention of bulk processing, streaming, or async support\n\n**Plan Specificity Analysis:**\n- **gap_1**: concrete - Specific error handling approach with byte offset tracking, exception classes with context fields\n- **gap_3**: concrete - Detailed validation rules (1 hero, 30 cards, max 2 copies, class restrictions)\n- **gap_4**: concrete - Same as gap_3, specific deck size validation in `Deck.validate()`\n- **gap_5**: concrete - CardDatabase class with lookup methods, integration points specified\n- **gap_6**: concrete - Specific text format example, methods to add (`to_text()`, `from_text()`)\n- **gap_8**: concrete - Specific implementation details (wrap in try/except, track bytes_read counter, DeckstringParseError class)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

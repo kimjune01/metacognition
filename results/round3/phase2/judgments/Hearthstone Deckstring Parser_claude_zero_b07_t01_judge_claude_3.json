@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 8 working capabilities of the system without hallucinating features that don't exist.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2713 Identified in Triage #1 \"Malformed deckstrings or corrupted data cause crashes\" and Plan #1 mentions \"Wrap `_read_varint` EOF handling\"\n- **gap_2 (trailing bytes)**: \u2717 Not mentioned anywhere\n- **gap_3 (card count validation)**: \u2717 Not mentioned (Triage #2 mentions \"card limits\" but this refers to game rules like 2x legendaries, not validating positive integers)\n- **gap_4 (deck size validation)**: \u2717 Not mentioned (Triage #2 mentions \"30-card limit\" in the validation plan, but this is grouped with game-rule validation requiring external databases, not parser-level validation)\n- **gap_5 (card ID validation)**: \u2717 Not mentioned\n- **gap_6 (human-readable output)**: \u2717 Not mentioned\n- **gap_7 (version migration)**: \u2717 Not mentioned\n- **gap_8 (logging/error context)**: \u2713 Identified in Triage #1 and Plan #1 \"Add try-catch in `parse_deckstring` with context about where parsing failed\"\n- **gap_9 (serialization formats)**: \u2713 Identified in Triage #9 \"Limited introspection\" and Plan #9 includes `__repr__` and `__str__`\n- **gap_10 (batch processing)**: \u2713 Identified in Triage #10 \"Performance unoptimized\" and Plan #10 addresses performance concerns\n\n**Plan Specificity:**\n- **gap_1**: concrete (specific exception class, try-catch locations, bounds checking)\n- **gap_8**: concrete (specific error handling approach with context)\n- **gap_9**: concrete (specific method signatures for `__repr__` and `__str__`)\n- **gap_10**: directional (mentions profiling and caching strategies but lacks implementation detail for concurrent/batch processing)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "directional"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Scoring Rationale\n\n**OBSERVATION ACCURACY: accurate**\nThe Observations section correctly describes all working capabilities: varint I/O, parsing, generation, object model, card organization, and version control. No false claims or missing major features.\n\n**GAP COVERAGE Analysis:**\n\n- **gap_1** \u2713 - Covered by Triage #1 \"No Error Recovery\" and #8 \"Incomplete Trailing Data Handling\" (truncation handling)\n- **gap_2** \u2713 - Covered by Triage #8 \"Incomplete Trailing Data Handling: Doesn't verify EOF or warn about extra bytes\"\n- **gap_3** \u2713 - Covered by Triage #2 \"Missing Validation: No bounds checking\" (includes card count validation)\n- **gap_4** \u2713 - Covered by Triage #2 and Plan #2 which explicitly mentions \"Total card count meets format rules (30 for Standard, 40 for Twist)\"\n- **gap_5** \u2717 - Not identified. The report doesn't mention card ID validation against a valid database\n- **gap_6** \u2713 - Covered by Triage #10 \"Limited Export Formats: not JSON/XML/human-readable\" and Plan #7 mentions `get_card_name()` and Plan #10 adds human-readable output\n- **gap_7** \u2717 - Not identified. The report doesn't mention version migration or graceful degradation for future versions\n- **gap_8** \u2713 - Covered by Triage #1 \"cryptic failures rather than actionable errors\" and Plan #1 mentions adding position context\n- **gap_9** \u2713 - Covered by Triage #10 and Plan #10 which adds `to_json()` and export formats\n- **gap_10** \u2717 - Not identified. The report doesn't mention batch processing, streaming, or async support\n\n**PLAN SPECIFICITY Analysis:**\n\n- **gap_1: concrete** - Plan #1 provides specific error handling code with try-except blocks and custom exception classes\n- **gap_2: concrete** - Plan #8 shows exact code for checking remaining bytes with warnings\n- **gap_3: concrete** - Plan #2 lists specific validation checks including \"Card counts are positive\"\n- **gap_4: concrete** - Plan #2 explicitly includes \"Total card count meets format rules (30 for Standard, 40 for Twist)\"\n- **gap_5: absent** - Not identified, so no plan exists\n- **gap_6: concrete** - Plan #7 adds `get_card_name()` and Plan #10 adds human-readable text export with example format\n- **gap_7: absent** - Not identified, so no plan exists\n- **gap_8: concrete** - Plan #1 provides specific error messages with byte position context, and Plan #11 adds structured logging\n- **gap_9: concrete** - Plan #10 provides complete JSON schema and class methods for export\n- **gap_10: absent** - Not identified, so no plan exists",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

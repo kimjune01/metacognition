@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Analysis:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization (implied by \"Groups cards by count\"), Deck class wrapper, sideboard support, version checking, and format validation.\n\n**Gap Coverage:**\n- \u2705 **gap_1** (truncated deckstring): Identified as \"Error handling is minimal\" with specific mention of \"wrap EOFError with byte offset context\"\n- \u274c **gap_2** (trailing bytes): Not identified\n- \u2705 **gap_3** (card-count validation): Identified in gap #3 \"Enforce card limits (max 1 legendary, max 2 others)\"\n- \u2705 **gap_4** (deck-size validation): Identified in gap #3 \"Check total card count (typically 30)\"\n- \u2705 **gap_5** (card-ID validation): Identified in gap #2 \"card database integration\" and gap #3 \"Check format legality\"\n- \u2705 **gap_6** (human-readable output): Identified in gap #7 \"No human-readable export\"\n- \u274c **gap_7** (format-version migration): Not identified (gap #6 mentions \"future-proofing unknown format codes\" but not version migration)\n- \u2705 **gap_8** (logging/error context): Identified in gap #9 \"No logging/debugging support\"\n- \u2705 **gap_9** (serialization formats): Identified in gap #5 \"Add JSON serialization\" and gap #8 \"Better Type Ergonomics\"\n- \u274c **gap_10** (batch processing): Not identified (gap #10 mentions performance but focuses on single-deck optimization)\n\n**Plan Specificity:**\nFor identified gaps, the plan provides concrete code examples and implementation steps, making them \"concrete\" rather than merely \"directional.\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

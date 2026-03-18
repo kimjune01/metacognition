@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's working capabilities without overstating or understating what the code actually does. It accurately identifies the encode/decode flow, varint handling, tri-sort optimization, sideboard support, version checking, and the Deck wrapper class.\n\n**Gap Coverage:**\n- **gap_1 (truncated input handling): true** - Triage #1 and #2 identify the fragile binary I/O and weak validation, including the lack of guards for malformed input that would cause EOFError\n- **gap_2 (trailing bytes): true** - Triage #2 explicitly mentions \"No check for trailing garbage after parsing\"\n- **gap_3 (card-count validation): true** - Triage #2 mentions \"No validation of negative IDs/counts on write\" and Plan #2 addresses validating \"counts are positive ints\"\n- **gap_4 (deck-size validation): false** - The report never mentions total deck size validation (30/40 cards)\n- **gap_5 (card-ID validation): true** - Triage #2 covers \"No validation of negative IDs/counts\" and the general lack of validation against valid card databases\n- **gap_6 (human-readable output): false** - The report does not identify the lack of card name resolution or metadata lookup capabilities\n- **gap_7 (format-version migration): true** - Triage #4 mentions error categories including \"unsupported version\" and the report acknowledges version rejection\n- **gap_8 (logging/error context): true** - Triage #4 explicitly addresses \"Error model is too generic\" and lack of diagnostic context\n- **gap_9 (serialization formats): true** - Triage #5 mentions \"No equality/representation helpers\" and Plan #5 addresses adding better representation\n- **gap_10 (batch processing): false** - The report does not mention concurrent, batch, or async processing capabilities\n\n**Plan Specificity:**\n- **gap_1: concrete** - Plan #1 provides specific code changes (replace `\"\"` with `b\"\"`, use `c[0]`, add max varint length)\n- **gap_2: concrete** - Plan #2 explicitly says \"verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3: concrete** - Plan #2 specifies validating \"counts are positive ints\" with concrete examples\n- **gap_4: absent** - Not identified, so no plan\n- **gap_5: concrete** - Plan #2 validates \"hero IDs, card IDs... are non-negative ints\"\n- **gap_6: absent** - Not identified, so no plan\n- **gap_7: directional** - Acknowledged in Triage #4 but Plan doesn't specify how to handle version migration gracefully\n- **gap_8: concrete** - Plan #4 provides specific exception types and mentions including \"enough context in messages for callers to diagnose bad input\"\n- **gap_9: concrete** - Plan #5 explicitly suggests \"Add `validate()` to centralize structural checks\" and \"Consider using `@dataclass` for cleaner construction and representation\"\n- **gap_10: absent** - Not identified, so no plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

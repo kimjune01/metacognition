@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's working capabilities including varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, sideboard support, version checking, and format validation. It accurately captures what the code does.\n\n**Gap Coverage:**\n- **gap_1 (truncated deckstring \u2192 EOFError)**: \u2705 Covered under \"No input validation for malformed or unsafe data\" and implicitly in the Python 3 varint bug discussion\n- **gap_2 (trailing bytes not detected)**: \u2705 Explicitly mentioned: \"Reject trailing unread bytes after the expected payload\"\n- **gap_3 (card-count validation)**: \u2705 Covered: \"Validate counts are positive integers\" and \"Reject zero/negative counts\"\n- **gap_4 (deck-size validation)**: \u274c Not mentioned. The report discusses validating individual card counts but never mentions validating total deck size (30/40 cards)\n- **gap_5 (card-ID validation)**: \u2705 Mentioned: \"Validate card/hero/sideboard ids are positive integers if that is a domain rule\"\n- **gap_6 (no human-readable output)**: \u274c Not mentioned. The report doesn't discuss resolving card IDs to names or providing human-readable representations\n- **gap_7 (format-version migration)**: \u2705 Covered under \"Limited format support assumptions\" and \"Version handling is also rigid\"\n- **gap_8 (logging/error context)**: \u2705 Covered: \"Weak error model\" and \"Errors are generic ValueError/EOFError with limited context\"\n- **gap_9 (serialization to JSON/dict)**: \u274c Not mentioned. The report doesn't discuss adding to_dict(), to_json(), or __repr__ methods\n- **gap_10 (batch processing)**: \u274c Not mentioned. No discussion of concurrent, batch, or async processing capabilities\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific code changes provided with before/after examples\n- **gap_2**: \"concrete\" - Explicit action item: \"Reject trailing unread bytes after the expected payload\"\n- **gap_3**: \"concrete\" - Multiple specific validation points listed\n- **gap_4**: \"absent\" - Not addressed in the plan\n- **gap_5**: \"concrete\" - Explicit validation steps provided\n- **gap_6**: \"absent\" - Not addressed in the plan\n- **gap_7**: \"directional\" - Mentioned under \"Clarify compatibility scope\" but doesn't provide concrete migration strategy\n- **gap_8**: \"concrete\" - Specific exception classes and usage patterns provided\n- **gap_9**: \"absent\" - Not addressed in the plan\n- **gap_10**: \"absent\" - Not addressed in the plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

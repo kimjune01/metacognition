@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes all working capabilities: RSS parsing, config management, JSON output with normalized fields, timezone handling, deduplication by timestamp, sorted output, author display toggles, error tolerance (continues on failure), optional logging, and CLI/programmatic interfaces.\n- All 10 observations align with what the system actually does.\n\n**Gap Coverage:**\n- \u2705 **gap_1** (HTTP error handling): Identified as Critical #4 \"Silent exception swallowing\" and Critical #1 \"No error persistence\"\n- \u274c **gap_2** (feed validation): Not identified. The report mentions schema validation for feeds.json (#10) but never flags the lack of validation for whether parsed feeds contain valid RSS data\n- \u2705 **gap_3** (deduplication across fetches): Identified as High #7 \"No content hashing\" and Medium #12 \"Timestamp collision handling\"\n- \u2705 **gap_4** (content extraction): Identified as Medium #14 \"No entry content\"\n- \u2705 **gap_5** (caching/conditional fetching): Identified as Critical #2 \"no conditional GET with ETag/Last-Modified\" and Medium #15 \"No incremental updates\"\n- \u2705 **gap_6** (rate limiting): Identified as Critical #2 \"No rate limiting or request headers\"\n- \u2705 **gap_7** (persistent state): Identified as High #5 \"No staleness detection\" and High #6 \"No feed health monitoring\"\n- \u2705 **gap_8** (error recovery/retry): Identified as Critical #1 \"No error persistence or retry strategy\" and Critical #3 \"Blocking I/O without timeout\"\n- \u274c **gap_9** (feed discovery/OPML): Not mentioned at all\n- \u274c **gap_10** (output format flexibility): Not mentioned; report assumes JSON is the only needed format\n\n**Plan Specificity:**\n- **gap_1**: Concrete - provides specific file names, exponential backoff parameters, and what to log\n- **gap_3**: Concrete - shows exact hash calculation code and key structure changes\n- **gap_4**: Concrete - provides field names, truncation limits, and dictionary access patterns\n- **gap_5**: Concrete - shows how to pass etag/modified to feedparser, storage approach, and timeout values\n- **gap_6**: Concrete - gives exact User-Agent string, sleep duration, and domain grouping strategy\n- **gap_7**: Concrete - specifies field names, comparison logic, and UI indicators\n- **gap_8**: Concrete - includes code snippets for structured exception handling and timeout mechanisms",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

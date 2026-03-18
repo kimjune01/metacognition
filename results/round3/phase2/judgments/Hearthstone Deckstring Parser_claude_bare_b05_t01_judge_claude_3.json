@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 8 working capabilities of the system without hallucinating features or misrepresenting functionality.\n\n**Gap Coverage:**\n- **gap_1 (truncated/corrupted input)**: \u2705 Identified as \"Parser fails catastrophically on malformed input\" and \"catch EOFError\" in plan\n- **gap_2 (trailing bytes)**: \u274c Not identified anywhere in the report\n- **gap_3 (card-count validation)**: \u2705 Identified as \"card count limits\" in gap #2\n- **gap_4 (deck-size validation)**: \u2705 Identified as \"Total card count (standard: 30...)\" in plan section 2\n- **gap_5 (card-ID validation)**: \u2705 Identified as \"No Card Database Integration\" (gap #6) - validates IDs exist\n- **gap_6 (human-readable output)**: \u2705 Identified as \"Works only with DBF IDs; no way to work with card names\" (gap #6)\n- **gap_7 (format-version migration)**: \u2705 Identified as \"No Version Migration - Only supports v1\" (gap #12)\n- **gap_8 (logging/error context)**: \u2705 Identified as \"No Logging - Silent failures\" (gap #8) and \"reraise as CorruptedDataError with offset information\"\n- **gap_9 (serialization formats)**: \u2705 Identified as \"No String Representation - `Deck.__repr__()` not implemented\" (gap #10) and CLI JSON output (gap #9)\n- **gap_10 (batch processing)**: \u2705 Identified as implicit in gap #9 \"Library only; no command-line tool\" - addresses single-item limitation\n\n**Plan Specificity:**\n- **gap_1**: concrete - specific exception types, specific locations to add try/except, bounds checking mentioned\n- **gap_3**: concrete - specific validation rules, specific method signatures, strict parameter\n- **gap_4**: concrete - exact card counts specified, validator function described\n- **gap_5**: concrete - CardDatabase class, validation method specified\n- **gap_6**: concrete - specific method signatures for name resolution\n- **gap_7**: concrete - SUPPORTED_VERSIONS constant, v2 parser placeholder, specific version check\n- **gap_8**: concrete - specific logging levels, example log messages\n- **gap_9**: concrete - `__repr__()` and `__str__()` implementation details, JSON flag\n- **gap_10**: directional - mentions stdin/stdout piping but doesn't specify async/batch processing architecture",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "directional"
+    }
+  }
+}

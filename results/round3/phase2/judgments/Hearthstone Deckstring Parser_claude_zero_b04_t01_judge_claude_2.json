@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "Let me provide the evaluation directly as JSON:\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Rationale\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 8 working capabilities: varint compression, bidirectional encoding, card grouping, hero tracking, format metadata, sideboard support, OOP wrapper, and sorted output. The format details are accurate.\n\n**Gap Coverage Mapping:**\n- **gap_1** (truncated input handling): \u2705 Triage #1 mentions \"buffer overruns\" and Plan #1 includes \"Verify stream fully consumed\"\n- **gap_2** (trailing bytes): \u2705 Plan #1 explicitly states \"Verify stream fully consumed after parsing (detect trailing garbage)\"\n- **gap_3** (card count validation): \u2705 Triage #1 mentions \"negative counts\" and Plan #1 includes \"counts are positive\"\n- **gap_4** (deck size validation): \u2705 Triage #11 identifies \"No format validation\" and \"Doesn't verify deck size limits (30 cards)\"\n- **gap_5** (card ID validation): \u2705 Triage #1 mentions \"invalid card IDs\" and Plan #1 includes \"cards contains valid IDs (> 0)\"\n- **gap_6** (human-readable output): \u2705 Triage #9 mentions \"convert to human-readable formats\" and Plan #9 includes `__str__` method\n- **gap_7** (version migration): \u274c Not mentioned anywhere in the report\n- **gap_8** (error context): \u2705 Triage #2 \"Missing error context\" and Plan #2 has concrete exception handling improvements\n- **gap_9** (serialization formats): \u2705 Triage #9 mentions export methods and Plan #9 includes `to_dict()` for JSON\n- **gap_10** (batch processing): \u274c Not mentioned anywhere in the report\n\n**Plan Specificity:**\nAll identified gaps have concrete plans with code examples or specific implementation details, except gaps 7 and 10 which are absent from the report entirely.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

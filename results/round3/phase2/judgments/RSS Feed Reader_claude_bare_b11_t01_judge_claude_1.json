@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe observations correctly describe the system's working capabilities without adding features that don't exist or missing major functionality. All 8 listed capabilities are accurate based on the ground truth.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: TRUE - Identified as \"No Error Recovery\" in Critical Gaps #1\n- **gap_2 (feed validation)**: TRUE - Identified as \"No Feed Validation\" in Critical Gaps #2, though focused more on config validation than feed content validation\n- **gap_3 (no deduplication)**: FALSE - The report mentions \"Duplicate ID Collision\" but this refers to timestamp collisions, not deduplication across feeds or fetches. It doesn't identify that entries are overwritten on each run or duplicates across feeds\n- **gap_4 (no content extraction)**: TRUE - Identified as \"Limited Metadata\" in Low Priority Gaps #14\n- **gap_5 (no caching/conditional fetching)**: TRUE - Identified as \"No Caching Strategy\" in High Priority Gaps #4\n- **gap_6 (no rate limiting)**: TRUE - Identified as \"No Rate Limiting\" in Critical Gaps #3\n- **gap_7 (no persistent state)**: FALSE - Not identified. The report mentions file persistence and caching, but doesn't identify the lack of read/unread tracking or \"last fetched\" state\n- **gap_8 (no retry logic)**: TRUE - Covered by \"No Error Recovery\" in Critical Gaps #1\n- **gap_9 (no OPML/feed discovery)**: TRUE - Identified as \"No Feed Discovery\" in Low Priority Gaps #13\n- **gap_10 (no output format flexibility)**: FALSE - Not identified. The report doesn't mention the lack of HTML, terminal, or other output formats\n\n**Plan Specificity:**\n- **gap_1**: concrete - Specific code examples for exception handling, removing sys.exit(), custom exceptions\n- **gap_2**: concrete - JSON schema validation with specific code and schema structure\n- **gap_4**: concrete - Code showing which fields to add and how to extract them\n- **gap_5**: concrete - Specific cache checking logic with file modification times\n- **gap_6**: concrete - Exact implementation with time.sleep() and rate limit configuration\n- **gap_8**: concrete - Covered in gap_1 plan with specific exception handling\n- **gap_9**: concrete - OPML import code with XML parsing example\n- **gap_3, gap_7, gap_10**: absent - These gaps were not identified, so no plans exist",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

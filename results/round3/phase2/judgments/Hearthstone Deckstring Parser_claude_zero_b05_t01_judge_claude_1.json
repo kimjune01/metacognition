@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "Let me provide the evaluation directly:\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Reasoning:\n\n**Observation Accuracy: ACCURATE**\nThe Observations section correctly describes all working capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, Deck class interface, sideboard support, version checking, and format validation.\n\n**Gap Coverage Analysis:**\n\n- **gap_1** (truncated deckstring handling): \u2705 **TRUE** - Triage #1 mentions \"Error handling is minimal\" and Plan #1 specifically addresses wrapping EOFError with context\n- **gap_2** (trailing-byte detection): \u274c **FALSE** - Not identified anywhere in the report\n- **gap_3** (card-count validation): \u2705 **TRUE** - Triage #3 mentions \"wrong counts\" and Plan #3 details \"Enforce card limits (max 1 legendary, max 2 others)\"\n- **gap_4** (deck-size validation): \u2705 **TRUE** - Plan #3 explicitly mentions \"Check total card count (typically 30)\"\n- **gap_5** (card-ID validation): \u2705 **TRUE** - Plan #3 includes \"Verify hero class matches card classes\" and Plan #2 adds database validation\n- **gap_6** (human-readable output): \u2705 **TRUE** - Triage #7 and Plan #7 address text export with card names\n- **gap_7** (format-version migration): \u274c **FALSE** - Plan #1 mentions \"UnsupportedVersionError\" but doesn't address graceful degradation or migration\n- **gap_8** (error context): \u2705 **TRUE** - Plan #1 explicitly adds \"position tracking to report 'error at byte X'\"\n- **gap_9** (serialization formats): \u2705 **TRUE** - Plan #5 adds \"to_json/from_json\" and Plan #8 mentions better type ergonomics\n- **gap_10** (batch processing): \u274c **FALSE** - Not mentioned; Plan #10 only addresses single-deck performance optimization\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: **CONCRETE** - Shows exception hierarchy, specific wrapping strategy, position tracking\n- **gap_3**: **CONCRETE** - Lists specific validation checks with code patterns\n- **gap_4**: **CONCRETE** - Explicit \"Check total card count (typically 30)\" with validation list\n- **gap_5**: **CONCRETE** - CardDatabase integration with validation methods\n- **gap_6**: **CONCRETE** - to_text method with example format, database integration\n- **gap_8**: **CONCRETE** - Logging implementation with specific logger.debug examples\n- **gap_9**: **CONCRETE** - Dataclass approach with specific field examples, to_json/from_json",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

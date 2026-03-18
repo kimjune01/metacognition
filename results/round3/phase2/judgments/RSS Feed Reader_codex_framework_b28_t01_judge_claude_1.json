@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Justification:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: feed configuration management, parsing with feedparser, timestamp extraction and formatting, timezone conversion, per-category JSON output, sorting, and optional author display. All statements align with the ground truth capabilities.\n\n**Gap Coverage:**\n\n- **gap_1 (HTTP error handling)**: TRUE - Triage #3 identifies \"bare `except:` blocks hide parse errors, filesystem errors, malformed feeds\" and \"In batch mode the system may quietly skip bad data; in single-feed failure it can exit abruptly.\"\n\n- **gap_2 (feed validation)**: FALSE - While Triage #5 mentions validation of config and feed payloads, it focuses on config shape and entry fields like `link` and `title`, not on validating whether a parsed feed is actually valid RSS vs empty/HTML/non-RSS content.\n\n- **gap_3 (deduplication)**: TRUE - Triage #2 explicitly identifies \"Entries are keyed only by integer timestamp. Two different posts published in the same second will collide.\"\n\n- **gap_4 (content extraction)**: TRUE - Triage #12 states \"The output drops useful fields such as GUID, content summary, categories/tags, feed-level metadata.\"\n\n- **gap_5 (caching/conditional fetching)**: TRUE - Triage #8 says \"No incremental fetching or HTTP caching. Every run reparses every feed. A production fetcher should use ETag/Last-Modified.\"\n\n- **gap_6 (rate limiting)**: FALSE - Not mentioned. The report discusses network robustness and retries but doesn't identify the lack of delays/throttling between sequential requests.\n\n- **gap_7 (persistent state)**: TRUE - Triage #8 discusses incremental fetching, and the report identifies the system rewrites entire files each run without tracking what was seen before.\n\n- **gap_8 (error recovery/retry)**: TRUE - Triage #4 identifies \"no explicit timeouts, retries, backoff\" and #3 mentions \"in single-feed failure it can exit abruptly.\"\n\n- **gap_9 (OPML/feed discovery)**: FALSE - Not mentioned. The report doesn't identify the lack of OPML import/export or auto-discovery features.\n\n- **gap_10 (output format flexibility)**: FALSE - Not mentioned. The report doesn't identify that output is hardcoded to JSON with no alternative formats.\n\n**Plan Specificity:**\n\n- **gap_1**: \"concrete\" - Plan #3 and #4 provide specific actions: replace bare except with targeted exceptions, use real HTTP client with timeouts/headers, add retry with exponential backoff.\n\n- **gap_2**: \"absent\" - Not addressed in the plan.\n\n- **gap_3**: \"concrete\" - Plan #2 provides specific solution: \"Use feed GUID/`id` when available; otherwise hash a tuple like `(feed_url, link, title, published_timestamp)`.\"\n\n- **gap_4**: \"directional\" - Plan #12 mentions expanding the schema to include fields like `guid`, `summary`, but doesn't specify implementation details.\n\n- **gap_5**: \"concrete\" - Plan #8 specifies \"Persist feed-level metadata such as ETag, Last-Modified, last fetch time\" and \"Reuse those headers on subsequent runs.\"\n\n- **gap_6**: \"absent\" - Not addressed in the plan.\n\n- **gap_7**: \"concrete\" - Plan #8 addresses incremental state with specific metadata to track.\n\n- **gap_8**: \"concrete\" - Plan #4 specifies \"Add retry with capped exponential backoff for transient network failures. Record per-feed fetch status.\"\n\n- **gap_9**: \"absent\" - Not addressed in the plan.\n\n- **gap_10**: \"absent\" - Not addressed in the plan.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

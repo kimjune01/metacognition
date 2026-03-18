@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: varint I/O, deck parsing/encoding, card sorting, sideboard support, version checking, and the Deck object model. No false claims about functionality.\n\n**Gap Coverage:**\n- **gap_1 (truncation handling)**: \u2705 Identified as \"No error handling for malformed data\" and \"Parsing untrusted deckstrings can crash\"\n- **gap_2 (trailing bytes)**: \u274c Not mentioned - the report doesn't identify the issue of silent acceptance of extra trailing data\n- **gap_3 (card count validation)**: \u2705 Identified as \"Missing validation\" and \"max copies per card\"\n- **gap_4 (deck size validation)**: \u2705 Identified as \"30-card limit\" validation missing\n- **gap_5 (card ID validation)**: \u2705 Identified as \"No card database integration\" and \"Cannot validate card IDs\"\n- **gap_6 (human-readable output)**: \u2705 Identified as \"No human-readable representation\" and \"Cannot display decks as card names\"\n- **gap_7 (version migration)**: \u274c Not mentioned - the report doesn't address forward compatibility or graceful degradation for future versions\n- **gap_8 (error context)**: \u2705 Identified as \"No logging/debugging support\" and \"Silent failures make troubleshooting difficult\"\n- **gap_9 (serialization formats)**: \u2705 Identified as \"export to other formats\" and mentions missing `to_dict()`, `to_json()`\n- **gap_10 (batch processing)**: \u274c Not mentioned - no discussion of concurrent/bulk processing capabilities\n\n**Plan Specificity:**\n- **gap_1**: concrete - Shows exact code for try/except blocks and EOFError handling\n- **gap_3**: concrete - Shows validation logic for card counts with code examples\n- **gap_4**: concrete - Shows total card count validation with specific 30-card check\n- **gap_5**: concrete - Shows integration pattern with CardDatabase class\n- **gap_6**: concrete - Shows `__str__` and `get_card_name` implementations\n- **gap_8**: concrete - Shows logger setup and mentions adding debug calls\n- **gap_9**: concrete - Shows complete `to_dict()` and `from_dict()` implementations",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

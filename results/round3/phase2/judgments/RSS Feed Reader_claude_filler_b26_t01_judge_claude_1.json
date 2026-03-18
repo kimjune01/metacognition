@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- The report correctly identifies most working capabilities (RSS parsing, multi-source aggregation, JSON persistence, timezone handling, configuration management, author display, sorting, selective updates, logging)\n- However, observation #5 \"Entry Deduplication\" is misleading. The report claims the system \"uses timestamp-based IDs to prevent duplicate entries within a category,\" but ground-truth gap_3 explicitly states that entries published at the same second will collide, and there's no deduplication across feeds in the same category. This is an incorrect characterization of a working capability.\n\n**Gap Coverage:**\n- **gap_1** (HTTP error handling): \u2705 Identified as \"No Error Recovery\" (P0-1)\n- **gap_2** (feed validation): \u2705 Identified as \"Missing Data Validation\" (P0-3)\n- **gap_3** (no deduplication): \u274c Not identified; report incorrectly claims deduplication exists\n- **gap_4** (no content extraction): \u274c Not mentioned at all\n- **gap_5** (no caching): \u2705 Identified as \"No Caching Headers\" (P1-7)\n- **gap_6** (no rate limiting): \u2705 Identified as \"No Rate Limiting\" (P1-6)\n- **gap_7** (no persistent state): \u2705 Identified as \"No Incremental Updates\" and \"No Stale Data Management\" (P2-15, P0-4)\n- **gap_8** (no error recovery/retry): \u2705 Identified as \"No Error Recovery\" (P0-1)\n- **gap_9** (no OPML): \u2705 Identified as \"No Import/Export\" (P3-19)\n- **gap_10** (no output format flexibility): \u274c Not mentioned\n\n**Plan Specificity:**\n- **gap_1**: Concrete - shows specific try-except pattern with continue statement\n- **gap_2**: Concrete - shows field validation and URL parsing code\n- **gap_5**: Concrete - shows cache metadata structure and ETag/Last-Modified handling\n- **gap_6**: Concrete - shows time.sleep() with configurable delay\n- **gap_7**: Concrete - shows cache metadata tracking and entry filtering by age\n- **gap_8**: Concrete - shows error logging and continuation pattern\n- **gap_9**: Directional - mentions CLI commands but lacks implementation detail\n- Gaps 3, 4, 10: Absent (not identified)",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}

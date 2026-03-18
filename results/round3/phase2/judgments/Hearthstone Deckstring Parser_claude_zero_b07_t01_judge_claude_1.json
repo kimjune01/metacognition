@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"directional\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly identifies all 8 working capabilities without hallucinating features\n- Accurately describes varint encoding, base64 deckstring parsing/generation, card organization, sideboard support, format types, OOP interface, and sorting utilities\n\n**Gap Coverage:**\n- **gap_1 (truncated deckstring validation)**: \u2705 Identified as \"No error recovery - Malformed deckstrings or corrupted data cause crashes\" + Plan mentions \"Add bounds checking\" and \"Wrap _read_varint EOF handling\"\n- **gap_2 (trailing-byte detection)**: \u274c Not identified anywhere in the report\n- **gap_3 (card-count validation)**: \u2705 Identified in \"Missing validation - No deck rule enforcement (card limits...)\" + Plan has concrete validation layer\n- **gap_4 (deck-size validation)**: \u2705 Identified as part of validation gap, Plan mentions \"check 30-card limit\"\n- **gap_5 (card-ID validation)**: \u2705 Implied in validation layer discussion, Plan mentions \"Require card database integration\"\n- **gap_6 (no human-readable output)**: \u2705 Implied by \"Limited introspection\" gap and Plan section 9 on introspection methods\n- **gap_7 (format-version migration)**: \u274c Not identified; report doesn't discuss version compatibility or graceful degradation\n- **gap_8 (no logging/error context)**: \u2705 Identified as \"No error recovery\" + Plan mentions \"Add try-catch in parse_deckstring with context about where parsing failed\"\n- **gap_9 (no serialization formats)**: \u2705 Identified as \"Limited introspection - Missing methods for deck statistics\" + Plan section 9 mentions `__repr__` and `__str__`\n- **gap_10 (no batch processing)**: \u2705 Identified as \"Performance unoptimized\" + Plan section 10 mentions \"Profile with cProfile on large deck collections\"\n\n**Plan Specificity:**\n- **gap_1**: concrete (specific exception classes, try-catch locations, bounds checking steps)\n- **gap_3**: concrete (detailed DeckValidator class with specific methods)\n- **gap_4**: concrete (mentions 30-card limit check explicitly)\n- **gap_5**: concrete (mentions card database integration requirement)\n- **gap_6**: directional (mentions introspection methods but doesn't address card name resolution specifically)\n- **gap_8**: concrete (specific try-catch with context, custom exception class)\n- **gap_9**: concrete (lists specific methods like `__repr__`, `__str__`)\n- **gap_10**: directional (mentions profiling and \"large deck collections\" but lacks concrete batch/async implementation details)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "directional",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "directional"
+    }
+  }
+}

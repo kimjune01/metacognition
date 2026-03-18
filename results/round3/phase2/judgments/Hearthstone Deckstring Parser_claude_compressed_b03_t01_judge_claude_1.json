@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Detailed Analysis:**\n\n**OBSERVATION ACCURACY: accurate**\nThe Observations section correctly describes all 6 working capabilities (bidirectional I/O, basic validation, trisort optimization, etc.) and accurately identifies what validation exists vs. what doesn't.\n\n**GAP COVERAGE:**\n- **gap_1** (truncated deckstring handling): \u2705 Identified as \"System crashes on malformed input\" and \"Untested edge cases - No handling for truncated streams\"\n- **gap_2** (trailing-byte detection): \u274c Not mentioned anywhere in the report\n- **gap_3** (card-count validation): \u2705 Identified as \"Accepts invalid decks (wrong card counts)\"\n- **gap_4** (deck-size validation): \u2705 Identified in Plan #3 \"Check total card count (usually 30)\"\n- **gap_5** (card-ID validation): \u2705 Identified as \"invalid card IDs\" in Triage #3 and Plan #3\n- **gap_6** (human-readable output): \u2705 Identified as \"Limited introspection - No human-readable deck summary\"\n- **gap_7** (format-version migration): \u2705 Identified as \"No format migration - Can't upgrade old deckstrings if format changes\"\n- **gap_8** (logging/error context): \u2705 Identified as \"No logging/observability - Silent failures make debugging impossible\"\n- **gap_9** (serialization to standard formats): \u2705 Identified as \"No `__repr__`, `__eq__`, or human-readable deck summary\" and Plan #6 adds `to_dict()/from_dict()`\n- **gap_10** (concurrent/batch processing): \u274c The report identifies \"No batch processing\" but defines it as deduplication/ranking, not concurrent/streaming processing\n\n**PLAN SPECIFICITY:**\nAll identified gaps have concrete plans with code snippets, method signatures, and implementation steps, except gap_2 and gap_10 which weren't identified.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- Item 3 is **incorrect**: The report claims \"Deduplication by timestamp: Uses publication timestamp as unique ID to prevent duplicate entries\" - this is backwards. Using timestamp as ID *creates* collision problems, not deduplication.\n- Item 10 is **misleading**: \"Basic error handling: Silently continues on feed fetch failures\" - the actual code has `sys.exit()` which kills the process, not silent continuation.\n- The other 8 observations are accurate descriptions of working capabilities.\n\n**Gap Coverage:**\n- **gap_1** (HTTP error handling): \u2713 Identified as Triage #2 \"Silent failures mask problems\"\n- **gap_2** (feed validation): \u2713 Identified as Triage #4 \"No feed validation\"\n- **gap_3** (deduplication): \u2713 Identified as Triage #3 \"Collision-prone ID scheme\" and #13 \"No deduplication by content\"\n- **gap_4** (content extraction): \u2713 Identified as Triage #11 \"No enclosure/media handling\" and #12 \"No full content fetching\"\n- **gap_5** (caching): \u2713 Identified as Triage #1 \"No cache expiry or refresh logic\" and #8 \"No HTTP headers\"\n- **gap_6** (rate limiting): \u2713 Identified as Triage #5 \"No rate limiting or politeness\"\n- **gap_7** (persistent state): \u2713 Identified as Triage #1 \"Files are written but never read by this module\"\n- **gap_8** (error recovery): \u2713 Identified as Triage #2 \"Silent failures\" (though mischaracterized the behavior)\n- **gap_9** (OPML/discovery): \u2713 Identified as Triage #14 \"No feed discovery\"\n- **gap_10** (output flexibility): \u2717 Not mentioned - report only discusses JSON output without noting the lack of alternative formats\n\n**Plan Specificity:**\n- **gap_1-8**: All have concrete code samples showing exact implementation\n- **gap_9**: Directional only - mentions \"no auto-detection from website URLs\" in triage but provides no implementation plan\n- **gap_10**: Absent - not identified, so no plan exists",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}

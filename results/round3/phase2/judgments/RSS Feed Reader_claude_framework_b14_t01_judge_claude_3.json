@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n### Reasoning:\n\n**Observation Accuracy: accurate**\nThe observations correctly describe the system's actual capabilities (feed parsing, multi-category support, timestamp normalization, human-readable dates, author attribution, JSON output, etc.) without overstating or misrepresenting functionality.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: TRUE - Identified as \"Silent failure on malformed feeds\" and \"No error recovery\"\n- **gap_2 (feed validation)**: TRUE - Identified as \"Missing feed validation: Accepts any URL without checking if it's actually RSS/Atom\"\n- **gap_3 (deduplication across fetches)**: FALSE - The report mentions \"Deduplication by timestamp\" as a working feature and \"Duplicate detection only by timestamp\" as a weakness, but doesn't identify that duplicates across feeds or across runs are not prevented\n- **gap_4 (no content extraction)**: FALSE - Not mentioned; the report doesn't note that descriptions, summaries, or other feed content are discarded\n- **gap_5 (no caching/conditional fetching)**: TRUE - Identified as \"Missing HTTP caching: Ignores ETags and Last-Modified headers\"\n- **gap_6 (no rate limiting)**: TRUE - Identified as \"No rate limiting: Hammers all feeds simultaneously\"\n- **gap_7 (no persistent state)**: TRUE - Identified as \"No stale data handling\" and \"No feed health monitoring\"\n- **gap_8 (no error recovery/retry)**: TRUE - Identified as \"No error recovery: One bad URL in a category kills the entire category fetch\"\n- **gap_9 (no OPML import/export)**: TRUE - Identified as \"Missing OPML import/export\"\n- **gap_10 (no output format flexibility)**: FALSE - Not mentioned; the report doesn't note that output is hardcoded to JSON with no HTML, terminal, or other format options\n\n**Plan Specificity:**\n- **gap_1**: concrete - Provides specific code for logging, error handling, and continuing on failures\n- **gap_2**: concrete - Provides specific validation function with content-type checking\n- **gap_3**: absent - Not addressed in the plan\n- **gap_4**: absent - Not addressed in the plan\n- **gap_5**: concrete - Provides specific code for HTTP caching with requests_cache and ETag support\n- **gap_6**: concrete - Provides specific rate limiting implementation with domain-based throttling\n- **gap_7**: concrete - Provides metadata structure and health tracking implementation\n- **gap_8**: concrete - Provides retry strategy with exponential backoff and per-feed error handling\n- **gap_9**: concrete - Provides complete OPML export function\n- **gap_10**: absent - Not addressed in the plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

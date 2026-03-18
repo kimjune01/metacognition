@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: mostly_accurate**\n- The report correctly identifies most working capabilities (feed parsing, multi-category support, timezone handling, storage, configuration management, CLI interface)\n- However, it incorrectly claims \"Deduplication by timestamp\" as a working capability (#4 in Observations). The system doesn't actually deduplicate - it overwrites the entire file each time, and the ID field using timestamp would cause collisions, not prevent duplicates\n- This factual error about a core capability downgrades from \"accurate\" to \"mostly_accurate\"\n\n**Gap Coverage:**\n- **gap_1** (HTTP error handling): \u2713 Identified as \"No error recovery or logging\" - covers the sys.exit() and lack of graceful failure handling\n- **gap_2** (feed validation): \u2713 Identified as \"Missing data validation\" - covers malformed URLs and feed structure\n- **gap_3** (deduplication): \u2713 Identified as \"Duplicate detection is flawed\" - correctly notes across-fetch duplicates and timestamp collision issues\n- **gap_4** (content extraction): \u2717 Not identified - the report doesn't mention missing description, content body, tags, enclosures, or media elements\n- **gap_5** (caching/conditional fetching): \u2713 Identified as \"No incremental updates\" and within gap #3 mentions \"No respect for HTTP cache headers or ETags\"\n- **gap_6** (rate limiting): \u2713 Identified as \"No rate limiting or politeness\"\n- **gap_7** (persistent state): \u2713 Identified as \"No incremental updates\" with \"No tracking of 'last seen' entry\"\n- **gap_8** (error recovery/retry): \u2713 Identified as \"No error recovery or logging\" with \"No retry mechanism\"\n- **gap_9** (OPML/feed discovery): \u2717 Not mentioned at all\n- **gap_10** (output format flexibility): \u2717 Not mentioned - the report doesn't address hardcoded JSON output or lack of HTML/email/terminal rendering\n\n**Plan Specificity:**\n- **gap_1**: concrete - provides specific code with retry logic, exponential backoff, and logging\n- **gap_2**: concrete - provides validation functions and sanitization code\n- **gap_3**: concrete - provides hash-based ID generation and duplicate checking logic\n- **gap_5**: concrete - provides state tracking functions with timestamps\n- **gap_6**: concrete - provides HTTP headers, ETag/Last-Modified support, and sleep delays\n- **gap_7**: concrete - provides state file management functions\n- **gap_8**: concrete - same as gap_1, includes retry and backoff implementation\n- Gaps 4, 9, 10: absent - not identified, so no plans provided",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

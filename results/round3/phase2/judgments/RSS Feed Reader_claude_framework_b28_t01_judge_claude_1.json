@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Rationale\n\n**Observation Accuracy: mostly_accurate**\n- Most capabilities are correctly described (feed parsing, multi-category, timezone handling, etc.)\n- However, item 5 is incorrect: \"Deduplication by timestamp\" - the system actually uses Unix timestamp as ID, which means entries at the same second collide, NOT deduplicate properly\n- Item 6 claims \"Caches parsed results\" but the system actually overwrites files completely each run, not true caching\n\n**Gap Coverage:**\n- \u2713 gap_1 (HTTP error handling): Identified as items 1, 3 - \"No error recovery\" and \"No timeout handling\"\n- \u2713 gap_2 (feed validation): Identified as item 4 - \"No data validation: Malformed feeds silently corrupt output\"\n- \u2717 gap_3 (no deduplication): Incorrectly claimed as working in Observations #5; not identified as a gap\n- \u2717 gap_4 (no content extraction): Not mentioned; report doesn't note missing description/summary/content\n- \u2713 gap_5 (no caching): Identified as item 7 - \"No HTTP caching: Ignores ETags/Last-Modified\"\n- \u2713 gap_6 (no rate limiting): Identified as item 2 - \"No rate limiting\"\n- \u2713 gap_7 (no persistent state): Identified as items 6, 9 - \"No stale data detection\" and \"Missing feed metadata\"\n- \u2713 gap_8 (no retry): Identified as items 1, 10 - \"No error recovery\" and \"No retry logic\"\n- \u2713 gap_9 (no OPML/discovery): Identified as items 15, 17 - \"No feed discovery\" and \"No OPML import/export\"\n- \u2717 gap_10 (output format flexibility): Not mentioned; report doesn't note lack of HTML/terminal/email output options\n\n**Plan Specificity:**\n- gap_1: **concrete** - Specific try/except pattern with continue logic\n- gap_2: **concrete** - Exact validation checks for empty entries and bozo\n- gap_5: **concrete** - Detailed ETag/Last-Modified implementation with headers\n- gap_6: **concrete** - Specific sleep() call and timeout parameter\n- gap_7: **concrete** - Detailed metadata structure and staleness checks\n- gap_8: **concrete** - Specific tenacity decorator with parameters\n- gap_9: **directional** - Discovery function provided, but OPML only mentioned, not implemented",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}

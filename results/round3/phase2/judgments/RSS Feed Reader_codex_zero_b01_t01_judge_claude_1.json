@@ -1,0 +1,31 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: multi-source RSS parsing, feed config management, timezone conversion, per-category output, chronological sorting, etc. No false claims about what the system does.\n\n**Gap Coverage Analysis:**\n- **gap_1 (HTTP error handling)**: \u2705 Triage #1 explicitly identifies \"bare except blocks hide failures\" and \"single fetch/parsing issue can terminate the process\"\n- **gap_2 (feed validation)**: \u274c Not identified. The report mentions config validation (#4) but doesn't specifically call out validating whether parsed feeds contain valid RSS data\n- **gap_3 (deduplication)**: \u2705 Triage #2 identifies \"Entry IDs derived only from timestamp\" and \"multiple items published in same second can overwrite each other\"\n- **gap_4 (content extraction)**: \u2705 Triage #9 states \"It drops useful metadata like feed title, summary, tags, GUID\"\n- **gap_5 (caching/conditional fetching)**: \u274c Not identified. While #5 mentions network behavior, it doesn't specifically call out ETag/Last-Modified/caching\n- **gap_6 (rate limiting)**: \u274c Not identified. #5 mentions \"no explicit HTTP timeout, retry policy\" but doesn't call out lack of throttling/delays between requests\n- **gap_7 (persistent state)**: \u274c Not identified. The report doesn't mention read/unread tracking or \"last fetched\" timestamps\n- **gap_8 (error recovery/retry)**: \u2705 Triage #1 and #5 identify \"no retry policy\" and \"single fetch issue can terminate process\"\n- **gap_9 (OPML/feed discovery)**: \u274c Not identified anywhere\n- **gap_10 (output format flexibility)**: \u2705 Triage #9 mentions \"Output model is minimal\" and the output is hardcoded to one schema\n\n**Plan Specificity:**\n- **gap_1**: concrete - Plan #1 gives specific steps: replace bare except, return structured results per feed, don't call sys.exit\n- **gap_3**: concrete - Plan #2 provides specific ID strategy: prefer feed.id/guid/link, use hash, dedupe with set\n- **gap_4**: concrete - Plan #9 lists specific fields to add: stable id, raw published_at, summary, etc.\n- **gap_8**: concrete - Plan #5 specifies: add timeouts, retry with exponential backoff, custom user-agent\n- **gap_10**: concrete - Plan #9 defines versioned output schema with additional metadata fields",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

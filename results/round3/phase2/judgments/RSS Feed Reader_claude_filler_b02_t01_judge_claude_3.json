@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 11 working capabilities of the system, from feed parsing to selective category refresh. No false claims or mischaracterizations.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified as \"No Error Recovery\" - correctly notes silent failures, sys.exit() masking errors\n- **gap_2 (feed validation)**: \u274c Not identified - report mentions \"malformed feeds\" in passing but doesn't call out lack of validation for empty/invalid feed data\n- **gap_3 (deduplication)**: \u2705 Identified as \"Duplicate ID Collisions\" - correctly notes timestamp-only IDs cause collisions\n- **gap_4 (content extraction)**: \u2705 Identified as \"Limited Metadata\" - correctly notes missing summaries, descriptions, full-text\n- **gap_5 (caching/conditional fetching)**: \u2705 Identified as \"No Cache Validation\" - correctly notes missing ETags, Last-Modified, If-Modified-Since\n- **gap_6 (rate limiting)**: \u2705 Identified as \"No Rate Limiting\" (item 11 in Triage) - correctly notes rapid successive fetches\n- **gap_7 (persistent state)**: \u274c Not identified - report mentions feed health tracking but doesn't identify the core gap of no read/unread tracking or \"last seen\" state\n- **gap_8 (error recovery/retry)**: \u2705 Identified as \"No Error Recovery\" - correctly notes lack of retry logic, backoff, partial-success handling\n- **gap_9 (feed discovery/OPML)**: \u2705 Identified as \"No Feed Discovery\" - correctly notes missing auto-detection and OPML import/export\n- **gap_10 (output format flexibility)**: \u274c Not identified - report doesn't mention hardcoded JSON output or lack of alternative formats\n\n**Plan Specificity:**\n- **gap_1**: concrete - specific exception types, code structure, files to modify\n- **gap_3**: concrete - exact ID generation algorithm with code example\n- **gap_4**: concrete - schema changes with field names and truncation logic\n- **gap_5**: concrete - cache metadata schema, header names, implementation approach\n- **gap_6**: concrete - ThreadPoolExecutor example with specific parameters\n- **gap_8**: concrete - same as gap_1 (error handling includes retry logic)\n- **gap_9**: concrete - CLI commands, BeautifulSoup implementation, file structure",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

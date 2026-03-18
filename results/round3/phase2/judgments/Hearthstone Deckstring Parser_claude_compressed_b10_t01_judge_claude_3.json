@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": false,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"absent\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Rationale:\n\n**Observation Accuracy: accurate**\n- The report correctly identifies all 8 working capabilities of the system\n- Accurately describes the bidirectional transform and data structures\n- No false claims about functionality\n\n**Gap Coverage Analysis:**\n- \u2705 **gap_3** (card-count validation): Identified as \"Card count limits\" under Filter section\n- \u2705 **gap_4** (deck-size validation): Identified as \"Card count limits (standard Hearthstone: 30 cards)\"\n- \u2705 **gap_5** (card-ID validation): Identified as \"Format legality\" requiring card pool validation\n- \u2705 **gap_6** (human-readable output): Identified in Attend section as missing card metadata capabilities\n- \u2705 **gap_8** (logging/error context): Identified as \"No recovery, logging, or diagnostics\"\n- \u274c **gap_1** (input sanitization/truncation): Not mentioned\n- \u274c **gap_2** (trailing-byte detection): Not mentioned\n- \u274c **gap_7** (format-version migration): Not mentioned (report only notes version checking exists)\n- \u274c **gap_9** (serialization formats): Not mentioned\n- \u274c **gap_10** (batch processing): Not mentioned\n\n**Plan Specificity:**\n- **Concrete** plans provided for gaps 3, 4, 5, 6, 8 (with code examples and clear implementation steps)\n- **Absent** for gaps 1, 2, 7, 9, 10 (not identified, so no plans exist)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": false,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "absent",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- The observations correctly describe most of the system's working capabilities\n- However, there's one significant error: the report claims the system \"Deduplicates entries implicitly by using the Unix timestamp as the dictionary key\" - this is actually describing a *bug* that causes collisions, not a deduplication feature. The system doesn't truly deduplicate across feeds\n- The report also misses mentioning the `show_author` configuration and optional author attribution, which is part of the actual system behavior\n\n**Gap Coverage:**\n- **gap_1** (HTTP error handling): \u2713 Identified in Triage #1 \"Broad bare `except:` blocks hide real failures\" and \"A single parse failure can exit the program unexpectedly\"\n- **gap_2** (feed validation): \u2717 Not identified. The report mentions config validation but not feed content/structure validation\n- **gap_3** (deduplication): \u2713 Identified in Triage #2 \"Using `timestamp` as the unique ID will collide\" and mentions overwriting\n- **gap_4** (content extraction): \u2713 Identified in Triage #5 \"Only title/link/date/source are preserved\" and \"No feed GUID, summary, categories, content, enclosure/media\"\n- **gap_5** (caching): \u2713 Identified in Triage #8 \"No caching headers, conditional GET, ETag, or Last-Modified support. Re-fetches everything every run\"\n- **gap_6** (rate limiting): \u2717 Not mentioned anywhere\n- **gap_7** (persistent state): \u2713 Identified in Triage #10 \"No retention policy, pruning, pagination, search, or read/unread state\"\n- **gap_8** (error recovery): \u2713 Identified in Triage #1 \"There is no retry, timeout policy, or structured error reporting\"\n- **gap_9** (OPML/feed discovery): \u2713 Implied in Triage #6 \"No CLI or admin interface for managing feeds safely\"\n- **gap_10** (output formats): \u2713 Identified in Triage #10 \"No API/service boundary; it is only a script that writes JSON files\"\n\n**Plan Specificity:**\n- **gap_1**: concrete - \"Replace bare `except:` with targeted exceptions. Return per-feed error records instead of exiting\"\n- **gap_2**: absent - Not in plan since not identified\n- **gap_3**: concrete - \"Prefer stable identifiers in this order: feed GUID/id, link, hash of...\" with specific implementation guidance\n- **gap_4**: concrete - Lists specific fields to add: \"stable entry id, feed/source id, summary/content snippet, author, tags/categories\"\n- **gap_5**: concrete - \"Support conditional fetch using ETag/Last-Modified where available\" with specific mechanisms\n- **gap_6**: absent - Not in plan since not identified\n- **gap_7**: directional - Mentions \"read/unread or sync history storage\" but doesn't specify how to implement it\n- **gap_8**: concrete - \"Add request timeouts and retries with backoff\"\n- **gap_9**: absent - While Triage #6 mentions CLI, the plan doesn't specifically address OPML or feed discovery\n- **gap_10**: directional - Plan #10 asks to \"decide whether this is a library, CLI tool, or service\" but doesn't give concrete steps for adding output formats",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "directional"
+    }
+  }
+}

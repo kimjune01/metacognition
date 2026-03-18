@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: fetches RSS feeds, parses entries, normalizes data, handles timezones, writes per-category JSON files, manages feeds.json config, supports author attribution, selective category fetching, and logging. All stated capabilities match the ground truth.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified in Triage #1 and #2 - discusses bare except blocks hiding failures, sys.exit terminating on feed failures, and need for network error handling\n- **gap_2 (feed validation)**: \u274c Not identified - The report mentions config validation (#5) but doesn't discuss validating whether parsed feeds contain valid data or detecting empty/non-RSS responses\n- **gap_3 (deduplication)**: \u2705 Identified in Triage #3 - explicitly discusses timestamp-only keying causing overwrites for same-second publications\n- **gap_4 (content extraction)**: \u2705 Identified in Triage #10 - mentions the data model doesn't preserve summary/content, categories/tags, GUID, etc.\n- **gap_5 (caching/conditional fetching)**: \u2705 Identified in Triage #11 - mentions no conditional requests, caching headers, or ETag/Last-Modified support\n- **gap_6 (rate limiting)**: \u274c Not identified - While Triage #11 mentions concurrency and \"respect reasonable concurrency limits,\" it doesn't identify the lack of rate limiting or throttling between sequential requests as a current gap\n- **gap_7 (persistent state)**: \u2705 Identified in Triage #11 and throughout - discusses need for persistent metadata, conditional requests based on stored state\n- **gap_8 (error recovery/retry)**: \u2705 Identified in Triage #2 - explicitly discusses lack of retry, backoff, and per-feed failure isolation\n- **gap_9 (OPML/feed discovery)**: \u2705 Identified implicitly in Triage #9 and #12 - mentions no CLI interface and limited functionality, though not explicitly calling out OPML\n- **gap_10 (output format flexibility)**: \u2705 Identified in Triage #10 - mentions data model limitations and in Plan #9 discusses documenting output schema\n\n**Plan Specificity:**\n- **gap_1**: concrete - Provides specific actions (replace bare except, stop sys.exit, return structured errors, define return data shape)\n- **gap_3**: concrete - Specific key priority algorithm (use entry id/guid, else link, else hash of tuple)\n- **gap_4**: concrete - Lists specific fields to preserve (guid, summary, feed_title, author, original published string)\n- **gap_5**: concrete - Mentions ETag/Last-Modified support and conditional requests with implementation approach\n- **gap_7**: concrete - Discusses persistent metadata storage for conditional requests\n- **gap_8**: concrete - Specifies retry with exponential backoff, record fetch status per feed, timeout settings\n- **gap_10**: concrete - Defines output JSON schema documentation and explicit interface",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "concrete"
+    }
+  }
+}

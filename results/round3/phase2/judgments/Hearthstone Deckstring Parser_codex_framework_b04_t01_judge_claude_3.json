@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: decode/encode deckstrings, handle heroes/cards/sideboards, support round-trip conversion, normalize output, and use varint encoding. It accurately characterizes this as a \"functional codec for a useful subset of the format.\"\n\n**Gap Coverage:**\n- **gap_1 (truncated input handling): true** - Identified in Triage #1: \"_read_varint() has a Python 3 EOF bug\" and \"raise the wrong exception path\" for truncated input\n- **gap_2 (trailing bytes): true** - Identified in Triage #1: \"The parser does not verify full consumption of the payload. Trailing garbage is silently ignored.\"\n- **gap_3 (card-count validation): true** - Identified in Triage #2: \"No validation that card counts are positive integers.\"\n- **gap_4 (deck-size validation): false** - Not mentioned anywhere in the report\n- **gap_5 (card-ID validation): true** - Identified in Triage #2: \"No validation that IDs and counts fit the expected domain\"\n- **gap_6 (human-readable output): false** - Not mentioned; report focuses on codec correctness, not presentation layer\n- **gap_7 (version migration): true** - Identified in Triage #3: mentions \"UnsupportedDeckstringVersion\" but doesn't discuss graceful degradation vs. rejection\n- **gap_8 (logging/error context): true** - Identified in Triage #3: \"Errors are mostly generic ValueErrors with limited context\"\n- **gap_9 (serialization formats): false** - Not mentioned; no discussion of to_dict/to_json\n- **gap_10 (batch processing): false** - Not mentioned; focus is on single-deckstring correctness\n\n**Plan Specificity:**\n- **gap_1: concrete** - Plan #1 gives exact fix: \"Change _read_varint() EOF check from \\\"\\\" to b\\\"\\\", and raise a deliberate decode exception\"\n- **gap_2: concrete** - Plan #1: \"After parsing... assert that the stream is fully consumed. If bytes remain, reject\"\n- **gap_3: concrete** - Plan #2: \"Check: all counts are >= 1\"\n- **gap_4: absent** - Not identified, so no plan\n- **gap_5: directional** - Plan #2 mentions validation but doesn't specify how to validate against a card database (because that's a larger system dependency)\n- **gap_6: absent** - Not identified, so no plan\n- **gap_7: directional** - Plan #3 mentions \"UnsupportedDeckstringVersion\" exception but doesn't address migration strategy\n- **gap_8: concrete** - Plan #3: \"Define exception hierarchy\" with specific classes and \"Include the failing field in messages\"\n- **gap_9: absent** - Not identified, so no plan\n- **gap_10: absent** - Not identified, so no plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

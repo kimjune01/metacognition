@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": false,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"absent\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Scoring Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding, base64 deckstring parsing/writing, tri-sorting, version checking, format validation, and the Deck class API. No false claims about capabilities.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (truncated deckstring handling)**: NOT identified. The report mentions \"Add try/except in parse_deckstring() to catch EOF gracefully\" but doesn't recognize that the parser lacks upfront length validation to prevent EOFError in the first place.\n\n- **gap_2 (trailing-byte detection)**: NOT identified. The report never mentions checking for unparsed data after successful parsing.\n\n- **gap_3 (card-count validation)**: NOT identified. While the report mentions validating \"No more than 2 copies of non-legendary cards,\" it doesn't identify that the parser accepts zero or negative counts without error.\n\n- **gap_4 (deck-size validation)**: IDENTIFIED. Triage item #2 explicitly mentions \"Total cards equals 30\" as a validation requirement.\n\n- **gap_5 (card-ID validation)**: NOT identified. The report mentions needing a card database for validation but doesn't identify that the parser currently accepts arbitrary integers as card IDs.\n\n- **gap_6 (human-readable output)**: IDENTIFIED. Triage item #10 and Plan section #10 address pretty printing and `to_text()` method with card names.\n\n- **gap_7 (format-version migration)**: NOT identified. The report mentions \"Unsupported versions\" as a test case but doesn't identify the lack of graceful degradation or migration strategy.\n\n- **gap_8 (logging/error context)**: IDENTIFIED. Triage item #5 and Plan section #5 specifically address logging and debugging support.\n\n- **gap_9 (serialization formats)**: IDENTIFIED. Triage item #10 addresses missing `__str__` and `__repr__`, which covers the serialization gap.\n\n- **gap_10 (batch processing)**: NOT identified. The report focuses on single-deckstring processing throughout.\n\n**Plan Specificity:**\nFor gaps the report DID identify (4, 6, 8, 9), the Plan section provides concrete implementation guidance with code examples, method signatures, and specific steps.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": false,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "absent",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

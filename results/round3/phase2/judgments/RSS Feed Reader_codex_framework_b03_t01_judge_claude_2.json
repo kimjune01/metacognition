@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "I'll evaluate this diagnostic report against the ground-truth specification.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: RSS feed fetching, entry normalization, timezone handling, per-category output, chronological sorting, config management, author attribution, selective fetching, and logging. All claims match the ground-truth capabilities.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified in Triage #2 and #4 - mentions bare `except:` blocks, `sys.exit()` on first failure, and lack of timeout/retry\n- **gap_2 (feed validation)**: \u2705 Identified in Triage #4 - \"no validation of malformed feeds, missing fields, or broken encodings beyond silent skipping\"\n- **gap_3 (deduplication)**: \u2705 Identified in Triage #1 and #7 - entry ID collisions, timestamp-based dedupe issues\n- **gap_4 (content extraction)**: \u2705 Identified in Triage #7 - \"Important feed metadata is discarded: summary, content, GUID, categories, author...\"\n- **gap_5 (caching/conditional fetching)**: \u2705 Identified in Triage #4 - \"no use of HTTP caching headers such as ETag or Last-Modified\"\n- **gap_6 (rate limiting)**: \u274c Not mentioned anywhere in the report\n- **gap_7 (persistent state)**: \u2705 Identified in Triage #7 - mentions lack of read/unread tracking and persistence issues\n- **gap_8 (error recovery)**: \u2705 Identified in Triage #2 and #4 - no retry, backoff, or partial success handling\n- **gap_9 (OPML/feed discovery)**: \u2705 Weakly identified in Triage #9 - \"CLI and developer ergonomics\" mentions lack of proper interface, though doesn't explicitly call out OPML\n- **gap_10 (output format flexibility)**: \u2705 Identified in Triage #6 - mentions hardcoded JSON output and lack of other formats\n\n**Plan Specificity:**\n- **gap_1**: concrete - specific fixes for exception handling, error objects, partial success\n- **gap_2**: concrete - validate required fields, normalize malformed feeds, record parse errors\n- **gap_3**: concrete - detailed ID strategy with GUID/hash, dedupe on (source, guid) or (source, link)\n- **gap_4**: concrete - Plan #6 lists specific fields to add (guid, summary, feed_title, etc.)\n- **gap_5**: concrete - Plan #4 explicitly mentions ETag, Last-Modified, validators\n- **gap_6**: absent - no plan item addresses rate limiting or throttling\n- **gap_7**: directional - mentions persistence needs but no concrete design for state tracking\n- **gap_8**: concrete - Plan #2 and #4 provide specific retry/backoff/timeout mechanisms\n- **gap_9**: absent - no plan item addresses OPML or feed discovery\n- **gap_10**: directional - Plan #6 mentions schema improvements but doesn't propose alternative output formats",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "directional"
+    }
+  }
+}

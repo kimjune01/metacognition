@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: mostly_accurate**\n- The report correctly identifies most working capabilities (feed parsing, multi-source aggregation, time formatting, configuration management, selective processing)\n- However, it incorrectly claims the system has \"Deduplication\" using \"timestamp-based IDs to deduplicate entries across sources\" (Observation #3). The ground truth gap_3 explicitly states there is NO deduplication and that entries from different feeds appear multiple times if they contain the same article\n- This is a significant error that misrepresents a core capability\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified as \"Error Handling\" and \"HTTP Robustness\"\n- **gap_2 (Feed validation)**: \u2705 Identified as \"Feed Validation\"\n- **gap_3 (No deduplication)**: \u274c Not identified; report incorrectly claims deduplication exists\n- **gap_4 (No content extraction)**: \u274c Not mentioned\n- **gap_5 (No caching/conditional fetching)**: \u2705 Identified as \"Performance Optimization\" with ETag/Last-Modified\n- **gap_6 (No rate limiting)**: \u274c Mentioned \"no rate limiting\" in HTTP Robustness but not addressed in plan\n- **gap_7 (No persistent state)**: \u274c Not identified (the report discusses stale data cleanup, not state tracking)\n- **gap_8 (No error recovery/retry)**: \u2705 Identified in \"Error Handling\" and \"HTTP Robustness\"\n- **gap_9 (No OPML/feed discovery)**: \u274c Not mentioned\n- **gap_10 (No output format flexibility)**: \u274c Not mentioned\n\n**Plan Specificity:**\n- **gap_1**: Concrete - specific code for logging, error collection, continuing on failure\n- **gap_2**: Concrete - validation function with specific field checks\n- **gap_5**: Concrete - complete ETag/Last-Modified implementation with caching\n- **gap_8**: Concrete - retry strategy with requests library\n- Gaps not identified have \"absent\" plans",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_8\": \"concrete\"\n  }\n}\n```\n\n## Rationale:\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, deck class wrapper, sideboard support, version checking, and format validation. All statements are factually correct.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (truncated/corrupted deckstring \u2192 unhandled EOFError)**: \u2705 **TRUE** - Triage #2 mentions \"malformed base64, negative values, and structurally invalid states are not checked\" and Plan #2 explicitly addresses wrapping validation and handling decoding failures.\n\n- **gap_2 (no trailing-byte detection)**: \u2705 **TRUE** - Plan #2 specifically says \"After parse, verify the stream is fully consumed or explicitly decide to allow trailing bytes.\"\n\n- **gap_3 (no card-count validation)**: \u2705 **TRUE** - Triage #3 says \"There is no validation that card counts are legal for the target format/game rules\" and Plan #2 mentions \"Reject zero or negative counts on parse/write if the format forbids them.\"\n\n- **gap_4 (no deck-size validation)**: \u274c **FALSE** - The report never mentions validating total deck size (30 cards for constructed, 40 for some formats).\n\n- **gap_5 (no card-ID validation against database)**: \u2705 **TRUE** - Plan #2 says \"Reject negative IDs and counts on write\" (partial coverage) and Triage #2 mentions \"IDs\" as part of insufficient validation.\n\n- **gap_6 (no human-readable output/card names)**: \u274c **FALSE** - The report never discusses resolving card IDs to card names or metadata.\n\n- **gap_7 (no format-version migration)**: \u274c **FALSE** - The report mentions version validation but never discusses graceful degradation or handling future versions beyond v1.\n\n- **gap_8 (no logging/error context)**: \u2705 **TRUE** - Plan #6 says \"Introduce explicit exception classes\" which addresses better error context, though not logging specifically.\n\n- **gap_9 (no serialization to JSON/dict)**: \u274c **FALSE** - The report doesn't mention adding `to_dict()`, `to_json()`, or `__repr__` methods.\n\n- **gap_10 (no concurrent/batch processing)**: \u274c **FALSE** - The report never discusses batch processing, streaming, or async support.\n\n**Plan Specificity (for identified gaps only):**\n\n- **gap_1**: **concrete** - Plan #2 gives specific actionable steps: wrap b64decode with validation, convert failures to library-specific exceptions.\n- **gap_2**: **concrete** - Plan #2 explicitly states \"verify the stream is fully consumed.\"\n- **gap_3**: **concrete** - Plan #2 says \"Reject zero or negative counts on parse/write if the format forbids them.\"\n- **gap_5**: **concrete** - Plan #2 says \"Reject negative IDs\" (though doesn't mention database validation, it's at least partially concrete).\n- **gap_8**: **concrete** - Plan #6 details \"Introduce explicit exception classes such as `DeckstringDecodeError`, `DeckstringValidationError`.\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_5": "concrete",
+      "gap_8": "concrete"
+    }
+  }
+}

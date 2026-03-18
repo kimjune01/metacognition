@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: mostly_accurate**\n- The observations correctly identify most working capabilities (feed parsing, multi-source aggregation, timezone handling, JSON output, configuration management, selective updates, logging, date formatting, author attribution)\n- However, observation #4 (\"Deduplication: Uses timestamp-based IDs to prevent duplicate entries from the same moment\") is misleading. The system doesn't actually deduplicate - it just uses timestamps as IDs, which can cause collisions rather than prevent duplicates. This is actually a gap, not a capability.\n- Most other observations are accurate descriptions of what the system does\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (HTTP error handling)**: TRUE - Identified as \"Error Handling\" in P0 #1 and \"Missing Feed Detection\" in P1 #8\n- **gap_2 (feed validation)**: TRUE - Identified as \"Missing Feed Detection\" in P1 #8 (checking d.bozo)\n- **gap_3 (deduplication across fetches)**: FALSE - Not identified. The report mentions \"Entry ID Collisions\" (P2 #13) but this is about simultaneous entries, not deduplication of the same article from different feeds or across runs\n- **gap_4 (content extraction)**: TRUE - Identified as \"Entry Content\" in P3 #19\n- **gap_5 (caching/conditional fetching)**: TRUE - Identified as \"HTTP Caching\" in P2 #16\n- **gap_6 (rate limiting)**: TRUE - Identified as \"Rate Limiting\" in P0 #3\n- **gap_7 (persistent state)**: FALSE - \"Stale Data Handling\" (P1 #7) addresses cache age, but doesn't address read/unread tracking or \"last fetched\" timestamps per feed\n- **gap_8 (error recovery/retry)**: TRUE - Identified as \"Partial Failure Handling\" in P2 #12 and error handling in P0 #1\n- **gap_9 (OPML import/export)**: FALSE - Not mentioned anywhere\n- **gap_10 (output format flexibility)**: FALSE - Not mentioned anywhere\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: concrete - Specific exception types, return status dict structure, removal of sys.exit\n- **gap_2**: concrete - Specific code to check d.bozo and d.status attributes\n- **gap_3**: absent - Not identified\n- **gap_4**: concrete - Specific fields to extract (summary, content), sanitization approach\n- **gap_5**: concrete - Specific headers to store (ETag, Last-Modified), how to use them\n- **gap_6**: concrete - time.sleep(1), configuration approach, exponential backoff formula\n- **gap_7**: absent - Not identified\n- **gap_8**: concrete - Move try/except inside loop, collect failures, continue processing\n- **gap_9**: absent - Not identified\n- **gap_10**: absent - Not identified",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

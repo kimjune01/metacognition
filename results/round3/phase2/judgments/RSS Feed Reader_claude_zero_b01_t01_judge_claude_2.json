@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Analysis\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's 10 working capabilities without hallucinating features or missing major functionality.\n\n**Gap Coverage: 7/10 identified**\n- \u2705 **gap_1** (HTTP error handling): Identified as \"Error Handling is Silent\" \n- \u2705 **gap_2** (feed validation): Identified as \"No Feed Validation\" and partially in gap #1\n- \u2705 **gap_3** (deduplication): Identified as \"Duplicate ID Collisions\"\n- \u274c **gap_4** (content extraction): Not mentioned - report doesn't note missing description/summary/media fields\n- \u2705 **gap_5** (caching/conditional fetching): Identified as \"No Cache Invalidation\" and \"Inefficient Update Strategy\"\n- \u2705 **gap_6** (rate limiting): Identified as \"No Rate Limiting\"\n- \u2705 **gap_7** (persistent state): Identified as \"No Incremental Updates\" and \"No Cache Invalidation\"\n- \u2705 **gap_8** (error recovery/retry): Identified as \"No Retry Logic\"\n- \u274c **gap_9** (feed discovery/OPML): Not mentioned\n- \u274c **gap_10** (output format flexibility): Not mentioned\n\n**Plan Specificity:**\n- **concrete** (6 gaps): Gaps 1, 2, 3, 5, 6, 8 have working code examples with specific line changes\n- **directional** (1 gap): Gap 7 references solution in gap #2 but lacks standalone implementation detail\n- **absent** (3 gaps): Gaps 4, 9, 10 have no plans because they weren't identified",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

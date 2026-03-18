@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, deck class wrapper, sideboard support, version checking, and format validation. It accurately notes the shallow filtering and minimal attend logic.\n\n**Gap Coverage:**\n- **gap_1** (truncated stream handling): \u2705 Identified in Triage #3 (\"truncated streams\") and Plan #1 (\"Validate full consumption of the stream\")\n- **gap_2** (trailing bytes): \u2705 Identified in Triage #3 (\"trailing garbage\") and Plan #1 (\"reject trailing bytes\")\n- **gap_3** (card count validation): \u2705 Identified in Plan #1 (\"card counts must be positive\")\n- **gap_4** (deck size validation): \u274c Not mentioned anywhere\n- **gap_5** (card ID validation): \u2705 Identified in Plan #1 (\"card IDs must be positive integers\")\n- **gap_6** (human-readable output): \u274c Not mentioned\n- **gap_7** (format version migration): \u274c Migration mentioned in Plan #3 for stored decks, but not for parsing version 2+ deckstrings\n- **gap_8** (logging/error context): \u2705 Identified in Plan #1 (\"Replace generic ValueError/EOFError with explicit exceptions\") and Plan #7 (\"Add logging hooks\")\n- **gap_9** (serialization to standard formats): \u274c Plan #4 mentions \"indexed lookup views\" but not to_dict/to_json/repr\n- **gap_10** (batch processing): \u274c Not mentioned\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific actions like catching binascii.Error, detecting EOF with b\"\", validating stream consumption\n- **gap_2**: \"concrete\" - Explicit instruction to \"reject trailing bytes\"\n- **gap_3**: \"concrete\" - Clear rule \"card counts must be positive\"\n- **gap_5**: \"concrete\" - Explicit \"card IDs must be positive integers\"\n- **gap_8**: \"concrete\" - Specific exception classes named, logging hooks mentioned\n- **gap_9**: \"directional\" - Plan #4 mentions \"typed structures\" and \"stable API boundary\" but doesn't explicitly call out to_dict/to_json/repr",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}

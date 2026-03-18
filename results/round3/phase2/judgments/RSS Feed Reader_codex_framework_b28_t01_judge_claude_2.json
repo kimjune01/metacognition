@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: feed parsing, timezone conversion, date formatting, per-category output, chronological sorting, config management, author attribution, selective fetching, and logging.\n\n**Gap Coverage:**\n\n- **gap_1 (HTTP error handling)**: TRUE - Triage #3 identifies \"bare `except:` blocks hide parse errors, filesystem errors, malformed feeds\" and \"in single-feed failure it can exit abruptly\"\n- **gap_2 (feed validation)**: FALSE - While Triage #5 mentions validating config and entry schema, it doesn't specifically identify the issue of empty feeds, non-RSS URLs, or HTML redirects producing zero entries without warning\n- **gap_3 (deduplication)**: TRUE - Triage #2 explicitly identifies timestamp-based collision: \"Two different posts published in the same second will collide\"\n- **gap_4 (content extraction)**: TRUE - Triage #12 notes \"output drops useful fields such as GUID, content summary, categories/tags\"\n- **gap_5 (caching/conditional fetching)**: TRUE - Triage #8 identifies \"No incremental fetching or HTTP caching\" and mentions ETag/Last-Modified\n- **gap_6 (rate limiting)**: FALSE - Not mentioned in the triage section\n- **gap_7 (persistent state)**: TRUE - Triage #8 discusses lack of incremental fetch state and Plan #8 proposes persisting feed-level metadata\n- **gap_8 (error recovery/retry)**: TRUE - Triage #4 identifies \"no explicit timeouts, retries, backoff\" for network issues\n- **gap_9 (feed discovery/OPML)**: FALSE - Not mentioned in the triage section\n- **gap_10 (output format flexibility)**: TRUE - Triage #12 and Plan #12 discuss the minimal/inflexible data model and hard-coded output format\n\n**Plan Specificity:**\n\n- **gap_1**: concrete - Plan #3 and #4 provide specific solutions (targeted exceptions, HTTP client configuration, retry with backoff)\n- **gap_3**: concrete - Plan #2 specifies using GUID or hashing `(feed_url, link, title, published_timestamp)` as stable IDs\n- **gap_4**: directional - Plan #12 mentions expanding schema with fields like `guid`, `summary`, but doesn't specify how to extract them\n- **gap_5**: concrete - Plan #8 specifies persisting ETag, Last-Modified, and reusing headers on subsequent runs\n- **gap_7**: directional - Plan #8 mentions persisting state but lacks concrete details on read/unread tracking implementation\n- **gap_8**: concrete - Plan #4 specifies retry with \"capped exponential backoff for transient network failures\"\n- **gap_10**: directional - Plan #12 suggests expanding schema but doesn't provide concrete alternative output formats",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "directional"
+    }
+  }
+}

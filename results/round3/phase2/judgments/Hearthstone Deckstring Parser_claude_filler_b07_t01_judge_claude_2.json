@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Scoring Rationale:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes all 8 working capabilities without hallucinating non-existent features\n- Accurately captures varint I/O, card organization, sideboard support, format tracking, OOP interface, etc.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (truncated input \u2192 EOFError)**: \u2705 Identified in Triage #1 as \"Production code would fail ungracefully on malformed input\" and Plan #1 mentions \"catch `struct.error` and `EOFError`\"\n- **gap_2 (trailing-byte detection)**: \u274c Not mentioned anywhere in the report\n- **gap_3 (card-count validation)**: \u2705 Triage #5 mentions \"Cannot check...duplicate restrictions\" and Plan #1 includes \"Validate card counts are positive integers\"\n- **gap_4 (deck-size validation)**: \u2705 Triage #5 explicitly states \"Cannot check deck size limits\" and Plan #5 addresses \"Check deck size: typically 30 cards for constructed\"\n- **gap_5 (card-ID validation)**: \u2705 Triage #3 states \"Cannot validate card IDs\" and Plan #3 proposes card database integration\n- **gap_6 (human-readable output)**: \u2705 Triage #9 identifies \"Missing `__str__` or `__repr__`\" and Plan #9 provides concrete implementation\n- **gap_7 (format-version migration)**: \u274c Not mentioned; the report focuses on supporting multiple heroes but not version migration\n- **gap_8 (logging/error context)**: \u2705 Triage #8 states \"Silent failures make debugging difficult\" and Plan #8 addresses logging\n- **gap_9 (serialization formats)**: \u2705 Plan #9 explicitly adds `to_dict()`, `from_dict()`, and JSON serialization\n- **gap_10 (batch/concurrent processing)**: \u274c Not mentioned; Plan #12 discusses performance optimization but not batch/async processing\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: concrete - Provides specific exception classes, code examples, and error handling patterns\n- **gap_3**: concrete - Shows specific validation checks with code examples\n- **gap_4**: concrete - Plan #5 gives specific card count constraints (30/40 cards) with implementation details\n- **gap_5**: concrete - Plan #3 includes complete class structure for CardDatabase integration\n- **gap_6**: absent - While Plan #9 addresses display, it doesn't address resolving IDs to names/metadata\n- **gap_8**: directional - Plan #8 mentions logging but lacks specific examples of what context to include\n- **gap_9**: concrete - Plan #9 provides exact method signatures and examples",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "directional",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

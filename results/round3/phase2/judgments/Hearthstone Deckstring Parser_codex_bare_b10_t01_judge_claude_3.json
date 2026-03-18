@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "Looking at this diagnostic report against the ground-truth gaps:\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does (encoding/decoding deckstrings, varint support, Deck class, sideboard handling) and is honest about what it doesn't do (no game rule validation, no card identity validation, weak error reporting).\n\n**Gap Coverage Analysis:**\n- **gap_1** (truncated deckstring \u2192 EOFError): \u2705 Triage #2 explicitly mentions \"No handling for...malformed input\" and Plan #2 includes \"EOF mid-varint\" tests\n- **gap_2** (no trailing-byte detection): \u2705 Plan #2 explicitly says \"verify the stream is fully consumed\" and \"unexpected trailing bytes\" test\n- **gap_3** (no card-count validation): \u2705 Triage #3 mentions \"zero/negative counts\" and Plan #3 enforces \"positive counts\"\n- **gap_4** (no deck-size validation): \u274c Never mentioned - the report focuses on per-card validation but doesn't address total deck size (30/40 cards)\n- **gap_5** (no card-ID validation): \u2705 Triage #3 mentions not validating \"card tuple shape\" and Plan #3 enforces \"positive integer card IDs\"\n- **gap_6** (no human-readable output): \u274c Not identified as a gap - Plan #8 mentions \"optional card database integration\" but doesn't treat missing card-name resolution as a production gap\n- **gap_7** (no format-version migration): \u274c Not mentioned - the report acknowledges version checking exists but doesn't identify lack of migration/graceful degradation as a gap\n- **gap_8** (no logging/error context): \u2705 Triage #6 says \"limited context\" and Plan #5 says \"Include actionable messages with the failing section and reason\"\n- **gap_9** (no serialization to standard formats): \u274c Not mentioned - Plan #8 mentions \"serialization compatibility\" vaguely but doesn't identify missing to_dict/to_json as a gap\n- **gap_10** (no batch processing): \u274c Not mentioned at all\n\n**Plan Specificity Analysis:**\nFor the gaps that WERE identified:\n- **gap_1**: \"concrete\" - specific fixes (change EOF check to `b\"\"`, replace `ord(c)` with `c[0]`, add max varint length guard)\n- **gap_2**: \"concrete\" - specific actions (verify stream consumed, add trailing bytes test)\n- **gap_3**: \"concrete\" - specific validation rules (positive IDs, positive counts, no duplicates)\n- **gap_5**: \"concrete\" - same as gap_3\n- **gap_8**: \"concrete\" - specific exception types and message content described",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

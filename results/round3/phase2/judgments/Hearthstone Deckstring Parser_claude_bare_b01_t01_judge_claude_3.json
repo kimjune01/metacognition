@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: varint encoding/decoding, deckstring parsing/generation, deck object model, card organization, sideboard support, version validation, and format type handling. No hallucinations or mischaracterizations.\n\n**Gap Coverage:**\n- **gap_1** (truncation handling): \u2705 Identified as \"Parser fails silently or raises generic exceptions on malformed input\" + Plan #1 mentions catching `EOFError`\n- **gap_2** (trailing bytes): \u2705 Plan #1 explicitly says \"check that data stream is fully consumed (`data.read(1) == b\"\"`)\"\n- **gap_3** (card-count validation): \u2705 Plan #2 mentions \"Check `cards` contains valid tuples `(int > 0, int > 0)`\" and \"Counts are positive integers\"\n- **gap_4** (deck-size validation): \u2705 Plan #7 addresses this: \"Total card count (typically 30 for constructed)\"\n- **gap_5** (card-ID validation): \u2705 Plan #2 says \"Check `cards` contains valid tuples `(int > 0, int > 0)`\" (validates DBF IDs are positive)\n- **gap_6** (human-readable output): \u2705 Gap #9 and Plan #9 explicitly address this\n- **gap_7** (format-version migration): \u274c Not identified. The report mentions \"UnsupportedVersionError\" but doesn't discuss graceful degradation or migration strategies\n- **gap_8** (logging/error context): \u2705 Gap #1 and Plan #1 address error messages, though not explicitly logging\n- **gap_9** (serialization formats): \u2705 Gap #9 addresses \"No Human-readable Export\" which covers this need\n- **gap_10** (batch processing): \u2705 Gap #10 and Plan #10 explicitly mention performance optimization including caching\n\n**Plan Specificity:**\nFor all identified gaps, the Plan section provides concrete code examples, specific function signatures, and actionable implementation steps. Only gap_7 (version migration) is absent since it wasn't identified in Triage.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": false,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"absent\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n## Rationale\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: parsing base64 deckstrings, storing in Deck class, basic validation (magic byte, version, FormatType), card sorting, and bidirectional serialization. All factual claims are correct.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (EOFError from truncated input)**: NOT identified. Report mentions \"error context\" (#3) but doesn't specifically call out the lack of length validation or unhandled EOFError.\n\n- **gap_2 (trailing-byte detection)**: NOT identified. No mention of unparsed trailing data being silently ignored.\n\n- **gap_3 (card-count validation)**: IDENTIFIED in Triage #2 \"Accepts impossible decks (99x same card...)\" and Plan #2 with concrete rules.\n\n- **gap_4 (deck-size validation)**: IDENTIFIED in Plan #2: \"Total card count limits (30 for constructed, 40 for Duels)\".\n\n- **gap_5 (card-ID validation)**: IDENTIFIED in Triage #2 \"invalid card IDs\" and Plan #2 with CardDatabase integration.\n\n- **gap_6 (human-readable output)**: NOT identified. Report focuses on parsing/validation but never mentions resolving card IDs to names or metadata display.\n\n- **gap_7 (format-version migration)**: IDENTIFIED in Triage #6 and Plan #6 with concrete version handling code.\n\n- **gap_8 (error context/logging)**: IDENTIFIED in Triage #3 and Plan #3 with specific DeckstringError implementation.\n\n- **gap_9 (serialization formats)**: IDENTIFIED in Triage #10 \"Missing... format conversion\" and Plan #4 shows storage with metadata, plus \"Type improvements\" section mentions proper TypedDict.\n\n- **gap_10 (batch processing)**: IDENTIFIED in Triage #10 and Plan #8-10 with concrete batch API.\n\n**Plan Specificity Analysis:**\n\nFor gaps identified, the plans are generally concrete with code examples, except for gaps not identified at all (absent).",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": false,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "absent",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

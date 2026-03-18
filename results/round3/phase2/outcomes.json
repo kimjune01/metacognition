@@ -1,0 +1,59 @@
+{
+  "completed": {
+    "Hearthstone Deckstring Parser": "disconfirmed",
+    "RSS Feed Reader": "max_batches"
+  },
+  "deltas": {
+    "Hearthstone Deckstring Parser": {
+      "p_fw_gt_filler": 0.3874,
+      "p_comp_gt_bare": 0.0321,
+      "p_fw_gt_compressed": 0.9309,
+      "p_zero_gt_bare": 0.307,
+      "p_zero_gt_filler": 0.3557,
+      "final_alphas": {
+        "zero": 114.0,
+        "bare": 119.5,
+        "compressed": 99.5,
+        "filler": 118.0,
+        "framework": 115.0
+      },
+      "final_betas": {
+        "zero": 116.0,
+        "bare": 110.5,
+        "compressed": 130.5,
+        "filler": 112.0,
+        "framework": 115.0
+      },
+      "batches": 11
+    },
+    "RSS Feed Reader": {
+      "p_fw_gt_filler": 0.9445,
+      "p_comp_gt_bare": 0.9502,
+      "p_fw_gt_compressed": 0.9324,
+      "p_zero_gt_bare": 0.2035,
+      "p_zero_gt_filler": 0.0102,
+      "final_alphas": {
+        "zero": 283.0,
+        "bare": 297.5,
+        "compressed": 325.5,
+        "filler": 323.0,
+        "framework": 351.0
+      },
+      "final_betas": {
+        "zero": 327.0,
+        "bare": 312.5,
+        "compressed": 284.5,
+        "filler": 287.0,
+        "framework": 259.0
+      },
+      "batches": 30
+    }
+  },
+  "cross_problem": {
+    "outcomes": [
+      "disconfirmed",
+      "max_batches"
+    ],
+    "decision": "continue"
+  }
+}

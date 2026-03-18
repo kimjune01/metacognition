@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate** - The report correctly describes the system's working capabilities: base64 decoding, binary parsing into structured objects, format validation, varint encoding/decoding, sideboard support, and bidirectional conversion. No false claims about what the system does.\n\n**Gap Coverage:**\n- **gap_1 (truncation/corruption handling): true** - Identified as \"EOF during varint read raises generic EOFError, but malformed data (truncated streams...)\"\n- **gap_2 (trailing-byte detection): false** - Not mentioned anywhere\n- **gap_3 (card-count validation): true** - Identified as \"accepts...100 copies of a card...without complaint\" and addressed in validation plan\n- **gap_4 (deck-size validation): true** - Specifically mentioned in validation plan: \"total_cards != 30\"\n- **gap_5 (card-ID validation): true** - Identified as \"invalid card IDs without complaint\"\n- **gap_6 (human-readable output): false** - The report mentions pretty-printing (repr/str), but not card name resolution or metadata lookup\n- **gap_7 (format-version migration): false** - Not mentioned\n- **gap_8 (logging/error context): true** - Critical gap #3: \"when parsing fails, users get exceptions with no context\"\n- **gap_9 (serialization formats): true** - Identified as \"No pretty-printing\" and \"Deck.__repr__() returns memory address\"\n- **gap_10 (batch processing): false** - While \"bulk operations\" mentions compare/diff, it doesn't address concurrent or streaming processing\n\n**Plan Specificity:**\n- **gap_1: concrete** - Provides specific code for `_safe_read_varint()` wrapper and exception handling pattern\n- **gap_3: concrete** - Complete `validate()` method with card count checks\n- **gap_4: absent** - Validation method checks total=30 but no plan for parameterizing by format (30 vs 40)\n- **gap_5: directional** - Mentions needing a card database but punts implementation (\"Placeholder for...\")\n- **gap_8: concrete** - Specific logging statements and debug output strategy\n- **gap_9: concrete** - Complete `__repr__()` and `__str__()` implementations provided",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

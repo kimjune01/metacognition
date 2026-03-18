@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"directional\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 8 working capabilities of the system without hallucinating non-existent features.\n\n**Gap Coverage Analysis:**\n- **gap_1** (input sanitization/truncation): \u2713 Identified as \"No error recovery - Malformed deckstrings raise exceptions\"\n- **gap_2** (trailing-byte detection): \u2717 Not mentioned\n- **gap_3** (card-count validation): \u2713 Identified in validation logic gap \"Card counts \u2264 max copies\"\n- **gap_4** (deck-size validation): \u2713 Identified in validation logic \"Total deck size matches format requirements\"\n- **gap_5** (card-ID validation): \u2713 Identified as \"cannot validate card existence\"\n- **gap_6** (human-readable output): \u2713 Identified as \"Works with raw DBF IDs; cannot validate card existence or retrieve metadata\"\n- **gap_7** (format-version migration): \u2717 Not mentioned (report only discusses format type enum, not version handling)\n- **gap_8** (logging/error context): \u2713 Identified as \"No logging - Silent failures in parsing make debugging difficult\"\n- **gap_9** (serialization formats): \u2713 Identified as \"No convenience methods\" and missing to_dict/to_json\n- **gap_10** (batch processing): \u2717 Not mentioned\n\n**Plan Specificity Analysis:**\n- **gap_1**: \"directional\" - Proposes try/except wrapper but lacks specifics on which validation errors to catch or how to handle partial parsing\n- **gap_3**: \"concrete\" - Specific validation checks with examples (\u22642 copies, legendaries 1)\n- **gap_4**: \"concrete\" - Explicit check for \"Total deck size matches format requirements (30 for Standard)\"\n- **gap_5**: \"concrete\" - Proposes CardDatabase with get_card method\n- **gap_6**: \"concrete\" - CardDatabase integration with metadata retrieval\n- **gap_8**: \"concrete\" - Shows logging.warning example\n- **gap_9**: \"concrete\" - Lists specific methods like to_dict(), to_json(), __repr__",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "directional",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

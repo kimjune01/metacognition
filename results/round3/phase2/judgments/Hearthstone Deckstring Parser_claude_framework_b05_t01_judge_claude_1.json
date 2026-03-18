@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe observations section correctly describes all working capabilities: varint encoding, base64 conversion, bidirectional parsing, sideboard support, trisort optimization, format validation, and type annotations. No incorrect claims about what the system does.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2705 Identified as \"invalid base64, truncated streams, or corrupted varints crash\"\n- **gap_2 (trailing bytes)**: \u2705 Identified as \"Silent data loss \u2014 if data has trailing bytes after parsing, they're ignored\"\n- **gap_3 (card count validation)**: \u2705 Identified as \"accepts negative card counts... without checking\"\n- **gap_4 (deck size validation)**: \u274c Not mentioned - the report checks individual card counts but doesn't validate total deck size (30/40 cards)\n- **gap_5 (card ID validation)**: \u2705 Identified as \"accepts... invalid DBF IDs\"\n- **gap_6 (human-readable output)**: \u274c Not mentioned - the report doesn't address card name resolution or metadata\n- **gap_7 (format version migration)**: \u2705 Identified as \"Tight coupling to FormatType enum \u2014 if Blizzard adds a new format...\"\n- **gap_8 (logging/error context)**: \u2705 Identified as \"No logging or diagnostics \u2014 when parsing fails... no context about which deck or where\"\n- **gap_9 (serialization formats)**: \u274c Not mentioned - no discussion of to_dict(), to_json(), or __repr__\n- **gap_10 (batch processing)**: \u274c Not mentioned - no discussion of concurrent or bulk processing\n\n**Plan Specificity:**\n- **gap_1**: concrete - Shows exact try/except blocks, custom exception class\n- **gap_2**: concrete - Shows exact code to check `data.tell() == len(decoded)`\n- **gap_3**: concrete - Complete validate_deck() method with specific checks\n- **gap_5**: concrete - Validation includes `if cardid < 1: raise ValueError`\n- **gap_7**: concrete - Shows try/except for FormatType with FT_UNKNOWN fallback\n- **gap_8**: concrete - Shows logger setup, debug statements, offset tracking",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

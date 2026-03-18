@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: varint I/O, serialization/deserialization, card organization by count, sideboard support, format tracking, hero handling, OOP interface, and sorting utilities. No false claims about functionality.\n\n**Gap Coverage:**\n- **gap_1 (truncated input \u2192 EOFError)**: \u2705 Identified in Triage #1 \"No error messages on invalid input - EOF and ValueError exceptions\"\n- **gap_2 (no trailing-byte detection)**: \u274c Not mentioned anywhere\n- **gap_3 (no card-count validation)**: \u2705 Triage #2 \"No validation of card counts - max 2 copies of non-legendary, 1 of legendary\"\n- **gap_4 (no deck-size validation)**: \u2705 Triage #2 \"30-card deck size\" explicitly mentioned\n- **gap_5 (no card-ID validation)**: \u2705 Triage #4 \"No card database integration - Uses raw DBF IDs\" + Plan #4 \"Handle missing cards gracefully\"\n- **gap_6 (no human-readable output)**: \u2705 Triage #11 \"No human-readable export - Can't convert to text/JSON formats\"\n- **gap_7 (no format-version migration)**: \u274c Not mentioned anywhere\n- **gap_8 (no error context)**: \u2705 Triage #1 \"EOF and ValueError exceptions provide minimal context\"\n- **gap_9 (no serialization to dict/JSON)**: \u2705 Triage #11 \"Can't convert to text/JSON formats\" + Plan #11 concrete methods\n- **gap_10 (no batch processing)**: \u274c Not mentioned anywhere\n\n**Plan Specificity:**\n- **gap_1**: Concrete - specific code changes listed (include byte offset, wrap base64 decode, context managers, custom exceptions)\n- **gap_3**: Concrete - specific validation rules (\u22642 non-legendary, \u22641 legendary, rarity lookup)\n- **gap_4**: Concrete - specific check (30 cards or format-specific limits) in `validate()` method\n- **gap_5**: Concrete - specific approach (CardDatabase class, graceful handling, caching, warnings)\n- **gap_6**: Concrete - specific methods (to_json, to_text, to_hsreplay_xml with example format)\n- **gap_8**: Concrete - specific implementation (logging module, configurable levels, key events, correlation IDs)\n- **gap_9**: Concrete - three specific export methods with signatures and class methods for import",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

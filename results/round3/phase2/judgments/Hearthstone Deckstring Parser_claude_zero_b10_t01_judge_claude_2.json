@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 7 working capabilities without hallucinating features or misrepresenting what exists.\n\n**Gap Coverage:**\n- **gap_1** (truncated input): \u2705 Identified in Critical Gap #1 (\"No error handling for malformed input\")\n- **gap_2** (trailing bytes): \u2705 Identified in Plan #1 with explicit check for trailing bytes\n- **gap_3** (card count validation): \u2705 Identified in Critical Gap #2 (\"No enforcement of deck construction rules... duplicate limits\")\n- **gap_4** (deck size validation): \u2705 Identified in Critical Gap #2 (\"30-card limit\") and Plan #2\n- **gap_5** (card ID validation): \u2705 Identified in Important Gap #6 (\"Cannot... verify legality\")\n- **gap_6** (human-readable output): \u2705 Identified in Nice-to-Have Gap #8 and Plan #8\n- **gap_7** (version migration): \u274c Not mentioned; report doesn't address forward compatibility for future format versions\n- **gap_8** (logging/error context): \u2705 Identified in Important Gap #5 (\"No logging/debugging support\") and Plan #5\n- **gap_9** (serialization formats): \u2705 Identified in Important Gap #4 (no `__repr__`) and Plan #4 addresses this\n- **gap_10** (batch processing): \u274c Not mentioned; report doesn't discuss concurrent/bulk operations\n\n**Plan Specificity:**\n- **gap_1**: concrete (specific try/except wrapping, re-raise strategy)\n- **gap_2**: concrete (exact code snippet for trailing byte check)\n- **gap_3**: concrete (specific validation logic with example)\n- **gap_4**: concrete (sum check with threshold, specific error message)\n- **gap_5**: concrete (CardDatabase integration with named methods)\n- **gap_6**: concrete (complete `to_text()` implementation with example)\n- **gap_7**: absent (gap not identified)\n- **gap_8**: concrete (logger setup, specific log statements)\n- **gap_9**: concrete (`__repr__`, `__str__` additions mentioned; to_text provides serialization)\n- **gap_10**: absent (gap not identified)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

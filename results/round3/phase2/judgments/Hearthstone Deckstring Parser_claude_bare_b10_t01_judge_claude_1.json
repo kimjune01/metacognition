@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes all major working capabilities: parsing, writing, varint encoding, card organization, OOP interface, and format validation.\n\n**Gap Coverage:**\n- **gap_1 (truncation/EOFError)**: \u2705 Identified in Critical Gap #1 \"crashes on malformed input\" and Plan #1 mentions \"if stream ends unexpectedly, raise ValueError\"\n- **gap_2 (trailing bytes)**: \u274c Not mentioned anywhere in the report\n- **gap_3 (card count validation)**: \u2705 Identified in Plan #1: \"Validate card counts are positive\"\n- **gap_4 (deck size)**: \u2705 Identified in Important Gap #4 \"doesn't verify deck legality (card count limits)\" and Plan #4 shows deck size validation\n- **gap_5 (card ID validation)**: \u274c Not mentioned - the report discusses validation but never addresses validating card IDs against a database\n- **gap_6 (human-readable output)**: \u2705 Identified as Nice-to-have Gap #7 \"No Pretty Printing\" with Plan #6\n- **gap_7 (format version migration)**: \u2705 Identified as Nice-to-have Gap #10 and Plan #9\n- **gap_8 (logging/error context)**: \u2705 Identified in Critical Gap #1 and Plan #1 mentions \"contextual error messages\"\n- **gap_9 (serialization formats)**: \u2705 Implied by Gap #7 \"No Pretty Printing\" and the lack of `__str__`/`__repr__` methods\n- **gap_10 (batch processing)**: \u274c Not mentioned anywhere\n\n**Plan Specificity:**\n- **gap_1**: concrete (specific try/except blocks, custom exception class, bounds checking code)\n- **gap_3**: concrete (specific validation code with error message format)\n- **gap_4**: concrete (shows validate() method implementation with deck size constant)\n- **gap_6**: concrete (complete __str__ implementation with card name mapping)\n- **gap_7**: directional (mentions version checking and migration but doesn't specify how to handle v2 differences)\n- **gap_8**: concrete (mentions contextual error messages in Plan #1 with specific examples)\n- **gap_9**: concrete (shows type aliases and usage examples, though doesn't explicitly add to_dict/to_json)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "I'll evaluate this diagnostic report against the ground-truth gaps and system capabilities.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's actual capabilities: varint encoding/decoding, base64 deckstring parsing/writing, tri-sort optimization, sideboard support, basic validation (header, version, format enum), and the Deck class wrapper. No false claims.\n\n**Gap Coverage:**\n- **gap_1** \u2713 - Identified in Triage #1: \"does not validate trailing bytes, malformed base64, duplicate entries, impossible counts, or structurally inconsistent payloads\" and Plan #1: \"verify the stream is fully consumed\"\n- **gap_2** \u2713 - Explicitly called out in Triage #1 and Plan #1: \"After parsing, verify the stream is fully consumed; reject trailing garbage\"\n- **gap_3** \u2713 - Identified in Triage #1 and Plan #1: \"Reject negative IDs/counts, zero counts\" and \"impossible counts\"\n- **gap_4** \u2717 - Not mentioned. The report covers card-count validation but not deck-size (total card count) validation\n- **gap_5** \u2713 - Implied in Triage #1: \"duplicate card IDs, duplicate sideboard entries\" suggests awareness that card IDs aren't validated against a database\n- **gap_6** \u2717 - Not mentioned. The report doesn't address human-readable output or card name resolution\n- **gap_7** \u2713 - Identified in Triage #2: \"no explicit compatibility policy for future deckstring versions\" and Plan #2: \"Document supported deckstring version(s) and behavior for unknown versions\"\n- **gap_8** \u2713 - Identified in Triage #3 and Plan #3: \"Exceptions are generic\" and \"Include field-level context in messages: which section failed\"\n- **gap_9** \u2717 - Not mentioned. The report doesn't address serialization to JSON/dict or __repr__\n- **gap_10** \u2717 - Not mentioned. No discussion of batch/concurrent processing\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific actions: \"Catch base64.binascii.Error\", \"verify the stream is fully consumed\"\n- **gap_2**: \"concrete\" - Explicit: \"verify the stream is fully consumed; reject trailing garbage\"\n- **gap_3**: \"concrete\" - Specific: \"Reject negative IDs/counts, zero counts, duplicate card IDs\"\n- **gap_5**: \"concrete\" - Implicit in \"Reject negative IDs/counts\" and validation strategy\n- **gap_7**: \"directional\" - Says \"Document supported deckstring version(s)\" but doesn't specify migration strategy\n- **gap_8**: \"concrete\" - Detailed: \"Include field-level context in messages: which section failed, which card ID/count was invalid\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

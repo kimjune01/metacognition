@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 9 working capabilities of the system with accurate technical detail about what each component does.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2713 Identified in Triage #1 \"No error messages on invalid input - EOF and ValueError exceptions\"\n- **gap_2 (trailing bytes)**: \u2717 Not identified - the report doesn't mention checking for unparsed trailing data\n- **gap_3 (card count validation)**: \u2713 Identified in Triage #2 \"No validation of card counts\"\n- **gap_4 (deck size validation)**: \u2713 Identified in Plan #2 \"Check total card count equals 30\"\n- **gap_5 (card ID validation)**: \u2713 Identified in Triage #4 \"No card database integration - Uses raw DBF IDs\"\n- **gap_6 (human-readable output)**: \u2713 Identified in Triage #11 \"No human-readable export\"\n- **gap_7 (version migration)**: \u2717 Not identified - the report doesn't discuss forward compatibility or version migration\n- **gap_8 (logging/error context)**: \u2713 Identified in Triage #1 and #8 about error messages and logging\n- **gap_9 (serialization formats)**: \u2713 Identified in Triage #11 and Plan #11 about JSON/text export\n- **gap_10 (batch processing)**: \u2717 Not identified - no mention of concurrent or batch operations\n\n**Plan Specificity:**\nFor gaps that were identified, most have concrete plans with specific implementation details (classes to create, methods to add, code examples). Gap coverage determines whether a gap gets a specificity score.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

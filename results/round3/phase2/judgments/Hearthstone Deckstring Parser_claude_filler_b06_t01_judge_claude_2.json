@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n## Scoring Rationale\n\n### Observation Accuracy: **accurate**\nThe Observations section correctly describes all 8 working capabilities listed in the ground truth. It accurately characterizes the bidirectional serialization, varint encoding, tri-sort optimization (called \"multi-tier card storage\"), hero support, format tracking, sideboard support, sorting/normalization, and the OO interface.\n\n### Gap Coverage Analysis\n\n**Identified (5/10):**\n- \u2705 **gap_1** (truncated input): Triage #1 mentions \"EOFError for truncated streams\" and \"Corrupt deckstrings could cause silent failures\"\n- \u2705 **gap_3** (card count validation): Triage #5 mentions \"No validation of business rules\" and Plan #5 specifically addresses card count validation\n- \u2705 **gap_4** (deck size validation): Triage #5 mentions \"No deck size limits (30 cards typical)\" and Plan #5 provides validation code\n- \u2705 **gap_5** (card ID validation): Triage #1 mentions \"No validation of card counts, DBF IDs\"\n- \u2705 **gap_7** (version migration): Triage #7 explicitly covers \"No version negotiation strategy\" and Plan #7 provides forward compatibility code\n\n**Missed (5/10):**\n- \u274c **gap_2** (trailing bytes): Not mentioned anywhere in the report\n- \u274c **gap_6** (human-readable output): Not mentioned\u2014the report focuses on validation and error handling but doesn't address card name resolution\n- \u274c **gap_8** (logging/error context): While Triage #1 mentions error handling, it doesn't specifically address logging or contextual error messages with parse position\n- \u274c **gap_9** (serialization formats): Plan #8 mentions `__repr__` but doesn't address `to_dict()` or `to_json()` interchange formats\n- \u274c **gap_10** (batch processing): Not mentioned\u2014the report doesn't discuss concurrent or bulk processing capabilities\n\n### Plan Specificity Analysis\n\n**Concrete (4 gaps):**\n- **gap_1**: Plan #1 provides complete exception hierarchy, specific try-except blocks, and example code\n- **gap_3**: Plan #5 includes validation logic with specific checks for card counts \u2265 1\n- **gap_4**: Plan #5 provides exact code for deck size validation (30 cards)\n- **gap_7**: Plan #7 shows specific version tolerance code with warnings and compatibility policy\n\n**Directional (3 gaps):**\n- **gap_5**: Plan #1 mentions \"Check DBF IDs \u2265 0\" but doesn't provide concrete implementation for database validation\n- **gap_9**: Plan #8 mentions `__repr__` but only directionally addresses serialization needs\n- **gap_10**: Plan #9 mentions optimization and batching directionally but lacks concrete implementation\n\n**Absent (3 gaps):**\n- **gap_2**, **gap_6**, **gap_8**: No plans provided since these gaps weren't identified",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "absent",
+      "gap_9": "directional",
+      "gap_10": "directional"
+    }
+  }
+}

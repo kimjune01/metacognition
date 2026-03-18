@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does. It accurately identifies feed loading, parsing, timezone conversion, date formatting, per-category output, chronological sorting, config management, author attribution, selective fetching, and logging capabilities.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified in Triage #1 and #2 - mentions bare except blocks, sys.exit on failures, and lack of network robustness\n- **gap_2 (feed validation)**: \u274c Not identified - the report mentions config validation (#5) but doesn't address validating that parsed feeds contain valid RSS/Atom data\n- **gap_3 (deduplication)**: \u2705 Identified in Triage #3 - explicitly calls out timestamp-only keys causing collisions\n- **gap_4 (content extraction)**: \u2705 Identified in Triage #10 - mentions the data model doesn't preserve summary/content, categories/tags, etc.\n- **gap_5 (caching/conditional fetching)**: \u2705 Identified in Triage #11 - mentions no conditional requests or caching headers\n- **gap_6 (rate limiting)**: \u274c Not identified - Triage #11 mentions serial fetching and suggests concurrency but doesn't address rate limiting or throttling\n- **gap_7 (persistent state)**: \u274c Not identified - the report doesn't mention tracking read/unread status, last-fetched timestamps, or showing only new entries\n- **gap_8 (error recovery/retry)**: \u2705 Identified in Triage #2 - explicitly mentions no retry, backoff, or per-feed failure isolation\n- **gap_9 (OPML/feed discovery)**: \u274c Not identified - no mention of OPML import/export or auto-discovery\n- **gap_10 (output format flexibility)**: \u2705 Identified in Triage #10 - notes output is hardcoded JSON with no HTML/terminal/email options\n\n**Plan Specificity:**\n- **gap_1**: concrete - Plan #1 and #2 provide specific remediation steps (targeted exceptions, retry with backoff, timeouts)\n- **gap_3**: concrete - Plan #3 gives specific key strategies (use entry id/guid/link, hash composite)\n- **gap_4**: concrete - Plan #10 lists specific fields to preserve (guid, summary, feed_title, author)\n- **gap_5**: concrete - Plan #11 mentions HTTP conditional requests using ETag/Last-Modified\n- **gap_8**: concrete - Plan #2 specifies retry with exponential backoff and per-feed status tracking\n- **gap_10**: concrete - Plan #9 suggests CLI arguments and exit codes, though doesn't fully address format flexibility",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "concrete"
+    }
+  }
+}

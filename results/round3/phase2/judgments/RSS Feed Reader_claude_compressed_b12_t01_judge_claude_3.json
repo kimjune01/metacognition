@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**OBSERVATION ACCURACY: mostly_accurate**\n- The report correctly identifies core functionality (feed fetching, parsing, sorting, timezone handling, per-category output)\n- Maps system to a 6-stage framework (Perceive/Cache/Filter/Attend/Remember/Consolidate), which is conceptually sound\n- Minor inaccuracy: Claims \"Graceful degradation on feed parsing failures\" but the actual behavior is `sys.exit()` which kills the process\u2014not graceful\n- The \"uses entry timestamp as deduplication key\" is accurate (the `id` field)\n\n**GAP COVERAGE:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified as \"Fragile Perceive\" with \"Silent failure handling (`sys.exit(0)` on parse errors)\"\n- **gap_2 (feed validation)**: \u2705 Identified as \"Shallow Filter\" noting it \"doesn't handle malformed data\"\n- **gap_3 (deduplication)**: \u2705 Identified as \"Shallow Attend\" noting \"timestamp as deduplication key...fails when multiple entries publish simultaneously\"\n- **gap_4 (content extraction)**: \u274c Not mentioned\u2014report doesn't note missing description/summary/enclosures\n- **gap_5 (caching/conditional fetching)**: \u274c Brief mention of \"No incremental updates\" but doesn't address ETag/Last-Modified/If-Modified-Since headers\n- **gap_6 (rate limiting)**: \u274c Not mentioned\u2014report doesn't identify lack of delays between requests\n- **gap_7 (persistent state)**: \u2705 Identified as \"Missing Consolidate\" noting \"can't detect already-shown entries\" and \"No history awareness\"\n- **gap_8 (error recovery/retry)**: \u2705 Identified in \"Fragile Perceive\" noting \"No timeout, retry logic\"\n- **gap_9 (OPML/feed discovery)**: \u274c Not mentioned\n- **gap_10 (output format flexibility)**: \u274c Not mentioned\n\n**PLAN SPECIFICITY:**\n- **gap_1**: Concrete\u2014shows replacing feedparser with requests, adding timeout, try/except with continue\n- **gap_2**: Concrete\u2014shows validation code for title and link format, hash-based deduplication\n- **gap_3**: Concrete\u2014shows composite key generation and diversity enforcement with source limits\n- **gap_7**: Concrete\u2014shows history file implementation with seen_ids tracking\n- **gap_8**: Concrete\u2014shows timeout parameter, exception handling, ThreadPoolExecutor for parallelization\n- Gaps not covered (4, 5, 6, 9, 10): Absent from plan",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

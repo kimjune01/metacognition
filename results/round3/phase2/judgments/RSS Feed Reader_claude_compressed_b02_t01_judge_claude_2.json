@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: mostly_accurate**\n- Correctly identifies the 6-stage diagnostic framework and maps working capabilities\n- Accurately describes multi-category fetching, timezone handling, JSON storage, config merge\n- Minor issue: describes error handling as \"silent\" which is correct, but doesn't note the catastrophic `sys.exit()` behavior on first failure (though this is caught in Triage)\n\n**Gap Coverage:**\n- \u2705 gap_1 (HTTP error handling): Identified as \"No error visibility\" - catches the sys.exit() problem\n- \u2705 gap_2 (feed validation): Identified as \"No content validation\" (gap 9)\n- \u2705 gap_3 (deduplication): Identified as \"No deduplication\" (gap 1)\n- \u274c gap_4 (content extraction): Not mentioned - report focuses on operational robustness, not data richness\n- \u274c gap_5 (caching/conditional): Partially covered by gap 4 \"incremental updates\" but doesn't mention ETag/Last-Modified headers\n- \u274c gap_6 (rate limiting): Not mentioned\n- \u2705 gap_7 (persistent state): Identified as \"No incremental updates\" (gap 4) - covers last_fetch tracking\n- \u2705 gap_8 (error recovery): Identified as \"No retry logic\" (gap 7)\n- \u274c gap_9 (OPML/discovery): Not mentioned\n- \u274c gap_10 (output formats): Not mentioned\n\n**Plan Specificity:**\n- gap_1: **concrete** - provides exact code with file loading, ID comparison, merge logic\n- gap_2: **concrete** - shows error array, bozo flag check, stderr output\n- gap_3: **concrete** - adds max_age_hours config, timestamp comparison\n- gap_7: **directional** - mentions \"retry decorator with 3 attempts, 1/2/4 second delays\" but no code\n- gap_8: **directional** - describes tracking failures/last_success but implementation details sparse",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "directional",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

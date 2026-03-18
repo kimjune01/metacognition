@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Justification\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 8 working capabilities: base64 parsing, data structures, format validation, trisort optimization, round-trip conversion, sideboard support, version checking, and format enum validation. No hallucinations or missing capabilities.\n\n**Gap Coverage Analysis:**\n- **gap_1** \u2713 \u2192 Triage #1: \"Filter is shallow...not semantic errors\" + Plan #5: \"warnings for trailing bytes\"\n- **gap_2** \u2713 \u2192 Triage #5 + Plan #5: \"trailing bytes ignored\" explicitly mentioned\n- **gap_3** \u2713 \u2192 Triage #1 + Plan #1: \"invalid card counts\" and validation for legendaries\n- **gap_4** \u2713 \u2192 Plan #1: \"Total card count (must be 30 for Standard/Wild)\"\n- **gap_5** \u2713 \u2192 Triage #9 + Plan #9: \"Uses raw DBF IDs with no card name resolution\"\n- **gap_6** \u2713 \u2192 Triage #7 + Plan #7: \"No human-readable formats: Can't export to text list or JSON\"\n- **gap_7** \u2717 \u2192 Not identified (no mention of version migration or graceful degradation)\n- **gap_8** \u2713 \u2192 Triage #3 + Plan #3: \"No context in error messages\" with detailed solution\n- **gap_9** \u2713 \u2192 Triage #7 + Plan #6/#7: \"No human-readable formats\" + `to_json()` method\n- **gap_10** \u2717 \u2192 Not identified (no mention of batch/concurrent processing)\n\n**Plan Specificity Analysis:**\nFor identified gaps, all plans are **concrete** with code examples:\n- **gap_1**: Concrete `validate()` implementation with exception types\n- **gap_2**: Concrete telemetry code checking remaining bytes\n- **gap_3**: Concrete legendary validation logic\n- **gap_4**: Concrete deck size check with error raising\n- **gap_5**: Concrete `CardDatabase` protocol definition\n- **gap_6**: Concrete `to_text()` and `__str__` methods\n- **gap_8**: Concrete `DecodeError` class with position tracking\n- **gap_9**: Concrete `to_json()` implementation with metadata\n\nFor unidentified gaps (7, 10), specificity is **absent** by definition.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

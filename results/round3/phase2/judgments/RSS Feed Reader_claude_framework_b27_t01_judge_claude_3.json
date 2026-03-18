@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- The report correctly describes most working capabilities (feed parsing, config management, data normalization, timezone handling, output persistence, category isolation, sorting)\n- However, observation #6 \"Deduplication: Uses timestamp as ID to prevent duplicate entries within a category\" is **incorrect**. The ground truth (gap_3) explicitly states that the timestamp-based ID system causes collisions for entries published at the same second, and that duplicate articles from different feeds in the same category both appear. The system does NOT deduplicate effectively.\n\n**Gap Coverage:**\n- **gap_1** (HTTP error handling): \u2713 Identified as \"No error recovery\" \n- **gap_2** (feed validation): \u2713 Identified as \"No feed validation\"\n- **gap_3** (deduplication across fetches): \u2717 Not identified; in fact, observation #6 incorrectly claims deduplication works\n- **gap_4** (content extraction): \u2713 Identified as \"No content extraction\"\n- **gap_5** (caching/conditional fetching): \u2713 Identified as \"No incremental updates\" and \"ETag/Last-Modified support\"\n- **gap_6** (rate limiting): \u2713 Identified as \"No rate limiting\"\n- **gap_7** (persistent state): \u2713 Identified as \"No read/unread tracking\"\n- **gap_8** (error recovery/retry): \u2713 Identified as \"No retry logic\"\n- **gap_9** (OPML import/export): \u2713 Identified as \"No OPML import/export\"\n- **gap_10** (output format flexibility): \u2717 Not identified; report doesn't mention lack of alternative output formats\n\n**Plan Specificity:**\n- All identified gaps have concrete, actionable code examples with clear implementation paths\n- gap_3 and gap_10 are \"absent\" because they weren't identified in the triage",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

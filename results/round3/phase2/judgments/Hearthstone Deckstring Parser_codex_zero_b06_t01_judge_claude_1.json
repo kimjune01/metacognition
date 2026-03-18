@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies all the working capabilities: varint I/O, base64 decode/encode, format/hero/card parsing, sideboard support, tri-sort bucketing, the Deck wrapper class, and version validation.\n\n**Gap Coverage:**\n- **gap_1 (truncation/EOFError)**: \u2705 Identified in Triage #1: \"no validation for truncated payloads\" and Plan #1: \"validate that all varints decode fully and fail cleanly on truncation\"\n- **gap_2 (trailing bytes)**: \u2705 Identified in Triage #1: \"trailing garbage\" and Plan #1: \"verify there are no trailing unread bytes\"\n- **gap_3 (card-count validation)**: \u2705 Identified in Triage #1: \"invalid counts\" and Plan #1: \"card count less than 1\"; Plan #2: \"allowed per-card counts\"\n- **gap_4 (deck-size validation)**: \u274c Not mentioned. The report discusses per-card count validation and business constraints, but never mentions total deck size (30/40 cards)\n- **gap_5 (card-ID validation)**: \u2705 Identified in Plan #2: \"nonzero positive IDs only\" addresses basic ID validation, though it doesn't mention checking against a card database\n- **gap_6 (human-readable output)**: \u274c Not mentioned. The report notes missing `to_dict()`/`from_dict()` for interchange, but doesn't address resolving card IDs to names/metadata\n- **gap_7 (format-version migration)**: \u2705 Identified in Triage #5: \"No compatibility/versioning policy beyond rejecting unsupported versions\" and Plan #5: \"Document any intentional limitations\"\n- **gap_8 (logging/error context)**: \u2705 Identified in Triage #5: \"Error messages are not specific enough\" and Plan #1: \"dedicated exception messages at each parse stage\"; Plan #5: \"Make exceptions actionable\"\n- **gap_9 (serialization to standard formats)**: \u2705 Identified in Triage #3 and Plan #3: \"add `Deck.to_dict()` / `Deck.from_dict()`\"\n- **gap_10 (batch/concurrent processing)**: \u274c Not mentioned. The report focuses on single-deckstring robustness with no discussion of batch or async support\n\n**Plan Specificity:**\n- **gap_1**: concrete - specific steps to validate varint decoding and handle truncation\n- **gap_2**: concrete - explicit instruction to verify no trailing bytes\n- **gap_3**: concrete - clear validation rules for card counts (\u22651, per-card limits)\n- **gap_5**: concrete - \"nonzero positive IDs only\" is actionable\n- **gap_7**: directional - mentions documenting versioning policy but doesn't specify migration strategy\n- **gap_8**: concrete - specific examples of actionable error messages\n- **gap_9**: concrete - explicit API additions (`to_dict()`, `from_dict()`)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

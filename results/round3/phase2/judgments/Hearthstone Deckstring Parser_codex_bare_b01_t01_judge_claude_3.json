@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "I'll evaluate this diagnostic report against the ground-truth gaps and actual system capabilities.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes the working capabilities: base64 decoding/encoding, varint handling, card grouping, sideboard support, Deck class with from_deckstring/as_deckstring, format type validation, and version checking. All claims are accurate to the actual system.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (truncated stream handling)**: \u2705 Identified in Triage #1 as \"Binary parsing is fragile\" and mentions EOFError would surface\n- **gap_2 (trailing bytes)**: \u274c Not mentioned anywhere\n- **gap_3 (card count validation)**: \u2705 Triage #2 mentions \"card counts can be zero or negative\"\n- **gap_4 (deck size validation)**: \u274c Not mentioned\n- **gap_5 (card ID validation)**: \u2705 Triage #2 mentions \"duplicate card IDs are allowed\" and implies invalid IDs aren't checked\n- **gap_6 (human-readable output)**: \u274c Not mentioned\n- **gap_7 (format version migration)**: \u2705 Triage #8 mentions \"Version handling is hardcoded to one deckstring version\" and \"no strategy for future protocol changes\"\n- **gap_8 (logging/error context)**: \u2705 Triage #3 states \"Errors do not include enough context to debug malformed inputs\"\n- **gap_9 (serialization formats)**: \u274c Not mentioned\n- **gap_10 (batch processing)**: \u274c Not mentioned\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: \"concrete\" - Plan #1 gives specific code changes (replace `if c == \"\"`, use `c[0]`, add EOFError handling)\n- **gap_3**: \"concrete\" - Plan #2 lists specific validations (positive integers, reject duplicates, check sideboard owners)\n- **gap_5**: \"concrete\" - Plan #2's validation helpers cover this\n- **gap_7**: \"directional\" - Plan #8 mentions \"version-dispatch layer\" and \"isolate protocol constants\" but lacks implementation detail\n- **gap_8**: \"concrete\" - Plan #3 defines specific exception types and mentions \"Include concrete context in messages, such as which section failed\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

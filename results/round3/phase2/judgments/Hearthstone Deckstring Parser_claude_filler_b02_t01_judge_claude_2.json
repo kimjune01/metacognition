@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate** - The Observations section correctly describes all 5 working capabilities: varint I/O, deckstring parsing with version/format/heroes/cards/sideboards, deckstring generation with optimization, Deck class with factory/property methods, and sideboard support.\n\n**Gap Coverage Analysis:**\n- \u2705 **gap_1** (truncation handling): Covered in Triage #1 \"accepts malformed input silently or crashes\"\n- \u2705 **gap_2** (trailing bytes): Covered in Triage #1 \"accepts malformed input silently\"\n- \u2705 **gap_3** (card count validation): Explicitly mentioned in Triage #1 \"Card count limits\"\n- \u2705 **gap_4** (deck size validation): Explicitly mentioned in Triage #1 \"deck size validation\" and Plan #1 shows 30-card check\n- \u274c **gap_5** (card ID validation): Not identified - no mention of validating against card database\n- \u2705 **gap_6** (human-readable output): Covered in Triage #8 \"No human-readable representation\"\n- \u274c **gap_7** (version migration): Not identified - only mentions version validation exists, not migration/graceful degradation\n- \u2705 **gap_8** (error context): Covered in Triage #4 \"Limited error messages\" and #6 \"No logging\"\n- \u2705 **gap_9** (serialization formats): Covered in Triage #8 via `__repr__` and `__str__` methods\n- \u274c **gap_10** (batch processing): Not identified - no mention of concurrent/async/streaming capabilities\n\n**Plan Specificity Analysis:**\n- **gap_1-4**: Concrete - Plan #1 provides exact code for validation checks with line-by-line implementation\n- **gap_5**: Absent - Not in plan (not identified as gap)\n- **gap_6**: Concrete - Plan #7 shows exact `__str__` and `__repr__` implementations\n- **gap_7**: Absent - Not in plan (not identified as gap)\n- **gap_8**: Concrete - Plan #2 shows exception hierarchy and Plan #6 shows logging setup with examples\n- **gap_9**: Concrete - Plan #7 provides complete implementations of string representations\n- **gap_10**: Absent - Not in plan (not identified as gap)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

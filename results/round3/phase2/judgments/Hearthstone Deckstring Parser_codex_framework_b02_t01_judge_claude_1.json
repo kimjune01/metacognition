@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll evaluate this diagnostic report systematically against the ground truth.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: base64 decode/encode, varint handling, hero/card/sideboard parsing, format validation, tri-sort optimization, and the Deck wrapper class. No false claims about capabilities.\n\n**Gap Coverage Analysis:**\n- **gap_1** (truncated deckstring handling): \u2705 Identified in Triage #1: \"_read_varint() handles EOF incorrectly\" and \"Invalid or truncated inputs can raise low-level exceptions\"\n- **gap_2** (trailing-byte detection): \u2705 Identified in Triage #1: \"The parser does not check for trailing garbage after a valid payload\"\n- **gap_3** (card-count validation): \u2705 Identified in Triage #2: \"No validation for negative card counts, zero counts\"\n- **gap_4** (deck-size validation): \u274c Not identified - report mentions hero count validation but not total deck size\n- **gap_5** (card-ID validation): \u2705 Identified in Triage #2: \"invalid card IDs\"\n- **gap_6** (human-readable output): \u274c Not identified - no mention of card name resolution or metadata\n- **gap_7** (format-version migration): \u2705 Identified in Triage #3: \"There is no explicit compatibility layer for future deckstring versions\"\n- **gap_8** (logging/error context): \u274c Not identified - mentions \"Error types are inconsistent\" but not lack of position/context in errors\n- **gap_9** (serialization to JSON/dict): \u274c Not identified - no mention of interchange formats\n- **gap_10** (batch/concurrent processing): \u274c Not identified - no mention of bulk processing capabilities\n\n**Plan Specificity Analysis:**\n- **gap_1**: \"concrete\" - Plan #1 specifies exact fixes: detect `b\"\"`, raise EOFError/ValueError, wrap base64 decode\n- **gap_2**: \"concrete\" - Plan #1 explicitly says \"verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3**: \"concrete\" - Plan #2 lists exact validation rules: \"counts are positive integers\"\n- **gap_5**: \"concrete\" - Plan #2 specifies \"card IDs are positive integers\"\n- **gap_7**: \"directional\" - Plan #3 says \"Isolate version-specific behavior\" but doesn't provide concrete implementation approach\n- **gap_4, 6, 8, 9, 10**: \"absent\" - Not mentioned in plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

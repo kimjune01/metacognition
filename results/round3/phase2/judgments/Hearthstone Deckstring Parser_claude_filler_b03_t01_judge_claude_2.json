@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": false,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"absent\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate** - The Observations section correctly describes what the system does: varint encoding/decoding, base64 deckstring parsing/writing, tri-sort optimization, Deck class with round-trip conversion, sideboard support, version checking, and format validation. All claims match the ground truth.\n\n**Gap Coverage Analysis:**\n- **gap_1 (truncated deckstring handling)**: Not identified. Report mentions \"Add try/except in parse_deckstring() to catch EOF gracefully\" but doesn't recognize the lack of length validation.\n- **gap_2 (trailing-byte detection)**: Not identified. No mention of checking for unparsed remaining bytes.\n- **gap_3 (card-count validation)**: Not identified. Gap #2 mentions validating \"No more than 2 copies\" but doesn't identify the missing check for *positive* card counts or zero/negative values.\n- **gap_4 (deck-size validation)**: **TRUE** - Identified in Gap #2 (\"Total cards equals 30\").\n- **gap_5 (card-ID validation)**: Not identified. Gap #2 mentions \"All cards valid for the specified format\" but doesn't specifically call out validating card IDs against a card database.\n- **gap_6 (human-readable output)**: **TRUE** - Identified in Gap #10 (Pretty Printing) and plan includes `to_text()` method.\n- **gap_7 (format-version migration)**: Not identified. Gap #1 mentions `UnsupportedVersionError` but doesn't discuss graceful degradation or version migration.\n- **gap_8 (logging/error context)**: **TRUE** - Identified in Gap #5 (Logging and Debugging Support).\n- **gap_9 (serialization to standard formats)**: **TRUE** - Identified in Gap #10 (Pretty Printing), mentions missing `__repr__` and suggests adding structured output.\n- **gap_10 (concurrent/batch processing)**: Not identified. No mention of batch or async processing.\n\n**Plan Specificity:**\n- Gaps 1, 2, 3, 5, 7, 10: **absent** (not identified)\n- Gap 4: **concrete** - Specific validation logic provided with code examples\n- Gap 6: **concrete** - Detailed implementation with `to_text()` method and card database integration\n- Gap 8: **concrete** - Specific logging statements and levels defined\n- Gap 9: **concrete** - Concrete `__repr__` and `__str__` implementations provided",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": false,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "absent",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

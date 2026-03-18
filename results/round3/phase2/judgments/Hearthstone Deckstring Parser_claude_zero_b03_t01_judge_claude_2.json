@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes all working capabilities: varint encoding, deckstring parsing/writing, card grouping by frequency, Deck class with factory method and property accessor, sideboard support, and format validation.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (truncation/corruption handling): TRUE** - Identified as Critical #1 \"No Error Handling\" and specifically addresses EOFError from _read_varint\n- **gap_2 (trailing-byte detection): FALSE** - Not mentioned anywhere in the report\n- **gap_3 (card-count validation): TRUE** - Identified as Critical #2 \"Missing Validation\" with specific mention of \"card limits\"\n- **gap_4 (deck-size validation): TRUE** - Addressed in Critical #2's Plan with explicit 30-card check\n- **gap_5 (card-ID validation): TRUE** - Identified as High Priority #8 \"No Card Database Integration\" with \"validate card IDs\"\n- **gap_6 (human-readable output): TRUE** - Identified as High Priority #8 with \"resolve them to card names\"\n- **gap_7 (format-version migration): FALSE** - The report mentions UnsupportedVersionError but doesn't discuss graceful degradation or migration strategy\n- **gap_8 (logging/error context): TRUE** - Identified as High Priority #5 \"No Logging\" with specific examples\n- **gap_9 (serialization formats): TRUE** - Identified as Low Priority #16 \"No Serialization Alternatives\" with explicit mention of JSON/dict export\n- **gap_10 (batch/concurrent processing): FALSE** - Not mentioned in the report\n\n**Plan Specificity Analysis:**\n\n- **gap_1: concrete** - Provides specific exception classes, try/except patterns, and where to add checks\n- **gap_3: concrete** - Shows exact validation code with card limit logic\n- **gap_4: concrete** - Shows complete validate() method with 30-card check\n- **gap_5: concrete** - Provides card database integration code with get_card_names() method\n- **gap_6: concrete** - Shows implementation of card name resolution via card_db\n- **gap_8: concrete** - Provides specific logging statements with debug levels\n- **gap_9: concrete** - Shows complete to_dict() implementation with all fields",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

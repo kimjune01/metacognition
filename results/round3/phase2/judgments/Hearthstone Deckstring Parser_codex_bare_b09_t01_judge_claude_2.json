@@ -1,0 +1,27 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_8\": \"concrete\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, sideboard support, version checking, and the Deck class wrapper. All statements are factually correct.\n\n**Gap Coverage:**\n- **gap_1 (truncated stream validation)**: \u2713 Identified in Triage #2 \"No protection against...truncated payloads\" and Plan #2 \"Detect truncated streams\"\n- **gap_2 (trailing byte detection)**: \u2713 Identified in Triage #2 \"trailing garbage\" and Plan #2 \"trailing unread bytes after a full parse\"\n- **gap_3 (card-count validation)**: \u2713 Identified in Triage #4 \"zero/negative counts\" and Plan #3 \"counts are positive integers\"\n- **gap_4 (deck-size validation)**: \u2717 Not mentioned anywhere (30-card or 40-card deck size limits)\n- **gap_5 (card-ID validation)**: \u2713 Identified in Triage #2 \"negative values\" and Plan #3 \"card IDs > 0, all IDs are positive integers\"\n- **gap_6 (human-readable output)**: \u2717 Not mentioned (no card name resolution, metadata, etc.)\n- **gap_7 (format-version migration)**: \u2717 Not mentioned (graceful handling of future versions)\n- **gap_8 (logging/error context)**: \u2713 Identified in Triage #5 \"Error reporting is minimal...generic ValueError/EOFError with little context\" and Plan #5 \"Include context in messages\"\n- **gap_9 (serialization to standard formats)**: \u2717 Not mentioned (no to_dict(), to_json(), __repr__)\n- **gap_10 (concurrent/batch processing)**: \u2717 Not mentioned (async, streaming, bulk import support)\n\n**Plan Specificity:**\nFor the 5 gaps that were identified:\n- **gap_1**: \"concrete\" - Specific actions: wrap base64.b64decode with validation, convert to DeckstringDecodeError, detect truncated streams\n- **gap_2**: \"concrete\" - Specific action: \"Detect...trailing unread bytes after a full parse\"\n- **gap_3**: \"concrete\" - Specific actions: introduce validate_deck(), enforce \"counts are positive integers\"\n- **gap_5**: \"concrete\" - Specific validation rules: \"card IDs > 0\", \"all IDs are positive integers\"\n- **gap_8**: \"concrete\" - Define custom exceptions with specific context: \"which section failed, which card/count was invalid, whether EOF occurred during heroes, cards, or sideboards\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_5": "concrete",
+      "gap_8": "concrete"
+    }
+  }
+}

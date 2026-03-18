@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- Most observations are correct (feed parsing, multi-source aggregation, timezone handling, etc.)\n- However, observation #4 \"Deduplication: Uses timestamp-based IDs to prevent duplicate entries within a category\" is misleading. The ground truth (gap_3) states there is NO deduplication across fetches - each call overwrites the entire file, and entries from different feeds can duplicate. The timestamp-based ID only serves as a dictionary key within a single fetch operation, not persistent deduplication.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (HTTP error handling)**: \u2713 Identified as \"Critical Gap 1: No error recovery or retry logic\"\n- **gap_2 (feed validation)**: \u2717 \"Important Gap 6: Weak feed validation\" mentions schema validation and dead feed detection, but misses the core issue that empty/invalid feeds produce zero entries with no warning\n- **gap_3 (deduplication across fetches)**: \u2717 Not identified; the report incorrectly claims deduplication exists\n- **gap_4 (content extraction)**: \u2713 Identified as \"Important Gap 7: No entry content storage\"\n- **gap_5 (caching/conditional fetching)**: \u2717 \"Triage Gap 2: Stale data handling\" discusses cache expiration but doesn't mention ETag/Last-Modified/If-Modified-Since support\n- **gap_6 (rate limiting)**: \u2717 \"Important Gap 5: No concurrent fetching\" discusses serial vs parallel processing, but doesn't mention rate limiting or throttling between requests\n- **gap_7 (persistent state)**: \u2713 Identified as \"Critical Gap 2: No stale data handling\" (partially covers read/unread tracking and last-fetched timestamps)\n- **gap_8 (error recovery/retry)**: \u2713 Identified as \"Critical Gap 1: No error recovery or retry logic\"\n- **gap_9 (OPML import/export)**: \u2717 Not mentioned\n- **gap_10 (output format flexibility)**: \u2717 Not mentioned\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: Concrete - includes specific code for try-except, continue statements, and error file writing\n- **gap_4**: Concrete - shows exact dict structure with summary/content fields and truncation\n- **gap_7**: Directional - mentions adding timestamps and status fields but lacks full implementation details for read/unread tracking\n- **gap_8**: Concrete - provides ThreadPoolExecutor code and retry logic mention (though conflated with concurrency gap)",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

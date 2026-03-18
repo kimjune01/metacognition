@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate** - The Observations section correctly describes all major working capabilities: decoding/encoding, varint I/O, card organization into buckets, Deck class interface, and format validation. No false claims about capabilities.\n\n**Gap Coverage:**\n- **gap_1 (input sanitization)**: \u2705 Identified as \"Critical Gap 1: No error recovery or validation\" - mentions truncated strings and need for graceful handling\n- **gap_2 (trailing bytes)**: \u2705 Mentioned in Gap 1's plan: \"verify card counts are positive, check that the stream consumed all bytes (no trailing garbage)\"\n- **gap_3 (card-count validation)**: \u274c Not identified - the report mentions card counts in error handling context but doesn't call out the lack of validation for zero/negative counts\n- **gap_4 (deck-size validation)**: \u274c Not identified - no mention of 30/40 card total validation\n- **gap_5 (card-ID validation)**: \u2705 Identified as \"Important Gap 5: No card database integration\" - mentions \"validate card legality\"\n- **gap_6 (human-readable output)**: \u2705 Identified in Gap 5 - \"no way to resolve them to card names\"\n- **gap_7 (format-version migration)**: \u2705 Identified as \"Important Gap 7: No handling of unknown future versions\"\n- **gap_8 (logging/error context)**: \u2705 Identified in Gap 1 - \"provide context (e.g., 'Failed while parsing heroes section at byte offset 5')\"\n- **gap_9 (serialization formats)**: \u274c Not identified - no mention of to_dict/to_json/repr\n- **gap_10 (batch processing)**: \u274c Not identified - CLI mentioned but not async/streaming/batch\n\n**Plan Specificity:**\n- **gap_1**: concrete - Custom exception classes with specific code examples\n- **gap_2**: concrete - Included in gap_1's plan with byte consumption check\n- **gap_5**: concrete - CardDatabase class design with specific methods\n- **gap_6**: concrete - Module docstring structure and binary format documentation\n- **gap_7**: concrete - Version-aware parsing with legacy fallback code\n- **gap_8**: concrete - Exception handling replacement with context",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

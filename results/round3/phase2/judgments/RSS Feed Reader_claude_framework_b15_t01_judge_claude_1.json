@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**OBSERVATION ACCURACY: mostly_accurate**\n- The observations are largely correct about what the system does\n- However, observation #4 claims \"Deduplication: Uses timestamp-based IDs to prevent duplicate entries within a single fetch\" - this is misleading. The timestamp-based IDs actually CREATE collision problems (gap_3), they don't provide effective deduplication across feeds or even within feeds if entries share the same second\n- All other observations correctly describe the system's working capabilities\n\n**GAP COVERAGE:**\n- **gap_1** (HTTP error handling): \u2713 Identified as \"Silent failures\" (#4) and \"No error recovery or retry logic\" (#1)\n- **gap_2** (feed validation): \u2713 Identified as \"No data validation\" (#5)\n- **gap_3** (deduplication): \u2713 Identified as \"No deduplication across fetches\" (#11)\n- **gap_4** (content extraction): \u2713 Identified as \"No entry content storage\" (#10)\n- **gap_5** (caching/conditional fetching): \u2713 Identified as \"No caching between runs\" (#3)\n- **gap_6** (rate limiting): \u2713 Identified as \"No rate limiting\" (#2)\n- **gap_7** (persistent state): \u2713 Identified as \"No entry read/unread tracking\" (#15) and \"No incremental updates\" (#8)\n- **gap_8** (error recovery/retry): \u2713 Identified as \"No error recovery or retry logic\" (#1)\n- **gap_9** (OPML): \u2713 Identified as \"Missing OPML import/export\" (#14)\n- **gap_10** (output format flexibility): \u2717 Not identified. The report doesn't mention that output is hardcoded to JSON or that there's no HTML/terminal/email rendering support\n\n**PLAN SPECIFICITY:**\nAll identified gaps have concrete, actionable code examples in the Plan section:\n- **gap_1-9**: Each has specific code snippets with implementation details\n- **gap_10**: Absent (not identified in triage)",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

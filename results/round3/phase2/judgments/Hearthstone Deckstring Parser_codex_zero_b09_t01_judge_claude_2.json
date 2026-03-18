@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "I'll evaluate this diagnostic report against the ground-truth system description and gaps.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Analysis:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the working capabilities: varint handling, parse/write functions, format/hero/card parsing, sideboard support, version checking, the Deck class wrapper, and sorting behavior.\n\n**Gap Coverage: 5/10 gaps identified**\n- \u2705 **gap_1** (truncated/corrupted input): Identified in Triage #1 \"No validation for truncated payloads\"\n- \u2705 **gap_2** (trailing bytes): Identified in Triage #1 \"trailing garbage\" and Plan #1 \"verify the stream is fully consumed\"\n- \u2705 **gap_3** (card-count validation): Identified in Triage #3 \"No checks for...zero counts\" and Plan #3 \"Reject invalid counts such as 0 or negatives\"\n- \u274c **gap_4** (deck-size validation): Not mentioned - the report discusses card counts but not total deck size constraints\n- \u2705 **gap_5** (card-ID validation): Identified in Triage #3 \"No checks for negative IDs\"\n- \u274c **gap_6** (human-readable output): Not mentioned - the report focuses on serialization, not metadata lookup\n- \u274c **gap_7** (format-version migration): Not mentioned - only notes that version 1 is enforced\n- \u274c **gap_8** (logging/error context): Partially mentioned in Triage #4 \"Error messages are basic and not very diagnostic\" but not the specific position-in-stream context issue\n- \u274c **gap_9** (serialization formats): Not mentioned - the report doesn't discuss to_dict/to_json/repr\n- \u274c **gap_10** (batch processing): Not mentioned - no discussion of concurrent or bulk operations\n\n**Plan Specificity:**\nFor the 5 gaps that were identified, the Plan section provides concrete actions:\n- **gap_1**: Concrete - \"Catch base64 decoding failures\", \"Add explicit checks for malformed/truncated varints\"\n- **gap_2**: Concrete - \"After parsing, verify the stream is fully consumed or explicitly reject trailing bytes\"\n- **gap_3**: Concrete - \"Validate that all counts and IDs are positive integers\", \"Reject invalid counts such as 0 or negatives\"\n- **gap_5**: Concrete - \"Validate that all counts and IDs are positive integers\"\n\nThe report is strong on input validation issues but misses production concerns like deck-size rules, human readability, format versioning, error diagnostics, interchange formats, and batch processing.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

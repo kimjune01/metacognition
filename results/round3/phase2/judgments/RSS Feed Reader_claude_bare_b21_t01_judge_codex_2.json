@@ -1,0 +1,32 @@
+{
+  "judge_model": "codex",
+  "judge_run": 2,
+  "raw_response": "{\"observation_accuracy\":\"mostly_accurate\",\"gap_coverage\":{\"gap_1\":true,\"gap_2\":false,\"gap_3\":false,\"gap_4\":true,\"gap_5\":true,\"gap_6\":true,\"gap_7\":false,\"gap_8\":true,\"gap_9\":true,\"gap_10\":false},\"plan_specificity\":{\"gap_1\":\"concrete\",\"gap_2\":\"absent\",\"gap_3\":\"absent\",\"gap_4\":\"directional\",\"gap_5\":\"concrete\",\"gap_6\":\"concrete\",\"gap_7\":\"absent\",\"gap_8\":\"concrete\",\"gap_9\":\"directional\",\"gap_10\":\"absent\"}}",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "directional",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}

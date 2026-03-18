@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: varint encoding/decoding, deckstring parsing/generation, trisort card organization, sideboard support, format handling, OOP interface, and data access methods. No significant omissions or inaccuracies.\n\n**Gap Coverage:**\n- **gap_1 (truncation validation)**: \u2713 Identified in Triage #2 \"Accepts impossible deck states\" and Plan #1 \"except EOFError: raise InvalidFormatError('Truncated deckstring')\"\n- **gap_2 (trailing-byte detection)**: \u2717 Not mentioned anywhere\n- **gap_3 (card-count validation)**: \u2713 Identified in Triage #2 \"negative counts\" and implicitly in Plan #9 deck validation rules\n- **gap_4 (deck-size validation)**: \u2713 Explicitly addressed in Plan #9 \"if total != 30: errors.append\"\n- **gap_5 (card-ID validation)**: \u2717 Not mentioned\n- **gap_6 (human-readable output)**: \u2713 Addressed in Triage #8 and Plan #8 \"Card name resolution\"\n- **gap_7 (format-version migration)**: \u2713 Identified in Triage #10 and Plan #10 \"Version compatibility\"\n- **gap_8 (logging/error context)**: \u2713 Identified in Triage #5 and Plan #5 with concrete logging examples\n- **gap_9 (serialization formats)**: \u2717 Not mentioned (no to_dict, to_json, __repr__ suggestions)\n- **gap_10 (batch processing)**: \u2717 Not mentioned\n\n**Plan Specificity:**\nFor gaps identified, most plans are concrete with code examples:\n- gap_1: Concrete exception handling with try/except blocks\n- gap_3: Concrete validation in Plan #2 and #9\n- gap_4: Concrete 30-card check in Plan #9\n- gap_6: Concrete card name resolution in Plan #8\n- gap_7: Concrete version compatibility in Plan #10\n- gap_8: Concrete logging implementation in Plan #5",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

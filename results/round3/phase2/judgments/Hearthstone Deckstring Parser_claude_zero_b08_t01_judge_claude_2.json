@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: bidirectional codec, varint I/O, card organization, sideboard support, format validation, OO interface, and data access helpers. No false claims about capabilities.\n\n**Gap Coverage:**\n- **gap_1 (truncation validation)**: \u2713 Identified as \"No recovery from...truncated streams\" and \"validate deckstring length before decoding\"\n- **gap_2 (trailing bytes)**: \u2713 Identified as \"Handle trailing garbage bytes after parsing completes\"\n- **gap_3 (card count validation)**: \u2713 Identified as \"Card copy limits (max 2 for most cards, 1 for Legendaries)\"\n- **gap_4 (deck size validation)**: \u2713 Identified as \"Total card count matches format rules (30 for Standard, 40 for Twist)\"\n- **gap_5 (card ID validation)**: \u2713 Identified as \"cross-reference card metadata\" and \"Hero class matches card class restrictions\"\n- **gap_6 (human-readable output)**: \u2717 Not identified. Report focuses on validation/serialization but never mentions card name resolution or metadata display\n- **gap_7 (version migration)**: \u2713 Identified as \"UnsupportedVersionError\" and \"Version upgrade scenarios (v1 \u2192 hypothetical v2)\"\n- **gap_8 (logging/error context)**: \u2713 Identified as \"No logging\" and detailed logging plan with \"hex dump of problematic bytes\"\n- **gap_9 (serialization formats)**: \u2713 Identified as \"to_dict() -> dict\" and \"export_json()\"\n- **gap_10 (batch processing)**: \u2713 Identified as \"Profile...on large deck collections (1000+ decks)\" and performance optimization section\n\n**Plan Specificity:**\n- **gap_1**: concrete (specific exception types, bounds checking, try-except structure)\n- **gap_2**: concrete (explicit \"Handle trailing garbage bytes\" action item)\n- **gap_3**: concrete (specific validation rules listed: max 2 copies, 1 for Legendaries)\n- **gap_4**: concrete (specific card counts per format: 30 Standard, 40 Twist)\n- **gap_5**: concrete (CardDatabase cross-reference, class restriction checks)\n- **gap_6**: absent (gap not identified, so no plan provided)\n- **gap_7**: concrete (version upgrade test scenarios, UnsupportedVersionError handling)\n- **gap_8**: concrete (specific log levels, hex dumps, module-level logger setup)\n- **gap_9**: concrete (to_dict(), export_json(), from_json() methods specified)\n- **gap_10**: directional (mentions profiling and caching but lacks specific async/batch architecture)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "directional"
+    }
+  }
+}

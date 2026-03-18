@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- The report correctly identifies core capabilities (RSS fetching, normalization, sorting, JSON output)\n- However, it incorrectly claims \"Caches: Stores parsed feed entries in memory as a dictionary, keyed by timestamp\" and \"deduplicates by timestamp (overwriting collisions)\" - the system doesn't actually deduplicate; timestamp collisions would create separate entries with the same ID\n- The \"Consolidate: Absent\" is correct but the cognitive framework feels forced onto a simple RSS reader\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2713 Identified in Triage #3 \"Perceive has no error isolation\" and Plan #3\n- **gap_2 (feed validation)**: \u2717 Not identified. Triage #1 mentions \"broken links, malformed titles\" but doesn't address empty feeds or non-RSS URLs being accepted silently\n- **gap_3 (deduplication)**: \u2713 Identified in Triage #1 \"accepts duplicate content\" and Plan #1 \"Add content deduplication by URL\"\n- **gap_4 (content extraction)**: \u2717 Not mentioned at all\n- **gap_5 (caching/conditional fetching)**: \u2713 Identified in Triage #6 and Plan #6 with ETag/Last-Modified details\n- **gap_6 (rate limiting)**: \u2717 Not mentioned. Plan #9 adds concurrency (opposite direction)\n- **gap_7 (persistent state)**: \u2713 Identified in Triage #5 \"Consolidate is absent\" and Plan #4 discusses retention/merging with existing data\n- **gap_8 (error recovery)**: \u2713 Identified in Triage #3 and Plan #3\n- **gap_9 (OPML/feed discovery)**: \u2717 Not mentioned\n- **gap_10 (output format flexibility)**: \u2717 Not mentioned\n\n**Plan Specificity:**\n- **gap_1**: Concrete - specific code examples with exception types and continue logic\n- **gap_3**: Concrete - code shows URL tracking with sets and merge logic in Plan #4\n- **gap_5**: Concrete - detailed implementation with ETag/modified headers and 304 handling\n- **gap_7**: Concrete - code example showing merge with existing file and retention policy\n- **gap_8**: Concrete - specific exception handling replacement with logging",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

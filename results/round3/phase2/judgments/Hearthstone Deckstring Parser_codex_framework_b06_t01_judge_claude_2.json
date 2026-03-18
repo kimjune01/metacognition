@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "I'll evaluate this diagnostic report against the ground-truth gaps and the actual system capabilities.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, base64 deckstring parsing/writing, card grouping (x1/x2/xn), hero/card/sideboard handling, version validation, and the Deck class wrapper. It accurately captures the working capabilities without making false claims.\n\n**Gap Coverage Analysis:**\n- **gap_1** (truncated stream handling): \u2705 Identified in Triage #1 as \"parse_deckstring() does not validate...malformed base64...or structurally inconsistent payloads\" and Plan #1 mentions catching errors and stream validation\n- **gap_2** (trailing-byte detection): \u2705 Explicitly identified in Plan #1: \"After parsing, verify the stream is fully consumed; reject trailing garbage\"\n- **gap_3** (card-count validation): \u2705 Identified in Plan #1: \"Reject negative IDs/counts, zero counts\"\n- **gap_4** (deck-size validation): \u274c Not mentioned anywhere - the report focuses on per-card validation but never discusses total deck size constraints\n- **gap_5** (card-ID validation): \u2705 Identified in Plan #1: \"Reject negative IDs/counts\" (though doesn't mention checking against a card database)\n- **gap_6** (human-readable output): \u274c Not mentioned - the report focuses on validation and correctness, not on card name resolution or metadata\n- **gap_7** (format-version migration): \u2705 Identified in Triage #2 and Plan #2: \"Document supported deckstring version(s) and behavior for unknown versions\"\n- **gap_8** (logging/error context): \u2705 Identified in Triage #3 and Plan #3: \"Include field-level context in messages: which section failed, which card ID/count was invalid\"\n- **gap_9** (serialization to standard formats): \u274c Not mentioned - no discussion of to_dict(), to_json(), or __repr__\n- **gap_10** (concurrent/batch processing): \u274c Not mentioned - the report focuses on single-deckstring correctness\n\n**Plan Specificity Analysis:**\n- **gap_1**: \"concrete\" - Plan #1 gives specific actions: catch binascii.Error, verify stream consumption\n- **gap_2**: \"concrete\" - Plan #1 explicitly says \"verify the stream is fully consumed\"\n- **gap_3**: \"concrete\" - Plan #1 lists specific validations: \"Reject negative IDs/counts, zero counts\"\n- **gap_5**: \"concrete\" - Plan #1 addresses rejecting invalid IDs (though limited scope)\n- **gap_7**: \"directional\" - Plan #2 mentions documenting version behavior but doesn't specify migration strategy\n- **gap_8**: \"concrete\" - Plan #3 details what context to include: \"which section failed, which card ID/count was invalid\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

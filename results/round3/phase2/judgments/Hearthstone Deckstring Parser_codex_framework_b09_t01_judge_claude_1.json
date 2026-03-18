@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll evaluate this diagnostic report against the ground truth systematically.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"directional\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's actual capabilities: base64 round-trip, header/version/format handling, varint encoding, hero/card/sideboard parsing, the Deck class with factory methods, canonicalization via sorting, and the trisort optimization.\n\n**Gap Coverage:**\n\n- **gap_1** (truncated input \u2192 EOFError): \u2705 Identified in Triage #1 and Plan #1 (\"Add overflow / malformed-varint guards\")\n- **gap_2** (trailing bytes ignored): \u2705 Explicitly called out in Triage #1 and Plan #1 (\"assert the stream is fully consumed\")\n- **gap_3** (card count validation): \u2705 Covered in Triage #2 (\"does not validate...invalid counts\") and Plan #2 (\"minimum card count\")\n- **gap_4** (deck size validation): \u2705 Implied in Triage #2 (\"minimum card count\") and Plan #2 (\"enforce data invariants\")\n- **gap_5** (card ID validation): \u2705 Triage #5 mentions \"no higher-level validation against card metadata\" and Plan #5 discusses \"card database validation\"\n- **gap_6** (no human-readable output): \u274c Not mentioned anywhere\n- **gap_7** (no format-version migration): \u274c Plan #5 mentions \"versioning and compatibility notes\" for future changes but doesn't identify the current hard rejection as a gap\n- **gap_8** (no error context): \u2705 Triage #2 notes \"Errors are mostly generic ValueErrors with limited context\" and Plan #4 addresses this\n- **gap_9** (no serialization to dict/json): \u2705 Triage #4 mentions \"Deck is mutable and does not enforce invariants\" and Plan #4 suggests strengthening the API with dataclass conversion\n- **gap_10** (no batch processing): \u274c Not mentioned\n\n**Plan Specificity:**\n\n- **gap_1**: **concrete** - Specific rewrite instructions for `_read_varint()` with Python 3 bytes handling\n- **gap_2**: **concrete** - Clear directive: \"assert the stream is fully consumed\"\n- **gap_3**: **directional** - Says to validate counts but doesn't specify the validation rules or implementation approach\n- **gap_4**: **directional** - Mentions \"minimum card count\" but no concrete deck-size rules\n- **gap_5**: **directional** - Suggests \"card database validation\" in Plan #5 but unclear how to implement\n- **gap_6**: **absent** - Gap not identified\n- **gap_7**: **absent** - Gap not identified\n- **gap_8**: **directional** - Says to \"Replace generic ValueError with more specific exceptions\" but no concrete error-context strategy\n- **gap_9**: **directional** - Suggests dataclass conversion but doesn't specify serialization methods\n- **gap_10**: **absent** - Gap not identified",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "directional",
+      "gap_4": "directional",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "directional",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}

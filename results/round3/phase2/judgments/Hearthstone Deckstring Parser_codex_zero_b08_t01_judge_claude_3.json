@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, format validation, sideboard support, the Deck wrapper class, and the enforce-one-hero rule during serialization. No false claims about capabilities.\n\n**Gap Coverage:**\n- **gap_1 (truncation/EOFError)**: \u2713 Covered in Triage #1 and Plan #1 as \"EOF handling is wrong\" and \"binary I/O correctness is broken\"\n- **gap_2 (trailing bytes)**: \u2713 Covered in Triage #2 and Plan #2 as \"trailing garbage\" and \"check for unread trailing bytes after parse completion\"\n- **gap_3 (card-count validation)**: \u2713 Covered in Triage #2 and Plan #2 as \"validate that counts and IDs are positive integers\"\n- **gap_4 (deck-size validation)**: \u2713 Covered in Triage #4 as \"card count rules\" incomplete, though not called out as total deck size specifically\n- **gap_5 (card-ID validation)**: \u2713 Covered in Triage #2 and Plan #2 as \"validate each card_id\"\n- **gap_6 (human-readable output)**: \u2717 Not mentioned anywhere in the report\n- **gap_7 (format-version migration)**: \u2717 Not mentioned; the report notes version enforcement but doesn't discuss forward compatibility or graceful degradation\n- **gap_8 (logging/error context)**: \u2713 Covered in Triage #5 and Plan #5 as \"minimal context\" and \"Include enough context in error messages\"\n- **gap_9 (serialization to dict/JSON)**: \u2713 Covered in Triage #3 and Plan #3, though framed more as typing/data model issues than explicit to_dict()/to_json() methods\n- **gap_10 (batch processing)**: \u2717 Not mentioned anywhere\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" \u2014 Plan #1 gives exact code replacement patterns for the binary I/O fix\n- **gap_2**: \"concrete\" \u2014 Plan #2 explicitly calls out \"check for unread trailing bytes after parse completion\"\n- **gap_3**: \"concrete\" \u2014 Plan #2 says \"validate that counts and IDs are positive integers\" and \"reject zero/negative counts\"\n- **gap_4**: \"directional\" \u2014 Plan #4 mentions \"card count rules\" but doesn't specify deck-size totals or how to enforce them\n- **gap_5**: \"concrete\" \u2014 Plan #2 says \"validate each card_id\" (though doesn't specify against what database)\n- **gap_6**: \"absent\" \u2014 Not identified, so no plan\n- **gap_7**: \"absent\" \u2014 Not identified, so no plan\n- **gap_8**: \"concrete\" \u2014 Plan #5 proposes specific exception types and \"Include enough context in error messages for logs and API consumers\"\n- **gap_9**: \"directional\" \u2014 Plan #3 mentions NamedTuple/dataclass but doesn't explicitly call out to_dict()/to_json()/\\_\\_repr\\_\\_\n- **gap_10**: \"absent\" \u2014 Not identified, so no plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}

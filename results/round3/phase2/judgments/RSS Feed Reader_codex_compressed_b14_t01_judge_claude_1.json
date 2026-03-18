@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n## Reasoning:\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies all working capabilities: feed fetching, normalization, timestamp handling, per-category output, sorting, config management, optional author display, selective category fetching, and logging. The characterizations of \"shallow\" vs \"present\" stages align with what the system actually does.\n\n**Gap Coverage:**\n\n- **gap_1** (HTTP error handling): **true** - Triage #5 explicitly mentions \"bare `except:` blocks hide failures\" and \"A single feed parse failure can terminate the process with `sys.exit`\"\n- **gap_2** (feed validation): **true** - Triage #1 states \"It does not validate URLs, titles, links, schema shape, content quality, or malformed feed payloads\"\n- **gap_3** (deduplication): **true** - Triage #1 explicitly notes \"Deduplication is incorrect: using `timestamp` as the item key will collapse unrelated posts published in the same second\" and #2 mentions \"no concept of 'seen before'\"\n- **gap_4** (content extraction): **true** - Triage #8 states \"Only a few fields are retained. No feed-level metadata, content summary, GUID, tags...\"\n- **gap_5** (caching/conditional fetching): **false** - Not mentioned. The report discusses storage and persistence but doesn't address HTTP-level caching, ETags, or If-Modified-Since\n- **gap_6** (rate limiting): **false** - Not mentioned at all\n- **gap_7** (persistent state): **true** - Triage #2 extensively covers this: \"no concept of 'seen before', 'new since last run'... no per-feed sync state\"\n- **gap_8** (error recovery/retry): **true** - Triage #5 covers this: \"no retry policy, timeout policy\" and the sys.exit problem\n- **gap_9** (OPML/feed discovery): **false** - Not mentioned\n- **gap_10** (output format flexibility): **true** - Triage #6 mentions \"JSON snapshots\" limitations, though it's more about safety than format flexibility. The point about hardcoded output format is implicit in the criticism of the storage design\n\n**Plan Specificity:**\n\n- **gap_1**: **concrete** - Plan #5 provides specific actions: \"Replace bare `except:` with targeted exceptions\", \"Never `sys.exit`\", \"Add per-feed error handling: continue processing other feeds, record failure type\"\n- **gap_2**: **concrete** - Plan #1 provides detailed validation rules: \"require non-empty title and link, validate link format, reject obviously malformed timestamps\"\n- **gap_3**: **concrete** - Plan #1 gives specific deduplication approach: stable item keys using GUID, canonical URL, or hash; exact ID/URL dedupe\n- **gap_4**: **concrete** - Plan #8 lists specific fields to add: guid, summary/content, author, tags, updated_at, etc.\n- **gap_5**: **absent** - Not addressed in the plan\n- **gap_6**: **absent** - Not addressed in the plan\n- **gap_7**: **concrete** - Plan #2 provides detailed solution: move to SQLite, create specific tables (feeds, feed_fetches, items), track timestamps\n- **gap_8**: **concrete** - Plan #5 includes \"retry with backoff\", \"request timeout\", per-feed error handling\n- **gap_9**: **absent** - Not addressed in the plan\n- **gap_10**: **directional** - Plan #6 mentions atomic JSON writes and export format, but doesn't address multiple output formats (HTML, terminal, email). The guidance is about making the existing format safer rather than adding flexibility",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "directional"
+    }
+  }
+}

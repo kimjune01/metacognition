@@ -1,0 +1,6 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "Credit balance is too low",
+  "parsed": null
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": false,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"absent\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Evaluation Summary\n\n**Observation Accuracy: accurate** - The report correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, card sorting, sideboard support, version/format validation, and the Deck class interface.\n\n**Gap Coverage: 4/10 gaps identified**\n\nIdentified:\n- **gap_4** (deck-size validation): Covered in \"Filter stage is shallow\" \u2192 \"Doesn't validate deck construction rules...total count\"\n- **gap_5** (card-ID validation): Covered in \"Filter stage is shallow\" \u2192 \"No card ID existence validation\"\n- **gap_6** (human-readable output): Covered in \"No query interface\" \u2192 need for card name resolution and metadata\n- **gap_8** (error context): Covered in \"Error handling is fragile\" \u2192 \"ValueError messages lack context\"\n- **gap_9** (serialization): Covered in \"No metadata tracking\" \u2192 Plan includes `to_json()`/`from_json()`\n\nMissed:\n- **gap_1** (truncated stream handling): Not mentioned\n- **gap_2** (trailing-byte detection): Not mentioned\n- **gap_3** (card-count validation): Mentioned deck total but not individual card count validation\n- **gap_7** (format-version migration): Not mentioned\n- **gap_10** (batch processing): Not mentioned\n\n**Plan Specificity**: Concrete plans provided for gaps 4, 5, 6, 8, 9 with code examples. However, the report introduces non-existent gaps (Attend, Consolidate stages) that aren't part of the ground truth, which dilutes focus on actual production needs.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": false,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "absent",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

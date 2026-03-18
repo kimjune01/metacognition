@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies the system's working capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, the Deck class with round-trip conversion, sideboard support, version checking, and format validation. All descriptions match what the system actually does.\n\n**Gap Coverage:**\n- **gap_1** (truncated input handling): \u2705 Identified in Triage #2 and Plan #2 as lack of validation for malformed input and need to protect against truncated varints\n- **gap_2** (trailing byte detection): \u2705 Identified in Plan #2: \"After parsing the full structure, verify there is no unread trailing data\"\n- **gap_3** (card-count validation): \u2705 Identified in Triage #3 and Plan #2: \"Validate that parsed counts are positive integers\"\n- **gap_4** (deck-size validation): \u2705 Identified in Triage #3 as lack of domain invariant enforcement and Plan #3 for semantic validation\n- **gap_5** (card-ID validation): \u2705 Identified in Triage #2 and Plan #2: \"Validate...IDs are non-negative integers\"\n- **gap_6** (human-readable output): \u274c Not mentioned anywhere in the report\n- **gap_7** (format-version migration): \u2705 Identified in Triage #7 and Plan #7: \"compatibility/version strategy beyond rejecting unknown versions\" and \"how unknown future fields should be treated\"\n- **gap_8** (logging/error context): \u2705 Identified in Triage #4 and Plan #4: custom exceptions with \"specific messages that include the failing section\"\n- **gap_9** (serialization to standard formats): \u274c Not mentioned anywhere in the report\n- **gap_10** (concurrent/batch processing): \u274c Not mentioned anywhere in the report\n\n**Plan Specificity:**\n- **gap_1**: concrete - Specific steps to fix EOF detection, replace `ord(c)`, add overflow protection, and exact test cases\n- **gap_2**: concrete - Explicit instruction to \"verify there is no unread trailing data\" after parsing\n- **gap_3**: concrete - Specific validation requirement: \"Validate that parsed counts are positive integers\"\n- **gap_4**: concrete - Plan #3 includes semantic validation layer with specific enforcement rules\n- **gap_5**: concrete - Plan #2 specifies \"IDs are non-negative integers\" validation\n- **gap_6**: absent - Gap not identified\n- **gap_7**: directional - Mentions need for \"version-handling policy\" and treatment of \"unknown future fields\" but doesn't specify how to implement graceful degradation\n- **gap_8**: concrete - Specific exception classes named and example error messages provided\n- **gap_9**: absent - Gap not identified\n- **gap_10**: absent - Gap not identified",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

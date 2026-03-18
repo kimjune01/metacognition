@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly identifies all major working capabilities: parsing, writing, varint encoding, card organization, OOP interface, and format validation.\n\n**Gap Coverage:**\n- \u2705 **gap_1** (truncated deckstring handling): Identified as \"Error Handling - crashes on malformed input\" and specifically mentions \"bounds checking in varint reader: if stream ends unexpectedly\"\n- \u274c **gap_2** (trailing-byte detection): Not identified. The report doesn't mention checking for unparsed bytes after successful parsing.\n- \u2705 **gap_3** (card-count validation): Identified in Plan #1 as \"Validate card counts are positive: if count < 1\"\n- \u2705 **gap_4** (deck-size validation): Explicitly identified in Plan #4 \"Validation Logic\" with code checking total != STANDARD_DECK_SIZE\n- \u274c **gap_5** (card-ID validation): Not identified. The report doesn't mention validating card IDs against a database of valid cards.\n- \u2705 **gap_6** (human-readable output): Identified as Plan #6 \"Pretty Printing\" with __str__ implementation\n- \u2705 **gap_7** (format-version migration): Identified in Plan #9 \"Version Compatibility\" with support for multiple versions\n- \u2705 **gap_8** (logging/error context): Identified in Plan #1 with \"contextual error messages\" and custom DeckstringError\n- \u2705 **gap_9** (serialization to standard formats): Identified in Triage #7 as \"No Pretty Printing\" (though framed more narrowly)\n- \u274c **gap_10** (concurrent/batch processing): Not identified anywhere in the report.\n\n**Plan Specificity:**\n- **gap_1**: concrete - Specific try/except blocks, error messages, and custom exception class provided\n- **gap_3**: concrete - Exact validation check with code snippet provided\n- **gap_4**: concrete - Complete validate() method with specific logic\n- **gap_6**: concrete - Full __str__ implementation with signature and logic\n- **gap_7**: directional - Mentions SUPPORTED_VERSIONS set and migration logic, but doesn't specify what v2 changes might be or how to migrate\n- **gap_8**: concrete - Specific error handling patterns and custom exception type\n- **gap_9**: concrete - Multiple utility methods with signatures and implementations",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies all 8 working capabilities of the system, matching the ground truth exactly. The descriptions are accurate and appropriately technical.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2705 Identified in Triage #1 \"No validation - Accepts malformed input silently or crashes ungracefully\"\n- **gap_2 (trailing bytes)**: \u274c Not identified - the report doesn't mention checking for unparsed trailing data\n- **gap_3 (card-count validation)**: \u2705 Identified in Triage #5 \"No deck validation rules... 2-per-card limit\"\n- **gap_4 (deck-size validation)**: \u2705 Identified in Triage #5 \"No deck validation rules... 30 cards\"\n- **gap_5 (card-ID validation)**: \u2705 Identified in Triage #4 \"No card database integration\" and Triage #5 validation checks\n- **gap_6 (human-readable output)**: \u2705 Identified in Triage #12 \"No string representation\" and #4 \"Returns raw DBF IDs with no way to resolve to card names\"\n- **gap_7 (format-version migration)**: \u274c Not identified - the report doesn't discuss handling future version formats\n- **gap_8 (error context)**: \u2705 Identified in Triage #2 \"No error context - Generic exceptions don't identify which card/field failed\"\n- **gap_9 (serialization formats)**: \u2705 Identified in Triage #12 \"No string representation\" (though focused on `__repr__` rather than JSON/dict)\n- **gap_10 (batch processing)**: \u274c Not identified - no mention of concurrent or bulk processing capabilities\n\n**Plan Specificity:**\n- **gap_1**: concrete - Plan #5 provides specific try-except pattern with example code\n- **gap_3**: concrete - Plan #3 provides detailed validation method with specific checks\n- **gap_4**: concrete - Plan #3 includes \"Exactly 30 cards\" validation\n- **gap_5**: concrete - Plan #3 mentions card_db parameter for validation\n- **gap_6**: absent - Plans #9-10 add `__repr__`/`__str__` but don't address card name resolution from DBF IDs\n- **gap_8**: concrete - Plan #5 provides specific error context wrapping pattern with example\n- **gap_9**: concrete - Plan #9 provides concrete `__repr__` and `__str__` implementations",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

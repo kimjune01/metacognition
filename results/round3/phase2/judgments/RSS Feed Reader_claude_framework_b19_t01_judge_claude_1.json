@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**OBSERVATION ACCURACY: mostly_accurate**\n- Most observations are correct (feed parsing, multi-category, time normalization, JSON persistence, sorted output, selective refresh, optional author display, graceful fallback)\n- However, observation #4 \"Deduplication by timestamp\" is misleading - using Unix timestamp as ID doesn't prevent duplicates, it actually causes collisions for same-second entries (as gap_3 notes)\n- The observations correctly capture what the system does but miss one nuance about the deduplication's limitations\n\n**GAP COVERAGE:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified as \"Silent failures\" (#4) and \"No error isolation\" (#1)\n- **gap_2 (feed validation)**: \u274c Not identified - report doesn't mention validating whether parsed feeds contain valid RSS data\n- **gap_3 (deduplication across fetches)**: \u2705 Identified as \"No duplicate detection across runs\" (#8) and \"No stale data handling\" (#3)\n- **gap_4 (content extraction)**: \u274c Not mentioned - no discussion of missing description/summary/content fields\n- **gap_5 (caching/conditional fetching)**: \u2705 Identified as \"No cache control\" (#5)\n- **gap_6 (rate limiting)**: \u2705 Identified as \"No rate limiting\" (#2)\n- **gap_7 (persistent state)**: \u2705 Identified as \"No stale data handling\" (#3) and entry expiration (#9)\n- **gap_8 (error recovery/retry)**: \u2705 Identified as \"No error isolation\" (#1) and \"Silent failures\" (#4)\n- **gap_9 (OPML import/export)**: \u2705 Identified as \"No OPML import/export\" (#15)\n- **gap_10 (output format flexibility)**: \u274c Not mentioned - no discussion of hardcoded JSON output\n\n**PLAN SPECIFICITY:**\n- **gap_1**: Concrete - shows exact try-except restructuring with code\n- **gap_3**: Concrete - provides code for filtering old entries and content-hash deduplication\n- **gap_5**: Concrete - detailed ETag/Last-Modified implementation with code\n- **gap_6**: Concrete - shows time.sleep implementation\n- **gap_7**: Concrete - shows entry expiration filtering code\n- **gap_8**: Concrete - provides specific exception handling and atomic writes\n- **gap_9**: Concrete - full OPML import/export function implementations",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

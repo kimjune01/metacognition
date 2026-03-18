@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "Looking at this diagnostic report, I need to evaluate it against the ground truth about what the system does and what it's missing.\n\nLet me analyze each dimension:\n\n## 1. OBSERVATION ACCURACY\n\nThe Observations section describes:\n- Base64 deckstring parsing to cards/heroes/format/sideboards \u2713\n- Serialization back to deckstring \u2713\n- Varint encoding/decoding \u2713\n- Version and format validation \u2713\n- Sorting and tri-sort bucketing \u2713\n- Deck class with from_deckstring/as_deckstring \u2713\n\nThis is **accurate** - it correctly describes the working capabilities without hallucinating features or missing major functionality.\n\n## 2. GAP COVERAGE\n\nMapping ground-truth gaps to Triage findings:\n\n- **gap_1** (no truncation/corruption handling): Triage #2 mentions \"corrupt base64 input\" and \"trailing garbage\" but doesn't specifically call out mid-parse EOFError from truncated varints. The Python 3 bug section touches on varint issues but for different reasons. **Partial - false**\n\n- **gap_2** (no trailing-byte detection): Triage #2 explicitly mentions \"trailing garbage\" as missing validation. **true**\n\n- **gap_3** (no card-count validation): Triage #2 explicitly mentions \"No validation for negative counts\" and Plan #2 says \"Validate counts are positive integers\". **true**\n\n- **gap_4** (no deck-size validation): Not mentioned anywhere in the report. **false**\n\n- **gap_5** (no card-ID validation): Triage #2 mentions \"invalid card tuples\" and Plan #2 says \"Validate card/hero/sideboard ids are positive integers if that is a domain rule\" - this is about type validation, not existence validation. **Partial - false**\n\n- **gap_6** (no human-readable output): Not mentioned. **false**\n\n- **gap_7** (no format-version migration): Triage #6 mentions \"Version handling is also rigid\" but doesn't frame it as a migration/graceful degradation issue. **Partial - false**\n\n- **gap_8** (no logging/error context): Triage #3 says \"Errors are generic ValueError/EOFError with limited context\" and \"raise domain-specific exceptions with actionable messages\". **true**\n\n- **gap_9** (no serialization to interchange formats): Triage #5 mentions \"API is minimal\" but doesn't specifically call out to_dict/to_json/repr. **false**\n\n- **gap_10** (no batch processing): Not mentioned. **false**\n\n## 3. PLAN SPECIFICITY\n\nFor gaps the report DID identify:\n\n- **gap_2** (trailing bytes): Plan #2 says \"Reject trailing unread bytes after the expected payload\" - **concrete**\n\n- **gap_3** (card counts): Plan #2 says \"Validate counts are positive integers\" and \"Reject zero/negative counts\" - **concrete**\n\n- **gap_8** (error context): Plan #3 provides specific exception class names and Plan #2 shows where to apply them - **concrete**\n\nNote: The report also identifies issues NOT in the ground-truth gaps (Python 3 bug, no tests, API design, normalization) which are given concrete plans, but I'm only scoring the ground-truth gaps.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": false,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"absent\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": false,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "absent",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

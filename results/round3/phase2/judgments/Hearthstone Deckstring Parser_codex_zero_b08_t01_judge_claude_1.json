@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint I/O, deckstring parsing/writing, format validation, hero/card/sideboard handling, the Deck wrapper class, and the one-hero serialization rule. No significant mischaracterizations.\n\n**Gap Coverage:**\n- **gap_1** (truncated stream validation): \u2705 Identified in Triage #1 as \"Python 3 binary I/O correctness is broken\" and EOF handling issues\n- **gap_2** (trailing bytes): \u2705 Identified in Triage #2 as \"trailing garbage\" and Plan #2 mentions \"check for unread trailing bytes\"\n- **gap_3** (card count validation): \u2705 Identified in Triage #2 and #4, Plan #2 says \"validate that counts and IDs are positive integers\"\n- **gap_4** (deck size validation): \u2705 Identified in Triage #4 as \"card count rules\" and \"format-specific constraints\"\n- **gap_5** (card ID validation): \u2705 Identified in Triage #2 as weak validation and Plan #2 mentions validating card_id\n- **gap_6** (human-readable output): \u274c Not mentioned - report focuses on codec correctness, not card name resolution\n- **gap_7** (format version migration): \u2705 Implicitly covered by Triage #2 \"unsupported format\" and the general validation discussion\n- **gap_8** (error context/logging): \u2705 Explicitly called out in Triage #5 and Plan #5 with specific exception design\n- **gap_9** (serialization formats): \u274c Not mentioned - no discussion of to_dict/to_json/__repr__\n- **gap_10** (batch processing): \u274c Not mentioned - report is focused on single-deckstring correctness\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Provides exact code changes (replace `if c == \"\":` with `if c == b\"\":`, use `c[0]`)\n- **gap_2**: \"concrete\" - Specifies \"check for unread trailing bytes after parse completion\"\n- **gap_3**: \"concrete\" - Specifies \"validate that counts and IDs are positive integers\" and \"reject zero/negative counts\"\n- **gap_4**: \"directional\" - Mentions \"card count rules\" and \"format-specific validation layer\" but doesn't specify deck size limits\n- **gap_5**: \"concrete\" - Says \"validate each card_id\" in Plan #2\n- **gap_6**: \"absent\" - Not identified, so no plan\n- **gap_7**: \"absent\" - Mentioned in triage but no concrete migration strategy in plan\n- **gap_8**: \"concrete\" - Lists specific exception types and what to include in error messages\n- **gap_9**: \"absent\" - Not identified, so no plan\n- **gap_10**: \"absent\" - Not identified, so no plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

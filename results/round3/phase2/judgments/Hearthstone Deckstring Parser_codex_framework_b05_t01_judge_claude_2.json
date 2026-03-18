@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Justification:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: base64 decoding, varint parsing, card grouping, sideboard support, format validation, round-trip encoding, and the Deck object model. No false claims about capabilities.\n\n**Gap Coverage:**\n- **gap_1** (truncated deckstring handling): \u2713 Identified in Triage #2 \"trailing bytes are ignored... tuple shapes are assumed\"\n- **gap_2** (trailing-byte detection): \u2713 Explicitly called out in Plan #2 \"reject trailing unread bytes after the sideboard section\"\n- **gap_3** (card-count validation): \u2713 Plan #2 states \"Validate that card counts are positive integers\"\n- **gap_4** (deck-size validation): \u2717 Not mentioned anywhere\n- **gap_5** (card-ID validation): \u2713 Triage #2 mentions \"card IDs are not validated\"\n- **gap_6** (human-readable output): \u2717 Not identified as a gap\n- **gap_7** (format-version migration): \u2713 Triage #5 and Plan #5 discuss version compatibility and \"future deckstring versions can be added cleanly\"\n- **gap_8** (logging/error context): \u2713 Triage #3 \"callers get a mix of ValueError and EOFError without context\" and Plan #3 addresses exception normalization\n- **gap_9** (serialization to interchange formats): \u2713 Triage #4 mentions the data model is \"opaque\" and Plan #4 suggests explicit types, though not specifically JSON\n- **gap_10** (batch processing): \u2717 Not mentioned\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Plan #2 gives specific validation steps\n- **gap_2**: \"concrete\" - Plan #2 explicitly states \"reject trailing unread bytes\"\n- **gap_3**: \"concrete\" - Plan #2 says \"Validate that card counts are positive integers\"\n- **gap_4**: \"absent\" - Not in plan\n- **gap_5**: \"concrete\" - Plan #2 includes validation steps, though not explicitly for card IDs\n- **gap_6**: \"absent\" - Not in plan\n- **gap_7**: \"directional\" - Plan #5 mentions \"Centralize version/format compatibility policy\" but doesn't specify migration strategy\n- **gap_8**: \"concrete\" - Plan #3 details exception wrapping with DeckstringError and chained exceptions\n- **gap_9**: \"concrete\" - Plan #4 suggests explicit types (dataclasses/NamedTuple)\n- **gap_10**: \"absent\" - Not in plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

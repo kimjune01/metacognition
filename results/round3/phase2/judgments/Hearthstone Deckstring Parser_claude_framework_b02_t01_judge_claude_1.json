@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 8 working capabilities of the system without hallucinating non-existent features or mischaracterizing what the code does.\n\n**Gap Coverage Analysis:**\n- **gap_1** (truncated input): \u2705 Identified in Critical gap #1 as \"Parser fails hard on malformed input\"\n- **gap_2** (trailing bytes): \u274c Not mentioned anywhere in the report\n- **gap_3** (card count validation): \u2705 Identified in Critical gap #2 as \"negative counts\" and elaborated in Nice-to-have gap #9\n- **gap_4** (deck size validation): \u2705 Identified in Nice-to-have gap #9 as \"30-card limit\"\n- **gap_5** (card ID validation): \u274c Not mentioned anywhere in the report\n- **gap_6** (human-readable output): \u2705 Identified in Nice-to-have gap #8 as \"Card name resolution\"\n- **gap_7** (format version migration): \u2705 Identified in Nice-to-have gap #10 as \"Version compatibility\"\n- **gap_8** (logging/error context): \u2705 Identified in Important gap #5 as \"No logging\"\n- **gap_9** (serialization formats): \u274c Not mentioned anywhere in the report\n- **gap_10** (batch processing): \u274c Not mentioned anywhere in the report\n\n**Plan Specificity Analysis:**\nFor the 6 gaps that were identified:\n- **gap_1**: \"concrete\" - Shows specific exception classes and try/except structure\n- **gap_3**: \"concrete\" - Shows validation method with specific checks for card counts\n- **gap_4**: \"concrete\" - Shows validation checking total card count against 30\n- **gap_6**: \"concrete\" - Shows card_db integration and name lookup methods\n- **gap_7**: \"concrete\" - Shows version compatibility with specific version sets and logging\n- **gap_8**: \"concrete\" - Shows specific logging statements with debug output",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

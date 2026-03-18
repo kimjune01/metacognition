@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"directional\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The report correctly identifies all working capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, Deck class with round-trip methods, sideboard support, version checking, and format validation. No false positives or significant omissions.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2705 Identified as \"No error handling for malformed input\" and Plan #1 mentions \"Add bounds checking in `_read_varint()` to prevent infinite loops\"\n- **gap_2 (trailing bytes)**: \u2705 Plan #1 explicitly says \"Validate that stream is fully consumed after parsing (detect trailing garbage)\"\n- **gap_3 (card-count validation)**: \u2705 Triage #2 mentions \"No validation of deck legality\" and Plan #2 includes \"Max 2 copies per card\"\n- **gap_4 (deck-size validation)**: \u2705 Plan #2 includes \"30 cards total for Standard/Wild\"\n- **gap_5 (card-ID validation)**: \u2705 Triage #2 mentions \"format restrictions, or valid card IDs\" and Plan #9 adds card database integration\n- **gap_6 (human-readable output)**: \u2705 Triage #10 \"No human-readable export\" and Plan #10 provides `to_text()` method\n- **gap_7 (format-version migration)**: \u274c Not identified. The report mentions version validation but doesn't address graceful handling of future versions\n- **gap_8 (logging/error context)**: \u2705 Triage #4 \"Poor error messages\" and #5 \"No logging\" with concrete plans for both\n- **gap_9 (serialization formats)**: \u2705 Triage #10 addresses lack of human-readable export, Plan #10 adds `to_text()` though doesn't explicitly mention `to_dict()`/`to_json()`\n- **gap_10 (batch processing)**: \u274c Not identified. No mention of concurrent or bulk processing capabilities\n\n**Plan Specificity:**\n- **gap_1**: concrete (shows exact code for base64 error handling and bounds checking)\n- **gap_2**: concrete (explicit instruction to validate stream consumption)\n- **gap_3**: directional (mentions 2-copy rule but lacks specifics on how to handle counts <1 or validation placement)\n- **gap_4**: directional (mentions 30-card limit but no implementation detail)\n- **gap_5**: directional (proposes card database but validation integration is high-level)\n- **gap_6**: concrete (shows exact output format and method signature for `to_text()`)\n- **gap_7**: absent (gap not identified)\n- **gap_8**: concrete (shows custom exception classes with `__str__` methods and logging levels)\n- **gap_9**: concrete (provides `to_text()` format and method names)\n- **gap_10**: absent (gap not identified)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "directional",
+      "gap_4": "directional",
+      "gap_5": "directional",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

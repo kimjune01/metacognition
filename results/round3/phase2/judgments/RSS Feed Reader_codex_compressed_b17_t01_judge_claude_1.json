@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n### Justification:\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: reads feeds from config, fetches with feedparser, normalizes entries, filters by timestamp validity, sorts by recency, and writes JSON files. All stated capabilities match the ground truth.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: TRUE - Triage #6 explicitly mentions \"bare `except`\", \"one failure can terminate the process\", and Plan #6 addresses wrapping each feed fetch with targeted exception handling\n- **gap_2 (feed validation)**: TRUE - Triage #2 states \"does not reject malformed items...empty titles, broken links\" and Plan #2 adds validation rules\n- **gap_3 (deduplication)**: TRUE - Triage #1 mentions \"does not...deduplicate near-identical items\" and Triage #4 notes timestamp collisions; Plan #1 and #2 add deduplication\n- **gap_4 (content extraction)**: TRUE - Triage #4 mentions the cache is \"shallow\" with limited fields, though not explicitly listing missing fields; the gap is implicitly covered\n- **gap_5 (caching/conditional fetching)**: FALSE - Not mentioned. The report discusses output persistence but never mentions ETags, If-Modified-Since, or conditional HTTP requests\n- **gap_6 (rate limiting)**: FALSE - Not mentioned anywhere in the triage or plan\n- **gap_7 (persistent state)**: TRUE - Triage #3 \"no memory of what was already shown\", Triage #5 \"no history...no record of previously seen items\"; Plan #3 and #5 address this\n- **gap_8 (error recovery/retry)**: TRUE - Same as gap_1; Triage #6 and Plan #6 address retry with backoff\n- **gap_9 (OPML/feed discovery)**: FALSE - Not mentioned\n- **gap_10 (output format flexibility)**: FALSE - Not mentioned; the report accepts JSON output as-is\n\n**Plan Specificity:**\n- **gap_1**: concrete - \"Wrap each feed fetch in targeted exception handling\", \"Add request timeout, retry with backoff\"\n- **gap_2**: concrete - \"Add explicit validation rules: require non-empty title, valid URL\"\n- **gap_3**: concrete - \"Add deduplication before ranking using URL canonicalization\", \"Use a stable identifier such as normalized URL\"\n- **gap_4**: absent - No plan to extract description, content body, tags, enclosures, or media\n- **gap_5**: absent - No plan mentioned\n- **gap_6**: absent - No plan mentioned\n- **gap_7**: concrete - \"Persist items incrementally\", \"Store first_seen_at, last_seen_at\", \"Keep run history\"\n- **gap_8**: concrete - Same as gap_1\n- **gap_9**: absent - No plan mentioned\n- **gap_10**: absent - No plan mentioned",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

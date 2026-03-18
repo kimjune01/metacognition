@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll evaluate this diagnostic report against the ground-truth gaps and the actual system capabilities.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: base64 deckstring parsing/encoding, varint handling, format/hero/card/sideboard parsing, version validation, and the Deck wrapper class. It accurately notes this is a working implementation, not a stub.\n\n**Gap Coverage Analysis:**\n- **gap_1 (truncated input handling)**: \u2705 Identified in Triage #2 \"No validation of malformed/truncated payloads\" and Plan #2 mentions rejecting truncated inputs\n- **gap_2 (trailing bytes)**: \u2705 Identified in Plan #2 \"reject trailing garbage if the format is expected to consume the full payload\"\n- **gap_3 (card-count validation)**: \u2705 Identified in Triage #2 and Plan #2 explicitly mentions \"reject impossible counts such as 0 or negative values\"\n- **gap_4 (deck-size validation)**: \u274c Not mentioned anywhere in the report\n- **gap_5 (card-ID validation)**: \u2705 Identified in Triage #2 \"No validation that...card IDs are valid integers\" and Plan #2 validates card IDs are in valid ranges\n- **gap_6 (human-readable output)**: \u274c Not mentioned; report focuses on technical correctness, not user-facing features\n- **gap_7 (format-version migration)**: \u274c Report mentions version validation exists but doesn't discuss graceful degradation or migration strategies\n- **gap_8 (error context)**: \u274c Triage #5 mentions domain-specific exceptions but doesn't address enriching error messages with parsing context\n- **gap_9 (serialization formats)**: \u274c Triage #7 mentions \"API ergonomics\" but doesn't specifically call out to_dict/to_json/repr methods\n- **gap_10 (batch processing)**: \u274c Not mentioned anywhere\n\n**Plan Specificity Analysis:**\n- **gap_1**: concrete - Plan #2 has specific actions for validation\n- **gap_2**: concrete - Plan #2 explicitly mentions rejecting trailing garbage\n- **gap_3**: concrete - Plan #2 specifies rejecting 0/negative counts\n- **gap_5**: concrete - Plan #2 validates card IDs are integers in valid ranges\n- Gaps 4, 6, 7, 8, 9, 10: absent - not identified, so no plan exists",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

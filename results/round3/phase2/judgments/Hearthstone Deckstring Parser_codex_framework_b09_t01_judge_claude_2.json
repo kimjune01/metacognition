@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "I'll evaluate this diagnostic report systematically against the ground truth.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"directional\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Justification:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: parse/serialize deckstrings, handle varint encoding, support sideboards, provide object model via Deck class, canonicalize output ordering. No false claims about capabilities.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (truncated deckstring handling)**: \u2705 Triage #1 mentions \"treat EOF\" and Plan #1 says \"Add overflow / malformed-varint guards\"\n- **gap_2 (trailing bytes)**: \u2705 Triage #1 explicitly states \"accepts trailing bytes silently\" and Plan #1 says \"assert the stream is fully consumed\"\n- **gap_3 (card-count validation)**: \u2705 Triage #2 mentions \"invalid counts\" and Plan #2 includes \"minimum card count\"\n- **gap_4 (deck-size validation)**: \u2705 Triage #2 mentions \"minimum card count\" which encompasses deck-size validation\n- **gap_5 (card-ID validation)**: \u274c Not mentioned. The report discusses validation but never addresses validating card IDs against a database\n- **gap_6 (human-readable output)**: \u274c Not mentioned. No discussion of resolving IDs to card names or metadata\n- **gap_7 (format-version migration)**: \u274c Plan #5 mentions \"versioning and compatibility notes\" but doesn't identify the hard rejection of non-v1 deckstrings as a gap\n- **gap_8 (logging/error context)**: \u2705 Triage #2 mentions \"generic ValueErrors with limited context\" and Plan #4 says \"Replace generic ValueError with more specific exceptions\"\n- **gap_9 (serialization formats)**: \u2705 Triage #4 mentions lack of API features, though not as specific as to_dict/to_json\n- **gap_10 (batch processing)**: \u274c Not mentioned anywhere\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: \"concrete\" - Plan #1 gives specific implementation steps: rewrite _read_varint for Python 3 bytes, treat EOF as b\"\", read byte with c[0]\n- **gap_2**: \"concrete\" - Plan #1 explicitly says \"assert the stream is fully consumed; reject extra trailing bytes\"\n- **gap_3**: \"directional\" - Plan #2 mentions \"minimum card count\" and validation but doesn't specify what valid counts are (1-2 for constructed)\n- **gap_4**: \"directional\" - Plan #2 mentions \"minimum card count\" which relates to deck size but doesn't specify the 30/40 card rules\n- **gap_8**: \"directional\" - Plan #4 mentions replacing generic ValueError but doesn't detail what context to add (position in stream, section being parsed)\n- **gap_9**: \"directional\" - Plan #4 mentions API improvements but doesn't specifically call out to_dict/to_json/__repr__",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "directional",
+      "gap_4": "directional",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "directional",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}

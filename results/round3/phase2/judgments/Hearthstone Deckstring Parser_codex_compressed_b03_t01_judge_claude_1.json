@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies what the system does:\n- Accurate description of serialization/deserialization capability\n- Correctly identifies the shallow filtering (version, header, format type validation)\n- Accurately notes the narrow caching (structured collections, sorting)\n- Correctly identifies absent Remember and Consolidate stages\n- Accurately describes working capabilities\n\n**Gap Coverage:**\n- **gap_1** (truncated stream handling): \u2705 Identified in Triage #1 \"truncated stream handling is likely wrong in `_read_varint`\"\n- **gap_2** (trailing bytes): \u2705 Identified in Plan #1 \"Reject trailing unread bytes after a supposedly complete parse\"\n- **gap_3** (card count validation): \u2705 Identified in Triage #1 \"negative or impossible counts are not checked\" and Plan #1 \"Validate that all counts are positive integers\"\n- **gap_4** (deck size validation): \u274c Not mentioned anywhere in the report\n- **gap_5** (card ID validation): \u274c Mentioned tangentially in Plan #6 \"If semantic deck validation matters, integrate a card database\" but not identified as a specific gap\n- **gap_6** (human-readable output): \u274c Not mentioned\n- **gap_7** (format version migration): \u274c Mentioned in Triage #6 \"no compatibility/version migration strategy\" but not identified as a concrete gap requiring graceful degradation\n- **gap_8** (error context/logging): \u274c Mentioned in Triage #6 \"limited error messages\" but not specifically about parsing position/context\n- **gap_9** (serialization formats): \u274c Not mentioned\n- **gap_10** (batch processing): \u274c Not mentioned\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - \"Fix `_read_varint()` to detect EOF correctly by checking `b\"\"` instead of `\"\"`\" is actionable\n- **gap_2**: \"concrete\" - \"Reject trailing unread bytes after a supposedly complete parse\" is actionable\n- **gap_3**: \"concrete\" - \"Validate that all counts are positive integers\" is actionable\n- **gap_4**: \"absent\" - Not identified, so no plan\n- **gap_5**: \"absent\" - Not identified as a specific validation gap\n- **gap_6**: \"absent\" - Not identified\n- **gap_7**: \"absent\" - Not identified as requiring graceful degradation\n- **gap_8**: \"absent\" - Not identified with specificity\n- **gap_9**: \"absent\" - Not identified\n- **gap_10**: \"absent\" - Not identified",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

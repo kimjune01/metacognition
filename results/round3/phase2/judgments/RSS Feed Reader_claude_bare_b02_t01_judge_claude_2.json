@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"inaccurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: inaccurate**\n- Point 4 claims \"Deduplication: Uses timestamp-based IDs to prevent duplicate entries within a category\" - this is false. The ground truth explicitly states there is NO deduplication across fetches (gap_3), and timestamp-based IDs actually create collision problems when entries share the same second.\n- Point 10 claims \"Output Caching: Timestamps cached data for freshness tracking\" - misleading. The system writes timestamps but doesn't actually use them for freshness decisions (gap_5: no caching or conditional fetching).\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified as \"No Error Handling\" in Critical #1\n- **gap_2 (feed validation)**: \u2705 Identified as \"No Feed Validation\" in High #7\n- **gap_3 (no deduplication)**: \u274c Not identified. Report incorrectly claims deduplication exists in Observations #4\n- **gap_4 (no content extraction)**: \u2705 Identified as \"No Content Extraction\" in Low #14\n- **gap_5 (no caching/conditional fetching)**: \u2705 Identified as \"No Stale Data Handling\" in High #5 and \"Feed Metadata\" in Low #15\n- **gap_6 (no rate limiting)**: \u2705 Identified as \"No Rate Limiting\" in Critical #2\n- **gap_7 (no persistent state)**: \u2705 Identified as \"No Read/Unread Tracking\" in Low #16\n- **gap_8 (no error recovery)**: \u2705 Identified in Critical #1 (error handling includes retry logic)\n- **gap_9 (no feed discovery/OPML)**: \u274c Not mentioned at all\n- **gap_10 (no output format flexibility)**: \u274c Not mentioned at all\n\n**Plan Specificity:**\n- Gaps 1, 2, 4, 5, 6, 7, 8: **concrete** - specific code changes, parameters, file paths provided\n- Gap 3: **absent** - not identified, so no plan exists\n- Gap 9: **absent** - not identified, so no plan exists\n- Gap 10: **absent** - not identified, so no plan exists",
+  "parsed": {
+    "observation_accuracy": "inaccurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

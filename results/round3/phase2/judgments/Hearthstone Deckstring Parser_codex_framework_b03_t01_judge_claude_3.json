@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, sideboard support, version checking, format validation, and the Deck class wrapper. It accurately notes the single-hero constraint on writing and the round-trip capability for well-formed inputs.\n\n**Gap Coverage:**\n- **gap_1** (truncated stream handling): \u2713 Covered in Triage #2 \"Insufficient input validation\" and Plan #2 \"verify the stream is fully consumed\"\n- **gap_2** (trailing bytes): \u2713 Explicitly mentioned in Plan #2 \"verify the stream is fully consumed or explicitly decide to allow trailing bytes\"\n- **gap_3** (card-count validation): \u2713 Covered in Triage #3 and Plan #2 \"Reject zero or negative counts on parse/write\"\n- **gap_4** (deck-size validation): \u2713 Covered in Triage #3 \"no validation that card counts are legal for the target format/game rules\" and Plan #3 \"Add explicit rule checks\"\n- **gap_5** (card-ID validation): \u2713 Covered in Plan #2 \"Reject negative IDs\"\n- **gap_6** (human-readable output): \u2717 Not identified\n- **gap_7** (format-version migration): \u2717 Not identified (only mentions \"compatibility guarantees, no versioning strategy beyond a constant\")\n- **gap_8** (logging/error context): \u2713 Covered in Triage #2 \"vague exceptions\" and Plan #6 \"explicit exception classes\"\n- **gap_9** (serialization to JSON/dict): \u2717 Not identified\n- **gap_10** (batch/concurrent processing): \u2717 Not identified\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Plan #2 provides specific validation steps for stream consumption\n- **gap_2**: \"concrete\" - Plan #2 explicitly addresses trailing byte detection\n- **gap_3**: \"concrete\" - Plan #2 specifies rejecting zero/negative counts with clear implementation guidance\n- **gap_4**: \"directional\" - Plan #3 mentions \"Add explicit rule checks for...illegal counts\" but doesn't specify deck-size limits or how to validate total count\n- **gap_5**: \"concrete\" - Plan #2 says \"Reject negative IDs and counts on write\"\n- **gap_6**: \"absent\" - Not addressed in the plan\n- **gap_7**: \"absent\" - Not addressed in the plan\n- **gap_8**: \"concrete\" - Plan #6 specifies introducing exception classes like DeckstringDecodeError\n- **gap_9**: \"absent\" - Not addressed in the plan\n- **gap_10**: \"absent\" - Not addressed in the plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

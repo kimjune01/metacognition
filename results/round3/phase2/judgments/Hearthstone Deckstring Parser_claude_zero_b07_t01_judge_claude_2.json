@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes all 8 core capabilities of the system\n- Accurately identifies the varint encoding, parsing/writing, trisort optimization, sideboard support, format handling, OOP interface, and sorting utilities\n- No significant mischaracterizations of what the code actually does\n\n**Gap Coverage Analysis:**\n- \u2705 **gap_1** (truncated input): Identified as \"No error recovery - Malformed deckstrings or corrupted data cause crashes\"\n- \u274c **gap_2** (trailing bytes): Not identified - no mention of unparsed remaining bytes\n- \u2705 **gap_3** (card count validation): Identified in \"Missing validation - No deck rule enforcement (card limits...)\"\n- \u2705 **gap_4** (deck size validation): Identified in same validation gap (30-card limit mentioned in plan)\n- \u2705 **gap_5** (card ID validation): Identified in validation gap, plan mentions \"bounds checking for card counts and IDs\"\n- \u274c **gap_6** (human-readable output): Not identified - no mention of card name resolution or metadata\n- \u274c **gap_7** (format version migration): Not identified - no mention of handling future format versions\n- \u2705 **gap_8** (error context): Identified as \"No error recovery\" with plan to \"Add try-catch in parse_deckstring with context about where parsing failed\"\n- \u274c **gap_9** (serialization formats): Not identified - the introspection section focuses on statistics, not to_dict/to_json\n- \u274c **gap_10** (batch processing): Not identified - performance section focuses on in-memory optimizations, not batch/async\n\n**Plan Specificity Analysis:**\n- **gap_1**: Concrete - specific exception class names, try-catch locations, Result pattern\n- **gap_3**: Concrete - DeckValidator class with specific method signatures\n- **gap_4**: Concrete - same validator with explicit 30-card limit check\n- **gap_5**: Concrete - bounds checking mentioned, card database integration specified\n- **gap_8**: Concrete - specific implementation of context tracking in error messages",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

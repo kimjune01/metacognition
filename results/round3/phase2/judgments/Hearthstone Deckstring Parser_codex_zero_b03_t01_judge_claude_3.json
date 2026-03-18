@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "I'll evaluate this diagnostic report systematically against the ground truth.\n\n## Analysis\n\n**Observation Accuracy:**\nThe Observations section correctly identifies that the system performs varint encoding/decoding, parses/writes deckstrings, validates version headers, handles sideboards, and provides a Deck class wrapper. This is accurate based on the ground truth description.\n\n**Gap Coverage Review:**\n\n- **gap_1** (truncated/corrupted input): \u2705 Identified in Triage #2 \"Input validation is minimal - No validation of malformed/truncated payloads\"\n- **gap_2** (trailing bytes): \u2705 Identified in Plan #2 \"reject trailing garbage if the format is expected to consume the full payload\"\n- **gap_3** (card count validation): \u2705 Identified in Triage #2 and Plan #2 \"reject impossible counts such as 0 or negative values\"\n- **gap_4** (deck size validation): \u274c Not identified - the report doesn't mention total deck size constraints\n- **gap_5** (card ID validation): \u2705 Identified in Triage #2 \"No validation...card IDs are valid integers\"\n- **gap_6** (human-readable output): \u274c Not identified - the report doesn't mention lack of card name resolution or metadata\n- **gap_7** (format version migration): \u274c Not identified - the report mentions the version check but not the lack of graceful degradation for future versions\n- **gap_8** (logging/error context): \u2705 Identified in Triage #5 \"Error model is too coarse...Everything surfaces as ValueError/EOFError\"\n- **gap_9** (serialization formats): \u2705 Identified in Triage #7 and Plan #7 discussing lack of to_dict()/to_json()/__repr__\n- **gap_10** (batch processing): \u274c Not identified - no mention of concurrent or batch processing capabilities\n\n**Plan Specificity Review:**\n\nFor gaps that WERE identified:\n\n- **gap_1**: \"concrete\" - Plan #2 provides specific validation steps for truncated inputs\n- **gap_2**: \"concrete\" - Plan #2 explicitly says \"reject trailing garbage\"\n- **gap_3**: \"concrete\" - Plan #2 says \"reject impossible counts such as 0 or negative values\"\n- **gap_5**: \"concrete\" - Plan #2 includes \"validate that all card IDs...are integers and in valid ranges\"\n- **gap_8**: \"concrete\" - Plan #5 provides specific exception classes and implementation guidance\n- **gap_9**: \"concrete\" - Plan #7 mentions specific methods to add (to_dict, to_json, __repr__)\n\nFor gaps NOT identified, plan specificity is \"absent\".\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

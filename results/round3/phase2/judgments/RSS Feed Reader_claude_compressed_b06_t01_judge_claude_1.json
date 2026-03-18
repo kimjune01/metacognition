@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"inaccurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: inaccurate**\n- Claims \"Caches: Stores parsed feed entries in memory as a dictionary, keyed by timestamp\" - but the system doesn't cache feeds, it fetches fresh every time\n- Claims \"deduplicates by timestamp (overwriting collisions)\" - but timestamp collisions mean entries are lost/overwritten, not deduplicated properly\n- Claims \"Consolidate: Absent - no learning or adaptation occurs\" which is correct\n- The observations mischaracterize what the system does and apply a framework (Perceive/Cache/Filter/Attend/Remember/Consolidate) that obscures rather than clarifies the actual functionality\n\n**Gap Coverage:**\n- **gap_1** (HTTP error handling): \u2713 Identified as \"Perceive has no error isolation\" and \"sys.exit() kills entire batch\"\n- **gap_2** (feed validation): \u2717 The report mentions \"accepts broken links, malformed titles\" but doesn't identify the core issue that non-RSS URLs or empty feeds produce no warning\n- **gap_3** (no deduplication): \u2717 Mentions \"no deduplication of substantially similar content\" but misses that same article from different feeds or same-second timestamps cause problems\n- **gap_4** (no content extraction): \u2717 Not mentioned at all\n- **gap_5** (no caching/conditional fetching): \u2713 \"Cache has no incremental update - Re-fetches entire feeds every time\"\n- **gap_6** (no rate limiting): \u2717 Mentions \"No concurrency\" as a problem but doesn't identify lack of rate limiting/throttling\n- **gap_7** (no persistent state): \u2713 \"Remember has no retention policy\" addresses part of this; the consolidate section addresses tracking\n- **gap_8** (no error recovery/retry): \u2713 Same as gap_1\n- **gap_9** (no feed discovery/OPML): \u2717 Not mentioned\n- **gap_10** (no output format flexibility): \u2717 Not mentioned\n\n**Plan Specificity:**\n- **gap_1**: Concrete - specific exception types, code locations, example implementation\n- **gap_5**: Concrete - detailed implementation with etag/modified headers, cache files, example code\n- **gap_7**: Concrete - specific implementation for feed stats tracking with example code\n- **gap_8**: Concrete - same as gap_1, includes specific exception handling and logging",
+  "parsed": {
+    "observation_accuracy": "inaccurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

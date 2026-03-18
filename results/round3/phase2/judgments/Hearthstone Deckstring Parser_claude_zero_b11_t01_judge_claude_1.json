@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: decoding/encoding deckstrings, varint I/O, card organization by count, the Deck class, format validation, and version checking. No false claims or mischaracterizations.\n\n**Gap Coverage:**\n- **gap_1** (truncation/EOFError): \u2705 Triage #1 \"No error handling for malformed input...Will crash on unexpected input\"\n- **gap_2** (trailing bytes): \u2705 Plan #1 mentions \"Check stream position after parsing - if not at EOF, raise error (trailing garbage)\"\n- **gap_3** (card-count validation): \u2705 Triage #3 \"No deck constraint validation...card count restrictions\"\n- **gap_4** (deck-size validation): \u2705 Triage #3 \"Doesn't enforce deck size limits\"\n- **gap_5** (card-ID validation): \u2705 Triage #2 \"No verification that card DBF IDs are valid\"\n- **gap_6** (human-readable output): \u274c Not mentioned\u2014the report focuses on validation/robustness, not metadata resolution or card name lookup\n- **gap_7** (format-version migration): \u274c Not mentioned\u2014the report notes version checking but doesn't address forward compatibility or graceful degradation for v2+\n- **gap_8** (logging/error context): \u2705 Triage #1 \"clear error messages\" and Plan #1 custom exception class\n- **gap_9** (serialization to JSON/dict): \u274c Not mentioned\u2014no discussion of `to_dict()`, `to_json()`, or `__repr__`\n- **gap_10** (batch/async processing): \u274c Not mentioned\u2014the report treats single-deckstring processing as the scope\n\n**Plan Specificity:**\n- **gap_1**: concrete\u2014wrap in try/except, custom exception, validate non-empty, check EOF\n- **gap_2**: concrete\u2014\"Check stream position after parsing - if not at EOF, raise error\"\n- **gap_3**: concrete\u2014`Deck.validate()` with specific checks (card counts, legendaries, Highlander)\n- **gap_4**: concrete\u2014validate total card count (30 for Standard/Wild, variable for other modes)\n- **gap_5**: concrete\u2014add card_db parameter, iterate and validate DBF IDs, check hero types\n- **gap_6**: absent\u2014not identified\n- **gap_7**: absent\u2014not identified\n- **gap_8**: concrete\u2014custom exception class, docstrings with error descriptions\n- **gap_9**: absent\u2014not identified\n- **gap_10**: absent\u2014not identified",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"inaccurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**OBSERVATION ACCURACY: inaccurate**\n- Point 5 claims \"Deduplication by timestamp: Uses publication timestamp as unique ID to prevent duplicate entries\" - This is fundamentally incorrect. Using timestamps as IDs actually *causes* collisions (gap_3), not prevents duplicates across feeds.\n- Point 6 claims \"Persistent storage: Caches parsed feeds\" - The system overwrites files completely each time, it doesn't cache or maintain persistence between runs (gap_7).\n- Point 10 describes \"handles basic error cases (missing timestamps, network failures)\" - The actual system uses `sys.exit()` on errors, failing catastrophically rather than handling them.\n\n**GAP COVERAGE:**\n- \u2713 gap_1 (HTTP error handling): Triage #1 identifies lack of error recovery\n- \u2713 gap_2 (feed validation): Triage #6 explicitly addresses feed validation\n- \u2717 gap_3 (deduplication across fetches): Not identified; report incorrectly claims deduplication exists in Observations #5\n- \u2713 gap_4 (content extraction): Triage #13 addresses missing metadata (description, tags, enclosures, content)\n- \u2713 gap_5 (caching/conditional fetching): Triage #4 addresses ETags/Last-Modified and #11 mentions incremental updates\n- \u2713 gap_6 (rate limiting): Triage #3 explicitly identifies missing rate limiting\n- \u2717 gap_7 (persistent state): Not identified; report claims caching exists but doesn't recognize lack of read/unread tracking or incremental state\n- \u2713 gap_8 (error recovery/retry): Triage #1 addresses network failures and retry logic\n- \u2717 gap_9 (feed discovery/OPML): Not mentioned anywhere\n- \u2717 gap_10 (output format flexibility): Not mentioned; no discussion of HTML/terminal/email rendering\n\n**PLAN SPECIFICITY:**\n- gap_1: **concrete** - Provides specific code with requests.Session, Retry configuration, backoff settings\n- gap_2: **concrete** - Shows validation schema, bozo checking, required fields verification\n- gap_4: **concrete** - Explicit code extending entries dict with summary, content, tags, enclosures\n- gap_5: **concrete** - Detailed ETag/Last-Modified implementation with metadata storage and 304 handling\n- gap_6: **concrete** - Threading.Semaphore implementation with domain-based limiting and sleep delays\n- gap_8: **concrete** - Same as gap_1; retry strategy with exponential backoff",
+  "parsed": {
+    "observation_accuracy": "inaccurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies the system's working capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, the Deck class wrapper, sideboard support, and validation of format/version. The description is factually accurate.\n\n**Gap Coverage:**\n- **gap_1 (truncation/corruption handling): true** - Identified in Triage #1 as \"Error handling is brittle\" and \"partial parse capability\" needed\n- **gap_2 (trailing-byte detection): false** - Not mentioned anywhere in the report\n- **gap_3 (card-count validation): true** - Identified in Triage #2 as needing deck size limits and game rule validation\n- **gap_4 (deck-size validation): true** - Explicitly mentioned in Triage #2 and Plan #2 as \"Total card count == 30\"\n- **gap_5 (card-ID validation): true** - Identified in Triage #9 and Plan #9 as \"DBF IDs are opaque integers; can't validate\"\n- **gap_6 (human-readable output): true** - Identified in Triage #9 and Plan #9 as need for card database integration to resolve names\n- **gap_7 (format-version migration): false** - Not mentioned; the report notes version checking exists but doesn't identify the lack of migration strategy\n- **gap_8 (logging/error context): true** - Explicitly identified in Triage #4 and Plan #4\n- **gap_9 (serialization formats): true** - Identified in Triage #8 and Plan #8 as need for `to_dict()` and JSON serialization\n- **gap_10 (batch processing): true** - Identified in Triage #10 as \"Performance not optimized\" with caching recommendations\n\n**Plan Specificity:**\nFor gaps that were identified, the plans are concrete with specific method names, parameters, implementation details, and code examples (gaps 1, 3, 4, 5, 6, 8, 9, 10). Gaps 2 and 7 were not identified, so they're marked \"absent\".",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

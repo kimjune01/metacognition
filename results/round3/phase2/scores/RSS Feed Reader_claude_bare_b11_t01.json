@@ -1,0 +1,59 @@
+{
+  "problem": "RSS Feed Reader",
+  "model": "claude",
+  "condition": "bare",
+  "batch": 11,
+  "trial": 1,
+  "timestamp": "2026-03-18T00:51:50+00:00",
+  "prompt_tokens": 1497,
+  "report_file": "/Users/junekim/Documents/metacognition/results/round3/phase2/reports/RSS Feed Reader_claude_bare_b11_t01.md",
+  "score": 0.6,
+  "gap_coverage": {
+    "gap_1": true,
+    "gap_10": false,
+    "gap_2": false,
+    "gap_3": false,
+    "gap_4": true,
+    "gap_5": true,
+    "gap_6": true,
+    "gap_7": false,
+    "gap_8": true,
+    "gap_9": true
+  },
+  "observation_accuracy": {
+    "codex": "mostly_accurate",
+    "claude": "accurate"
+  },
+  "plan_specificity": {
+    "codex": {
+      "gap_1": "concrete",
+      "gap_10": "absent",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "directional",
+      "gap_9": "concrete"
+    },
+    "claude": {
+      "gap_1": "concrete",
+      "gap_10": "absent",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete"
+    }
+  },
+  "disagreements": {
+    "gap_2": {
+      "codex": false,
+      "claude": true
+    }
+  }
+}

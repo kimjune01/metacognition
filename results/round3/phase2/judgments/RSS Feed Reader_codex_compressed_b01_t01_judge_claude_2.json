@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: RSS parsing, normalization, timestamp-based deduplication within a run, basic filtering (drops entries without timestamps), sorting, and JSON persistence. It accurately notes the absence of consolidation (learning from prior runs).\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified in Triage #6 (\"bare except can terminate the whole program on a single fetch failure\") and Plan #6\n- **gap_2 (feed validation)**: \u2705 Identified in Triage #1 (\"does not validate URLs, detect malformed entries\") and Plan #1\n- **gap_3 (deduplication across fetches)**: \u2705 Identified in Triage #1 (\"reject duplicates across sources\") and Triage #3 (\"cannot reliably answer 'have I seen this before?'\"), addressed in Plan #1 and #4\n- **gap_4 (no content extraction)**: \u2705 Identified in Triage #5 (\"normalized record is minimal\") and Plan #5 (\"Store canonical fields plus raw feed payload\")\n- **gap_5 (no caching/conditional fetching)**: \u2705 Identified in Triage #5 (\"Cache is too thin\") and Plan #5, though not explicitly mentioning ETags/If-Modified-Since\n- **gap_6 (no rate limiting)**: \u274c Not mentioned. The report discusses error handling and retries but does not identify the absence of throttling/delays between requests\n- **gap_7 (no persistent state)**: \u2705 Identified in Triage #3 (\"no durable item-level history, read/unread state\") and Plan #3\n- **gap_8 (no error recovery/retry)**: \u2705 Identified in Triage #6 (\"no retries, timeouts\") and Plan #6\n- **gap_9 (no feed discovery/OPML)**: \u274c Not mentioned anywhere in the report\n- **gap_10 (no output format flexibility)**: \u2705 Identified in Triage #3 (\"snapshot persistence\") and Plan #3 (\"Keep snapshot export as a derived artifact\")\n\n**Plan Specificity:**\n- **gap_1**: concrete (specific actions: targeted exception handling, log and continue, retry/backoff)\n- **gap_2**: concrete (validate required fields, reject malformed URLs, record rejection reasons)\n- **gap_3**: concrete (use feed-provided IDs or hash of canonical fields, track seen items in Plan #4)\n- **gap_4**: concrete (store canonical fields plus raw payload in Plan #5)\n- **gap_5**: concrete (SQLite storage, schema versioning, though ETag support is implied rather than explicit)\n- **gap_6**: absent (not identified in the report)\n- **gap_7**: concrete (SQLite with feeds/items/runs tables, persist read/starred flags)\n- **gap_8**: concrete (targeted exceptions, retry/backoff, atomic writes, structured logs)\n- **gap_9**: absent (not identified in the report)\n- **gap_10**: directional (mentions \"Keep snapshot export as a derived artifact\" but doesn't specify how to add HTML/terminal/email formats)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "directional"
+    }
+  }
+}

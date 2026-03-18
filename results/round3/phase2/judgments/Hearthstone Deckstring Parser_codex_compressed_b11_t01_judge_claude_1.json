@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll evaluate this diagnostic report systematically against the ground truth.\n\nLet me analyze each dimension:\n\n## 1. OBSERVATION ACCURACY\n\nThe Observations section describes:\n- Base64 deckstring parsing/serialization \u2713\n- Structured data output (cards, heroes, format, sideboards) \u2713\n- Some validation (header, version, FormatType, hero count) \u2713\n- Card bucketing (x1/x2/xN) and ordering \u2713\n- Round-trip capability \u2713\n- `Deck` class interface \u2713\n\nThese descriptions match what the system actually does. The cognitive framework (Perceive/Cache/Filter/Attend/Remember/Consolidate) is unusual but doesn't mischaracterize capabilities.\n\n**Score: accurate**\n\n## 2. GAP COVERAGE\n\nMapping ground-truth gaps to Triage findings:\n\n- **gap_1** (no length validation, unhandled EOFError): \u2713 Identified - \"truncated varints\", \"Detect truncated streams\", mentions EOF handling bug\n- **gap_2** (no trailing-byte detection): \u2713 Identified - \"unexpected trailing bytes after parsing\"\n- **gap_3** (no card-count validation): \u2713 Identified - \"card counts must be positive integers\"\n- **gap_4** (no deck-size validation): \u2717 Not identified - report never mentions total card count or 30/40 card deck rules\n- **gap_5** (no card-ID validation): \u2713 Identified - \"no duplicate card ids\" relates to this, though not explicitly about non-existent IDs\n- **gap_6** (no human-readable output): \u2717 Not identified - no mention of card name resolution or metadata\n- **gap_7** (no format-version migration): \u2713 Identified - \"versioned migration logic as the deckstring format evolves\" in Plan section\n- **gap_8** (no logging/error context): \u2713 Identified - \"convert low-level exceptions into clear public errors\", \"explicit exception types\"\n- **gap_9** (no serialization to interchange formats): \u2717 Not identified - no mention of to_dict(), to_json(), or __repr__\n- **gap_10** (no batch/concurrent processing): \u2717 Not identified - no mention of bulk operations or async support\n\n## 3. PLAN SPECIFICITY\n\nFor gaps the report DID identify:\n\n- **gap_1**: \"concrete\" - specific fix for EOF detection, wrapping base64.b64decode, detecting truncated streams\n- **gap_2**: \"concrete\" - \"Detect truncated streams and unexpected trailing bytes after parsing\"\n- **gap_3**: \"concrete\" - \"card counts must be positive integers\" in validation list\n- **gap_5**: \"directional\" - mentions \"no duplicate card ids\" but doesn't address validating against card database\n- **gap_7**: \"directional\" - mentions \"versioned migration logic\" but no concrete approach\n- **gap_8**: \"concrete\" - \"Add explicit exception types such as InvalidDeckstringError and UnsupportedVersionError\"\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

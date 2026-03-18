@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "I'll analyze this diagnostic report against the ground-truth gaps and the system's actual capabilities.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, the Deck class wrapper, sideboard support, version checking, and format validation. It accurately notes the capabilities without claiming features that don't exist.\n\n**Gap Coverage Analysis:**\n\n- **gap_1** (truncated stream handling): \u2705 Covered in Triage #2 \"No validation for truncated payloads beyond the varint loop\" and Plan #2 mentions \"truncated streams\"\n- **gap_2** (trailing-byte detection): \u2705 Covered in Triage #2 \"No explicit rejection of malformed extra trailing bytes\" and Plan #2 \"check for unexpected trailing bytes\"\n- **gap_3** (card-count validation): \u2705 Covered in Triage #2 \"Counts...are mostly trusted\" and Plan #2 \"Validate card IDs and counts are positive integers\"\n- **gap_4** (deck-size validation): \u274c Not identified - the report mentions no card validation but doesn't specifically call out total deck size (30/40 cards)\n- **gap_5** (card-ID validation): \u2705 Covered in Triage #2 and Plan #2 \"Validate card IDs and counts are positive integers\"\n- **gap_6** (human-readable output): \u274c Not identified - the report doesn't mention the lack of card name resolution or metadata lookup\n- **gap_7** (format-version migration): \u2705 Covered in Triage #3 \"Versioning support is rigid\" and Plan #3 \"Consider a version-dispatch parser\"\n- **gap_8** (logging/error context): \u2705 Covered in Triage #8 \"No observability\" and Plan #2 \"Add clearer error messages\"\n- **gap_9** (serialization formats): \u274c Not identified - while Plan #4 mentions dataclasses, it doesn't address to_dict()/to_json()/__repr__ methods\n- **gap_10** (batch processing): \u274c Not identified - no mention of concurrent/async/batch processing capabilities\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: concrete - Plan #1 provides exact code changes for the varint bug\n- **gap_2**: concrete - Plan #2 specifies \"check for unexpected trailing bytes\"\n- **gap_3**: concrete - Plan #2 specifies \"Validate card IDs and counts are positive integers\"\n- **gap_4**: absent - not identified in report\n- **gap_5**: concrete - same as gap_3\n- **gap_6**: absent - not identified in report\n- **gap_7**: directional - Plan #3 mentions \"version-dispatch parser\" but doesn't specify how to handle version migration gracefully\n- **gap_8**: concrete - Plan #2 specifies \"Add clearer error messages for malformed header, invalid counts, truncated streams\"\n- **gap_9**: absent - not identified in report\n- **gap_10**: absent - not identified in report",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies the five working metacognitive capabilities (perceive, cache, filter, attend, remember) and accurately describes what each does in this system. The base64 decoding, varint parsing, format validation, card sorting, and bidirectional serialization are all correctly characterized.\n\n**Gap Coverage:**\n- **gap_1 (truncation/EOFError)**: \u2713 Identified in Triage #3 \"No error context\" - mentions \"When parsing fails, user gets ValueError\"\n- **gap_2 (trailing bytes)**: \u2713 Identified in Triage #2 \"Shallow filtering\" - calls out that only structure is validated, not completeness\n- **gap_3 (card count validation)**: \u2713 Identified in Triage #2 \"Accepts impossible decks (99x same card...)\"\n- **gap_4 (deck size validation)**: \u2713 Identified in Plan #2 \"Total card count limits (30 for constructed, 40 for Duels)\"\n- **gap_5 (card ID validation)**: \u2713 Identified in Triage #2 \"invalid card IDs\" and Plan #2 \"check_card_legality\"\n- **gap_6 (human-readable output)**: \u2717 Not identified. The report discusses error messages and debugging, but never mentions the lack of card name resolution or metadata display\n- **gap_7 (version migration)**: \u2713 Identified in Triage #6 \"Version check exists but only supports v1. Future versions will break hard\"\n- **gap_8 (logging/error context)**: \u2713 Identified in Triage #3 and #5, plus Plan #3 with detailed DeckstringError implementation\n- **gap_9 (serialization formats)**: \u2713 Identified in Triage #4 \"Missing persistence\" and Plan #4 with storage options\n- **gap_10 (batch processing)**: \u2713 Identified in Triage #10 \"No batch processing\" and Plan #8-10 with parallel parsing API\n\n**Plan Specificity:**\nAll identified gaps have concrete plans with code samples, specific function signatures, and implementation details - except gap_6 which wasn't identified at all.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

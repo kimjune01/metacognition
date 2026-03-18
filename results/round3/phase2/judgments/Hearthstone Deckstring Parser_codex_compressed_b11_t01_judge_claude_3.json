@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "Let me provide the evaluation directly:\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\n- The report correctly identifies what the system does: parse/write deckstrings, varint handling, sideboard support, version/format validation\n- Correctly describes the shallow caching (structured data but no rich indexing), minimal filtering (some validation but incomplete), and absent Remember/Consolidate stages\n- Accurately captures working capabilities\n\n**Gap Coverage:**\n- **gap_1 (truncated stream handling): TRUE** - Explicitly mentions \"truncated streams\" and \"malformed...truncated varints\" in Triage #1 and Plan #1\n- **gap_2 (trailing bytes): TRUE** - Explicitly states \"extra trailing bytes\" in Triage #1 and \"unexpected trailing bytes after parsing\" in Plan #1\n- **gap_3 (card count validation): TRUE** - Mentions \"invalid card counts\" in Triage #1 and \"card counts must be positive integers\" in Plan #1\n- **gap_4 (deck size validation): FALSE** - Never mentions total deck size (30/40 cards) validation\n- **gap_5 (card ID validation): TRUE** - Covered by \"no efficient lookup, and no invariant checks\" and the general call for stronger semantic validation, though not explicitly stated as \"validate against card database\"\n- **gap_6 (human-readable output): FALSE** - Not mentioned; report focuses on validation/model strength, not presentation\n- **gap_7 (format version migration): FALSE** - Not addressed; report notes version rejection but doesn't propose migration strategy\n- **gap_8 (logging/error context): FALSE** - Not mentioned; error handling focuses on validation, not diagnostic context\n- **gap_9 (serialization formats): FALSE** - Not mentioned; no discussion of to_dict/to_json\n- **gap_10 (batch processing): FALSE** - Not mentioned; no discussion of concurrent/async capabilities\n\n**Plan Specificity:**\n- **gap_1: concrete** - \"Detect truncated streams\" with specific fix for `_read_varint` EOF detection (`b\"\"` vs `\"\"`)\n- **gap_2: concrete** - \"Detect...unexpected trailing bytes after parsing\"\n- **gap_3: concrete** - \"card counts must be positive integers\" and \"no duplicate card ids\"\n- **gap_5: concrete** - Covered by \"no duplicate card ids\" and general validation strengthening, though could be more explicit about card DB validation\n- All other gaps: **absent** - Not identified in the triage, so no plan provided",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

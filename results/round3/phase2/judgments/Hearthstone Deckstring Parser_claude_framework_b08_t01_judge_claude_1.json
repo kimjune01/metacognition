@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate** - The Observations section correctly describes all 8 working capabilities of the system without hallucinating features that don't exist.\n\n**Gap Coverage:**\n- **gap_1 (truncation/corruption)**: \u2705 Identified as \"Malformed deckstrings crash rather than returning useful errors\"\n- **gap_2 (trailing bytes)**: \u274c Not identified - report doesn't mention checking for unparsed trailing data\n- **gap_3 (card-count validation)**: \u2705 Identified as \"No card count limits\" in Triage #3\n- **gap_4 (deck-size validation)**: \u2705 Identified in Plan #3 (\"Check total card count\")\n- **gap_5 (card-ID validation)**: \u2705 Identified as \"Cannot validate card IDs\" in Triage #4\n- **gap_6 (human-readable output)**: \u2705 Identified as \"Cannot...resolve names\" in Triage #4\n- **gap_7 (format-version migration)**: \u2705 Identified as \"Only supports version 1; newer versions will fail\"\n- **gap_8 (logging/error context)**: \u2705 Identified in Triage #10 and Plan #10\n- **gap_9 (serialization formats)**: \u2705 Identified indirectly in Plan #8 (CLI with JSON output)\n- **gap_10 (batch processing)**: \u274c Not identified - no mention of concurrent/bulk operations\n\n**Plan Specificity:**\n- **gap_1**: concrete - Specific exception classes, wrapping strategy, return type changes\n- **gap_3**: concrete - Specific validation rules (30/40 cards, legendary limits, count \u2264 2)\n- **gap_4**: concrete - Included in gap_3's plan with format-specific counts\n- **gap_5**: concrete - CardDatabase class with specific methods listed\n- **gap_6**: concrete - Specific constructors and database integration methods\n- **gap_7**: concrete - Parameter additions, version-specific parsing paths, storage fields\n- **gap_8**: concrete - Logging levels and specific log points identified\n- **gap_9**: concrete - CLI interface with JSON encode/decode support mentioned",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

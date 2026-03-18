@@ -1,0 +1,27 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "Looking at this diagnostic report, I need to compare it against the ground-truth gaps and evaluate three dimensions.\n\nLet me analyze systematically:\n\n## 1. OBSERVATION ACCURACY\n\nThe Observations section describes:\n- Core encoding/decoding functionality \u2713\n- Varint support \u2713\n- Hero/card/sideboard handling \u2713\n- Format enum \u2713\n- Version validation \u2713\n- Sorting and bucketing \u2713\n- Deck wrapper class \u2713\n\nThis correctly captures what the system does. The description is accurate and doesn't claim capabilities the system lacks.\n\n**Score: accurate**\n\n## 2. GAP COVERAGE\n\nChecking each ground-truth gap against the Triage section:\n\n- **gap_1** (no length validation, truncated streams cause EOFError): Partially covered in Triage #3 \"Truncated streams can fail with low-level exceptions\" - **true**\n- **gap_2** (no trailing-byte detection): Mentioned in Triage #3 \"Detect trailing garbage after a valid payload if strict parsing is desired\" - **true**\n- **gap_3** (no card-count validation): Covered in Triage #2 \"No validation that count >= 1\" and \"No validation for negative IDs or counts\" - **true**\n- **gap_4** (no deck-size validation): **false** - Not mentioned anywhere\n- **gap_5** (no card-ID validation against database): Triage #2 mentions \"No validation for negative IDs or counts\" but doesn't mention validating against a card database - **false**\n- **gap_6** (no human-readable output): **false** - Not mentioned\n- **gap_7** (no format-version migration): Triage #6 mentions \"No forward-compatibility strategy for future deckstring versions\" - **true**\n- **gap_8** (no logging/error context): Covered in Triage #3 \"Errors lack context about where parsing failed\" - **true**\n- **gap_9** (no serialization to standard formats): Triage #4 mentions the API is minimal but doesn't specifically call out to_dict/to_json/repr - **false**\n- **gap_10** (no concurrent/batch processing): **false** - Not mentioned\n\n## 3. PLAN SPECIFICITY\n\nFor each gap the report DID identify:\n\n- **gap_1**: Plan #3 says \"Convert low-level decode/EOF failures into a library-specific parse exception\" and \"Wrap parse sections with error messages\" - **directional** (doesn't detail how to validate expected length)\n- **gap_2**: Plan #3 explicitly says \"Detect trailing garbage after a valid payload if strict parsing is desired\" - **directional** (mentions it but doesn't specify how)\n- **gap_3**: Plan #2 is very specific: \"counts must be integers and >= 1\", \"Add _validate_cards(cards)\", \"Call them at the top of write_deckstring()\" - **concrete**\n- **gap_7**: Plan #6 says \"Decide how to handle unknown future versions\" and \"Encode those decisions in validation and docs\" - **directional** (raises the question but doesn't propose a solution)\n- **gap_8**: Plan #3 says \"Wrap parse sections with error messages like 'failed while reading heroes/cards/sideboards'\" - **concrete**\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"directional\",\n    \"gap_2\": \"directional\",\n    \"gap_3\": \"concrete\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\"\n  }\n}\n```",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "directional",
+      "gap_2": "directional",
+      "gap_3": "concrete",
+      "gap_7": "directional",
+      "gap_8": "concrete"
+    }
+  }
+}

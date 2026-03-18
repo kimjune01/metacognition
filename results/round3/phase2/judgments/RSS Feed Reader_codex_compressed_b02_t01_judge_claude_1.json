@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's actual capabilities: multi-source RSS fetching, entry normalization with specific fields, timezone conversion, per-category JSON output, chronological sorting, feeds.json config management, and the basic stages of perceive/cache/filter/attend/remember.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling): true** - Triage #2 explicitly identifies \"Weak error handling\" and \"broad except: blocks hide root causes\" and \"A single fetch failure can terminate the process\"\n- **gap_2 (feed validation): true** - Triage #4 mentions \"no validation of required fields\" and \"no quality gate for junk/empty items\"\n- **gap_3 (deduplication): true** - Triage #1 is entirely about the weak identity model: \"timestamp as item ID\" causing collisions and \"same story from different feeds can overwrite each other\"\n- **gap_4 (content extraction): true** - Observations explicitly lists the captured fields and doesn't mention description/summary/content/media, implicitly acknowledging the limitation\n- **gap_5 (caching/conditional fetching): true** - Triage #3 states \"Results are rewritten per category on every run\" and #6 notes \"No consolidation / learning loop\"\n- **gap_6 (rate limiting): false** - Not mentioned anywhere in the report\n- **gap_7 (persistent state): true** - Triage #3 is dedicated to this: \"Remember stage is too shallow\", \"no record of previously seen items, fetch status, last successful sync\"\n- **gap_8 (error recovery/retry): true** - Triage #2 explicitly covers \"no retry, timeout control\" and \"A single fetch failure can terminate the process\"\n- **gap_9 (OPML/feed discovery): false** - Not mentioned in the report\n- **gap_10 (output format flexibility): true** - Triage #8 mentions \"Flat JSON files\" as the storage format and implies lack of flexibility\n\n**Plan Specificity:**\n- **gap_1: concrete** - Plan #1 provides specific implementation: use feed GUID or hash canonical tuple, store both entry_id and source_id, add collision tests\n- **gap_2: concrete** - Plan #4 gives specific validation rules: check required fields, reject empty titles/invalid links, record rejection reasons\n- **gap_3: concrete** - Plan #1 and #4 both address this with specific deduplication strategies using stable IDs and URL/title similarity\n- **gap_4: concrete** - While not explicitly a separate plan item, the normalization improvements in Plan #1 and storage schema in Plan #3 address extending captured fields\n- **gap_5: directional** - Plan #6 mentions \"use stored history\" and \"suppress sources with repeated failures\" but doesn't specify ETag/Last-Modified implementation\n- **gap_6: absent** - No plan item addresses rate limiting or throttling\n- **gap_7: concrete** - Plan #3 is detailed: separate storage concerns, track first_seen/last_seen timestamps, add retention policy, consider SQLite\n- **gap_8: concrete** - Plan #2 specifies: targeted exceptions, per-feed result capture, continue on failure, add retry/backoff, return run summary instead of sys.exit\n- **gap_9: absent** - No plan item for OPML or feed discovery\n- **gap_10: directional** - Plan #8 mentions atomic writes and schema versioning, but doesn't address multiple output format support (HTML, email, etc.)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "directional"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- The report correctly identifies most working capabilities (feed fetching, normalization, timezone handling, per-category output, sorting, config management)\n- It accurately describes the shallow filtering and deduplication behavior\n- However, it mischaracterizes some aspects: the \"Cache: shallow\" and \"Remember: present but shallow\" framing is somewhat misleading since the system doesn't really cache in the traditional sense\u2014it just transforms and writes snapshots\n- The framework of \"Perceive/Cache/Filter/Attend/Remember/Consolidate\" is applied reasonably but sometimes stretches the actual code behavior to fit the framework\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: TRUE - Triage #5 identifies \"Broad bare except: blocks hide failures\" and \"One failed fetch can exit the process\"\n- **gap_2 (feed validation)**: TRUE - Triage #1 mentions \"no URL validation, title validation... content sanity check\"\n- **gap_3 (deduplication)**: TRUE - Triage #1 extensively discusses \"Deduping by timestamp is incorrect\" and \"no duplicate detection across runs\"\n- **gap_4 (content extraction)**: TRUE - Triage #8 mentions \"No support for... extraction of summaries/content\" and Plan #8 says \"Optionally capture summaries/content fields\"\n- **gap_5 (caching/conditional fetching)**: FALSE - No mention of ETags, Last-Modified headers, If-Modified-Since, or conditional HTTP requests\n- **gap_6 (rate limiting)**: FALSE - No mention of rate limiting, throttling, or delays between requests\n- **gap_7 (persistent state)**: TRUE - Triage #2 \"No durable item-level memory\" and \"system does not know what it has already seen\"\n- **gap_8 (error recovery/retry)**: TRUE - Triage #5 mentions \"no retry logic\" and Plan #5 adds \"retry with backoff\"\n- **gap_9 (feed discovery/OPML)**: FALSE - No mention of OPML import/export or feed discovery\n- **gap_10 (output format flexibility)**: TRUE - Triage #6 mentions JSON snapshots limitations and Plan #6 discusses \"separate raw ingest data from rendered output\"\n\n**Plan Specificity:**\n- **gap_1**: concrete - Plan #5 gives specific steps (replace bare except, never sys.exit, structured results, timeout policy, retry with backoff)\n- **gap_2**: concrete - Plan #1 provides detailed validation rules (require non-empty title, valid URL, reject old entries, malformed dates)\n- **gap_3**: concrete - Plan #1 gives specific deduplication strategy (GUID/ID \u2192 canonicalized URL \u2192 hash, duplicate detection within/across runs)\n- **gap_4**: concrete - Plan #8 specifies \"Optionally capture summaries/content fields for later ranking and dedupe quality\"\n- **gap_5**: absent - Not addressed in the plan\n- **gap_6**: absent - Not addressed in the plan\n- **gap_7**: concrete - Plan #2 provides detailed schema (stable item ID, category, source, timestamps, status flags, SQLite recommendation)\n- **gap_8**: concrete - Plan #5 details error handling (specific exceptions, structured results, timeout, retry with backoff)\n- **gap_9**: absent - Not addressed in the plan\n- **gap_10**: directional - Plan #6 mentions \"separate raw ingest data from rendered output\" but doesn't specify concrete output formats beyond the current JSON",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "directional"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: RSS fetching, entry normalization with specific fields, timezone handling, per-category JSON output, sorting, config management with bootstrap/merge behavior, optional author display, and selective category fetching.\n\n**Gap Coverage:**\n\n- **gap_1 (HTTP error handling)**: \u2705 Identified in Triage \u00a71: \"A single feed failure exits the whole process\" and \"does not inspect feedparser error state\"\n- **gap_2 (feed validation)**: \u2705 Identified in Triage \u00a71: \"does not inspect `feedparser` error state (`bozo`, HTTP status, malformed XML...)\"\n- **gap_3 (deduplication)**: \u2705 Identified in Triage \u00a73: \"Entries are deduplicated only by second-level timestamp, so two items published in the same second overwrite each other\"\n- **gap_4 (content extraction)**: \u274c Not identified. The report does not mention missing description/summary, content body, tags, enclosures, or media elements\n- **gap_5 (caching/conditional fetching)**: \u2705 Identified in Triage \u00a75: \"No incremental fetching\" and \"No HTTP caching with `ETag` / `Last-Modified`\"\n- **gap_6 (rate limiting)**: \u274c Not identified. No mention of throttling, delays between requests, or rapid-fire fetching\n- **gap_7 (persistent state)**: \u2705 Identified in Triage \u00a75: \"No cap on retained entries\" and Plan \u00a75 mentions \"Persist per-feed metadata\"\n- **gap_8 (error recovery/retry)**: \u2705 Identified in Triage \u00a71: \"There are no retries, backoff, timeouts\"\n- **gap_9 (feed discovery/OPML)**: \u274c Not identified. No mention of auto-discovery, OPML import/export\n- **gap_10 (output format flexibility)**: \u274c Not identified. No mention of HTML, terminal, email, or alternative output formats\n\n**Plan Specificity:**\n\n- **gap_1**: **concrete** - Specific actions: replace bare except, check d.bozo, add timeouts/retries, use requests/httpx if needed\n- **gap_2**: **concrete** - Check parser result health, inspect bozo/HTTP status/missing entries\n- **gap_3**: **concrete** - Use GUID or hash of (source, link, published, title), maintain set/map for dedup, atomic writes\n- **gap_4**: **absent** - Not addressed\n- **gap_5**: **concrete** - Persist etag/modified, send conditional requests, add concurrency, retention rules\n- **gap_6**: **absent** - Not addressed\n- **gap_7**: **directional** - Mentions \"persist per-feed metadata\" and \"last success time\" but lacks concrete implementation details\n- **gap_8**: **concrete** - Add request timeouts, bounded retries, per-feed error tracking\n- **gap_9**: **absent** - Not addressed\n- **gap_10**: **absent** - Not addressed",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does:\n- Accurately identifies the perceive/cache/filter capabilities and their depth\n- Correctly notes the absence of attend/remember/consolidate\n- Lists concrete capabilities that match the actual system (varint handling, base64 decode, sorting, sideboards, Deck wrapper)\n- No significant factual errors about the system's working state\n\n**Gap Coverage:**\n- **gap_1 (truncated streams) = true**: Triage explicitly mentions \"truncated/incomplete streams\" and \"Detect unexpected EOF in every read path\"\n- **gap_2 (trailing bytes) = true**: Triage explicitly says \"Reject trailing unread bytes after parsing a valid deckstring\"\n- **gap_3 (card-count validation) = true**: Triage mentions \"card count must be positive\" and \"invalid card counts like `0` or negative-equivalent cases\"\n- **gap_4 (deck-size validation) = false**: Not mentioned. The report discusses card counts being positive but never mentions total deck size limits (30/40 cards)\n- **gap_5 (card-ID validation) = false**: Not mentioned. No discussion of validating card IDs against a database\n- **gap_6 (human-readable output) = false**: Not mentioned. The report discusses data models but not card name resolution or metadata\n- **gap_7 (format-version migration) = false**: Not mentioned. Only discusses \"unsupported versions\" rejection, not graceful degradation\n- **gap_8 (logging/error context) = false**: Not mentioned. While the report discusses error handling improvements, it doesn't specifically address logging or contextual error messages\n- **gap_9 (serialization formats) = false**: Not mentioned. No discussion of to_dict(), to_json(), or __repr__\n- **gap_10 (batch processing) = false**: Not mentioned. No discussion of concurrent or batch processing capabilities\n\n**Plan Specificity:**\n- **gap_1 = concrete**: \"Fix `_read_varint()` EOF detection\", \"Wrap `base64.b64decode()` with strict validation\", \"Detect unexpected EOF in every read path\"\n- **gap_2 = concrete**: \"Reject trailing unread bytes after parsing a valid deckstring\"\n- **gap_3 = concrete**: \"card count must be positive\" under semantic constraints validation\n- **gap_4-10 = absent**: These gaps were not identified, so no plans exist for them",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

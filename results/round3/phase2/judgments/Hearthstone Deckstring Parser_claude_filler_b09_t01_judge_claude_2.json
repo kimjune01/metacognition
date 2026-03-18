@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint I/O, deckstring parsing/writing, card organization, the Deck class interface, and format validation. All capabilities listed match the actual implementation.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2705 Identified as \"Critical Gap 1\" - mentions parser fails hard on malformed input without recovery\n- **gap_2 (trailing bytes)**: \u2705 Covered in Gap 1 - \"verify card counts are positive, check that the stream consumed all bytes (no trailing garbage)\"\n- **gap_3 (card-count validation)**: \u274c Not identified - the report mentions validating \"card counts are positive\" in Gap 1, but doesn't identify the lack of game-rule validation (1-2 copies in constructed)\n- **gap_4 (deck-size validation)**: \u274c Not identified - no mention of validating total deck size (30/40 cards)\n- **gap_5 (card-ID validation)**: \u2705 Identified as \"Important Gap 5\" - mentions no way to validate card legality or check against database\n- **gap_6 (human-readable output)**: \u2705 Identified as \"Important Gap 5\" - mentions \"no way to resolve them to card names\"\n- **gap_7 (format-version migration)**: \u2705 Identified as \"Important Gap 7\" - explicitly mentions rejecting version > 1\n- **gap_8 (error context)**: \u2705 Identified as \"Critical Gap 1\" - mentions lack of helpful diagnostics and need for context like byte offset\n- **gap_9 (serialization formats)**: \u274c Not identified - no mention of missing to_dict(), to_json(), or __repr__\n- **gap_10 (batch processing)**: \u274c Not identified - no mention of concurrent or bulk processing capabilities\n\n**Plan Specificity:**\n- **gap_1**: concrete - Custom exception classes, try/except blocks with context, validation checks, code examples\n- **gap_2**: concrete - Covered under Gap 1 plan with \"verify card counts are positive, check that the stream consumed all bytes\"\n- **gap_5**: concrete - CardDef dataclass, CardDatabase class, integration points specified\n- **gap_6**: concrete - Module docstring structure, binary format documentation with detailed breakdown\n- **gap_7**: concrete - Version-aware parsing with code example showing version comparison logic\n- **gap_8**: concrete - Exception handling refinement with specific ValueError message checking",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

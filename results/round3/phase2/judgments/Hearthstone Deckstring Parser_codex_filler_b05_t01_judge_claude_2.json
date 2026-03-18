@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint handling, decode/encode of deckstrings, tri-sort optimization, the Deck class API, sideboard support, version checking, and format validation. It accurately characterizes this as \"functional low-level serializer/deserializer for a narrow, happy-path use case.\"\n\n**Gap Coverage:**\n- **gap_1** (truncated deckstring handling): \u2705 Identified in Triage #2 \"No checks for truncated payloads beyond varint reads\"\n- **gap_2** (trailing-byte detection): \u2705 Identified in Triage #2 \"No checks for trailing garbage after a parsed deckstring\" and Plan #2 \"verify the stream is fully consumed\"\n- **gap_3** (card-count validation): \u2705 Identified in Triage #2 \"No validation of negative IDs/counts or impossible counts on write\" and Plan #2 \"counts must be positive integers\"\n- **gap_4** (deck-size validation): \u274c Not mentioned. The report discusses domain-level validation in Triage #4 but focuses on \"duplicate limits, class/hero consistency, sideboard legality, or format legality\" without mentioning total deck size (30/40 cards)\n- **gap_5** (card-ID validation): \u2705 Identified in Plan #2 \"card IDs must be positive integers\" (though doesn't mention checking against a card database, it identifies lack of ID validation)\n- **gap_6** (human-readable output): \u274c Not mentioned. The report doesn't discuss resolving card IDs to names or metadata\n- **gap_7** (format-version migration): \u2705 Identified in Triage #8 \"Unsupported versions simply error\" and Plan #8 \"Decide whether unsupported versions should always fail or be feature-gated\"\n- **gap_8** (logging/error context): \u2705 Identified in Triage #5 \"raises generic ValueError/EOFError with limited context\" and Plan #3 \"Include actionable error messages, for example which section failed\"\n- **gap_9** (serialization to standard formats): \u2705 Identified in Triage #3 \"No explicit to_dict/from_dict style interoperability\" and Plan #4 \"to_dict() / from_dict()\"\n- **gap_10** (concurrent/batch processing): \u274c Not mentioned anywhere in the report\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Plan #1 and #2 provide specific implementation steps for handling truncated streams and validating stream consumption\n- **gap_2**: \"concrete\" - Plan #2 explicitly says \"verify the stream is fully consumed; if unread bytes remain, reject the deckstring\"\n- **gap_3**: \"concrete\" - Plan #2 lists specific validation rules: \"card IDs must be positive integers\", \"counts must be positive integers\"\n- **gap_4**: \"absent\" - Not identified, so no plan\n- **gap_5**: \"concrete\" - Plan #2 specifies \"card IDs must be positive integers\" with validation before serialization\n- **gap_6**: \"absent\" - Not identified, so no plan\n- **gap_7**: \"directional\" - Plan #8 mentions \"Decide whether unsupported versions should always fail or be feature-gated\" but doesn't provide concrete implementation guidance for migration/degradation\n- **gap_8**: \"concrete\" - Plan #3 provides specific exception hierarchy and explicitly mentions \"Include actionable error messages, for example which section failed\"\n- **gap_9**: \"concrete\" - Plan #4 lists specific methods: \"to_dict() / from_dict()\"\n- **gap_10**: \"absent\" - Not identified, so no plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: base64 decoding, varint encoding/decoding, trisort optimization, hero/format/sideboard handling, and round-trip conversion. It accurately captures what the system does without overstating or missing major features.\n\n**Gap Coverage:**\n- **gap_1 (truncated deckstring \u2192 EOFError):** \u2705 Identified in Triage #1 \"malformed deckstrings raise generic exceptions (ValueError, EOFError) with minimal context\"\n- **gap_2 (no trailing-byte detection):** \u274c Not mentioned anywhere\n- **gap_3 (no card-count validation):** \u2705 Triage #3 mentions \"No checks for... negative counts\"\n- **gap_4 (no deck-size validation):** \u2705 Triage #9 mentions \"Doesn't verify... deck size limits\" (though under Nice-to-have rather than Critical)\n- **gap_5 (no card-ID validation):** \u2705 Triage #3 \"No checks for invalid card IDs\"\n- **gap_6 (no human-readable output):** \u2705 Triage #8 \"No human-readable export\"\n- **gap_7 (no format-version migration):** \u2705 Triage #1 Plan shows UnsupportedVersionError for version != 1\n- **gap_8 (no logging/error context):** \u2705 Triage #5 \"No logging\" and #1 \"minimal context\"\n- **gap_9 (no serialization to dict/json):** \u2705 Triage #8 captures the lack of text export (similar concern)\n- **gap_10 (no batch processing):** \u274c Not mentioned anywhere\n\n**Plan Specificity:**\n- **gap_1:** concrete - Shows exact exception class hierarchy and usage\n- **gap_3:** concrete - Provides _validate_card_list function with specific checks\n- **gap_4:** absent - Plan #9 mentions deck size validation but focuses on \"30 cards expected\" as a nice-to-have validation rule, not as a missing validation layer during parse\n- **gap_5:** concrete - Same validation function in Plan #3 checks card_id > 0\n- **gap_6:** concrete - Plan #8 provides as_text() method signature and example output\n- **gap_7:** concrete - Plan #7 shows try/except with FormatType fallback\n- **gap_8:** concrete - Plan #5 shows logging statements at key points\n- **gap_9:** concrete - Plan #8 addresses text export (closest analog to serialization)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

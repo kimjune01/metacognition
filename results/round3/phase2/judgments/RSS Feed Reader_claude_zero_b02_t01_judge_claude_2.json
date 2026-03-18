@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- The report correctly identifies most working capabilities (feed fetching, timezone handling, configuration management, etc.)\n- However, it claims \"Deduplication: Uses timestamps as IDs to prevent duplicate entries\" (#6), which is misleading. The ground truth explicitly states that using Unix timestamps as IDs causes collisions for entries published in the same second, and there's no deduplication across feeds\n- It also claims \"Fallback Parsing\" works robustly (#10), but the ground truth notes that timestamp failures are silent rather than properly handled\n\n**Gap Coverage:**\n- \u2705 **gap_1** (HTTP error handling): Identified as \"No Error Recovery\" - matches\n- \u274c **gap_2** (feed validation): Not identified. Report assumes feeds are valid RSS\n- \u274c **gap_3** (deduplication): Misidentified as a working feature in Observations\n- \u2705 **gap_4** (content extraction): Identified as \"No Feed Content\"\n- \u2705 **gap_5** (caching): Identified as \"No Cache Headers\"\n- \u2705 **gap_6** (rate limiting): Identified as \"No Rate Limiting\"\n- \u2705 **gap_7** (persistent state): Identified as \"No Read/Unread State\"\n- \u2705 **gap_8** (retry logic): Covered under \"No Error Recovery\"\n- \u2705 **gap_9** (OPML): Identified as \"No Import/Export\"\n- \u274c **gap_10** (output format flexibility): Not identified. Report focuses on UI/presentation but doesn't mention the hardcoded JSON output format\n\n**Plan Specificity:**\n- Gaps 1, 4, 5, 6, 7, 8, 9: All have concrete code examples and implementation details\n- Gaps 2, 3, 10: Absent from the plan (not identified as gaps)",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

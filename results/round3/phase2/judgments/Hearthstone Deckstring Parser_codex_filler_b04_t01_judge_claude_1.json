@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll analyze this diagnostic report against the ground truth systematically.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**OBSERVATION ACCURACY: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, versioning, format type handling, sideboard support, and the Deck class API. It accurately states this is \"a working codec for a subset of the deckstring domain.\"\n\n**GAP COVERAGE:**\n- **gap_1 (truncated deckstring \u2192 EOFError)**: \u2705 Identified in Triage #1: \"Malformed varints and truncated data are not handled cleanly\" and Plan #1: \"Add bounds/termination protection for malformed varints\"\n- **gap_2 (no trailing-byte detection)**: \u2705 Identified in Triage #1: \"The parser does not check for trailing garbage after a valid payload\" and Plan #1: \"After parsing, verify the stream is exhausted\"\n- **gap_3 (no card-count validation)**: \u2705 Identified in Triage #2: \"It does not validate card counts\" and Plan #2: \"card count bounds\"\n- **gap_4 (no deck-size validation)**: \u2705 Identified in Triage #2 as part of semantic validation (though not explicitly \"30 cards\"), and Plan #2 includes validation infrastructure\n- **gap_5 (no card-ID validation)**: \u2705 Identified in Triage #2: \"or whether referenced IDs are valid cards\"\n- **gap_6 (no human-readable output)**: \u274c Not mentioned. The report focuses on codec correctness, not card name resolution or metadata\n- **gap_7 (no format-version migration)**: \u274c Not mentioned. The report notes version checking exists but doesn't discuss graceful degradation for future versions\n- **gap_8 (no logging/error context)**: \u2705 Identified in Triage #4: \"Weak error model\" and Plan #4 proposes specific exception classes with better context\n- **gap_9 (no to_dict/to_json)**: \u274c Not mentioned. The report doesn't discuss serialization to interchange formats\n- **gap_10 (no batch processing)**: \u274c Not mentioned. The report doesn't discuss concurrent or batch processing capabilities\n\n**PLAN SPECIFICITY:**\nFor gaps the report DID identify:\n- **gap_1**: \"concrete\" - Specific fixes: test for `b\"\"`, use `c[0]`, add max shift/byte count\n- **gap_2**: \"concrete\" - Specific action: \"verify the stream is exhausted; reject unexpected trailing bytes\"\n- **gap_3**: \"concrete\" - Specific validation item: \"card count bounds\"\n- **gap_4**: \"concrete\" - Validation function with specific checks (though less detailed than gap_3)\n- **gap_5**: \"concrete\" - Mentioned in semantic validation plan\n- **gap_8**: \"concrete\" - Specific exception classes listed with use cases\n\nFor gaps NOT identified (6, 7, 9, 10): \"absent\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

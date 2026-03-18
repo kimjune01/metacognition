@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll evaluate this diagnostic report against the ground-truth gaps and the system's actual capabilities.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Analysis:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies the system's working capabilities (varint I/O, parsing, encoding, trisort, Deck class, sideboard support) and accurately maps them to the checklist framework.\n\n**Gap Coverage:**\n- \u2705 **gap_1** (truncation/EOFError): Identified as \"Detect truncated streams and reject partial payloads cleanly\"\n- \u2705 **gap_2** (trailing bytes): Identified as \"Reject trailing unread bytes after parsing the expected payload\"\n- \u2705 **gap_3** (card-count validation): Identified as \"Card counts must be positive integers\"\n- \u274c **gap_4** (deck-size validation): Not mentioned. The report validates card counts but never addresses total deck size (30/40 cards)\n- \u2705 **gap_5** (card-ID validation): Implied in \"Duplicate card IDs should either be rejected or merged\" and the general semantic validation discussion\n- \u274c **gap_6** (human-readable output): Not mentioned. No discussion of resolving DBF IDs to card names/metadata\n- \u274c **gap_7** (format-version migration): Not mentioned. The report notes \"version support\" in testing but doesn't discuss forward/backward compatibility or graceful degradation\n- \u274c **gap_8** (logging/error context): Not mentioned. While the report discusses better error messages, it doesn't address adding parse position or section context to errors\n- \u274c **gap_9** (serialization formats): Not mentioned. No discussion of `to_dict()`, `to_json()`, or `__repr__`\n- \u274c **gap_10** (batch/concurrent processing): Not mentioned. No discussion of bulk processing or async support\n\n**Plan Specificity:**\nFor gaps the report DID identify:\n- **gap_1**: \"concrete\" - specific fix for EOF handling with `b\"\"` check and `c[0]` extraction\n- **gap_2**: \"concrete\" - explicit action \"Reject trailing unread bytes\"\n- **gap_3**: \"concrete\" - explicit constraint \"Card counts must be positive integers\"\n- **gap_5**: \"concrete\" - actionable via \"Duplicate card IDs should either be rejected or merged\" and indexed data structures\n\nFor gaps NOT identified, all are \"absent\" in plan specificity.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

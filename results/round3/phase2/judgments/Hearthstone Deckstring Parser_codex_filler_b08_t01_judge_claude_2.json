@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "I'll evaluate this diagnostic report systematically against the ground truth.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the working capabilities: varint encoding/decoding, base64 parsing, card bucketing (x1/x2/xn), format support, sideboard handling, the Deck class API, and existing validation (version check, format enum, hero count on write).\n\n**Gap Coverage Analysis:**\n\n- **gap_1** (truncated deckstring \u2192 EOFError): \u2705 Identified in Triage #2 as \"There is no validation for trailing garbage after a parsed deckstring\" and the correctness bug discussion\n- **gap_2** (trailing bytes): \u2705 Explicitly identified in Triage #2 as \"no validation for trailing garbage after a parsed deckstring\"\n- **gap_3** (card-count validation): \u2705 Identified in Triage #3 as \"zero or negative counts\"\n- **gap_4** (deck-size validation): \u274c Not mentioned - the report discusses card count validation but never mentions total deck size (30/40 cards)\n- **gap_5** (card-ID validation): \u2705 Identified in Triage #2 as \"Counts, IDs, and sideboard references are trusted blindly\"\n- **gap_6** (human-readable output): \u274c Not mentioned - no discussion of card name resolution or metadata\n- **gap_7** (format-version migration): \u274c Not mentioned - the report notes \"one specific deckstring version\" assumption but doesn't discuss migration/graceful degradation\n- **gap_8** (logging/error context): \u274c Not mentioned - discusses exception types but not positional context in error messages\n- **gap_9** (serialization formats): \u274c Not mentioned - no discussion of to_dict/to_json\n- **gap_10** (batch processing): \u274c Not mentioned - no discussion of concurrent/async capabilities\n\n**Plan Specificity Analysis:**\n\nFor gaps the report DID identify:\n- **gap_1**: \"concrete\" - Plan #1 gives specific fixes: change `\"\"` to `b\"\"`, use `c[0]`, add max-shift guard\n- **gap_2**: \"concrete\" - Plan #2 specifies \"verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3**: \"concrete\" - Plan #3 specifies \"card counts must be `>= 1`\"\n- **gap_5**: \"concrete\" - Plan #2 specifies \"Validate that all card IDs... are positive integers before writing\"\n\nFor gaps not identified, specificity is \"absent\" by definition.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

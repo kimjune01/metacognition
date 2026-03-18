@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's actual capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, Deck class wrapper, sideboard support, version checking, and format type handling. No incorrect claims are made.\n\n**Gap Coverage:**\n- **gap_1 (truncation/EOFError)**: \u2705 Identified in Critical Gap #1 \"Parser fails silently or raises generic exceptions on malformed input\" and Plan #1 mentions catching `EOFError`\n- **gap_2 (trailing bytes)**: \u2705 Identified in Plan #1: \"check that data stream is fully consumed (`data.read(1) == b\"\"`)\"\n- **gap_3 (card count validation)**: \u2705 Identified in Important Gap #2 and Plan #2: validates \"Counts are positive integers\"\n- **gap_4 (deck size validation)**: \u2705 Identified in Nice-to-Have Gap #7 and Plan #7: \"Total card count (typically 30 for constructed)\"\n- **gap_5 (card ID validation)**: \u2705 Identified in Important Gap #2 \"invalid DBF IDs\" and Plan #2: \"Check `heroes` list contains valid DBF IDs\"\n- **gap_6 (human-readable output)**: \u2705 Identified in Nice-to-Have Gap #9 and Plan #9 with concrete implementation\n- **gap_7 (format version migration)**: \u274c Not identified. The report mentions \"UnsupportedVersionError\" but proposes raising an error, not graceful degradation/migration\n- **gap_8 (logging/error context)**: \u2705 Identified in Critical Gap #1 and Plan #1 provides custom exceptions with context\n- **gap_9 (serialization formats)**: \u2705 Identified in Nice-to-Have Gap #9 as \"No Human-readable Export\" (though focused on card names rather than JSON/dict)\n- **gap_10 (batch processing)**: \u2705 Identified in Nice-to-Have Gap #10 \"Performance\" mentions optimization, though not specifically async/batch\n\n**Plan Specificity:**\nAll identified gaps have concrete plans with code examples and specific implementation steps, except gap_7 which was not identified.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

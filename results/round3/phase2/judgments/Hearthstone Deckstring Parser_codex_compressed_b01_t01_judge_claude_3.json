@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "I'll evaluate this diagnostic report against the ground-truth gaps and the actual system behavior.\n\nLet me analyze each dimension:\n\n## 1. OBSERVATION ACCURACY\n\nThe Observations section correctly describes:\n- Base64 deckstring parsing and encoding\n- Varint reading/writing\n- Format validation and version checking\n- Sideboard support\n- The Deck class wrapper\n- Tri-sort optimization\n\nThe categorization using the perceive/cache/filter/attend/remember/consolidate framework is accurate for what the system actually does. The statement that \"Filter: shallow\" with rejection of invalid headers, unsupported versions, and unsupported formats matches the actual implementation.\n\n**Score: accurate**\n\n## 2. GAP COVERAGE\n\nChecking each ground-truth gap against the Triage section:\n\n- **gap_1** (no truncated/corrupted deckstring validation): **TRUE** - Explicitly mentioned: \"Detect unexpected EOF in every read path\" and \"truncated/incomplete streams\"\n- **gap_2** (no trailing-byte detection): **TRUE** - Explicitly mentioned: \"extra trailing bytes after a valid parse\" and \"Reject trailing unread bytes after parsing\"\n- **gap_3** (no card-count validation): **TRUE** - Mentioned: \"card count must be positive\" and \"invalid card counts like `0` or negative-equivalent cases\"\n- **gap_4** (no deck-size validation): **FALSE** - Not mentioned. The report discusses card counts per card, but never mentions total deck size (30/40 cards) validation\n- **gap_5** (no card-ID validation): **FALSE** - Not mentioned. No discussion of validating DBF IDs against a card database\n- **gap_6** (no human-readable output): **FALSE** - Not mentioned. The report discusses data structures but never mentions resolving IDs to card names/metadata\n- **gap_7** (no format-version migration): **FALSE** - Not mentioned. The report mentions version validation exists but doesn't identify lack of graceful degradation for future versions\n- **gap_8** (no logging or error context): **FALSE** - The report mentions \"stable, user-facing parse errors\" and error handling, but doesn't specifically identify the lack of position/section context in error messages\n- **gap_9** (no serialization to standard formats): **FALSE** - Not mentioned. No discussion of to_dict(), to_json(), or __repr__ methods\n- **gap_10** (no concurrent/batch processing): **FALSE** - Not mentioned. No discussion of bulk processing capabilities\n\n## 3. PLAN SPECIFICITY\n\nFor gaps the report DID identify:\n\n- **gap_1**: **concrete** - \"Detect unexpected EOF in every read path and return stable, user-facing parse errors\" with specific mention of fixing _read_varint() EOF detection\n- **gap_2**: **concrete** - \"Reject trailing unread bytes after parsing a valid deckstring\" is actionable\n- **gap_3**: **concrete** - \"card count must be positive\" in the validation section is clear and actionable\n\nFor gaps NOT identified (4-10): **absent**\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

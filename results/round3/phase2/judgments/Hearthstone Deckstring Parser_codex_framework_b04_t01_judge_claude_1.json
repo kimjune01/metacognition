@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: base64 decode/encode, varint parsing, card/hero/format/sideboard handling, round-trip conversion via Deck class, normalization, and the trisort helper. It accurately characterizes this as a \"functional codec for a useful subset of the format.\"\n\n**Gap Coverage:**\n- **gap_1** (truncated input handling): \u2705 Identified - \"truncated input will raise the wrong exception path\" and \"raise a deliberate decode exception on truncated input\"\n- **gap_2** (trailing bytes): \u2705 Identified - \"The parser does not verify full consumption of the payload. Trailing garbage is silently ignored\" and plan says \"assert that the stream is fully consumed\"\n- **gap_3** (card-count validation): \u2705 Identified - \"No validation that card counts are positive integers\" and plan includes \"all counts are >= 1\"\n- **gap_4** (deck-size validation): \u274c Not identified - The report mentions no checking for total deck size (30/40 cards)\n- **gap_5** (card-ID validation): \u2705 Identified - \"No validation that IDs and counts fit the expected domain\" (though not explicitly about database lookups)\n- **gap_6** (human-readable output): \u274c Not identified - No mention of card name resolution or metadata\n- **gap_7** (format-version migration): \u2705 Identified - Mentions version handling and \"UnsupportedDeckstringVersion\" exception\n- **gap_8** (logging/error context): \u2705 Identified - \"Errors are mostly generic ValueErrors with limited context\" and plan includes \"Include the failing field in messages\"\n- **gap_9** (serialization formats): \u274c Not identified - No mention of to_dict(), to_json(), or __repr__\n- **gap_10** (batch processing): \u274c Not identified - No mention of concurrent or bulk processing\n\n**Plan Specificity:**\n- **gap_1**: concrete - Specific fix: change EOF check from `\"\"` to `b\"\"`\n- **gap_2**: concrete - Specific action: \"assert that the stream is fully consumed\"\n- **gap_3**: concrete - Specific validation: \"all counts are >= 1\"\n- **gap_5**: directional - Mentions \"IDs and counts fit expected domain\" but no concrete validation approach\n- **gap_7**: directional - Mentions exception type but no migration/degradation strategy\n- **gap_8**: concrete - Specific error hierarchy and \"Include the failing field in messages\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

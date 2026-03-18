@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The report correctly identifies all 9 working capabilities (varint codec, bidirectional conversion, base64, format types, multi-hero, deduplication, sideboards, object wrapper, version checking)\n- No false claims about non-existent features\n- Technical descriptions match the actual implementation\n\n**Gap Coverage:**\n- \u2705 gap_1 (input sanitization): Identified as \"No input validation\" - covers the truncation/EOFError scenario\n- \u2705 gap_2 (trailing bytes): Explicitly called out as \"Silent truncation\" \n- \u2705 gap_3 (card-count validation): Covered in Plan #1 with \"validate count > 0\"\n- \u2705 gap_4 (deck-size validation): Identified in #12 \"No deck validation\" - mentions 31-card example\n- \u2705 gap_5 (card-ID validation): Covered in Plan #1 with \"validate card_id > 0\"\n- \u2705 gap_6 (human-readable output): Explicitly called out as gap #11\n- \u274c gap_7 (format-version migration): Not identified - report only mentions version checking exists, doesn't note lack of migration strategy\n- \u2705 gap_8 (logging/error context): Explicitly identified as gap #2 and #5\n- \u2705 gap_9 (serialization formats): Identified as gap #4 \"Type safety holes\" and implicitly in #11's to_decklist method\n- \u2705 gap_10 (batch processing): Explicitly called out as gap #9 \"No streaming support\"\n\n**Plan Specificity:**\n- gap_1: **concrete** - Specific line numbers, validation logic, and code changes\n- gap_2: **concrete** - Exact implementation with data.tell(), strict parameter, specific error message\n- gap_3: **concrete** - Validation checks with line numbers and example code\n- gap_4: **directional** - Mentioned in #12 but only shows validation method signature, not actual deck-size checking logic\n- gap_5: **concrete** - Line numbers and validation predicates provided\n- gap_6: **concrete** - Complete method implementation with signature and logic\n- gap_7: **absent** - Not addressed in the plan\n- gap_8: **concrete** - Custom exception class, context parameters, specific changes to _read_varint\n- gap_9: **concrete** - Shows dataclass definitions, though to_json() not fully specified\n- gap_10: **absent** - Explicitly skipped as \"not needed for most use cases\" with no implementation guidance",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

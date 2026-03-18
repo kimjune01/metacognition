@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the working capabilities: config loading/merging, RSS fetching with feedparser, timestamp handling, normalization, timezone conversion, formatting, sorting, per-category JSON output, optional author display, and logging mode. All described features align with what the system actually does.\n\n**Gap Coverage:**\n\n- **gap_1** (HTTP error handling): **true** - Identified in Triage #1 \"Error handling is unsafe\" and #4 \"No network robustness\"\n- **gap_2** (Feed validation): **false** - Not identified. The report mentions config validation (#5) but not validation of parsed feed content\n- **gap_3** (Deduplication): **true** - Identified in Triage #2 \"Entry identity and deduplication are incorrect\"\n- **gap_4** (Content extraction): **true** - Identified in Triage #8 \"Data model is too shallow\" - mentions dropping summary/content, GUID, tags\n- **gap_5** (Caching/conditional fetching): **false** - Not identified. No mention of ETag, Last-Modified, or conditional requests\n- **gap_6** (Rate limiting): **false** - Not identified. No mention of throttling or delays between requests\n- **gap_7** (Persistent state): **false** - Not identified as a gap. Triage #8 mentions \"No read/unread state\" but doesn't frame the broader lack of persistent state tracking\n- **gap_8** (Error recovery/retry): **true** - Identified in Triage #1 and #4, mentions no retry logic or backoff\n- **gap_9** (OPML/feed discovery): **false** - Not identified. No mention of OPML or auto-discovery\n- **gap_10** (Output format flexibility): **false** - Not identified. No mention of alternative output formats\n\n**Plan Specificity:**\n\n- **gap_1**: **concrete** - Plan #1 and #4 provide specific solutions (catch specific exceptions, use requests/httpx with timeout/retry)\n- **gap_3**: **concrete** - Plan #2 gives specific identifier priority order and approach\n- **gap_4**: **concrete** - Plan #8 lists specific fields to preserve (summary, content, author, tags, GUID)\n- **gap_8**: **concrete** - Plan #4 specifies using requests/httpx with timeout, retry, backoff, and tracking status",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

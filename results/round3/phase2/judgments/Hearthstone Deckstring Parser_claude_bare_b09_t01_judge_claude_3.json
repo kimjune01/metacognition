@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's actual capabilities without hallucinating features or missing major ones. It accurately identifies bidirectional conversion, varint encoding, multi-count handling, hero support, format tracking, sideboard support, sorting utilities, and the OOP interface.\n\n**Gap Coverage Analysis:**\n- **gap_1** (input sanitization/truncation): \u2705 Identified as \"No error handling - Silent failures or crashes on malformed input\" and detailed in Plan #1 with bounds checking in varint\n- **gap_2** (trailing-byte detection): \u274c Not identified\n- **gap_3** (card-count validation): \u2705 Identified in Plan #2 under \"Max copies per card\"\n- **gap_4** (deck-size validation): \u2705 Identified in Plan #2 under \"Total card count\"\n- **gap_5** (card-ID validation): \u274c Not identified; the report mentions no card database but doesn't address validating IDs against known cards\n- **gap_6** (human-readable output): \u2705 Identified as \"No card database integration\" and addressed in Plan #6\n- **gap_7** (format-version migration): \u274c Not identified; report only mentions \"UnsupportedVersionError\" but no graceful degradation\n- **gap_8** (logging/error context): \u2705 Identified in Triage #11 and Plan #11\n- **gap_9** (serialization formats): \u274c Not identified; Plan #7 adds `__repr__` but no to_dict/to_json methods\n- **gap_10** (concurrent/batch processing): \u274c Not identified\n\n**Plan Specificity Analysis:**\n- **gap_1**: \"concrete\" - Specific bounds checking (max 10 iterations), try/except blocks, custom exception names\n- **gap_3**: \"concrete\" - Explicit validation rules (2 for normal, 1 for Legendary)\n- **gap_4**: \"concrete\" - Specific check for \"typically 30 for Hearthstone\"\n- **gap_6**: \"concrete\" - Specific methods (`get_card_names()`, `from_card_names()`) and architecture (optional CardDatabase layer)\n- **gap_8**: \"concrete\" - Specific logging calls with examples (\"Read format type: 2\")",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

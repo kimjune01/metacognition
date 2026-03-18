@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- The report correctly identifies most working capabilities (feed parsing, multi-source aggregation, time normalization, etc.)\n- However, observation #4 claims \"Deduplication: Uses timestamp-based IDs to prevent duplicate entries within a category\" which is **incorrect**. The ground truth explicitly states \"gap_3: No deduplication across fetches\" and that entries from different feeds with the same article will both appear. The timestamp-based ID actually creates collision risk (gap_3), not deduplication capability.\n\n**Gap Coverage:**\n- **gap_1** \u2713 Identified as \"No Error Handling\" (Critical #1)\n- **gap_2** \u2713 Identified as \"No Feed Validation\" (High #7)\n- **gap_3** \u2717 NOT identified - the report incorrectly claims deduplication exists in Observations #4, and Triage #4 addresses ID collision risk but not cross-feed deduplication\n- **gap_4** \u2713 Identified as \"No Content Extraction\" (Low #14)\n- **gap_5** \u2713 Identified as \"No Stale Data Handling\" and \"No Feed Metadata\" (High #5, Low #15)\n- **gap_6** \u2713 Identified as \"No Rate Limiting\" (Critical #2)\n- **gap_7** \u2713 Identified as \"No Read/Unread Tracking\" (Low #16)\n- **gap_8** \u2713 Identified as \"No Error Handling\" with retry logic mentioned (Critical #1)\n- **gap_9** \u2717 NOT identified - no mention of feed discovery or OPML import/export\n- **gap_10** \u2717 NOT identified - no mention of output format flexibility beyond JSON\n\n**Plan Specificity:**\nFor gaps that were identified, the plans are generally concrete with code snippets and specific implementation details (e.g., specific exception types, SHA256 hash formula, ThreadPoolExecutor usage, etc.)",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

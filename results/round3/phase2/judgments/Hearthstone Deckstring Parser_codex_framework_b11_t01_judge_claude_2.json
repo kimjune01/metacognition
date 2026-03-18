@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "I'll evaluate this diagnostic report against the ground truth systematically.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, deck class wrapper, sideboard support, version checking, and format validation. It accurately notes existing validation (header, version, format, hero count on write) and correctly characterizes this as \"a functional serializer/deserializer for a subset of the format.\"\n\n**Gap Coverage Analysis:**\n\n- **gap_1** (truncated input \u2192 EOFError): \u2705 Identified in Triage #2: \"The parser accepts arbitrary section sizes and can be driven into excessive reads or memory growth by malformed input\"\n- **gap_2** (trailing bytes): \u2705 Identified in Triage #2: \"It does not check for trailing garbage after a valid deck payload\"\n- **gap_3** (card-count validation): \u2705 Identified in Triage #2: \"Counts... are trusted blindly\" and Plan #2: \"counts > 0\"\n- **gap_4** (deck-size validation): \u2705 Identified in Triage #2: \"Add upper bounds for section lengths and total cards\"\n- **gap_5** (card-ID validation): \u2705 Identified in Triage #2: \"card IDs... are trusted blindly\" and Plan #2: \"card IDs > 0\"\n- **gap_6** (human-readable output): \u274c Not identified. The report mentions \"raw tuples and mutable lists\" but doesn't discuss card name resolution or metadata\n- **gap_7** (format-version migration): \u2705 Identified in Triage #3: \"assumes a single fixed deckstring version... but production code usually needs a clearer compatibility story\"\n- **gap_8** (logging/error context): \u274c Not identified. While the report mentions generic exceptions, it doesn't address lack of parse position or section context in errors\n- **gap_9** (to_dict/to_json): \u274c Not identified. The report doesn't mention serialization to interchange formats\n- **gap_10** (batch processing): \u274c Not identified. No mention of concurrent/batch/streaming support\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: \"concrete\" - Plan #2 explicitly addresses validation: \"verify the stream is fully consumed\"\n- **gap_2**: \"concrete\" - Plan #2: \"After parsing, verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3**: \"concrete\" - Plan #2 lists specific validation: \"counts > 0\"\n- **gap_4**: \"concrete\" - Plan #2: \"Add upper bounds for section lengths and total cards\"\n- **gap_5**: \"concrete\" - Plan #2: \"card IDs > 0\"\n- **gap_6**: \"absent\" - Gap not identified, so no plan\n- **gap_7**: \"directional\" - Plan #3 mentions \"Document supported deckstring versions\" but doesn't provide concrete migration strategy\n- **gap_8**: \"absent\" - Gap not identified, so no plan\n- **gap_9**: \"absent\" - Gap not identified, so no plan\n- **gap_10**: \"absent\" - Gap not identified, so no plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

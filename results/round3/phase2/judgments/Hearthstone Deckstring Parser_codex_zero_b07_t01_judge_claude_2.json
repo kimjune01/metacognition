@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes all working capabilities: base64 decode/encode, varint handling, format validation, hero/card/sideboard parsing, the Deck class interface, and deterministic sorting.\n\n**Gap Coverage:**\n- **gap_1 (truncated deckstring)**: \u2713 Triage #2 mentions \"truncated payloads\" and Plan #2 says \"Reject malformed or truncated payloads\"\n- **gap_2 (trailing bytes)**: \u2713 Triage #2 mentions \"trailing garbage\" and Plan #2 says \"check for unexpected trailing bytes\"\n- **gap_3 (card-count validation)**: \u2713 Triage #3 mentions \"negative/impossible counts\" and Plan #3 enforces \"counts are positive integers\"\n- **gap_4 (deck-size validation)**: \u2717 The report never mentions total deck size (30/40 cards)\n- **gap_5 (card-ID validation)**: \u2713 Triage #3 mentions \"invalid card IDs\" and Plan #3 enforces \"card IDs are positive integers\"\n- **gap_6 (human-readable output)**: \u2717 The report focuses on validation/parsing; no mention of card name resolution or metadata\n- **gap_7 (format-version migration)**: \u2713 Triage #8 mentions \"compatibility with multiple deckstring variants\" and Triage #5 mentions \"unsupported version\"\n- **gap_8 (logging/error context)**: \u2713 Triage #5 addresses error taxonomy and Plan #5 introduces domain-specific exceptions with better context\n- **gap_9 (serialization formats)**: \u2717 No mention of to_dict(), to_json(), or __repr__\n- **gap_10 (batch processing)**: \u2717 No mention of concurrent/batch/async processing\n\n**Plan Specificity:**\n- **gap_1**: concrete - Specific code changes provided for varint EOF handling\n- **gap_2**: concrete - Explicit action \"check for unexpected trailing bytes\" with test cases\n- **gap_3**: concrete - Detailed validation rules listed (positive integers, no duplicates)\n- **gap_5**: concrete - Explicit validation for card IDs as positive integers\n- **gap_7**: directional - Mentions \"compatibility with multiple deckstring variants\" but no concrete migration strategy\n- **gap_8**: concrete - Lists specific exception types and documents API boundaries",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

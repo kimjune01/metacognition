@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"directional\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies all working capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization (described as \"three card count categories\"), Deck class with factory method and property, format validation, and sideboard support.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2705 Identified in Critical Gap #1 \"No error handling for malformed input\" and Plan #1 mentions \"bounds checking in _read_varint()\"\n- **gap_2 (trailing bytes)**: \u2705 Identified in Plan #1 \"Validate that stream is fully consumed after parsing (detect trailing garbage)\"\n- **gap_3 (card count validation)**: \u2705 Identified in Critical Gap #2 and Plan #2 mentions \"Max 2 copies per card\"\n- **gap_4 (deck size validation)**: \u2705 Identified in Critical Gap #2 and Plan #2 mentions \"30 cards total for Standard/Wild\"\n- **gap_5 (card ID validation)**: \u2705 Identified in Critical Gap #2 \"valid card IDs\" and Plan #9 \"validate_card_ids()\"\n- **gap_6 (human-readable output)**: \u2705 Identified in Minor Gap #10 and Plan #10 with concrete examples\n- **gap_7 (version migration)**: \u274c Not identified. The report mentions validation but not graceful handling of future versions\n- **gap_8 (logging/error context)**: \u2705 Identified in Important Gap #4 \"Poor error messages\" and #5 \"No logging\" with concrete plans\n- **gap_9 (serialization formats)**: \u2705 Identified in Minor Gap #10 and Plan #10 mentions \"to_text()\" and \"from_text()\"\n- **gap_10 (batch processing)**: \u274c Not identified. No mention of concurrent or batch processing capabilities\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Shows specific code examples for base64 error handling and shift limit checks\n- **gap_2**: \"concrete\" - Explicitly states \"Validate that stream is fully consumed after parsing\"\n- **gap_3**: \"directional\" - Mentions max 2 copies but lacks specifics on how to handle zero/negative counts\n- **gap_4**: \"directional\" - States 30 cards for Standard/Wild but no implementation detail\n- **gap_5**: \"directional\" - Mentions validate_card_ids() but no detail on what happens with invalid IDs\n- **gap_6**: \"concrete\" - Shows exact output format example and method signatures\n- **gap_7**: \"absent\" - Gap not identified\n- **gap_8**: \"concrete\" - Shows custom exception class example and specific logging levels\n- **gap_9**: \"concrete\" - Shows to_text() method signature and output format\n- **gap_10**: \"absent\" - Gap not identified",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "directional",
+      "gap_4": "directional",
+      "gap_5": "directional",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

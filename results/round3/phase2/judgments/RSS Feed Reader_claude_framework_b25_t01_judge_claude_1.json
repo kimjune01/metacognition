@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- The report correctly identifies most working capabilities\n- However, item #3 \"Feed aggregation and deduplication\" is misleading - the system does NOT deduplicate entries from multiple sources, it only sorts them. The timestamp-based ID actually causes collisions, not deduplication\n- The rest of the observations are accurate descriptions of what the system does\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: \u2705 Identified in Triage #1 \"Error handling is incomplete\"\n- **gap_2 (feed validation)**: \u274c Not identified. Triage #4 mentions config validation, not feed content validation\n- **gap_3 (no deduplication)**: \u274c Not identified. In fact, Observations #3 incorrectly claims deduplication exists\n- **gap_4 (no content extraction)**: \u2705 Identified in Triage #8 \"No content extraction or cleaning\"\n- **gap_5 (no caching)**: \u2705 Identified in Triage #3 \"Feed freshness tracking is broken\"\n- **gap_6 (no rate limiting)**: \u2705 Identified in Triage #2 \"No rate limiting or request throttling\"\n- **gap_7 (no persistent state)**: \u2705 Identified in Triage #9 \"No tracking of read/unread status\"\n- **gap_8 (no retry)**: \u2705 Identified in Triage #1 \"No retry logic for transient network errors\"\n- **gap_9 (no OPML)**: \u274c Not mentioned anywhere\n- **gap_10 (output format flexibility)**: \u274c Not mentioned anywhere\n\n**Plan Specificity:**\n- **gap_1**: concrete - Provides complete code for retry logic with requests library\n- **gap_4**: concrete - Shows code for HTML entity cleaning and title truncation\n- **gap_5**: concrete - Detailed implementation of ETag-based conditional fetching\n- **gap_6**: concrete - Complete RateLimiter class implementation\n- **gap_7**: directional - Mentions tracking metadata but doesn't provide implementation details for read/unread functionality\n- **gap_8**: concrete - Included in gap_1's retry implementation",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

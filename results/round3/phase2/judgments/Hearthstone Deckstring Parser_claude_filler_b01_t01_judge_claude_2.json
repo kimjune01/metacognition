@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "I'll evaluate this diagnostic report systematically against the ground truth.\n\n## Analysis\n\n### 1. OBSERVATION ACCURACY\nThe Observations section correctly describes:\n- Varint encoding/decoding \u2713\n- Deckstring parsing with all components (cards, heroes, format, sideboards) \u2713\n- Deckstring writing/encoding \u2713\n- Tri-sort optimization \u2713\n- Deck class with from_deckstring and as_deckstring \u2713\n- Sideboard support \u2713\n\nThe observations accurately capture what the system **does**, without claiming capabilities it lacks. The descriptions match the actual implementation.\n\n**Score: accurate**\n\n### 2. GAP COVERAGE\n\nMapping ground-truth gaps to Triage section items:\n\n- **gap_1** (No input sanitization/truncated deckstring handling): Identified as #1 \"No Error Handling\" - mentions \"truncated deckstrings cause unclear failures\"\n- **gap_2** (No trailing-byte detection): NOT identified - the report doesn't mention checking for unparsed bytes\n- **gap_3** (No card-count validation): Identified as #2 \"No Validation\" - mentions \"Accepts invalid deck compositions without checking game rules\"\n- **gap_4** (No deck-size validation): Identified as #2 \"No Validation\" (same as gap_3)\n- **gap_5** (No card-ID validation): Identified as #9 \"No Card Database Integration\" - mentions cannot validate card IDs\n- **gap_6** (No human-readable output): Identified as #10 \"No Human-Readable Export\"\n- **gap_7** (No format-version migration): NOT identified - the report mentions hard-coded single hero assumption but not version migration/graceful degradation\n- **gap_8** (No logging or error context): Identified as #7 \"No Logging\" and #1 mentions minimal context in exceptions\n- **gap_9** (No serialization to standard formats): Identified as #10 (human-readable export) and #11 (alternative formats)\n- **gap_10** (No concurrent/batch processing): NOT identified - performance section (#12) mentions single deckstring processing but doesn't identify batch/async as a gap\n\n### 3. PLAN SPECIFICITY\n\nFor gaps that WERE identified:\n\n- **gap_1**: Plan #1 \"Add Error Handling\" - very concrete with specific exception classes, try-except blocks, validation steps\n- **gap_3**: Plan #2 \"Implement Deck Validation\" - concrete with specific validation rules, methods, and examples\n- **gap_4**: Plan #2 (same as gap_3) - concrete\n- **gap_5**: Plan #9 \"Add Card Database Integration\" - concrete with class design and method signatures\n- **gap_6**: Plan #10 \"Add Text Format Export\" - concrete with method signatures and format examples\n- **gap_8**: Plan #1 (error context) and #7 (logging) - both concrete with specific implementation details\n- **gap_9**: Plans #10 and #11 - concrete with specific classes and methods\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

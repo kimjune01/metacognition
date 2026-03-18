@@ -1,0 +1,27 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "I'll evaluate this diagnostic report against the ground truth systematically.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_7\": \"directional\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies all working capabilities: varint handling, parse/write round-trip, format validation, hero/card/sideboard parsing, the Deck wrapper class, and tri-sort grouping. No false claims about capabilities.\n\n**Gap Coverage Analysis:**\n\n- **gap_1** (truncated input handling): \u2705 Identified in Triage #1 \"truncated inputs can raise low-level exceptions\"\n- **gap_2** (trailing bytes): \u2705 Identified in Triage #1 \"parser does not check for trailing garbage after a valid payload\"\n- **gap_3** (card count validation): \u2705 Identified in Triage #2 \"No validation for negative card counts, zero counts\"\n- **gap_4** (deck size validation): \u274c Not mentioned. Report focuses on card-level validation but never mentions total deck size (30/40 cards)\n- **gap_5** (card ID validation): \u2705 Identified in Triage #2 \"invalid card IDs\" mentioned explicitly\n- **gap_6** (human-readable output): \u274c Not mentioned. Report doesn't discuss card name resolution or metadata lookup\n- **gap_7** (version migration): \u2705 Identified in Triage #3 \"no explicit compatibility layer for future deckstring versions\"\n- **gap_8** (logging/error context): \u274c Not mentioned. Report discusses error types but not diagnostic context in error messages\n- **gap_9** (serialization formats): \u274c Not mentioned. No discussion of to_dict(), to_json(), or __repr__\n- **gap_10** (batch processing): \u274c Not mentioned. No discussion of concurrent or bulk processing\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: \"concrete\" - Specific actions: fix `_read_varint()` to detect `b\"\"`, replace EOF path with clean error\n- **gap_2**: \"concrete\" - Specific action: \"After parsing, verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3**: \"concrete\" - Detailed validation function spec with specific constraints to enforce\n- **gap_5**: \"concrete\" - Explicitly includes \"card IDs are positive integers\" in validation checklist\n- **gap_7**: \"directional\" - Says to \"isolate version-specific behavior\" but doesn't specify how to handle v2 deckstrings",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_5": "concrete",
+      "gap_7": "directional"
+    }
+  }
+}

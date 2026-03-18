@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"directional\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Rationale\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, Deck class with round-trip conversion, sideboard support, version checking, and format validation. All capabilities are accurately stated.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (truncated input handling)**: \u2705 Triage item #1 \"No error handling for malformed input\" + Plan #1 catching EOFError from varint reads\n- **gap_2 (trailing-byte detection)**: \u274c Not mentioned anywhere\n- **gap_3 (card-count validation)**: \u2705 Triage item #2 \"Accepts negative counts\" + Plan #2 validates \"count > 0 and count <= 255\"\n- **gap_4 (deck-size validation)**: \u2705 Triage item #9 \"No deck validation rules - Doesn't check 30-card limit\" + Plan #9 addresses total card count\n- **gap_5 (card-ID validation)**: \u2705 Triage item #2 mentions \"invalid card IDs\" + Plan #2 validates \"card_id > 0\"\n- **gap_6 (human-readable output)**: \u274c Not mentioned (report focuses on internal validation, not card name resolution)\n- **gap_7 (format-version migration)**: \u274c Not mentioned (only validates current version, no migration strategy discussed)\n- **gap_8 (logging/error context)**: \u2705 Triage item #5 \"No logging or debugging output\" + Plan #5 adds structured logging\n- **gap_9 (serialization formats)**: \u2705 Triage item #10 mentions \"export to other formats\" + Plan #10 includes to_dict()\n- **gap_10 (batch processing)**: \u274c Not mentioned (report focuses on single-deck operations)\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: concrete - Shows exact exception hierarchy code, specific error wrapping locations\n- **gap_3**: concrete - Shows exact validation logic (\"count > 0 and count <= 255\", \"card_id > 0\")\n- **gap_4**: directional - Mentions checking \"total card count (typically 30)\" but no specific code for enforcing limits\n- **gap_5**: directional - Validates \"card_id > 0\" but doesn't specify how to validate against a card database\n- **gap_8**: concrete - Shows logger setup code, specific log statements with messages\n- **gap_9**: concrete - Lists specific methods (to_dict, __eq__, __hash__) with clear signatures",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "directional",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

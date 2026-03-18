@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies the working capabilities: varint handling, base64 encoding/decoding, tri-sort bucketing, sideboard support, the Deck class API, and format validation. It accurately describes what the system does.\n\n**Gap Coverage:**\n- **gap_1 (truncated stream)**: \u2705 Identified in Triage #1 \"truncated payloads\" and Plan #1 \"Catch truncated-stream\"\n- **gap_2 (trailing bytes)**: \u2705 Identified in Plan #1 \"trailing garbage after expected payload\"\n- **gap_3 (card count validation)**: \u2705 Identified in Triage #3 \"zero or negative logical counts\" and Plan #3 \"all counts are positive integers\"\n- **gap_4 (deck size validation)**: \u274c Not mentioned - the report discusses validating individual card counts and duplicate IDs, but never mentions total deck size (30/40 cards)\n- **gap_5 (card ID validation)**: \u274c Not mentioned - while Plan #2 mentions \"absurd card IDs\", this is about bounds checking, not validating against a card database\n- **gap_6 (human-readable output)**: \u274c Not mentioned - no discussion of card name resolution or metadata\n- **gap_7 (format version migration)**: \u2705 Identified in Triage #7 \"No compatibility/versioning strategy beyond v1 rejection\"\n- **gap_8 (logging/error context)**: \u2705 Identified in Triage #1 about \"low-level exceptions instead of clear domain errors\" and Plan #7 mentions \"structured logging\"\n- **gap_9 (serialization formats)**: \u274c Not mentioned - no discussion of to_dict(), to_json(), or __repr__\n- **gap_10 (batch processing)**: \u274c Not mentioned - no discussion of concurrent or bulk processing\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific fix provided: \"check `if c == b\\\"\\\"`\" and wrap base64 decode\n- **gap_2**: \"concrete\" - Explicit action: \"Add explicit checks for... trailing garbage after expected payload\"\n- **gap_3**: \"concrete\" - Clear validation: \"all counts are positive integers\"\n- **gap_4**: \"absent\" - Not identified, so no plan\n- **gap_5**: \"absent\" - Not identified, so no plan\n- **gap_6**: \"absent\" - Not identified, so no plan\n- **gap_7**: \"directional\" - Plan #7 mentions \"version compatibility tests\" but doesn't specify how to handle version 2 or implement migration\n- **gap_8**: \"directional\" - Mentions \"structured logging\" and \"consistent, user-facing errors\" but doesn't specify what context to include or how\n- **gap_9**: \"absent\" - Not identified, so no plan\n- **gap_10**: \"absent\" - Not identified, so no plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "directional",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

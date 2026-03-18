@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's working capabilities: base64 decoding, varint compression, structured parsing into Deck objects, version/format validation, and sorted accessors. It accurately identifies that this is a pure encoder/decoder with no persistence layer.\n\n**Gap Coverage:**\n- **gap_1 (truncated stream handling): TRUE** - Identified in Triage #1: \"EOF during varint read raises generic EOFError, but malformed data (truncated streams...) can cause silent corruption\"\n- **gap_2 (trailing byte detection): FALSE** - Not mentioned anywhere in the report\n- **gap_3 (card count validation): TRUE** - Identified in Triage #2: \"accepts...100 copies of a card...without complaint\" and Plan #2 validates card counts\n- **gap_4 (deck size validation): TRUE** - Identified in Plan #2: \"total_cards != 30\" check with validation logic\n- **gap_5 (card ID validation): TRUE** - Identified in Triage #2: \"accepts...invalid card IDs without complaint\"\n- **gap_6 (human-readable output): FALSE** - Plan #7 only addresses `__repr__()` for the Deck object itself, not resolving card IDs to names/metadata\n- **gap_7 (format version migration): FALSE** - Not mentioned; the report doesn't address handling future deckstring versions\n- **gap_8 (logging/error context): TRUE** - Identified in Triage #3 and Plan #3 with concrete logging implementation\n- **gap_9 (serialization formats): TRUE** - Identified in Triage \"No pretty-printing\" and Plan #7 provides `__str__()` method, though doesn't explicitly mention JSON/dict serialization\n- **gap_10 (batch processing): FALSE** - Plan #4 mentions `parse_many()` but only as a bullet point with no implementation details\n\n**Plan Specificity:**\n- **gap_1: concrete** - Provides wrapper function `_safe_read_varint()` and specific exception handling pattern\n- **gap_3: concrete** - Shows validation logic with count checks and legendary exceptions handling\n- **gap_4: absent** - While the plan includes deck size validation code, it's part of gap_3's solution (not separately addressed)\n- **gap_5: absent** - Mentioned in triage but no concrete plan provided\n- **gap_8: concrete** - Specific logging statements with debug levels and field names\n- **gap_9: concrete** - Complete `__repr__()` and `__str__()` implementations provided",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

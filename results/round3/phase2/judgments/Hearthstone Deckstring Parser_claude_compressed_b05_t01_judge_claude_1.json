@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: mostly_accurate**\n- The report correctly identifies the system's core capabilities (varint encoding, deckstring parsing/writing, tri-sort optimization, round-trip conversion)\n- However, it force-fits the system into a \"Perceive/Cache/Filter/Attend/Remember/Consolidate\" framework that doesn't naturally apply to a stateless serialization library. The \"Not applicable\" entries for 3 out of 6 categories suggest the framework is a poor match, making the observations less useful than a straightforward feature description would be.\n\n**Gap Coverage:**\n- **gap_1 (truncated deckstring \u2192 EOFError)**: \u2705 Identified as \"Accepts malformed varints that cause EOFError\"\n- **gap_2 (trailing bytes not detected)**: \u2705 Identified as \"Unhandled trailing bytes after parse completion\"\n- **gap_3 (no card-count validation)**: \u2705 Identified as \"No validation of card counts (could be 0 or negative)\"\n- **gap_4 (no deck-size validation)**: \u2705 Identified as \"Missing deck size constraints (30 cards for constructed, 40 for other formats)\"\n- **gap_5 (no card-ID validation)**: \u274c Not mentioned\n- **gap_6 (no human-readable output)**: \u274c Not mentioned (the \"No human-readable string representation\" refers to `__str__`/`__repr__`, not card name resolution)\n- **gap_7 (no format-version migration)**: \u274c Not mentioned\n- **gap_8 (no error context in exceptions)**: \u2705 Identified under \"No logging or observability\" as \"No way to debug partial parse failures\"\n- **gap_9 (no serialization to JSON/dict)**: \u2705 Identified as \"No human-readable string representation (`__str__`, `__repr__`)\" though the plan focuses on `__repr__` rather than interchange formats\n- **gap_10 (no batch/async support)**: \u274c Not mentioned\n\n**Plan Specificity:**\n- **gap_1**: Concrete (provides exact code for EOFError handling and byte counter)\n- **gap_2**: Concrete (provides exact code: `data.read(1) == b\"\"`)\n- **gap_3**: Concrete (provides exact validation: `if count <= 0: raise ValueError()`)\n- **gap_4**: Directional (suggests validation approach but notes \"Requires card database integration\" without specifying where to get the database or how to structure the validator for different formats)\n- **gap_8**: Concrete (provides specific logging statements with debug levels)\n- **gap_9**: Concrete (provides `__repr__` implementation, though misses `to_dict()`/`to_json()`)",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- Most observations are correct (feed parsing, multi-category support, timezone handling, JSON output, etc.)\n- However, observation #5 claims \"Deduplication: Uses timestamp-based IDs to prevent duplicate entries\" is misleading. The system creates timestamp-based IDs, but this doesn't actually provide deduplication across feeds (gap_3). Same-second entries will collide, and the same article from different feeds will appear multiple times.\n\n**Gap Coverage Analysis:**\n\n- **gap_1** (HTTP error handling): \u2705 Identified as \"Critical Gap #1: Error Handling\"\n- **gap_2** (feed validation): \u274c Not identified. The report mentions \"Configuration Validation\" (#5) for feeds.json structure, not validation of parsed feed contents\n- **gap_3** (deduplication across fetches): \u2705 Identified as \"Critical Gap #2: Collision Detection\" and \"Critical Gap #3: Stale Data Management\"\n- **gap_4** (content extraction): \u2705 Identified as \"Low Priority #14: Feed Metadata\"\n- **gap_5** (caching/conditional fetching): \u274c Not identified. No mention of ETags, Last-Modified, or conditional requests\n- **gap_6** (rate limiting): \u274c Not identified. \"Medium Priority #9: Performance\" suggests parallel fetching, which is the opposite of rate limiting\n- **gap_7** (persistent state): \u2705 Identified as \"Critical Gap #3: Stale Data Management\" mentions \"no stale data management\" and old entries never expiring\n- **gap_8** (error recovery/retry): \u2705 Identified in \"Critical Gap #1: Error Handling\" with specific mention of retry logic\n- **gap_9** (OPML import/export): \u274c Not identified anywhere\n- **gap_10** (output format flexibility): \u274c Not identified. No mention of HTML, terminal display, or alternative outputs\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: **concrete** - Specific exception types, code examples, retry logic with backoff\n- **gap_3**: **concrete** - Specific ID generation approaches (composite key, UUID), MAX_ENTRY_AGE_DAYS constants, pruning function\n- **gap_4**: **directional** - Mentions capturing fields but lacks detail on implementation approach or data structure changes\n- **gap_6**: **concrete** - Despite not identifying rate limiting as a gap, the timeout handling section provides concrete timeout configuration\n- **gap_7**: **concrete** - MAX_ENTRIES_PER_CATEGORY, slicing logic, per-category configuration\n- **gap_8**: **concrete** - Retry logic, exponential backoff, specific exception handling patterns",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

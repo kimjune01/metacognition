@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "I'll analyze this diagnostic report against the ground truth systematically.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"directional\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies what the system does: round-trip deckstring encoding/decoding, varint handling, sideboard support, format validation, card bucketing, and the object model. No false capabilities are claimed.\n\n**Gap Coverage Analysis:**\n\n- **gap_1** (truncated input validation): \u2705 Triage #1 mentions \"malformed-varint guards\" and Plan #1 includes \"Add overflow / malformed-varint guards so decode cannot loop forever on bad input\"\n- **gap_2** (trailing bytes): \u2705 Triage #1 explicitly states \"accepts trailing bytes silently\" and Plan #1 says \"assert the stream is fully consumed\"\n- **gap_3** (card-count validation): \u2705 Triage #2 mentions \"invalid counts\" and Plan #2 references validation\n- **gap_4** (deck-size validation): \u2705 Triage #2 mentions \"minimum card count\" as an invariant to enforce\n- **gap_5** (card-ID validation): \u274c Not identified - the report mentions \"card database validation\" only in Plan #5 as optional future scope, not as a current gap\n- **gap_6** (human-readable output): \u274c Not identified - no mention of card name resolution or metadata\n- **gap_7** (format-version migration): \u274c Not identified - while Plan #5 mentions \"versioning and compatibility notes,\" it doesn't identify the lack of graceful degradation for version 2\n- **gap_8** (error context): \u2705 Triage #2 mentions \"generic ValueErrors with limited context\" and Plan #4 addresses strengthening exceptions\n- **gap_9** (serialization formats): \u2705 Triage #4 mentions lack of structured output, and the observation that `Deck` needs better API support implies this gap\n- **gap_10** (batch processing): \u274c Not identified - no mention of concurrent or bulk processing capabilities\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: \"concrete\" - Plan #1 gives specific implementation guidance (rewrite for Python 3 bytes, use `c[0]`, add overflow guards)\n- **gap_2**: \"concrete\" - Plan #1 explicitly states \"assert the stream is fully consumed\"\n- **gap_3**: \"directional\" - Plan #2 says \"validate during parse\" but doesn't specify how or what thresholds\n- **gap_4**: \"directional\" - Plan #2 mentions \"minimum card count\" but no specific deck-size rules\n- **gap_8**: \"directional\" - Plan #4 mentions \"more specific exceptions\" but doesn't detail what context to add\n- **gap_9**: \"concrete\" - Plan #4 mentions converting to dataclass and tightening type hints, which addresses structured representation",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "directional",
+      "gap_4": "directional",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "directional",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

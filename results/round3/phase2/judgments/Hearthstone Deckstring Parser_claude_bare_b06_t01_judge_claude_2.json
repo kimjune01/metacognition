@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies all major capabilities: deckstring parsing/generation, binary protocol implementation (varint encoding, multi-section format), the Deck class wrapper, trisort optimization, and sideboard support. These match the ground-truth description.\n\n**Gap Coverage:**\n- **gap_1 (truncated input handling)**: \u2705 Identified in Triage #1 \"No Error Recovery\" - explicitly mentions \"crash on corrupted deckstrings\" and Plan #1 addresses catching EOFError\n- **gap_2 (trailing-byte detection)**: \u274c Not identified - the report never mentions checking for unparsed trailing data\n- **gap_3 (card-count validation)**: \u2705 Identified in Triage #2 \"counts are legal\" and Plan #2 includes \"Card count limits\"\n- **gap_4 (deck-size validation)**: \u2705 Identified in Triage #2 and Plan #2 explicitly mentions \"Deck size (typically 30 cards)\"\n- **gap_5 (card-ID validation)**: \u2705 Identified in Triage #2 \"card IDs are valid\" and Plan #2 addresses it with optional card_db parameter\n- **gap_6 (human-readable output)**: \u2705 Identified in Triage #10 \"No Export Formats\" and Plan #10 provides to_card_list() method\n- **gap_7 (format-version migration)**: \u2705 Identified in Plan #1 with UnsupportedVersionError for \"version mismatches\"\n- **gap_8 (logging/error context)**: \u2705 Identified in Triage #1 and Plan #1 addresses specific exception types with better error messages\n- **gap_9 (serialization to JSON/dict)**: \u2705 Identified in Triage #9 \"Limited Introspection\" and #10 \"No Export Formats\", Plan #10 provides to_dict/from_dict\n- **gap_10 (batch/concurrent processing)**: \u274c Not identified - the report focuses on single-deckstring operations\n\n**Plan Specificity:**\nFor the 8 gaps identified, all have concrete plans with specific code examples, method signatures, and implementation locations except gap_2 and gap_10 which weren't identified.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

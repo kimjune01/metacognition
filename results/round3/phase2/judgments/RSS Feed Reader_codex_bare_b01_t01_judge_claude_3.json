@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "I'll evaluate this diagnostic report systematically against the ground truth.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: RSS fetching, entry normalization, timezone handling, per-category output, chronological sorting, feeds config management, author attribution, selective category fetching, and logging. All nine ground-truth capabilities are accurately captured.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (HTTP error handling)**: \u2705 Identified in Triage #1 - \"Broad bare except: blocks hide failures\" and \"A single parse/network issue can terminate\"\n- **gap_2 (feed validation)**: \u2705 Identified in Triage #5 - \"No validation that a parsed feed is actually valid RSS/Atom\"\n- **gap_3 (deduplication)**: \u2705 Identified in Triage #2 - \"Entries are keyed only by timestamp, so multiple items published in the same second will collide\"\n- **gap_4 (content extraction)**: \u2705 Identified in Triage #5 - \"Missing fallback handling for common fields like id, summary, content, tags\"\n- **gap_5 (caching/conditional fetching)**: \u274c Not mentioned. No discussion of ETag, Last-Modified, or conditional requests\n- **gap_6 (rate limiting)**: \u274c Not mentioned. Triage #6 mentions \"No rate limiting or backoff\" but only in context of retry logic, not preventing rapid successive requests\n- **gap_7 (persistent state)**: \u274c Not identified. The report mentions \"No retention policy or history model\" but doesn't identify the lack of read/unread tracking or \"last fetched\" timestamps\n- **gap_8 (error recovery/retry)**: \u2705 Identified in Triage #1 - \"A single parse/network issue can terminate the whole process\" and Plan #6 mentions retry with backoff\n- **gap_9 (OPML/feed discovery)**: \u274c Not mentioned\n- **gap_10 (output format flexibility)**: \u274c Not mentioned\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: concrete - Specific exceptions listed, structured results format, continue-on-error behavior\n- **gap_2**: concrete - Use bozo signals, define skip rules, log reasons\n- **gap_3**: concrete - Explicit ID derivation strategy (feed.id \u2192 feed.link \u2192 hash), atomic writes described\n- **gap_4**: concrete - Lists specific fields to normalize (id, title, link, author, published, updated, summary/content)\n- **gap_8**: concrete - \"Add retry with exponential backoff for transient failures\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

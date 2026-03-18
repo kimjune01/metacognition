@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly identifies all working capabilities: varint I/O, parsing/writing deckstrings, hero/card/sideboard handling, format validation, the Deck wrapper class, and base64 encoding.\n\n**Gap Coverage:**\n- **gap_1 (input sanitization)**: \u2705 Identified in Triage #1 \"truncated inputs can raise low-level exceptions\"\n- **gap_2 (trailing bytes)**: \u2705 Identified in Triage #1 \"parser does not check for trailing garbage\"\n- **gap_3 (card-count validation)**: \u2705 Identified in Triage #2 \"No validation for negative card counts, zero counts\"\n- **gap_4 (deck-size validation)**: \u274c Not mentioned; the report validates individual card counts but never discusses total deck size\n- **gap_5 (card-ID validation)**: \u2705 Identified in Triage #2 \"invalid card IDs\"\n- **gap_6 (human-readable output)**: \u274c Not mentioned; the report focuses on parsing/validation, not presentation\n- **gap_7 (format-version migration)**: \u2705 Identified in Triage #3 \"no explicit compatibility layer for future deckstring versions\"\n- **gap_8 (logging/error context)**: \u274c Not mentioned; while error handling is discussed, there's no mention of improving error messages with context\n- **gap_9 (serialization formats)**: \u274c Not mentioned; no discussion of to_dict/to_json/repr\n- **gap_10 (batch processing)**: \u274c Not mentioned; entirely out of scope for this report\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific fix for `_read_varint()`, wrap b64decode, detect EOF\n- **gap_2**: \"concrete\" - \"After parsing, verify the stream is fully consumed; reject trailing bytes\"\n- **gap_3**: \"concrete\" - \"counts are positive integers\" with enforcement location specified\n- **gap_5**: \"concrete\" - \"card IDs are positive integers\" in validation function\n- **gap_7**: \"directional\" - \"Isolate version-specific behavior\" but no concrete implementation approach given",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

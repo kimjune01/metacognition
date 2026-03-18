@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Rationale\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 7 working capabilities without hallucinating features or missing key functionality.\n\n**Gap Coverage Analysis:**\n- **gap_1** (truncated deckstring handling): \u2705 Identified as \"No error recovery: EOF handling exists but most parsing failures raise generic exceptions\"\n- **gap_2** (trailing bytes): \u274c Not mentioned\n- **gap_3** (card count validation): \u2705 Identified as \"Card IDs, counts, and format values are not validated\"\n- **gap_4** (deck size validation): \u274c Not mentioned (the report mentions \"total deck size validation\" in the Plan but not in Triage)\n- **gap_5** (card ID validation): \u2705 Explicitly identified: \"Card IDs... are not validated against known constraints\"\n- **gap_6** (human-readable output): \u274c Not mentioned\n- **gap_7** (format version migration): \u274c The report mentions \"Hard-coded version check\" but focuses on *rejecting* future versions rather than the lack of migration/graceful degradation\n- **gap_8** (logging/error context): \u2705 Identified as \"No logging: Debugging parsing failures requires adding print statements\" and \"No error recovery\"\n- **gap_9** (serialization formats): \u274c Not mentioned\n- **gap_10** (batch processing): \u274c Not mentioned\n\n**Plan Specificity Analysis:**\n- **gap_1**: concrete (specific exception class, try/except wrapping, byte offset reporting)\n- **gap_3**: concrete (specific validation functions with constraints)\n- **gap_5**: concrete (validate_dbf_id function with Set[int] parameter)\n- **gap_7**: directional (mentions warning and forward compatibility attempt but no concrete implementation strategy)\n- **gap_8**: concrete (specific logging statements with logger configuration)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

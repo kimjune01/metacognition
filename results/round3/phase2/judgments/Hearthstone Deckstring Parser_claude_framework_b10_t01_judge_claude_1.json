@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"directional\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 8 working capabilities of the system without hallucination or significant omission.\n\n**Gap Coverage:**\n- \u2705 gap_1 (truncated input): Identified as \"No validation - Accepts malformed input silently or crashes ungracefully\" and \"Fix varint reader EOF handling\"\n- \u274c gap_2 (trailing bytes): Not mentioned\n- \u2705 gap_3 (card count validation): Covered in \"No deck validation rules\" - specifically mentions \"2-per-card limit except legendaries\"\n- \u2705 gap_4 (deck size validation): Covered in \"No deck validation rules\" - specifically mentions \"30 cards\"\n- \u2705 gap_5 (card ID validation): Covered as \"No card database integration\" (though framed as missing feature rather than validation gap)\n- \u2705 gap_6 (human-readable output): Identified as \"No card database integration - Returns raw DBF IDs with no way to resolve to card names\"\n- \u274c gap_7 (format version migration): Not mentioned\n- \u2705 gap_8 (error context): \"No error context - Generic exceptions don't identify which card/field failed\"\n- \u2705 gap_9 (serialization formats): Identified as \"No string representation\" with concrete `__repr__` and `__str__` plan\n- \u274c gap_10 (batch processing): Not mentioned\n\n**Plan Specificity:**\n- gap_1: **concrete** - Specific line number, exact code change, clear rationale\n- gap_3: **concrete** - New method signature, return type, specific validation checks listed\n- gap_4: **concrete** - Same validation method covers deck size (\"Exactly 30 cards\")\n- gap_5: **concrete** - Validation method includes \"Format-legal cards (if card_db provided)\"\n- gap_6: **directional** - Mentions card database integration as needed but no concrete implementation plan\n- gap_8: **concrete** - Pattern shown with try-except wrapper and example error message\n- gap_9: **concrete** - Full implementation code provided for `__repr__` and `__str__`",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "directional",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

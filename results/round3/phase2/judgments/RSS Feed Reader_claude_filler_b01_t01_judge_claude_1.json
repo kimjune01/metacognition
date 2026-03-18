@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's working capabilities including feed parsing, multi-source aggregation, timezone handling, configuration management, etc. All 11 points accurately reflect what the system does.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling): TRUE** - Critical Gap #1 identifies \"No Error Recovery\" and specifically mentions the system \"exits entirely when feeds are unavailable\"\n- **gap_2 (feed validation): TRUE** - Critical Gap #2 \"No Validation\" covers malformed feed data\n- **gap_3 (deduplication): FALSE** - The report claims the system \"Uses timestamp-based keys to avoid duplicate entries\" (Observation #3), which contradicts the ground truth that entries with the same timestamp will collide and duplicates across feeds are not deduplicated\n- **gap_4 (content extraction): TRUE** - Medium Priority #12 identifies that only title/link are stored, not summaries or full content\n- **gap_5 (caching): TRUE** - Critical Gap #4 \"No Caching Strategy\" and High Priority #13 \"No Incremental Updates\"\n- **gap_6 (rate limiting): TRUE** - Critical Gap #3 explicitly identifies \"No Rate Limiting\"\n- **gap_7 (persistent state): TRUE** - Medium Priority #15 identifies \"No Read/Unread Tracking\" and #13 notes lack of incremental updates\n- **gap_8 (error recovery/retry): TRUE** - Critical Gap #1 and High Priority #6 \"No Retry Logic\"\n- **gap_9 (OPML/feed discovery): TRUE** - Low Priority #17 \"OPML Support\" and #18 \"Feed Discovery\"\n- **gap_10 (output formats): TRUE** - While not explicitly stated as a gap, Low Priority #16 hints at this and the entire plan assumes JSON-only output\n\n**Plan Specificity:**\n- **gap_1: concrete** - Specific code changes (wrap in try-except, load cached data, continue processing, log to file)\n- **gap_2: concrete** - Specific libraries (jsonschema), specific validations (URL, required fields, type checking)\n- **gap_3: absent** - Not identified as a gap\n- **gap_4: concrete** - Specific fields to store (feed.summary, feed.content[0].value), specific truncation limits\n- **gap_5: concrete** - Specific headers (If-Modified-Since, ETag), specific metadata storage, specific cache expiration times\n- **gap_6: concrete** - Specific implementation (time.sleep with 0.5-1s), specific backoff strategy, specific HTTP headers\n- **gap_7: concrete** - Specific metadata files (feed_health.json, read_items.json), specific high-water mark approach\n- **gap_8: concrete** - Specific retry counts (3 retries), specific backoff timing (1s, 2s, 4s)\n- **gap_9: concrete** - Specific function names, specific XML parsing, specific validation approach\n- **gap_10: directional** - The plan mentions statistics and search but doesn't address alternative output formats (HTML, terminal, email digest) with concrete implementation steps",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "directional"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"directional\",\n    \"gap_5\": \"directional\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the working capabilities: base64 encoding/decoding, varint serialization, header parsing (magic byte, version, format), hero parsing, tri-bucket card parsing (1/2/n counts), sideboard support, the Deck class interface, and deterministic sorting. It accurately notes the one-hero write-time constraint.\n\n**Gap Coverage:**\n- **gap_1** (truncated input \u2192 EOFError): \u2713 Identified in Triage #1 as \"Malformed or partial input can fail in unclear ways\" and \"unexpected EOF\"\n- **gap_2** (trailing bytes): \u2713 Identified in Plan #1 as \"verify no unexpected trailing bytes remain\"\n- **gap_3** (card-count validation): \u2713 Identified in Triage #1 as \"no validation for negative counts\" and Plan #1 \"invalid counts\"\n- **gap_4** (deck-size validation): \u2717 Not mentioned anywhere in the report\n- **gap_5** (card-ID validation): \u2713 Identified in Triage #1 as \"no validation for...invalid card IDs\" and Triage #5 mentions lack of \"hero/card consistency\"\n- **gap_6** (human-readable output): \u2717 Not mentioned; the report focuses on binary format correctness, not metadata resolution\n- **gap_7** (format-version migration): \u2713 Identified in Triage #1 as \"unsupported version\" rejection and Triage #7 mentions \"no versioning strategy beyond constant\"\n- **gap_8** (logging/error context): \u2713 Identified in Triage #7 as \"No logging\" and Plan #1 mentions \"clear exception types or standardized ValueError messages\"\n- **gap_9** (serialization to JSON/dict): \u2717 Not mentioned in the report\n- **gap_10** (batch/async processing): \u2717 Not mentioned; the report focuses on single-deckstring correctness\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" \u2013 Plan #1 provides specific actions: check `if c == b\"\"`, read byte with `c[0]`, reject unexpected EOF\n- **gap_2**: \"concrete\" \u2013 Plan #1 explicitly says \"verify no unexpected trailing bytes remain\"\n- **gap_3**: \"directional\" \u2013 Plan #1 mentions \"invalid counts\" but doesn't specify what constitutes valid (positive, 1-2 range, etc.)\n- **gap_5**: \"directional\" \u2013 Plan #1 mentions \"invalid...IDs\" but doesn't specify checking against a card database\n- **gap_7**: \"absent\" \u2013 While Triage mentions versioning, Plan doesn't provide concrete steps for version migration/graceful degradation\n- **gap_8**: \"concrete\" \u2013 Plan #1 says \"Add clear exception types or standardized ValueError messages\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "directional",
+      "gap_5": "directional",
+      "gap_7": "absent",
+      "gap_8": "concrete"
+    }
+  }
+}

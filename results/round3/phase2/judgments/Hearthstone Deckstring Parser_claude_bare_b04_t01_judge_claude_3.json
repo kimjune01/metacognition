@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's working capabilities: bidirectional encoding/decoding, varint compression, format support including sideboards, the Deck class wrapper, and sorting conventions. All statements align with what the system actually does.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2705 Identified as \"No error handling for malformed input - Silent failures or unclear exceptions on corrupted deckstrings\"\n- **gap_2 (trailing bytes)**: \u2705 Captured by the same triage item about malformed input handling\n- **gap_3 (card count validation)**: \u2705 Identified as \"No validation - Accepts invalid deck configurations (duplicate cards, wrong counts, invalid DBF IDs)\"\n- **gap_4 (deck size validation)**: \u274c Not mentioned. The report discusses card count validation but doesn't address total deck size limits (30/40 cards)\n- **gap_5 (card ID validation)**: \u2705 Explicitly mentioned in triage item 2 about invalid DBF IDs\n- **gap_6 (human-readable output)**: \u2705 Identified as \"No card name resolution - Works only with numeric DBF IDs\"\n- **gap_7 (format version migration)**: \u2705 Mentioned as \"UnsupportedVersionError\" in error handling section\n- **gap_8 (logging/error context)**: \u2705 Covered by \"Silent failures or unclear exceptions\" and the plan to add \"descriptive error messages\"\n- **gap_9 (serialization formats)**: \u2705 Identified as \"Limited Deck class functionality\" and addressed with `__str__`, `__repr__` in plan section 8\n- **gap_10 (batch processing)**: \u2705 Addressed in plan section 10 about performance optimization and caching for repeated parsing\n\n**Plan Specificity:**\nAll identified gaps have concrete plans with specific code changes, file locations, and implementation details (e.g., line numbers, code snippets, function signatures). Gap_4 is marked \"absent\" since it wasn't identified in triage.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

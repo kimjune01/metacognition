@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all major working capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, the Deck class wrapper, sideboard support, version checking, and format type handling. It accurately reflects what the system does.\n\n**Gap Coverage:**\n- **gap_1 (truncation handling): TRUE** - Identified in Critical Gap #1: \"Truncated deckstrings cause EOFError\"\n- **gap_2 (trailing bytes): FALSE** - Not mentioned. The report focuses on truncated input but doesn't discuss extra trailing data being silently ignored\n- **gap_3 (card count validation): TRUE** - Identified in Critical Gap #1: \"No validation of card counts\" and High Priority Gap #4\n- **gap_4 (deck size validation): TRUE** - Explicitly called out in High Priority Gap #4: \"Doesn't validate deck size limits (typically 30 cards in Hearthstone)\"\n- **gap_5 (card ID validation): TRUE** - Identified in High Priority Gap #4: \"No validation that card IDs exist\"\n- **gap_6 (human-readable output): FALSE** - Not mentioned. The report doesn't discuss resolving card IDs to names or metadata\n- **gap_7 (format migration): TRUE** - Identified in Low Priority Gap #9: \"Only supports v1... Would require code changes for v2 format\"\n- **gap_8 (error context): TRUE** - Identified in Medium Priority Gap #7: \"No debug output for troubleshooting malformed decks\" and in error handling section\n- **gap_9 (serialization formats): TRUE** - Identified in Low Priority Gap #10: \"No `__repr__` or `__eq__` for debugging\" (partial coverage, doesn't mention to_dict/to_json but recognizes the general issue)\n- **gap_10 (batch processing): TRUE** - Identified in Medium Priority Gap #8: \"Minor, but noticeable for batch operations\"\n\n**Plan Specificity:**\nFor each identified gap, the Plan section provides concrete code snippets and specific implementation steps, making them actionable. The two gaps not identified (gap_2 and gap_6) are marked as \"absent\" since they don't appear in the plan.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

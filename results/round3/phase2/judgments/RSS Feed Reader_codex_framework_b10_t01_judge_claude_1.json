@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Justification:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: config loading/merging, feed fetching, entry normalization, timezone conversion, date formatting, deduplication by timestamp, sorting, and JSON output. All capabilities are accurately described.\n\n**Gap Coverage:**\n\n- **gap_1 (HTTP error handling)**: TRUE - Triage #1 explicitly covers bare except blocks, sys.exit on failure, and lack of error classification\n- **gap_2 (feed validation)**: FALSE - While Triage #5 mentions config validation and Triage #6 mentions \"invalid feed responses,\" there's no explicit mention of validating whether parsed feeds contain valid data or checking for empty feeds/non-RSS URLs\n- **gap_3 (deduplication)**: TRUE - Triage #2 directly addresses incorrect deduplication and timestamp collisions\n- **gap_4 (content extraction)**: TRUE - Triage #8 identifies the thin data model and missing fields like content snippet, tags, etc.\n- **gap_5 (caching/conditional fetching)**: TRUE - Triage #6 mentions \"No conditional fetching via ETag/Last-Modified, so it re-downloads everything every run\"\n- **gap_6 (rate limiting)**: FALSE - Not mentioned in the triage section\n- **gap_7 (persistent state)**: TRUE - Triage #7 mentions lack of metrics about what was seen, and the general observation notes no state tracking beyond JSON output\n- **gap_8 (error recovery/retry)**: TRUE - Triage #1 covers sys.exit on failure and lack of retry; Triage #6 mentions \"No explicit HTTP timeout, retry, backoff\"\n- **gap_9 (OPML/feed discovery)**: FALSE - Not mentioned in the triage section\n- **gap_10 (output format flexibility)**: TRUE - Triage #8 mentions the data model is thin \"for downstream use\" and Plan #8 discusses output schema, implying awareness that output format is limited\n\n**Plan Specificity:**\n\n- **gap_1**: concrete - Detailed code examples for structured error handling and per-feed isolation\n- **gap_2**: absent - Not addressed\n- **gap_3**: concrete - Specific approach with GUID/link-based identity and seen_ids set\n- **gap_4**: concrete - Explicit list of fields to add to output schema in Plan #8\n- **gap_5**: concrete - Specific technical approach with ETag/Last-Modified headers and cache metadata\n- **gap_6**: absent - Not addressed\n- **gap_7**: directional - Mentions stats and errors in output but doesn't specify how to implement read/unread tracking or persistent state\n- **gap_8**: concrete - Specific mention of retry with backoff, timeout handling, and per-feed failure isolation\n- **gap_9**: absent - Not addressed\n- **gap_10**: directional - Mentions expanding schema and avoiding overloading sourceName, but doesn't specify how to support multiple output formats",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "directional"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, deck class wrapper, sideboard support, version checking, and format validation. It accurately characterizes this as a \"narrow happy path\" implementation.\n\n**Gap Coverage:**\n- **gap_1 (truncated input handling)**: \u2713 Identified in Triage #1 \"Invalid/truncated input can raise the wrong exception type\" and Plan #1 \"reject unterminated varints\"\n- **gap_2 (trailing-byte detection)**: \u2713 Identified in Triage #1 \"No protection against...trailing garbage\" and Plan #1 \"reject unexpected trailing bytes after the parse finishes\"\n- **gap_3 (card-count validation)**: \u2713 Identified in Triage #3 \"Invalid counts like `0` or negative counts are not rejected\" and Plan #3 \"counts are positive ints\"\n- **gap_4 (deck-size validation)**: \u2717 Not mentioned. The report discusses format-specific constraints generically but never specifically addresses total deck size (30/40 cards)\n- **gap_5 (card-ID validation)**: \u2717 Not mentioned. The report validates that IDs are \"positive ints\" but doesn't address whether they map to real cards in a database\n- **gap_6 (human-readable output)**: \u2717 Not mentioned. No discussion of card name resolution or metadata\n- **gap_7 (format-version migration)**: \u2717 Not mentioned. The report notes version must equal 1 but doesn't discuss forward compatibility or graceful degradation\n- **gap_8 (logging/error context)**: \u2713 Identified in Triage #1 \"fail unclearly\" and Plan #1 \"raise...with actionable messages\", though less specific than ideal\n- **gap_9 (serialization formats)**: \u2717 Not mentioned. No discussion of to_dict(), to_json(), or __repr__\n- **gap_10 (batch processing)**: \u2717 Not mentioned. No discussion of concurrent or bulk processing\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific code changes: change `if c == \"\":` to `if c == b\"\"`, use `c[0]`, add bounds checks\n- **gap_2**: \"concrete\" - Specific action: \"reject unexpected trailing bytes after the parse finishes\"\n- **gap_3**: \"concrete\" - Specific validation: \"counts are positive ints\", \"reject negative or zero counts\"\n- **gap_8**: \"directional\" - Suggests \"actionable messages\" and \"custom exceptions\" but doesn't specify what context to include or how\n- All others: \"absent\" - Not identified in triage, so no plan exists",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "directional",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe observations correctly describe what the system does. All 9 capabilities listed are accurate representations of the actual functionality.\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: TRUE - Identified as \"No Error Recovery\" (Critical #1)\n- **gap_2 (feed validation)**: FALSE - The report mentions \"Missing Feed Validation\" (High #7) but only refers to JSON config structure validation, not whether parsed feeds contain valid RSS data\n- **gap_3 (deduplication)**: TRUE - Identified as \"ID Collision Handling\" (Critical #2), noting timestamp-based IDs cause collisions\n- **gap_4 (content extraction)**: TRUE - Identified as \"Missing Feed Metadata\" (Medium #12), mentions description and other metadata not preserved\n- **gap_5 (caching)**: TRUE - Identified as \"No Caching/Conditional Requests\" (High #8)\n- **gap_6 (rate limiting)**: TRUE - Identified as \"No Rate Limiting\" (High #5)\n- **gap_7 (persistent state)**: FALSE - Not mentioned. The report doesn't discuss read/unread tracking or last-fetched timestamps\n- **gap_8 (error recovery/retry)**: TRUE - Identified as \"No Error Recovery\" (Critical #1), mentions sys.exit() terminating process\n- **gap_9 (OPML/feed discovery)**: FALSE - Not mentioned at all\n- **gap_10 (output format flexibility)**: FALSE - Not mentioned; the report accepts JSON-only output as given\n\n**Plan Specificity:**\n- **gap_1**: concrete - Provides exact code replacement with try/except/continue pattern\n- **gap_3**: concrete - Shows specific ID generation using timestamp + hash\n- **gap_4**: directional - Shows structure but only for feed-level metadata, not entry-level content/description\n- **gap_5**: concrete - Provides specific code for storing ETags in output structure\n- **gap_6**: concrete - Shows exact time.sleep() implementation\n- **gap_8**: concrete - Same as gap_1, shows specific exception handling code",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

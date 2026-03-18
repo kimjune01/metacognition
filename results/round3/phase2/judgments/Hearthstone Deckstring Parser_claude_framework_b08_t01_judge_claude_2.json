@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all 8 working capabilities without hallucination or mischaracterization.\n\n**Gap Coverage:**\n- \u2705 gap_1 (truncated input): Identified as \"Malformed deckstrings crash\" and \"Binary corruption produces cryptic messages\"\n- \u274c gap_2 (trailing bytes): Not mentioned anywhere in the report\n- \u2705 gap_3 (card-count validation): Identified as \"No card count limits\" and detailed in Plan #3\n- \u2705 gap_4 (deck-size validation): Identified as \"total card count (30 for Standard/Wild, 40 for Twist)\" in Plan #3\n- \u2705 gap_5 (card-ID validation): Identified as \"No card database integration - Cannot validate card IDs\"\n- \u2705 gap_6 (human-readable output): Identified as \"No way to convert... or validate IDs exist\" and addressed with card name resolution in Plan #4\n- \u2705 gap_7 (version migration): Identified as \"Version lock-in - Only supports version 1; newer versions will fail\"\n- \u2705 gap_8 (error context): Identified as \"Missing... context about which section failed\" in Plan #1\n- \u2705 gap_9 (serialization): Identified as needing JSON support in Plan #8 CLI interface\n- \u274c gap_10 (batch processing): Not mentioned; report focuses on single-deckstring operations only\n\n**Plan Specificity:**\n- gap_1: **concrete** - Specific exception hierarchy, wrapping strategy, and error handling locations\n- gap_3: **concrete** - Exact validation rules with card counts and legendary limits\n- gap_4: **concrete** - Specific card counts per format (30/40)\n- gap_5: **concrete** - CardDatabase class with specific methods and HearthstoneJSON integration\n- gap_6: **directional** - Mentions card name resolution in Plan #4 but lacks concrete implementation for human-readable output format\n- gap_7: **concrete** - Specific parameters, parsing paths, and version storage approach\n- gap_8: **concrete** - Logging levels, specific events to log, and error context enhancement\n- gap_9: **concrete** - Specific CLI structure with argparse and JSON encoding/decoding",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

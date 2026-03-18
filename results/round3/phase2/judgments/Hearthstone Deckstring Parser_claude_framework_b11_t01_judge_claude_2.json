@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate** - The Observations section correctly describes all the working capabilities: varint encoding, bidirectional conversion, card quantity optimization (tri-sort), format support, hero tracking, sideboard handling, OOP interface, and sorted output.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2705 Identified in Triage #1 as \"Parser will crash on truncated/corrupted deckstrings\"\n- **gap_2 (trailing bytes)**: \u274c Not mentioned anywhere in the report\n- **gap_3 (card count validation)**: \u2705 Identified in Triage #2 as \"Accepts invalid decks (wrong card counts...)\"\n- **gap_4 (deck size validation)**: \u2705 Identified in Triage #2, Plan #2 specifically mentions \"Total card count matches format rules (30 for Constructed, 40 for Twist, etc.)\"\n- **gap_5 (card ID validation)**: \u2705 Identified in Triage #6 as \"No card database integration - Can't validate card IDs\"\n- **gap_6 (human-readable output)**: \u2705 Identified in Triage #6 as \"Can't validate card IDs or look up card names/properties\"\n- **gap_7 (format version migration)**: \u274c Not mentioned; report only discusses missing FormatType enum, not version migration\n- **gap_8 (error context)**: \u2705 Identified in Triage #1, Plan #1 mentions \"Add context to errors (e.g., 'Failed at byte position 15...')\"\n- **gap_9 (serialization formats)**: \u2705 Identified in Triage #9, Plan #9 includes `to_dict()`, `__repr__`, etc.\n- **gap_10 (batch processing)**: \u2705 Identified in Triage #10 as \"Performance not optimized\" and Plan #10 mentions profiling with \"real-world workloads\"\n\n**Plan Specificity:**\n- **gap_1**: concrete - Detailed code examples for exception classes, try/except blocks, validation\n- **gap_3**: concrete - Specific validation checks with code example for ValidationResult class\n- **gap_4**: concrete - Explicit mention of 30-card and 40-card validation in Plan #2\n- **gap_5**: concrete - Plan #6 details CardDatabase class and card ID validation integration\n- **gap_6**: concrete - Plan #6 includes `get_card_name()` helper and database integration\n- **gap_8**: concrete - Plan #1 explicitly mentions adding byte position context to errors\n- **gap_9**: concrete - Plan #9 lists specific methods: `to_dict()`, `from_dict()`, `__eq__`, `__repr__`\n- **gap_10**: directional - Mentions profiling and caching but lacks concrete implementation details (more general guidance than actionable steps)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "directional"
+    }
+  }
+}

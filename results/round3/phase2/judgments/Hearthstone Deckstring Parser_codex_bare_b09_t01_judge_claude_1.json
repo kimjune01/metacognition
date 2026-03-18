@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: decode/encode deckstrings, support for heroes/cards/sideboards, varint primitives, the Deck class, and sorting. It accurately captures the working capabilities without overstating them.\n\n**Gap Coverage:**\n- **gap_1 (truncated stream handling)**: \u2713 Identified in Triage #2 \"No protection against...truncated payloads\" and Plan #2 \"Detect truncated streams\"\n- **gap_2 (trailing bytes)**: \u2713 Identified in Triage #2 \"trailing garbage\" and Plan #2 \"trailing unread bytes after a full parse\"\n- **gap_3 (card count validation)**: \u2713 Identified in Triage #4 \"zero/negative counts\" and Plan #3 \"counts are positive integers\"\n- **gap_4 (deck size validation)**: \u2717 Not mentioned. The report discusses individual card count validation but never mentions total deck size (30/40 cards)\n- **gap_5 (card ID validation)**: \u2713 Identified in Triage #2 and Plan #2 \"card IDs > 0\" and Plan #3 \"all IDs are positive integers\"\n- **gap_6 (human-readable output)**: \u2717 Not mentioned. The report never discusses card name resolution or metadata\n- **gap_7 (format version migration)**: \u2717 Not mentioned. While version checking is noted, there's no discussion of handling future versions gracefully\n- **gap_8 (logging/error context)**: \u2713 Identified in Triage #5 \"Error reporting is minimal\" and Plan #5 extensively covers structured exceptions with context\n- **gap_9 (serialization formats)**: \u2717 Not mentioned. No discussion of to_dict(), to_json(), or __repr__\n- **gap_10 (batch processing)**: \u2717 Not mentioned. No discussion of concurrent or bulk processing\n\n**Plan Specificity:**\nFor gaps the report DID identify:\n- **gap_1**: \"concrete\" - Specific fix described: detect EOF with `b\"\"`, extract byte with `c[0]`, add bounds protection\n- **gap_2**: \"concrete\" - Specific action: \"Detect truncated streams and trailing unread bytes after a full parse\"\n- **gap_3**: \"concrete\" - Specific validation: \"counts are positive integers\" in Plan #3\n- **gap_5**: \"concrete\" - Specific checks: \"card IDs > 0\" and \"all IDs are positive integers\"\n- **gap_8**: \"concrete\" - Detailed exception hierarchy and context requirements specified in Plan #5",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

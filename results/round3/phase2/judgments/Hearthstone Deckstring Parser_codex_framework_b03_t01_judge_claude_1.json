@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, sideboard support, version checking, format validation, and object-oriented wrapper. It accurately states the code works for well-formed inputs and can round-trip.\n\n**Gap Coverage:**\n- **gap_1 (truncated deckstring \u2192 EOFError)**: \u2705 Identified in Triage #2 \"truncated varints\" and Plan #5 test cases\n- **gap_2 (no trailing-byte detection)**: \u2705 Identified in Triage #2 \"trailing bytes\" and Plan #2 \"verify stream is fully consumed\"\n- **gap_3 (no card-count validation)**: \u2705 Identified in Triage #3 \"no validation that card counts are legal\" and Plan #2 \"Reject zero or negative counts\"\n- **gap_4 (no deck-size validation)**: \u2705 Identified in Triage #3 \"no validation that card counts are legal for the target format/game rules\" (implicitly includes total deck size)\n- **gap_5 (no card-ID validation)**: \u2705 Identified in Triage #2 and Plan #2 \"Reject negative IDs\"\n- **gap_6 (no human-readable output)**: \u274c Not mentioned\n- **gap_7 (no format-version migration)**: \u274c Not mentioned (only discusses version validation as existing feature)\n- **gap_8 (no logging/error context)**: \u2705 Identified in Triage #2 \"weak error handling\" and Plan #6 \"explicit exception classes\"\n- **gap_9 (no to_dict/to_json)**: \u274c Not mentioned\n- **gap_10 (no batch processing)**: \u274c Not mentioned\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific fix for byte handling with exact code patterns\n- **gap_2**: \"concrete\" - \"verify the stream is fully consumed or explicitly decide to allow trailing bytes\"\n- **gap_3**: \"concrete\" - \"Reject zero or negative counts on parse/write\"\n- **gap_4**: \"directional\" - Mentions \"legal for the target format/game rules\" but doesn't specify 30/40 card validation explicitly\n- **gap_5**: \"concrete\" - \"Reject negative IDs and counts on write\"\n- **gap_8**: \"concrete\" - \"Introduce explicit exception classes... Add docstrings\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

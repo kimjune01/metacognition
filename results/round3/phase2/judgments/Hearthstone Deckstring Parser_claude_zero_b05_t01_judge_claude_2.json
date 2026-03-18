@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "I'll evaluate this diagnostic report against the ground-truth gaps and the actual system capabilities.\n\nLet me analyze each dimension:\n\n## 1. OBSERVATION ACCURACY\n\nThe Observations section correctly describes:\n- Decoding/encoding deckstrings \u2713\n- Varint encoding \u2713\n- Format validation \u2713\n- Deck class with from_deckstring/as_deckstring \u2713\n- Sideboard support \u2713\n\nThe descriptions are accurate and match the system's actual capabilities. No false claims or misunderstandings.\n\n**Score: accurate**\n\n## 2. GAP COVERAGE\n\nMapping ground-truth gaps to the Triage section:\n\n- **gap_1** (No input sanitization, truncated deckstring causes EOFError): Identified in Triage #1 \"Error handling is minimal\" and Plan #1 mentions wrapping EOFError. **TRUE**\n\n- **gap_2** (No trailing-byte detection): Not explicitly mentioned. The report doesn't discuss unparsed trailing data. **FALSE**\n\n- **gap_3** (No card-count validation): Identified in Triage #3 \"No deck validation rules\" mentions \"wrong counts.\" **TRUE**\n\n- **gap_4** (No deck-size validation): Identified in Triage #3, Plan #3 mentions \"Check total card count (typically 30).\" **TRUE**\n\n- **gap_5** (No card-ID validation): Identified in Triage #3, Plan #3 mentions validating against card database. **TRUE**\n\n- **gap_6** (No human-readable output): Identified in Triage #7 \"No human-readable export.\" **TRUE**\n\n- **gap_7** (No format-version migration): Partially identified in Triage #1 mentions \"UnsupportedVersionError\" but doesn't discuss graceful degradation or migration strategy. **FALSE** (mentions the issue but not the migration aspect)\n\n- **gap_8** (No logging or error context): Identified in Triage #9 \"No logging/debugging support\" and Plan #1 discusses adding position tracking. **TRUE**\n\n- **gap_9** (No serialization to standard formats): Identified in Triage #5 and Plan #5 discusses JSON serialization. **TRUE**\n\n- **gap_10** (No concurrent/batch processing): Not mentioned at all. **FALSE**\n\n## 3. PLAN SPECIFICITY\n\nFor gaps that WERE identified:\n\n- **gap_1**: Plan #1 is concrete - custom exception hierarchy with code examples, specific error wrapping strategies. **concrete**\n\n- **gap_3**: Plan #3 is concrete - lists specific validation checks (card limits, total count, etc.) with method signature. **concrete**\n\n- **gap_4**: Plan #3 is concrete - explicitly mentions \"Check total card count (typically 30).\" **concrete**\n\n- **gap_5**: Plan #3 is concrete - validation method includes card database checks. **concrete**\n\n- **gap_6**: Plan #7 is concrete - provides method signatures and format examples. **concrete**\n\n- **gap_7**: Not substantially covered (only mentions creating UnsupportedVersionError, no migration plan). **absent**\n\n- **gap_8**: Plan #1 and #9 are concrete - logging module usage with examples, position tracking. **concrete**\n\n- **gap_9**: Plan #5 is concrete - shows dataclass fields and JSON method signatures. **concrete**\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

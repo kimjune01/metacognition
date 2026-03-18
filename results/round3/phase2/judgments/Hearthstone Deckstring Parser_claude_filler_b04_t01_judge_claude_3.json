@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Detailed Analysis\n\n### Observation Accuracy: **accurate**\nThe Observations section correctly describes all 8 working capabilities of the system without hallucinating features that don't exist.\n\n### Gap Coverage Mapping:\n\n- **gap_1** (truncated input handling): \u2705 **Identified** as Triage #1 \"No error handling for malformed input - parse_deckstring will crash on truncated or corrupted data\"\n- **gap_2** (trailing byte detection): \u2705 **Identified** as Triage #7 \"Silent data truncation - If extra data exists after parsing, it's ignored without warning\"\n- **gap_3** (card count validation): \u2705 **Identified** as Triage #2 \"Missing validation - No checks for valid card counts\"\n- **gap_4** (deck size validation): \u2705 **Identified** as Triage #2 \"Missing validation - ...deck size limits\"\n- **gap_5** (card ID validation): \u274c **Not identified** - Report does not mention validating card IDs against a card database\n- **gap_6** (human-readable output): \u274c **Not identified** - Report mentions string repr (Triage #16) but not card name resolution\n- **gap_7** (format version migration): \u274c **Not identified** - Report acknowledges version checking but doesn't discuss forward compatibility or migration\n- **gap_8** (error context): \u2705 **Identified** as Triage #1 mentioning \"unclear errors\" and Plan #1 suggesting contextual error messages\n- **gap_9** (serialization formats): \u2705 **Identified** as Triage #16 \"Deck object has no __str__ or __repr__\" (though focused on debugging rather than interchange)\n- **gap_10** (batch processing): \u274c **Not identified** - No mention of concurrent/async/batch capabilities\n\n### Plan Specificity:\n\n- **gap_1**: **concrete** - Plan #1 provides specific try-except blocks with example error messages\n- **gap_2**: **concrete** - Plan #7 provides exact code for checking remaining bytes with warnings\n- **gap_3**: **concrete** - Plan #2 includes specific validation function with count checks\n- **gap_4**: **concrete** - Plan #2 includes deck size validation (30-30 for Standard)\n- **gap_8**: **concrete** - Plan #1 provides contextual error message examples\n- **gap_9**: **concrete** - Plan #16 provides specific `__repr__` and `__str__` implementations",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

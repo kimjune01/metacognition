@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: mostly_accurate**\n- The observations correctly identify most working capabilities\n- However, item #4 \"Deduplication by timestamp\" is misleading - the code uses timestamp as an ID, but this actually *creates* collision problems rather than solving deduplication (as noted in gap_3). The system doesn't deduplicate; it just uses timestamps as identifiers, which can collide\n- The other 9 observations are accurate descriptions of what the system does\n\n**Gap Coverage:**\n- **gap_1** (HTTP error handling): \u2705 Identified as \"No error recovery\" (item 1)\n- **gap_2** (feed validation): \u2705 Identified as \"No feed validation\" (item 4)\n- **gap_3** (deduplication): \u2705 Identified as \"No entry deduplication across fetches\" (item 6)\n- **gap_4** (content extraction): \u2705 Identified as \"No entry content storage\" (item 11)\n- **gap_5** (caching/conditional fetching): \u2705 Identified as \"No HTTP caching\" (item 7) and \"No staleness detection\" (item 2)\n- **gap_6** (rate limiting): \u2705 Identified as \"No rate limiting\" (item 3)\n- **gap_7** (persistent state): \u2705 Identified as \"No read/unread tracking\" (item 12) and staleness issues\n- **gap_8** (error recovery/retry): \u2705 Identified as \"No error recovery\" (item 1) and \"No timeout handling\" (item 8)\n- **gap_9** (OPML/feed discovery): \u2705 Identified as \"No feed autodiscovery\" (item 14) and \"No OPML import/export\" (item 15)\n- **gap_10** (output format flexibility): \u274c Not identified - report doesn't mention lack of HTML/email/terminal rendering options\n\n**Plan Specificity:**\nAll identified gaps (1-9) have concrete plans with:\n- Code snippets showing exact implementation\n- Specific functions/libraries to use\n- Clear integration points in existing code\n- Gap 10 is \"absent\" because it wasn't identified in triage",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

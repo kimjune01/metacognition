@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, trisort optimization, hero/format/sideboard handling, round-trip conversion, and version checking. No false claims about capabilities.\n\n**Gap Coverage Analysis:**\n- **gap_1** (truncated input \u2192 EOFError): \u2705 Triage #1 mentions \"Malformed deckstrings raise generic exceptions (`ValueError`, `EOFError`)\"\n- **gap_2** (trailing bytes): \u274c Not mentioned\n- **gap_3** (card-count validation): \u2705 Triage #3 \"No checks for... negative counts\"\n- **gap_4** (deck-size validation): \u274c Not mentioned (Plan #9 mentions 30-card check as \"nice-to-have\" but doesn't appear in Triage)\n- **gap_5** (card-ID validation): \u2705 Triage #3 \"No checks for invalid card IDs\"\n- **gap_6** (human-readable output): \u2705 Triage #8 \"No human-readable export\"\n- **gap_7** (format-version migration): \u2705 Triage #1 mentions version mismatches; Plan #1 has `UnsupportedVersionError`\n- **gap_8** (logging/error context): \u2705 Triage #1 \"minimal context\" and Triage #5 \"No logging\"\n- **gap_9** (serialization formats): \u2705 Triage #8 indirectly (text export), though not JSON/dict specifically\n- **gap_10** (batch processing): \u274c Not mentioned\n\n**Plan Specificity:**\n- **gap_1**: concrete (shows exact exception classes and try-catch)\n- **gap_3**: concrete (shows `_validate_card_list` function with checks)\n- **gap_5**: concrete (same validation function checks `card_id <= 0`)\n- **gap_6**: concrete (shows `as_text` method signature and implementation)\n- **gap_7**: directional (shows try-catch pattern but doesn't detail migration strategy)\n- **gap_8**: concrete (shows logger.debug calls with specific messages)\n- **gap_9**: concrete (shows `as_text` method, though not JSON\u2014close enough for \"serialization\")",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

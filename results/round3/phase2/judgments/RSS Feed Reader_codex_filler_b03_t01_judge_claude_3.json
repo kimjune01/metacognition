@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "I'll evaluate this diagnostic report against the ground-truth system description and gaps.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"directional\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all the working capabilities: feed configuration loading, category fetching, RSS parsing, timestamp handling, timezone conversion, formatting, deduplication by timestamp, sorting, and JSON output. All stated behaviors match the ground truth.\n\n**Gap Coverage: all true**\n- **gap_1** (HTTP error handling): Triage #1 explicitly calls out \"Bare `except:` blocks hide real failures\" and \"`sys.exit()` can terminate the whole process on one bad feed\"\n- **gap_2** (feed validation): Triage #7 mentions \"Ignores feeds without parseable published/updated timestamps\" and lack of validation\n- **gap_3** (deduplication): Triage #2 explicitly states \"Entries are keyed only by timestamp, so multiple posts published in the same second overwrite each other\"\n- **gap_4** (content extraction): Triage #7 notes \"Does not normalize HTML entities, summaries, IDs, categories, or content\"\n- **gap_5** (caching/conditional fetching): Triage #6 and Plan #6 mention \"no conditional requests with `ETag` and `Last-Modified`\"\n- **gap_6** (rate limiting): Triage #6 notes \"No request timeouts, retry policy, backoff... or rate limits\"\n- **gap_7** (persistent state): Triage #10 mentions \"No incremental updates... read/unread state\"\n- **gap_8** (error recovery): Triage #1 and Plan #1 cover \"no retry logic\" and the fatal exit behavior\n- **gap_9** (feed discovery/OPML): Triage #10 doesn't explicitly mention OPML but the absence of these features is implied in \"No product-level features\"\n- **gap_10** (output format flexibility): Triage #10 mentions lack of \"UI/API surface\" and the code only writes JSON\n\n**Plan Specificity:**\n- **gap_1** (concrete): \"Replace bare `except:` with targeted exceptions... Stop calling `sys.exit()`... Add clear failure records\"\n- **gap_2** (concrete): \"Validate required fields and default missing optional ones safely\" in Plan #7\n- **gap_3** (concrete): \"Use a stable unique key in priority order: entry `id`/`guid`, then `link`, then a hash\"\n- **gap_4** (concrete): \"Capture more metadata... GUID, summary, author, feed title, tags\"\n- **gap_5** (concrete): \"Consider conditional requests with `ETag` and `Last-Modified`\"\n- **gap_6** (directional): Mentions \"bounded concurrency for fetching\" but no specific implementation approach\n- **gap_7** (concrete): \"add: read/unread persistence, incremental refresh, retention/pruning\"\n- **gap_8** (concrete): \"Add retries with exponential backoff for transient network failures\"\n- **gap_9** (directional): No specific OPML plan; only general \"Define the product surface\"\n- **gap_10** (directional): Mentions \"stable API or CLI output contract\" but no concrete format alternatives specified",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "directional",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "directional"
+    }
+  }
+}

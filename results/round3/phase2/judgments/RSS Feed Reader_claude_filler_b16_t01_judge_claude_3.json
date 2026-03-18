@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: mostly_accurate**\n- The report claims \"Deduplication: Uses timestamp-based IDs to prevent duplicate entries within a category\" (point 3), but the ground truth shows the system does NOT deduplicate - gap_3 explicitly states \"Each call overwrites the entire category JSON file\" and \"If two feeds in the same category contain the same article, both copies appear\"\n- Most other observations are correct (feed parsing, multi-source aggregation, time normalization, etc.)\n- The timestamp-based ID claim is a significant factual error about core functionality\n\n**Gap Coverage:**\n- **gap_1 (HTTP error handling)**: TRUE - Triage #1 \"No Error Recovery\" addresses this\n- **gap_2 (feed validation)**: TRUE - Triage #2 \"No Feed Validation\" covers this\n- **gap_3 (no deduplication)**: FALSE - The report incorrectly claims deduplication exists in Observations; Triage #15 mentions \"No Duplicate Detection Across Categories\" but misses the fundamental issue that duplicates within the same category are not handled\n- **gap_4 (no content extraction)**: TRUE - Triage #10 \"No Content Extraction\" identifies this\n- **gap_5 (no caching)**: TRUE - Triage #3 \"No Caching Strategy\" addresses this\n- **gap_6 (no rate limiting)**: FALSE - Not mentioned anywhere in the triage section\n- **gap_7 (no persistent state)**: TRUE - Triage #8 \"No Read State Tracking\" covers this\n- **gap_8 (no error recovery/retry)**: TRUE - Triage #1 \"No Error Recovery\" addresses this\n- **gap_9 (no OPML)**: TRUE - Triage #17 \"No OPML Import/Export\" identifies this\n- **gap_10 (no output format flexibility)**: TRUE - Triage #13 \"No Export Capability\" covers this\n\n**Plan Specificity:**\n- **gap_1**: concrete - Specific retry logic, exception handling, timeout values, code examples\n- **gap_2**: concrete - JSON schema definition, validation library, specific checks, code implementation\n- **gap_3**: absent - Not addressed in plan\n- **gap_4**: concrete - Specific libraries (BeautifulSoup, html2text), field extraction, code examples\n- **gap_5**: concrete - TTL values, conditional request headers, cache metadata structure, code\n- **gap_6**: absent - Not addressed in plan\n- **gap_7**: concrete - File structure, function signatures, pruning logic, code examples\n- **gap_8**: concrete - Exponential backoff values, retry counts, error logging details\n- **gap_9**: concrete - Specific libraries (listparser, feedfinder2), command syntax\n- **gap_10**: concrete - Export formats, libraries mentioned in remaining gaps section",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

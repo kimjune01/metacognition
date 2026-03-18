@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 import re
 import subprocess
 import sys
@@ -21,6 +22,7 @@ from pathlib import Path
 
 import numpy as np
 import tiktoken
+from anthropic import Anthropic
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -243,15 +245,15 @@ def build_judge_prompt(problem: dict, report_text: str) -> str:
 def run_cli(model: str, prompt: str, retry: int = RETRY_LIMIT) -> str:
     """Run a CLI command for codex or claude and return stdout.
 
-    Both CLIs receive the prompt via stdin to avoid argument-parsing issues
-    (e.g., YAML front matter '---' interpreted as CLI flags).
+    For claude: uses Anthropic API directly
+    For codex: still uses CLI
     """
     import tempfile
 
     for attempt in range(1 + retry):
         try:
             if model == "codex":
-                # codex exec reads prompt from a temp file piped via shell
+                # codex exec via CLI
                 with tempfile.NamedTemporaryFile(
                     mode="w", suffix=".md", delete=False
                 ) as f:
@@ -265,27 +267,37 @@ def run_cli(model: str, prompt: str, retry: int = RETRY_LIMIT) -> str:
                     )
                 finally:
                     Path(tmppath).unlink(missing_ok=True)
+
+                if result.returncode == 0 and result.stdout.strip():
+                    time.sleep(2)  # Rate limiting for ToS compliance
+                    return result.stdout.strip()
+
+                stderr = result.stderr.strip()
+                if attempt < retry:
+                    print(f"  RETRY ({model}): exit={result.returncode}, stderr={stderr[:200]}")
+                    time.sleep(5)
+                    continue
+                else:
+                    print(f"  FAILED ({model}): exit={result.returncode}, stderr={stderr[:200]}")
+                    return result.stdout.strip() if result.stdout else f"ERROR: {stderr[:500]}"
+
             elif model == "claude":
-                result = subprocess.run(
-                    ["claude", "-p", "--model", "sonnet"],
-                    input=prompt,
-                    capture_output=True, text=True, timeout=300,
+                # Use Anthropic API directly
+                client = Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+                response = client.messages.create(
+                    model="claude-sonnet-4-5-20250929",
+                    max_tokens=8000,
+                    messages=[{"role": "user", "content": prompt}]
                 )
+
+                if response.content and len(response.content) > 0:
+                    time.sleep(1)  # Rate limiting for ToS compliance (Claude has higher limits)
+                    return response.content[0].text.strip()
+                else:
+                    raise ValueError("Empty response from API")
+
             else:
                 raise ValueError(f"Unknown model: {model}")
-
-            if result.returncode == 0 and result.stdout.strip():
-                return result.stdout.strip()
-
-            # Non-zero exit or empty output
-            stderr = result.stderr.strip()
-            if attempt < retry:
-                print(f"  RETRY ({model}): exit={result.returncode}, stderr={stderr[:200]}")
-                time.sleep(5)
-                continue
-            else:
-                print(f"  FAILED ({model}): exit={result.returncode}, stderr={stderr[:200]}")
-                return result.stdout.strip() if result.stdout else f"ERROR: {stderr[:500]}"
 
         except subprocess.TimeoutExpired:
             if attempt < retry:
@@ -297,10 +309,11 @@ def run_cli(model: str, prompt: str, retry: int = RETRY_LIMIT) -> str:
                 return "ERROR: timeout"
         except Exception as e:
             if attempt < retry:
-                print(f"  RETRY ({model}): {e}")
+                print(f"  RETRY ({model}): {str(e)[:200]}")
                 time.sleep(5)
                 continue
             else:
+                print(f"  FAILED ({model}): {str(e)[:200]}")
                 return f"ERROR: {e}"
 
     return "ERROR: exhausted retries"

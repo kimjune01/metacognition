@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "Let me analyze the diagnostic report against the ground-truth gaps:\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate** - The Observations section correctly identifies all 8 working capabilities: bidirectional conversion, varint encoding/decoding, card organization, hero handling, format type support, sideboard support, Deck wrapper class, and sorting.\n\n**Gap Coverage:**\n- **gap_1 (truncated/corrupted input)**: \u2705 Identified in Triage #1 \"No error handling for malformed input - parse_deckstring will crash on truncated or corrupted data\"\n- **gap_2 (trailing bytes)**: \u2705 Identified in Triage #7 \"Silent data truncation - If extra data exists after parsing, it's ignored without warning\"\n- **gap_3 (card-count validation)**: \u2705 Identified in Triage #2 \"No checks for valid card counts\"\n- **gap_4 (deck-size validation)**: \u2705 Identified in Triage #2 \"No checks for... deck size limits\"\n- **gap_5 (card-ID validation)**: \u274c Not mentioned - no discussion of validating card IDs against a card database\n- **gap_6 (human-readable output)**: \u274c Not mentioned - no discussion of resolving card IDs to names or metadata\n- **gap_7 (format-version migration)**: \u274c Not mentioned - while version checking is noted, there's no discussion of graceful degradation for future versions\n- **gap_8 (logging/error context)**: \u2705 Identified in Triage #10 \"No logging - Debugging production issues would be difficult\"\n- **gap_9 (serialization formats)**: \u274c Not mentioned - no discussion of to_dict(), to_json(), or __repr__ (though #16 mentions __repr__ for debugging, not for serialization)\n- **gap_10 (batch processing)**: \u274c Not mentioned - no discussion of concurrent or batch processing\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Plan #1 provides specific code with try-except blocks, error messages, and validation logic\n- **gap_2**: \"concrete\" - Plan #7 provides specific code to check `data.tell() == len(decoded)` and issue warnings\n- **gap_3**: \"concrete\" - Plan #2 provides detailed validation function with specific checks\n- **gap_4**: \"concrete\" - Plan #2 includes deck size validation with specific sum check\n- **gap_8**: \"directional\" - Plan #10 mentions adding logging but only gives general guidance, not specific log points beyond one example",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "directional",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

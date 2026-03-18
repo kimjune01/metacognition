@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, the Deck class wrapper, sideboard support, version checking, and format type handling. No hallucinations or omissions.\n\n**Gap Coverage:**\n- **gap_1** (no length validation, EOFError on truncation): \u2705 Identified as \"Silent data truncation\" (#8) and \"No input validation\" (#1)\n- **gap_2** (no trailing-byte detection): \u2705 Identified in Plan section 1: \"Check for trailing data: After parsing, verify `data.read(1) == b\"\"`\"\n- **gap_3** (no card-count validation): \u2705 Identified in Plan section 1: \"Validate card counts: `if count < 1 or count > 99`\"\n- **gap_4** (no deck-size validation): \u2705 Identified as part of gap #6 \"No deck legality checking\" and Plan section 6 mentions \"card count limits (30 for Standard)\"\n- **gap_5** (no card-ID validation): \u2705 Identified as gap #5 \"No card database validation\"\n- **gap_6** (no human-readable output): \u2705 Identified as gap #10 \"No human-readable export\"\n- **gap_7** (no format-version migration): \u2705 Identified as gap #12 \"No version migration\"\n- **gap_8** (no logging/error context): \u2705 Identified as gaps #9 \"No logging or debugging\" and #8 \"Silent data truncation\"\n- **gap_9** (no serialization to standard formats): \u2705 Identified as gap #10 \"No human-readable export\" and Plan section 10 includes `to_dict()` method\n- **gap_10** (no concurrent/batch processing): \u274c Not mentioned anywhere in the report\n\n**Plan Specificity:**\nFor gaps 1-9, the Plan section provides concrete, actionable code snippets or specific implementation steps with file names, line numbers, and example code. Gap 10 was not identified, so marked \"absent\".",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

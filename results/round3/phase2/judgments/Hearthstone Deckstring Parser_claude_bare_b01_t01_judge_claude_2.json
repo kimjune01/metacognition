@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's working capabilities, including binary protocol implementation, parsing/generation, deck object model, and card organization. It accurately captures what the system currently does.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2705 Identified in Triage #1 \"No Error Handling\" and Plan #1 mentions catching `EOFError` and validating data stream consumption\n- **gap_2 (trailing bytes)**: \u2705 Identified in Plan #1: \"check that data stream is fully consumed (`data.read(1) == b\"\"`)\"\n- **gap_3 (card count validation)**: \u2705 Identified in Triage #2 and Plan #2: validates counts are positive integers\n- **gap_4 (deck size validation)**: \u2705 Identified in Triage #7 and Plan #7: \"Total card count (typically 30 for constructed)\"\n- **gap_5 (card ID validation)**: \u2705 Identified in Triage #2 \"invalid DBF IDs\" and Plan #7 requires card database integration\n- **gap_6 (human-readable output)**: \u2705 Identified in Triage #9 and Plan #9 with concrete implementation\n- **gap_7 (format version migration)**: \u274c Not identified. The report mentions \"UnsupportedVersionError\" but doesn't discuss graceful degradation or migration strategies for future versions\n- **gap_8 (logging/error context)**: \u2705 Identified in Triage #1 and Plan #1 addresses error messages with context\n- **gap_9 (serialization formats)**: \u2705 Identified in Triage #9 and Plan #4 mentions replacing tuples with NamedTuple/dataclass for structured export\n- **gap_10 (batch processing)**: \u2705 Identified in Triage #10 \"Performance\" and Plan #10, though focuses more on caching than async/batch processing\n\n**Plan Specificity:**\nAll identified gaps (1-6, 8-10) have concrete implementation guidance with code examples. Gap 7 is absent from the plan.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

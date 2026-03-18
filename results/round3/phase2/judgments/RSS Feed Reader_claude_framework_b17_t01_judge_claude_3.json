@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: mostly_accurate**\n- The report correctly describes core functionality, configuration management, and data structures\n- However, it incorrectly states \"Deduplicates entries by timestamp across multiple sources within a category\" - the code actually has timestamp collision issues where entries with the same timestamp overwrite each other (not true deduplication)\n- The description of error handling as \"Graceful\" and \"Silent failure\" is somewhat misleading given the sys.exit() behavior\n\n**Gap Coverage Analysis:**\n- **gap_1** (HTTP error handling): \u2705 Identified in Triage #1 \"Network failures exit silently\"\n- **gap_2** (feed validation): \u2705 Identified in Triage #2 \"No validation that URLs are actually RSS/Atom feeds\" and bozo flag checking in plan\n- **gap_3** (no deduplication): \u2705 Identified in Triage #3 \"Timestamp collisions overwrite entries\" and \"No deduplication by content\"\n- **gap_4** (no content extraction): \u2705 Identified in Triage #7 \"No handling of media enclosures\" and \"Doesn't preserve feed descriptions/summaries\"\n- **gap_5** (no caching): \u2705 Identified in Triage #4 \"No caching of feed responses (refetches everything)\"\n- **gap_6** (no rate limiting): \u2705 Identified in Triage #4 \"No rate limiting or respect for feed TTL headers\"\n- **gap_7** (no persistent state): \u2705 Identified in Triage #5 \"No way to mark entries as read\" and Triage #1 mentions no staleness detection\n- **gap_8** (no error recovery): \u2705 Identified in Triage #1 \"No retry logic for transient failures\"\n- **gap_9** (no OPML/feed discovery): \u274c Not mentioned anywhere in the report\n- **gap_10** (no output format flexibility): \u274c Not mentioned anywhere in the report\n\n**Plan Specificity:**\n- Gaps 1-8: All have **concrete** implementations with specific code examples, library recommendations, and clear approaches\n- Gaps 9-10: **absent** - not identified, so no plan provided",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

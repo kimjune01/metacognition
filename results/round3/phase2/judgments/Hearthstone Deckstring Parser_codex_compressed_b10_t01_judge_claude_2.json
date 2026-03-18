@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Justification:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: it parses and writes deckstrings with basic validation, handles heroes/cards/sideboards, and provides a simple wrapper. It accurately identifies shallow filtering and absent attend/remember/consolidate stages.\n\n**Gap Coverage:**\n- **gap_1 (true)**: Identified in Triage #1 - \"truncated input can surface as a confusing TypeError\" and \"_read_varint() checks c == '', but BytesIO.read(1) returns b''\"\n- **gap_2 (true)**: Identified in Triage #1 - \"verify the stream is fully consumed; if unread bytes remain, reject the deckstring\"\n- **gap_3 (true)**: Identified in Triage #2 - \"allows duplicate card IDs, strange counts\" and Plan #2 - \"reject zero or negative counts\"\n- **gap_4 (false)**: Not mentioned. The report does not identify missing deck-size validation (30 cards for constructed, etc.)\n- **gap_5 (true)**: Identified in Triage #2 - \"does not enforce domain rules\" (though not explicitly about card database validation, the context of semantic validation covers this)\n- **gap_6 (false)**: Not mentioned. The report does not identify the lack of human-readable output or card metadata resolution\n- **gap_7 (false)**: Not mentioned. The report does not identify the lack of format-version migration or graceful degradation\n- **gap_8 (false)**: Not mentioned. The report does not identify missing logging context or parse position tracking\n- **gap_9 (true)**: Identified in Triage #3 - \"Tuples are compact but not self-describing\" and Plan #3 - \"Replace tuple-heavy structures with explicit models\"\n- **gap_10 (false)**: Not mentioned. The report does not identify the lack of batch/concurrent processing capabilities\n\n**Plan Specificity:**\n- **gap_1 (concrete)**: Plan #1 provides specific fixes - \"Change _read_varint() to check if c == b''\", \"Add bounds checks for varint length\", \"raise a dedicated parse exception\"\n- **gap_2 (concrete)**: Plan #1 explicitly states \"After parsing, verify the stream is fully consumed; if unread bytes remain, reject the deckstring or return a warning\"\n- **gap_3 (concrete)**: Plan #2 specifically lists \"reject zero or negative counts\" as a validation rule\n- **gap_4 (absent)**: Gap not identified, so no plan\n- **gap_5 (concrete)**: Plan #2 addresses domain validation broadly, though not card-ID-specific validation, the \"Define canonical normalization rules\" is actionable\n- **gap_6 (absent)**: Gap not identified, so no plan\n- **gap_7 (absent)**: Gap not identified, so no plan\n- **gap_8 (absent)**: Gap not identified, so no plan\n- **gap_9 (concrete)**: Plan #3 provides specific guidance - \"Introduce typed models, for example CardEntry, SideboardEntry, and ParsedDeck\"\n- **gap_10 (absent)**: Gap not identified, so no plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "absent",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

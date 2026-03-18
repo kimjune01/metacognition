@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes the working capabilities: base64 encode/decode, varint handling, version checking, format parsing, hero/card lists, sideboards, trisort grouping, and the Deck class API.\n\n**Gap Coverage:**\n- **gap_1 (truncated stream \u2192 EOFError)**: \u2713 Identified in Triage #2 as \"truncated\" streams not validated\n- **gap_2 (trailing bytes)**: \u2713 Identified in Plan #2 \"reject unexpected trailing bytes after a valid payload\"\n- **gap_3 (card-count validation)**: \u2713 Identified in Triage #2 \"negative values\" and Plan #2 \"reject zero or negative counts\"\n- **gap_4 (deck-size validation)**: \u2717 Not mentioned; report focuses on per-card counts, not total deck size\n- **gap_5 (card-ID validation)**: \u2713 Identified in Plan #2 \"validate card IDs are positive ints\" (though not checking against a database, the gap is acknowledged)\n- **gap_6 (human-readable output)**: \u2717 Not mentioned; report doesn't discuss card-name resolution or metadata\n- **gap_7 (format-version migration)**: \u2713 Identified in Triage #6 \"Versioning support is rigid\" and Plan #6 \"future-proof\" version handling\n- **gap_8 (logging/error context)**: \u2713 Identified in Triage #3 and Plan #3 with \"clearer messages that include where decoding failed\"\n- **gap_9 (to_dict/to_json)**: \u2717 Not mentioned; report mentions mutable model and ergonomics but not serialization to JSON/dict\n- **gap_10 (batch/async)**: \u2717 Not mentioned; report treats single-deckstring processing only\n\n**Plan Specificity:**\n- **gap_1**: concrete (specific rewrite steps for `_read_varint`, bounds protection, verification)\n- **gap_2**: concrete (explicit action \"reject unexpected trailing bytes\")\n- **gap_3**: concrete (explicit validation rules for counts)\n- **gap_5**: concrete (validate card IDs are positive ints)\n- **gap_7**: directional (mentions \"isolate wire-format constants\", \"document versions\" but doesn't specify migration logic)\n- **gap_8**: concrete (defines exception classes, wrapping strategy, message improvements)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"directional\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities of the system, including varint encoding, bidirectional conversion, card grouping by count, hero tracking, format metadata, sideboard support, the Deck class wrapper, and the binary format structure. No inaccuracies detected.\n\n**Gap Coverage:**\n- **gap_1 (truncated deckstring \u2192 EOFError)**: \u2705 Identified as \"Accepts malformed inputs without bounds checking (buffer overruns...)\"\n- **gap_2 (trailing-byte detection)**: \u2705 Identified as \"Verify stream fully consumed after parsing (detect trailing garbage)\" in Plan #1\n- **gap_3 (card-count validation)**: \u2705 Identified as \"negative counts\" and \"counts are positive\" in Plan #1\n- **gap_4 (deck-size validation)**: \u2705 Identified as \"No deck size limits (30 cards)\" in Nice-to-Have gap #11\n- **gap_5 (card-ID validation)**: \u2705 Identified as \"invalid card IDs\" in gap #1 and \"contains valid IDs (> 0)\" in Plan #1\n- **gap_6 (human-readable output)**: \u2705 Identified as \"convert to human-readable formats\" in gap #9\n- **gap_7 (format-version migration)**: \u274c Not mentioned. The report doesn't address version compatibility or graceful degradation for future format versions\n- **gap_8 (logging/error context)**: \u2705 Identified as \"Missing error context\" in gap #2 and \"Add Structured Logging\" in Plan #5\n- **gap_9 (serialization formats)**: \u2705 Identified as \"No convenience methods\" with `to_dict()` explicitly mentioned in Plan #9\n- **gap_10 (batch processing)**: \u274c Not mentioned. The report doesn't address concurrent/batch/async processing\n\n**Plan Specificity:**\n- **gap_1**: concrete (shows exact code example with max_bytes check)\n- **gap_2**: concrete (specifies \"Verify stream fully consumed after parsing\")\n- **gap_3**: concrete (specifies \"counts are positive\" validation)\n- **gap_4**: concrete (Plan #11 shows DECK_SIZE_RULES constant and validation logic)\n- **gap_5**: concrete (specifies \"valid IDs (> 0)\" check)\n- **gap_6**: directional (mentions \"human-readable formats\" but no concrete implementation for card name resolution)\n- **gap_7**: absent (gap not identified)\n- **gap_8**: concrete (shows custom exception class example with offset tracking)\n- **gap_9**: concrete (shows exact method signatures for `to_dict()` and `__str__()`)\n- **gap_10**: absent (gap not identified)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "directional",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

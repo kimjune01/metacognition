@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll evaluate this diagnostic report systematically against the ground-truth gaps and the actual system description.\n\nLet me analyze each dimension:\n\n## 1. OBSERVATION ACCURACY\n\nThe Observations section correctly describes:\n- Bidirectional conversion \u2713\n- Varint encoding/decoding \u2713\n- Card organization by quantity \u2713\n- Hero handling \u2713\n- Format type support \u2713\n- Sideboard support \u2713\n- Deck object wrapper \u2713\n- Sorting behavior \u2713\n\nAll observations accurately reflect the system's working capabilities.\n\n## 2. GAP COVERAGE\n\nLet me map each ground-truth gap to the Triage section:\n\n- **gap_1** (No input sanitization, truncated deckstring causes EOFError): Covered by Triage #1 \"No error handling for malformed input - parse_deckstring will crash on truncated or corrupted data\"\n- **gap_2** (No trailing-byte detection): Covered by Triage #7 \"Silent data truncation - If extra data exists after parsing, it's ignored without warning\"\n- **gap_3** (No card-count validation): Covered by Triage #2 \"Missing validation - No checks for valid card counts\"\n- **gap_4** (No deck-size validation): Covered by Triage #2 \"Missing validation - No checks for... deck size limits\"\n- **gap_5** (No card-ID validation): Not explicitly covered. Triage #2 mentions validation but doesn't specifically call out card ID validation against a database.\n- **gap_6** (No human-readable output): Not covered. The report doesn't mention the lack of card name resolution or metadata.\n- **gap_7** (No format-version migration): Partially covered by Triage #8 mentioning \"Unknown format values\" but doesn't address version migration specifically.\n- **gap_8** (No logging or error context): Covered by Triage #1 mentioning \"unclear errors\" and Triage #10 \"No logging\"\n- **gap_9** (No serialization to standard formats): Covered by Triage #16 \"String representation - Deck object has no __str__ or __repr__\" though doesn't mention JSON/dict serialization.\n- **gap_10** (No concurrent/batch processing): Not covered at all.\n\n## 3. PLAN SPECIFICITY\n\nFor gaps that were identified:\n\n- **gap_1**: Plan #1 is very concrete with specific code patterns for error handling\n- **gap_2**: Plan #7 is concrete with example code for trailing byte detection\n- **gap_3**: Plan #2 is concrete with validation logic and code examples\n- **gap_4**: Plan #2 is concrete, includes deck size validation with specific checks\n- **gap_5**: Not identified, so absent\n- **gap_6**: Not identified, so absent\n- **gap_7**: Partially identified but no plan addresses version migration - absent\n- **gap_8**: Plan #10 is concrete with specific logging implementation\n- **gap_9**: Plan #16 is somewhat concrete but only covers __repr__/__str__, not JSON/dict - directional\n- **gap_10**: Not identified, so absent\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"absent\"\n  }\n}\n```",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}

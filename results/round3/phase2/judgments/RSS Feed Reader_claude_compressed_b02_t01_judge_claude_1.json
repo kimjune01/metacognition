@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: mostly_accurate**\n- The Observations section correctly describes working capabilities (multi-category RSS, timezone formatting, JSON storage, config merge, author toggle)\n- However, it mischaracterizes the error handling as \"Silent error handling for individual feeds and entries\" when the ground truth shows `sys.exit()` kills the entire process on first failure (gap_1)\n- The metacognitive framework mapping is creative but adds interpretive overhead without fundamental inaccuracy\n\n**Gap Coverage:**\n- \u2705 gap_1 (HTTP error handling): Identified as \"No error visibility\" in Triage #2\n- \u2705 gap_2 (feed validation): Identified as \"No content validation\" in Triage #9\n- \u2705 gap_3 (deduplication): Identified as \"No deduplication\" in Triage #1\n- \u274c gap_4 (content extraction): Not mentioned\u2014report focuses on metadata handling, not content richness\n- \u2705 gap_5 (caching/conditional): Identified as \"No incremental updates\" in Triage #4\n- \u274c gap_6 (rate limiting): Not mentioned\u2014no discussion of request pacing\n- \u2705 gap_7 (persistent state): Identified as \"No staleness detection\" in Triage #3 and \"No feed health tracking\" in Triage #8\n- \u2705 gap_8 (error recovery): Identified as \"No retry logic\" in Triage #7\n- \u274c gap_9 (OPML/discovery): Not mentioned\u2014no discussion of feed management workflows\n- \u274c gap_10 (output formats): Not mentioned\u2014assumes JSON output is sufficient\n\n**Plan Specificity:**\n- gap_1: **concrete** (Plan #2 shows exact code for error logging)\n- gap_2: **concrete** (Plan #9 shows exact field validation logic)\n- gap_3: **concrete** (Plan #1 shows complete deduplication merge logic)\n- gap_5: **concrete** (Plan #4 shows last_fetch tracking implementation)\n- gap_7: **directional** (Plan #7 mentions \"retry decorator\" but no implementation details)\n- gap_8: **directional** (Plan #8 mentions tracking failures but vague on \"alert\" mechanism)",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "directional",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

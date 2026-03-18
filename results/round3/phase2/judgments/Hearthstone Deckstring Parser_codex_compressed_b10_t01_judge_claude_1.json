@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll evaluate this diagnostic report against the ground-truth gaps and system description.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's working capabilities: varint encoding/decoding, deckstring parsing/writing, hero/card/sideboard handling, format validation, and the Deck wrapper class. It accurately notes what validation exists (header, version, format type, hero count) and what's missing (deeper validation).\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (truncated input handling)**: \u2705 Identified in Triage #1 - explicitly mentions EOF detection bug with `BytesIO.read(1)` returning `b\"\"` not `\"\"`, and truncated input causing confusing errors\n- **gap_2 (trailing-byte detection)**: \u2705 Identified in Triage #1 and #2 - mentions \"extra unread bytes at the end\" and Plan #1 says \"verify the stream is fully consumed\"\n- **gap_3 (card-count validation)**: \u2705 Identified in Triage #2 - mentions \"strange counts\" and Plan #2 explicitly says \"reject zero or negative counts\"\n- **gap_4 (deck-size validation)**: \u274c Not identified - the report never mentions total card count or the 30/40 card deck size rules\n- **gap_5 (card-ID validation)**: \u2705 Covered in spirit in Triage #2 - the broader point about \"semantic validation\" and \"domain rules\" encompasses this, though not explicitly called out\n- **gap_6 (human-readable output)**: \u274c Not identified - no mention of card name resolution or metadata lookup\n- **gap_7 (format-version migration)**: \u274c Not identified - Plan #1 mentions `UnsupportedVersionError` but doesn't address graceful degradation or migration\n- **gap_8 (logging/error context)**: \u274c Not really identified - Plan #1 mentions exception hierarchy but doesn't specifically address adding parse position or section context to errors. Triage #4 mentions observability broadly but not this specific error-message gap\n- **gap_9 (serialization formats)**: \u2705 Identified in Triage #3 - mentions \"thin data model,\" \"not self-describing,\" and Plan #3 proposes explicit models which would enable this\n- **gap_10 (batch processing)**: \u274c Not identified - no mention of concurrent, batch, or async processing capabilities\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: concrete - \"Change `_read_varint()` to check `if c == b\"\":` and raise a dedicated parse exception\"\n- **gap_2**: concrete - \"verify the stream is fully consumed; if unread bytes remain, reject the deckstring or return a warning\"\n- **gap_3**: concrete - \"reject zero or negative counts\" in Plan #2\n- **gap_4**: absent - not addressed in plan\n- **gap_5**: concrete - Plan #2's \"validate sideboard owners reference valid parent cards\" and the broader semantic validation framework would handle this\n- **gap_6**: absent - not addressed in plan\n- **gap_7**: absent - not addressed in plan\n- **gap_8**: directional - Plan #1 mentions \"exception hierarchy\" and Triage #4 mentions \"logs, metrics\" but doesn't give concrete guidance on adding parse position/section to error messages\n- **gap_9**: concrete - Plan #3 proposes \"CardEntry, SideboardEntry, and ParsedDeck\" typed models\n- **gap_10**: directional - Plan #6 mentions \"surrounding system\" and persistence but doesn't give concrete guidance on batch/async processing",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "directional",
+      "gap_9": "concrete",
+      "gap_10": "directional"
+    }
+  }
+}

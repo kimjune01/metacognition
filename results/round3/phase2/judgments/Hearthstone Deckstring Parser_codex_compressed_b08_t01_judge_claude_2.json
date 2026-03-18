@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, object-oriented wrapper, sideboard support, version checking, and format validation. It accurately characterizes each PCFACR stage as present or shallow based on the actual capabilities.\n\n**Gap Coverage Analysis:**\n- **gap_1** (truncated/corrupted deckstring handling): \u2705 Identified in Triage #3 as \"truncated streams\" and in Plan #1 as \"malformed varints\"\n- **gap_2** (trailing-byte detection): \u2705 Identified in Triage #3 as \"trailing garbage\" and in Plan #1 as \"Validate full consumption of the stream after parsing; reject trailing bytes\"\n- **gap_3** (card-count validation): \u2705 Identified in Plan #1 as \"card counts must be positive\"\n- **gap_4** (deck-size validation): \u274c Not mentioned anywhere in the report\n- **gap_5** (card-ID validation): \u2705 Identified in Plan #1 as \"card IDs must be positive integers\"\n- **gap_6** (human-readable output): \u274c Not mentioned in the report\n- **gap_7** (format-version migration): \u274c While Plan #3 mentions \"migration/versioning logic,\" it's about stored decks, not deckstring format versions\n- **gap_8** (logging/error context): \u2705 Identified in Plan #1 as \"Replace generic ValueError/EOFError with explicit exceptions\" and Plan #7 as \"Add logging hooks\"\n- **gap_9** (serialization to interchange formats): \u274c Plan #4 mentions \"typed structures\" but not JSON/dict serialization methods\n- **gap_10** (batch/concurrent processing): \u274c Not mentioned in the report\n\n**Plan Specificity Analysis:**\n- **gap_1**: \"concrete\" - Specific actions: detect EOF with `b\"\"`, catch `base64.binascii.Error`, create explicit exceptions\n- **gap_2**: \"concrete\" - Specific action: \"Validate full consumption of the stream after parsing; reject trailing bytes\"\n- **gap_3**: \"concrete\" - Specific action: \"card counts must be positive\"\n- **gap_5**: \"concrete\" - Specific action: \"card IDs must be positive integers\"\n- **gap_8**: \"concrete\" - Specific exceptions named: `InvalidDeckstring`, `UnsupportedVersion`, `MalformedVarint`\n- **gap_9**: \"directional\" - Plan #4 mentions making the data model stricter but doesn't specify adding `to_dict()`/`to_json()`/`__repr__` methods",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}

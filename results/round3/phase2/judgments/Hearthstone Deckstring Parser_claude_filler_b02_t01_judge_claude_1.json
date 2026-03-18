@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "Let me provide the evaluation directly:\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Evaluation Rationale\n\n**Observation Accuracy: accurate**\n- The Observations section correctly describes all working capabilities: varint I/O, parsing, generation, deck object model, and sideboard support\n- Technical details are precise (base64 encoding, varint format, tri-sort optimization)\n- No false claims about capabilities\n\n**Gap Coverage Mapping:**\n- **gap_1** (truncated input) \u2192 \u2705 Triage #1: \"Parser accepts malformed input silently or crashes\"\n- **gap_2** (trailing bytes) \u2192 \u2705 Triage #1: \"Parser accepts malformed input silently\"\n- **gap_3** (card-count validation) \u2192 \u2705 Triage #1: \"Card count limits\" explicitly mentioned\n- **gap_4** (deck-size validation) \u2192 \u2705 Triage #1: \"deck size validation\" explicitly mentioned\n- **gap_5** (card-ID validation) \u2192 \u274c Not identified anywhere in the report\n- **gap_6** (human-readable output) \u2192 \u2705 Triage #8: \"No human-readable representation\"\n- **gap_7** (format-version migration) \u2192 \u274c Not identified (only mentions version validation exists)\n- **gap_8** (error context) \u2192 \u2705 Triage #4: \"Limited error messages - Generic ValueErrors with minimal context\"\n- **gap_9** (serialization formats) \u2192 \u2705 Triage #8: Missing `__str__`, `__repr__` methods\n- **gap_10** (batch processing) \u2192 \u274c Not identified anywhere\n\n**Plan Specificity Mapping:**\n- **gap_1**: Concrete - Plan #1 provides exact validation code with error handling\n- **gap_2**: Concrete - Plan #1 includes validation checks that would catch trailing bytes during structured validation\n- **gap_3**: Concrete - Plan #1 shows explicit `if any(count < 1 for _, count in cards)` check\n- **gap_4**: Concrete - Plan #1 shows explicit `if len(cards) > 30` check with error message\n- **gap_5**: Absent - Gap not identified, no plan provided\n- **gap_6**: Concrete - Plan #7 provides complete `__str__` and `__repr__` implementations\n- **gap_7**: Absent - Gap not identified, no plan provided\n- **gap_8**: Concrete - Plan #2 creates exception hierarchy and Plan #6 adds logging with context\n- **gap_9**: Concrete - Plan #7 provides `__repr__` implementation (though doesn't mention `to_dict`/`to_json`)\n- **gap_10**: Absent - Gap not identified, no plan provided\n\nThe report scores **7/10 on gap coverage** and provides concrete, actionable plans for all identified gaps.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "absent"
+    }
+  }
+}

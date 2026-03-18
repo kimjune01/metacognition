@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate** - The Observations section correctly describes all 7 working capabilities of the system without hallucinating features that don't exist.\n\n**Gap Coverage:**\n- \u2705 **gap_1** (truncation handling): Identified in Triage #1 \"EOF and decode errors...malformed deckstrings crash\"\n- \u274c **gap_2** (trailing bytes): Not mentioned anywhere in the report\n- \u2705 **gap_3** (card count validation): Identified in Triage #2 \"Missing validation\" and Plan #3 \"validate all counts > 0\"\n- \u2705 **gap_4** (deck size validation): Identified in Triage #2 \"30-card main deck\" requirement\n- \u2705 **gap_5** (card ID validation): Identified in Triage #5 \"Works with raw DBF IDs only; can't validate cards exist\"\n- \u2705 **gap_6** (human-readable output): Identified in Triage #5 \"can't provide human-readable names\"\n- \u274c **gap_7** (version migration): Not mentioned; report only notes version checking exists\n- \u2705 **gap_8** (error context): Identified in Triage #1 \"minimal context\" and Plan #1 \"Include context in error messages: position in stream\"\n- \u274c **gap_9** (serialization): Not mentioned; Plan #12 mentions `to_dict()` but as low-priority utility, not core interchange format\n- \u274c **gap_10** (batch processing): Not mentioned anywhere\n\n**Plan Specificity:**\n- **gap_1**: Concrete - specifies exception types, custom classes, context to include, and validation function signature\n- **gap_3**: Concrete - specifies validation method signature, exact checks, and integration point\n- **gap_4**: Concrete - specifies validation method, 30-card check, and write_deckstring parameter\n- **gap_5**: Concrete - specifies CardDatabase protocol, validation method, and implementation examples\n- **gap_6**: Concrete - specifies get_card_names() signature, CardDatabase integration approach\n- **gap_8**: Concrete - specifies logging levels, what to log at each level, and logger setup",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

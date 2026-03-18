@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "I'll analyze this diagnostic report against the ground truth systematically.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: RSS fetching, entry normalization, timezone handling, per-category JSON output, chronological sorting, feeds.json config management, and selective category fetching. All capabilities listed match the ground truth description.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (HTTP error handling)**: \u2705 Triage #1 explicitly mentions \"bare except blocks hide failures\" and \"single parse/network issue can terminate\"\n- **gap_2 (feed validation)**: \u2705 Triage #5 states \"No validation that a parsed feed is actually valid RSS/Atom\" and \"Detect invalid feeds using feedparser bozo signals\"\n- **gap_3 (deduplication)**: \u2705 Triage #2 identifies \"Entries are keyed only by timestamp, so multiple items published in the same second will collide\"\n- **gap_4 (content extraction)**: \u2705 Triage #5 mentions \"Missing fallback handling for common fields like id, summary, content, tags, guid\"\n- **gap_5 (caching/conditional fetching)**: \u274c Not mentioned. The report discusses cache *output* files but doesn't identify the lack of ETag/Last-Modified/If-Modified-Since support\n- **gap_6 (rate limiting)**: \u274c Not mentioned. Triage #6 mentions \"No concurrency controls if many feeds are configured\" but doesn't identify the lack of rate limiting or throttling between sequential requests\n- **gap_7 (persistent state)**: \u274c Not mentioned. Triage #6 vaguely mentions \"No retention policy or history model beyond latest snapshot\" but doesn't identify the lack of read/unread tracking or \"last fetched\" timestamps\n- **gap_8 (error recovery/retry)**: \u2705 Triage #1 mentions sys.exit termination, and Triage #6 explicitly states \"Add retry with exponential backoff for transient failures\"\n- **gap_9 (OPML import/export)**: \u274c Not mentioned anywhere\n- **gap_10 (output format flexibility)**: \u274c Not mentioned. The report doesn't identify the hardcoded JSON output as a limitation\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: \"concrete\" - Plan #1 provides specific actions (replace bare except with specific exceptions, return structured results, accumulate failures)\n- **gap_2**: \"concrete\" - Plan #5 lists specific fields to normalize and mentions using bozo signals\n- **gap_3**: \"concrete\" - Plan #2 specifies building stable IDs from feed.id/feed.link/hash and using atomic file writes\n- **gap_4**: \"concrete\" - Plan #5 lists specific fields (id, title, link, author, published, updated, summary/content) to extract\n- **gap_5**: \"absent\" - Not identified, no plan\n- **gap_6**: \"absent\" - Not identified, no plan\n- **gap_7**: \"absent\" - Not identified, no plan\n- **gap_8**: \"concrete\" - Plan #6 explicitly mentions \"Add retry with exponential backoff for transient failures\"\n- **gap_9**: \"absent\" - Not identified, no plan\n- **gap_10**: \"absent\" - Not identified, no plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

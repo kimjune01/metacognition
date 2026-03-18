@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n## Reasoning\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: parsing/writing deckstrings, base64 encoding/decoding, varint handling, card grouping by multiplicity, sideboard support, and basic validation. It accurately states the system is \"functioning\" with enumerated capabilities that match the ground truth.\n\n**Gap Coverage Analysis:**\n\n- **gap_1** (truncated input handling): \u2705 **Identified** - Triage explicitly mentions \"_read_varint() has an EOF bug: stream.read(1) returns b'', not '', so truncated input raises the wrong exception path\"\n- **gap_2** (trailing bytes): \u274c **Not identified** - No mention of checking for unparsed trailing data\n- **gap_3** (card count validation): \u2705 **Identified** - Triage mentions \"No checks for... invalid counts, negative/non-int values\"\n- **gap_4** (deck size validation): \u274c **Not identified** - No mention of total card count (30/40) validation\n- **gap_5** (card ID validation): \u2705 **Identified** - Triage mentions \"duplicate card ids... invalid counts\" but doesn't explicitly call out validation against a card database; however, the spirit is captured in \"nonnegative ids\" validation\n- **gap_6** (human-readable output): \u274c **Not identified** - No mention of card name resolution or metadata\n- **gap_7** (format version migration): \u274c **Not identified** - No mention of handling future format versions\n- **gap_8** (error context): \u2705 **Identified** - Triage states \"Error reporting is inconsistent and low-level\" and Plan mentions \"Make parse/write error messages precise\"\n- **gap_9** (serialization formats): \u274c **Not identified** - No mention of to_dict(), to_json(), or __repr__\n- **gap_10** (batch processing): \u274c **Not identified** - No mention of concurrent/async/batch operations\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: **concrete** - \"Fix _read_varint() to detect b'' and raise a domain-appropriate truncation error\"\n- **gap_3**: **concrete** - \"Add explicit validation for: card tuple shape, integer types, nonnegative ids, positive counts\"\n- **gap_5**: **concrete** - Covered by \"nonnegative ids\" validation in the plan\n- **gap_8**: **directional** - \"Make parse/write error messages precise enough for callers to log and act on\" (describes goal but not specific implementation)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "directional",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

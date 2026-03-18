@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "I'll evaluate this diagnostic report systematically against the ground truth.\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: parsing deckstrings, writing them back, supporting sideboards, validating version/format, and producing deterministic ordering. It accurately maps capabilities to the cognitive framework without hallucinating features.\n\n**Gap Coverage Analysis:**\n\n- **gap_1** (truncated input): \u2705 Covered in Triage #5 \"Weak error handling\" and Plan #2 \"Detect truncated varints\"\n- **gap_2** (trailing bytes): \u2705 Covered in Triage #1 \"potentially trailing garbage after parse\" and Plan #2 \"assert there is no unexpected trailing data\"\n- **gap_3** (card-count validation): \u2705 Covered in Triage #1 \"invalid card counts\" and Plan #1 \"invalid counts (`<= 0`)\"\n- **gap_4** (deck-size validation): \u2705 Covered in Triage #1 and Plan #1 \"unsupported deck constraints for the target format\"\n- **gap_5** (card-ID validation): \u274c Not mentioned. The report discusses validation broadly but never specifically identifies the lack of card ID existence checking\n- **gap_6** (human-readable output): \u274c Not mentioned. The report focuses on validation/persistence, not presentation layer\n- **gap_7** (format-version migration): \u274c Not mentioned. The report notes version rejection but doesn't discuss graceful degradation or migration strategies\n- **gap_8** (logging/error context): \u274c Partially touched in Triage #5 \"Errors are low-level\" but Plan #6 only mentions \"structured logging around parse/write failures\" - doesn't specifically call out error context like position/section\n- **gap_9** (serialization formats): \u274c Not mentioned. The report discusses internal representation but not export to standard formats\n- **gap_10** (batch processing): \u274c Not mentioned at all\n\n**Plan Specificity Analysis:**\n\nFor the gaps that were identified:\n- **gap_1-4**: All have concrete, actionable steps in Plans #1 and #2 with specific checks and error types\n- **gap_5-10**: Absent from the plan since they weren't identified in Triage\n\nThe report demonstrates strong analysis of data validation and boundary safety concerns (40% gap coverage) with concrete remediation plans for what it did identify, but misses operational concerns (logging, serialization), graceful degradation, and feature gaps (human-readable output, batch processing).",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

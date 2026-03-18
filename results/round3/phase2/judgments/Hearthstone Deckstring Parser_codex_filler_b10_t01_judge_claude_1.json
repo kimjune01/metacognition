@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"directional\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: base64 deckstring codec with varint encoding, tri-sort bucketing, sideboard support, version checking, format validation, and a Deck class wrapper. All claims match the actual capabilities.\n\n**Gap Coverage:**\n- **gap_1 (truncation/EOFError)**: \u2705 Triage #1 explicitly mentions \"truncated payloads\" and EOF handling bug in `_read_varint()`\n- **gap_2 (trailing bytes)**: \u2705 Plan #1 mentions \"trailing garbage after expected payload\"\n- **gap_3 (card-count validation)**: \u2705 Triage #3 mentions \"zero or negative logical counts are not rejected\" and Plan #2 includes \"card count less than 1\"\n- **gap_4 (deck-size validation)**: \u2705 Triage #3 discusses semantic validation gaps; Plan #3 mentions validation layer (though doesn't explicitly call out total deck size, it's within scope of \"format/class/deck-size rules\")\n- **gap_5 (card-ID validation)**: \u2705 Plan #2 mentions \"absurd card IDs\" as a bounds check\n- **gap_6 (human-readable output)**: \u274c Not mentioned. The report focuses on validation/parsing, not presentation layer\n- **gap_7 (format-version migration)**: \u2705 Triage #7 mentions \"no compatibility/versioning strategy beyond v1 rejection\" and Plan #7 discusses version compatibility\n- **gap_8 (logging/error context)**: \u2705 Triage #1 mentions \"low-level exceptions instead of clear domain errors\" and Plan #7 mentions \"structured logging\"\n- **gap_9 (serialization formats)**: \u274c Not mentioned. No discussion of to_dict/to_json/repr\n- **gap_10 (batch processing)**: \u274c Not mentioned. No discussion of concurrent/async/batch capabilities\n\n**Plan Specificity:**\n- **gap_1**: concrete (specific fix: \"check `if c == b\\\"\\\"`\", wrap base64 decode, catch truncation)\n- **gap_2**: concrete (explicit action: check for trailing garbage)\n- **gap_3**: concrete (specific validation: reject counts < 1, add bounds checks)\n- **gap_4**: directional (mentions \"format/class/deck-size rules\" but doesn't specify the 30/40 card validation)\n- **gap_5**: concrete (reject \"absurd card IDs\" with defined constants)\n- **gap_6**: absent (gap not identified)\n- **gap_7**: directional (mentions compatibility tests and versioning strategy but no concrete migration approach)\n- **gap_8**: directional (mentions \"structured logging\" but no specifics on what context to include)\n- **gap_9**: absent (gap not identified)\n- **gap_10**: absent (gap not identified)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "directional",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "directional",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

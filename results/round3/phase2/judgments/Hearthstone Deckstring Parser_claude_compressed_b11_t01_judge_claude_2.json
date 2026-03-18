@@ -1,0 +1,29 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "Looking at this diagnostic report, I need to evaluate it against the ground truth about what the system does and what gaps exist.\n\nLet me analyze each dimension:\n\n## 1. OBSERVATION ACCURACY\n\nThe Observations section describes:\n- Perceive, Cache, Filter, Remember, Encode/Decode, Sorting capabilities\n- Varint encoding, card grouping, sideboard handling, format validation\n\nThis is **accurate**. The report correctly identifies the working capabilities: base64 decoding, varint handling, bidirectional conversion, format validation, sideboard support, and card sorting. It doesn't hallucinate features that don't exist.\n\n## 2. GAP COVERAGE\n\nChecking each ground-truth gap:\n\n- **gap_1** (no input sanitization, truncated deckstring causes EOFError): The report identifies this in \"Error handling is fragile\" - mentions \"EOFError in _read_varint but no recovery\" and \"No partial parse capability\". **TRUE**\n\n- **gap_2** (no trailing-byte detection): Not explicitly mentioned. The report doesn't identify that extra trailing data would be silently ignored. **FALSE**\n\n- **gap_3** (no card-count validation): The report identifies this in \"Filter stage is shallow\" - \"Doesn't validate deck construction rules (card limits, format legality, total count)\". **TRUE**\n\n- **gap_4** (no deck-size validation): Covered in the same section - \"Check total card count (30 for Standard/Wild)\" is mentioned in the Plan. **TRUE**\n\n- **gap_5** (no card-ID validation): The report identifies this in \"Filter stage is shallow\" - \"No card ID existence validation\". **TRUE**\n\n- **gap_6** (no human-readable output): Identified in \"No query interface\" - \"Can't filter by mana cost, rarity, or card type\" and the lack of card metadata. **TRUE**\n\n- **gap_7** (no format-version migration): Not mentioned. The report doesn't identify that version 2 deckstrings would be rejected. **FALSE**\n\n- **gap_8** (no logging or error context): Identified in \"Error handling is fragile\" - \"ValueError messages lack context (which card failed?)\" and \"No logging or telemetry\". **TRUE**\n\n- **gap_9** (no serialization to standard formats): Mentioned in \"No metadata tracking\" section indirectly, and the Plan includes \"Add Deck.to_json() / from_json()\". **TRUE**\n\n- **gap_10** (no concurrent/batch processing): Not mentioned. The report doesn't identify the lack of batch processing capabilities. **FALSE**\n\n## 3. PLAN SPECIFICITY\n\nFor gaps the report DID identify:\n\n- **gap_1**: The Plan section \"To improve error handling\" provides concrete code showing try/except wrapping, byte offset tracking, and partial deck returns. **concrete**\n\n- **gap_3**: The Plan section \"To deepen Filter\" provides concrete validation code checking card limits with rarity rules. **concrete**\n\n- **gap_4**: Same section shows concrete code checking `if total != 30`. **concrete**\n\n- **gap_5**: Same section shows concrete code checking `if not card_data` for unknown card IDs. **concrete**\n\n- **gap_6**: The Plan section \"To add query interface\" provides concrete code for `filter_cards()`, `get_curve()`, etc. **concrete**\n\n- **gap_8**: The Plan section \"To improve error handling\" shows concrete logging integration and error message improvements. **concrete**\n\n- **gap_9**: The Plan section \"To add metadata\" mentions `Add Deck.to_json() / from_json()` but doesn't provide implementation code - just describes what to add. **directional**\n\n```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\"\n  }\n}\n```",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "directional"
+    }
+  }
+}

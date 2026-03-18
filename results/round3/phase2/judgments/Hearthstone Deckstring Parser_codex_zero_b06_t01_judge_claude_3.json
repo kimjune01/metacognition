@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's actual capabilities: varint encoding/decoding, base64 deckstring parsing/writing, tri-sort optimization, version checking, format validation, hero/card/sideboard support, and the Deck class wrapper. All working features are accurately captured.\n\n**Gap Coverage:**\n- **gap_1 (truncation handling)**: \u2705 Identified - \"There is no validation for truncated payloads\" and \"Validate that all varints decode fully and fail cleanly on truncation\"\n- **gap_2 (trailing bytes)**: \u2705 Identified - \"trailing garbage\" and \"verify there are no trailing unread bytes\"\n- **gap_3 (card-count validation)**: \u2705 Identified - \"invalid counts\" and \"Reject invalid values: card count less than 1\"\n- **gap_4 (deck-size validation)**: \u274c Not identified - The report mentions per-card count validation but never mentions total deck size (30/40 cards)\n- **gap_5 (card-ID validation)**: \u2705 Identified - \"No enforcement of domain rules\" and \"nonzero positive IDs only\" cover this\n- **gap_6 (human-readable output)**: \u274c Not identified - The report never mentions resolving card IDs to names or metadata\n- **gap_7 (format-version migration)**: \u2705 Identified - \"No compatibility/versioning policy beyond rejecting unsupported versions\"\n- **gap_8 (logging/error context)**: \u2705 Identified - \"Error messages are not specific enough\" and \"Make exceptions actionable, for example: 'Invalid deckstring: truncated heroes section'\"\n- **gap_9 (serialization to interchange formats)**: \u274c Not identified - While \"Consider adding Deck.to_dict() / Deck.from_dict()\" is mentioned, there's no discussion of `__repr__` or JSON serialization for inspection/transmission\n- **gap_10 (batch processing)**: \u274c Not identified - No mention of concurrent, batch, streaming, or async processing\n\n**Plan Specificity:**\n- **gap_1**: concrete - \"Fix _read_varint() to detect EOF with b''\", \"Catch base64 decode failures\", \"Validate that all varints decode fully\"\n- **gap_2**: concrete - \"After parsing, verify there are no trailing unread bytes\"\n- **gap_3**: concrete - \"Reject invalid values: card count less than 1\"\n- **gap_5**: concrete - \"nonzero positive IDs only\" in validation function\n- **gap_7**: directional - \"Document any intentional limitations\" and \"compatibility/versioning policy\" mentioned but no concrete migration strategy\n- **gap_8**: concrete - \"Make exceptions actionable, for example: 'Invalid deckstring: truncated heroes section'\"",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

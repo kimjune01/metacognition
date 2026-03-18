@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: base64 deckstring encoding/decoding, varint handling, card bucketing by count, hero/format/sideboard support, and the Deck class API. It accurately identifies the happy-path functionality without claiming capabilities the code doesn't have.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2705 Identified in Triage #2 \"No validation for malformed trailing bytes after parsing\" is close, but more directly addressed by the Python 3 byte handling bug in Triage #1, which mentions \"EOF in the middle of a varint\" testing\n- **gap_2 (trailing bytes)**: \u2705 Explicitly identified in Triage #2: \"No validation for malformed trailing bytes after parsing\"\n- **gap_3 (card count validation)**: \u2705 Identified in Triage #2: \"No validation that card counts are valid for the target game rules\"\n- **gap_4 (deck size validation)**: \u2705 Identified in Triage #4: \"deck size\" validation is explicitly mentioned\n- **gap_5 (card ID validation)**: \u2705 Identified in Triage #2: \"No validation for negative IDs/counts on write\"\n- **gap_6 (human-readable output)**: \u274c Not mentioned. The report focuses on validation and correctness, not presentation/metadata resolution\n- **gap_7 (format version migration)**: \u274c Not identified. The report mentions \"unsupported version\" as existing validation but doesn't identify the lack of graceful degradation as a gap\n- **gap_8 (error context)**: \u2705 Identified in Triage #3: \"Errors are generic ValueError/EOFError with limited context\"\n- **gap_9 (serialization formats)**: \u274c Not mentioned. The report doesn't address dict/JSON serialization or repr\n- **gap_10 (batch processing)**: \u274c Not mentioned. No discussion of concurrency or bulk operations\n\n**Plan Specificity:**\n- **gap_1**: concrete (Plan #1 has specific code changes: rewrite _read_varint, change EOF detection, replace ord())\n- **gap_2**: concrete (Plan #2: \"reject extra unread trailing bytes\")\n- **gap_3**: concrete (Plan #2: \"zero or negative counts\" rejection)\n- **gap_4**: concrete (Plan #4: check \"deck size\" in validation layer)\n- **gap_5**: concrete (Plan #2: \"negative card IDs\" rejection)\n- **gap_6**: absent (not addressed)\n- **gap_7**: absent (not addressed)\n- **gap_8**: concrete (Plan #3: explicit exception types with actionable messages)\n- **gap_9**: absent (not addressed)\n- **gap_10**: absent (not addressed)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

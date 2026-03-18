@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's working capabilities. It accurately identifies the core parsing functions (varint encoding/decoding, base64 handling, tri-sort optimization, sideboard support), the Deck class wrapper, and validation (version check, format type). The mapping to a cognitive framework (Perceive/Cache/Filter/Remember) is interpretive but doesn't misrepresent what the code does.\n\n**Gap Coverage:**\n- **gap_1 (truncation/EOFError)**: \u2705 Identified as \"Error handling is brittle\" and \"System raises generic exceptions with minimal context\"\n- **gap_2 (trailing bytes)**: \u274c Not mentioned. The report focuses on error handling but doesn't specifically call out the lack of trailing-byte detection\n- **gap_3 (card-count validation)**: \u2705 Covered in gap #2 (\"No validation beyond format\") and plan section 2 mentions \"No more than 2 copies per card\"\n- **gap_4 (deck-size validation)**: \u2705 Explicitly mentioned in gap #2 and plan section 2: \"Total card count == 30 (or format-specific limit)\"\n- **gap_5 (card-ID validation)**: \u2705 Covered in gap #9 (\"No card database integration \u2014 DBF IDs are opaque integers; can't validate\")\n- **gap_6 (human-readable output)**: \u2705 Identified in gap #8 (\"Limited metadata\") and gap #9 (\"No card database integration\")\n- **gap_7 (version migration)**: \u274c Not mentioned. The report notes version checking exists but doesn't discuss the lack of graceful handling for future versions\n- **gap_8 (logging/error context)**: \u2705 Explicitly covered as gap #4 (\"No logging or observability\")\n- **gap_9 (serialization formats)**: \u2705 Mentioned in plan section 8: \"Add `Deck.to_dict()` and `Deck.from_dict()` for JSON serialization\"\n- **gap_10 (batch processing)**: \u2705 Covered in gap #10 (\"Performance not optimized\") and plan section 10 mentions caching and benchmarking\n\n**Plan Specificity:**\n- **gap_1**: **concrete** - Specific exception hierarchy, try/except wrapping, strict parameter, example error message format\n- **gap_2**: **absent** - Not addressed in plan\n- **gap_3**: **concrete** - Specific validation method with bullet points for checks (card count limits, duplicate detection)\n- **gap_4**: **concrete** - Explicit deck size check: \"Total card count == 30 (or format-specific limit)\"\n- **gap_5**: **concrete** - Plan section 9 provides card database integration with validation method: \"db.is_legal(card_id, format)\"\n- **gap_6**: **concrete** - Plan section 9 details card resolution: \"convert DBF IDs to rich Card objects with names, costs, text\"\n- **gap_7**: **absent** - No plan for version migration\n- **gap_8**: **concrete** - Specific logging calls with logger setup, log levels, and placement at key points\n- **gap_9**: **concrete** - Explicit method signatures: \"Deck.to_dict()\" and \"Deck.from_dict()\"\n- **gap_10**: **concrete** - Multiple specific optimizations: caching, removing redundant sorts, lru_cache, pytest-benchmark",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

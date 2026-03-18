@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: feed parsing, multi-source aggregation, timestamp handling, timezone conversion, deduplication (within a fetch), sorting, category organization, JSON persistence, author display control, configuration management, and selective fetching. These match the ground-truth description.\n\n**Gap Coverage: all true**\n- gap_1 (HTTP error handling): Identified as Critical #1 \"No error recovery\"\n- gap_2 (feed validation): Identified as Critical #2 \"No feed validation\"\n- gap_3 (deduplication): Identified as Critical #4 \"Timestamp collision handling\" and Medium #14 \"Weak deduplication\"\n- gap_4 (content extraction): Identified as Medium #11 \"No entry content\"\n- gap_5 (caching/conditional fetching): Identified as High #5 \"No staleness detection\", High #9 \"Missing feed metadata\", and Medium #10 \"Conditional requests\"\n- gap_6 (rate limiting): Identified as Critical #3 \"No rate limiting\"\n- gap_7 (persistent state): Identified as High #5 \"No staleness detection\" and Medium #14 \"Weak deduplication\"\n- gap_8 (error recovery/retry): Identified as Critical #1 \"No error recovery\" and High #8 \"No retry logic\"\n- gap_9 (OPML/feed discovery): Identified as Low #16 \"No feed discovery\" and Low #17 \"No OPML import/export\"\n- gap_10 (output format flexibility): Identified as Medium #12 \"Hard-coded paths\" (partial coverage of inflexibility)\n\n**Plan Specificity:**\n- gaps 1-8: **concrete** - Each has working Python code examples showing exactly what to implement\n- gap_9: **absent** - OPML mentioned in triage but no implementation plan provided\n- gap_10: **absent** - Output format flexibility not addressed in the plan (the \"Hard-coded paths\" fix only addresses path configuration, not format flexibility)",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

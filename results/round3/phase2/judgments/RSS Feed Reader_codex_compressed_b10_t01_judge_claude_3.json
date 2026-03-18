@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Reasoning:**\n\n**OBSERVATION ACCURACY: mostly_accurate**\nThe Observations section correctly identifies most working capabilities (feed parsing, normalization, timezone handling, per-category output, sorting, config management, selective fetching, logging). However, it makes one subtle error: it claims the system \"deduplicates only by timestamp because `rslt[entries[\"id\"]] = entries`\" - but this is describing a bug/limitation, not an actual working deduplication capability. The system doesn't truly deduplicate in a production sense. Otherwise, the observations accurately describe what the system does.\n\n**GAP COVERAGE:**\n- **gap_1** (HTTP error handling): \u2713 Covered in Triage #5 \"Fragile error handling\" and \"One failed fetch can exit the process\"\n- **gap_2** (feed validation): \u2713 Covered in Triage #1 \"no URL validation, title validation, ... content sanity check\"\n- **gap_3** (deduplication): \u2713 Covered extensively in Triage #1 \"No reliable filtering or deduplication\" and #2 about lack of cross-run memory\n- **gap_4** (content extraction): \u2713 Covered in Triage #8 \"no extraction of summaries/content\"\n- **gap_5** (caching/conditional fetching): \u2717 Not mentioned. The report discusses persistent history and consolidation but never mentions ETags, Last-Modified headers, or conditional HTTP requests\n- **gap_6** (rate limiting): \u2717 Not mentioned at all\n- **gap_7** (persistent state): \u2713 Covered in Triage #2 \"No durable item-level memory\" and lack of read/unread tracking\n- **gap_8** (error recovery/retry): \u2713 Covered in Triage #5 with specifics about sys.exit and need for retry logic\n- **gap_9** (OPML/feed discovery): \u2717 Not mentioned\n- **gap_10** (output format flexibility): \u2713 Covered in Triage #6 \"Storage and schema are too thin\" and mentions JSON snapshots as limitation\n\n**PLAN SPECIFICITY:**\n- **gap_1**: concrete - Specific exception handling, timeout policy, retry with backoff, structured results\n- **gap_2**: concrete - Specific validation rules listed (require title, valid URL, malformed dates)\n- **gap_3**: concrete - Detailed stable identity approach, cross-run detection, near-duplicate matching\n- **gap_4**: concrete - \"Optionally capture summaries/content fields\" in Plan #8\n- **gap_5**: absent - Not identified, so no plan\n- **gap_6**: absent - Not identified, so no plan\n- **gap_7**: concrete - SQLite schema with specific tables, fields, and constraints\n- **gap_8**: concrete - Replace bare except, structured results, timeout, retry with backoff, keep processing\n- **gap_9**: absent - Not identified, so no plan\n- **gap_10**: directional - Mentions \"separate raw ingest data from rendered output\" but doesn't specify how to add HTML/terminal/email formats",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "directional"
+    }
+  }
+}

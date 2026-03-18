@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly identifies what the system does: codec functionality with perceive (decode/encode), cache (in-memory structures), filter (shallow validation), and attend (deterministic ordering). It accurately notes this is \"a codec, not a full production information system.\"\n\n**Gap Coverage:**\n- **gap_1 (truncation/EOFError)**: \u2705 Identified in Triage #3 (\"truncated streams\") and Plan #1 (\"Catch EOFError\", \"Validate full consumption\")\n- **gap_2 (trailing bytes)**: \u2705 Identified in Triage #3 (\"trailing garbage\") and Plan #1 (\"reject trailing bytes\")\n- **gap_3 (card count validation)**: \u2705 Identified in Plan #1 (\"card counts must be positive\")\n- **gap_4 (deck size validation)**: \u274c Never mentioned. The report discusses card counts but not total deck size limits (30/40 cards)\n- **gap_5 (card ID validation)**: \u2705 Identified in Plan #1 (\"card IDs must be positive integers\")\n- **gap_6 (human-readable output)**: \u274c Not identified. The report discusses data models and APIs but never mentions resolving card IDs to names/metadata\n- **gap_7 (format version migration)**: \u274c Not identified. The report mentions \"UnsupportedVersion\" errors but never discusses graceful degradation or migration logic for newer versions\n- **gap_8 (error context/logging)**: \u2705 Identified in Triage #3 (\"Replace generic ValueError/EOFError with explicit exceptions\") and Plan #7 (\"Add logging hooks\")\n- **gap_9 (serialization formats)**: \u2705 Partially identified in Plan #4 (\"typed structures\") and obliquely in Plan #2 (\"file-based JSON\"), though not explicitly as to_dict/to_json methods\n- **gap_10 (batch processing)**: \u274c Not mentioned. The report focuses on single-deck processing only\n\n**Plan Specificity:**\n- **gap_1**: concrete - Specific actions: \"Change `_read_varint()` to detect EOF correctly with `b\"\"`\", \"Catch `base64.binascii.Error`\"\n- **gap_2**: concrete - \"Validate full consumption of the stream after parsing; reject trailing bytes\"\n- **gap_3**: concrete - \"card counts must be positive\"\n- **gap_5**: concrete - \"card IDs must be positive integers\"\n- **gap_8**: concrete - \"Replace generic ValueError/EOFError with explicit exceptions such as InvalidDeckstring\"\n- **gap_9**: directional - Mentions \"typed structures\" and \"stable API boundary\" but doesn't specify to_dict/to_json/repr methods",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}

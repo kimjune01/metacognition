@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Explanation:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the working capabilities: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, sideboard support, version/format validation, and the OO wrapper. It accurately notes what the system can do without overstating or understating its capabilities.\n\n**Gap Coverage:**\n- **gap_1 (truncated input)**: \u2713 Triage #2 mentions \"does not validate truncated payloads cleanly\" and Plan #2 adds \"reject extra trailing bytes after the expected payload\"\n- **gap_2 (trailing bytes)**: \u2713 Plan #2 explicitly says \"reject extra trailing bytes after the expected payload\"\n- **gap_3 (card-count validation)**: \u2713 Triage #2 and Plan #2 both mention validating \"negative/impossible counts\" and \"validate that card counts are positive integers\"\n- **gap_4 (deck-size validation)**: \u2717 No mention of total deck size (30/40 cards) validation\n- **gap_5 (card-ID validation)**: \u2717 No mention of validating card IDs against a database\n- **gap_6 (human-readable output)**: \u2717 No mention of card name resolution or metadata\n- **gap_7 (format-version migration)**: \u2717 No mention of handling future versions gracefully\n- **gap_8 (logging/error context)**: \u2713 Triage #3 discusses error handling and Plan #3 emphasizes \"Keep error messages specific: version mismatch, bad header, truncated payload, unknown format, invalid hero count\"\n- **gap_9 (serialization formats)**: \u2717 No mention of to_dict(), to_json(), or __repr__\n- **gap_10 (batch processing)**: \u2717 No mention of concurrent or batch operations\n\n**Plan Specificity:**\nFor gaps identified (1, 2, 3, 8), the plan provides concrete actions with code examples and specific validation checks. For gaps not identified, the specificity is \"absent\" since they weren't addressed.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

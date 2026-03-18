@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, deck class wrapper, sideboard support, version checking, and format validation. It accurately captures the working capabilities without overstating them.\n\n**Gap Coverage:**\n- **gap_1** (truncated input handling): \u2705 Identified in Triage #1 as \"does not validate malformed/truncated input robustly enough\"\n- **gap_2** (trailing bytes): \u2705 Explicitly mentioned in Triage #1 as \"Extra trailing bytes after a valid payload are silently ignored\"\n- **gap_3** (card count validation): \u2705 Identified in Triage #4 as \"Negative or nonsensical values are not explicitly rejected\" and \"No validation of card-count rules\"\n- **gap_4** (deck size validation): \u274c Not identified. The report mentions card-count validation but never discusses total deck size (30/40 cards)\n- **gap_5** (card ID validation): \u2705 Covered in Triage #4 as semantic validation missing for decoded data\n- **gap_6** (human-readable output): \u274c Not mentioned. The report doesn't discuss card name resolution or metadata lookup\n- **gap_7** (format migration): \u2705 Identified in Triage #7 as \"Version handling is hardcoded to 1 with immediate failure otherwise\"\n- **gap_8** (logging/error context): \u2705 Mentioned in Triage #1 and #6 as \"Error messages are serviceable but inconsistent and not very diagnostic\"\n- **gap_9** (serialization formats): \u274c Not mentioned. No discussion of to_dict(), to_json(), or __repr__\n- **gap_10** (batch processing): \u274c Not mentioned. No discussion of concurrent or bulk processing\n\n**Plan Specificity:**\n- **gap_1**: concrete - Specific fix provided: \"Use `if c == b\"\": raise EOFError(...)`\" and \"Add a max varint length\"\n- **gap_2**: concrete - Explicit solution: \"assert the stream is fully consumed\" with code snippet\n- **gap_3**: concrete - Clear directive: \"Validate all ids and counts are positive integers\"\n- **gap_5**: concrete - Explicit validation steps in Plan #4\n- **gap_7**: directional - Suggests structure (\"Isolate version-specific parse/write logic\") but doesn't specify how to handle v2 gracefully\n- **gap_8**: directional - Mentions \"Standardize exception wording\" but doesn't specify what context to include",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "directional",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

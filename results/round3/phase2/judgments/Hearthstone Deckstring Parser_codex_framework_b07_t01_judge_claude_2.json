@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, sideboard support, version checking, format validation, and the OO wrapper. It accurately notes the narrow but functional scope.\n\n**Gap Coverage Analysis:**\n\n- **gap_1** (truncated deckstring \u2192 EOFError): \u2705 Identified in Triage #2 (\"does not validate truncated payloads cleanly\") and Plan #2 (\"unexpected EOF mid-varint\")\n- **gap_2** (trailing bytes): \u2705 Identified in Triage #2 (\"trailing garbage\") and Plan #2 (\"reject extra trailing bytes after the expected payload\")\n- **gap_3** (card-count validation): \u2705 Identified in Triage #2 (\"negative/impossible counts\") and Plan #2 (\"validate that card counts are positive integers\", \"reject zero or negative counts\")\n- **gap_4** (deck-size validation): \u274c Not mentioned. The report discusses card counts but never mentions total deck size (30/40 cards)\n- **gap_5** (card-ID validation): \u274c Not mentioned. The report doesn't suggest validating card IDs against a database\n- **gap_6** (human-readable output): \u274c Not mentioned. The report doesn't discuss card name resolution or metadata\n- **gap_7** (format-version migration): \u274c Not mentioned. The report notes version validation but doesn't discuss graceful degradation or migration strategies\n- **gap_8** (logging/error context): \u2705 Identified in Triage #3 (\"low-level exceptions\") and Plan #3 (\"Keep error messages specific: version mismatch, bad header, truncated payload...\")\n- **gap_9** (serialization formats): \u274c Not mentioned. The report discusses dataclass models internally but doesn't mention to_dict/to_json/repr\n- **gap_10** (batch processing): \u274c Not mentioned. No discussion of concurrent or batch processing capabilities\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: concrete - Specific rewrite instructions for `_read_varint` with code examples\n- **gap_2**: concrete - Clear directive to \"reject extra trailing bytes after the expected payload\"\n- **gap_3**: concrete - Explicit validation requirements (\"validate that card counts are positive integers\", \"reject zero or negative counts\")\n- **gap_8**: concrete - Detailed error handling strategy with specific exception types and message content",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

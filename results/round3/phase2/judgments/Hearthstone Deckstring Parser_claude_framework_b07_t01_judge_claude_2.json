@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"directional\"\n  }\n}\n```\n\n**Summary:**\n\n**Observation Accuracy: ACCURATE** - The report correctly identifies all 9 working capabilities without hallucinations.\n\n**Gap Coverage: 5/10 identified**\n- \u2705 Found: Input validation crashes (gap_1), trailing-byte detection (gap_2), human-readable output (gap_6), error context (gap_8), interchange formats (gap_9), batch processing (gap_10)\n- \u274c Missing: Card-count validation against game rules (gap_3), deck-size validation (gap_4), card-ID database validation (gap_5), format-version migration (gap_7)\n\n**Plan Specificity:**\n- **Concrete** (4 gaps): Provides line numbers, code snippets, and actionable implementation details\n- **Directional** (1 gap): Acknowledges the gap but dismisses as unnecessary\n- **Absent** (5 gaps): No implementation guidance for gaps not identified\n\nThe report is strongest on parsing robustness (validation, error handling) but misses several domain-specific validations (card counts, deck size, card ID validity, version migration).",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "directional"
+    }
+  }
+}

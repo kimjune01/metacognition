@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": false,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"concrete\",\n    \"gap_8\": \"absent\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes all working capabilities: bidirectional serialization, varint encoding, multi-tier card storage, hero support, format tracking, sideboard support, sorting/normalization, and OO interface. No incorrect claims.\n\n**Gap Coverage Analysis:**\n- **gap_1** (truncated input handling): \u2705 Identified as \"No error handling for malformed input\" - mentions EOFError for truncated streams\n- **gap_2** (trailing bytes): \u274c Not identified - report doesn't mention checking for unparsed remaining bytes\n- **gap_3** (card-count validation): \u2705 Identified in \"No validation of business rules\" - mentions no checking of card counts\n- **gap_4** (deck-size validation): \u2705 Identified in \"No validation of business rules\" - explicitly mentions \"No deck size limits (30 cards typical)\"\n- **gap_5** (card-ID validation): \u274c Not identified - report mentions \"No validation of card counts, DBF IDs\" in the error handling section but doesn't identify this as a separate gap requiring card database validation\n- **gap_6** (human-readable output): \u274c Not identified - report mentions limited introspection but not the lack of card name/metadata resolution\n- **gap_7** (format-version migration): \u2705 Identified as \"No version negotiation strategy\" - mentions rejection of version != 1\n- **gap_8** (logging/error context): \u274c Not identified - report mentions custom exceptions but not enhanced error messages with position/context\n- **gap_9** (serialization formats): \u274c Not identified - report mentions limited introspection and no `__repr__` but not to_dict()/to_json()\n- **gap_10** (batch processing): \u274c Not identified - no mention of concurrent/batch/async capabilities\n\n**Plan Specificity:**\n- **gap_1**: concrete - detailed exception hierarchy, specific validation checks, code examples\n- **gap_3**: concrete - validation rules specified, example validate() method with implementation details\n- **gap_4**: concrete - same validation section provides specific deck size checking logic\n- **gap_7**: concrete - specific code example for version tolerance with warnings and feature flags",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": false,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "concrete",
+      "gap_8": "absent",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

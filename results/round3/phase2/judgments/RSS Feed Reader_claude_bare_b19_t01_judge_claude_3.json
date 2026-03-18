@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 3,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"mostly_accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": true,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": true\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"concrete\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"concrete\",\n    \"gap_9\": \"concrete\",\n    \"gap_10\": \"concrete\"\n  }\n}\n```\n\n**Reasoning:**\n\n**OBSERVATION ACCURACY: mostly_accurate**\n- Most observations are correct (feed parsing, multi-source aggregation, timezone handling, persistence, configuration, selective processing, author display, logging)\n- However, observation #4 \"Deduplication: Uses timestamp-based IDs to prevent duplicate entries within a category\" is misleading. The system uses timestamps as IDs, but this doesn't actually prevent duplicates\u2014it causes collisions for entries published at the same second, which is the opposite of deduplication\n- This significant inaccuracy prevents an \"accurate\" rating\n\n**GAP COVERAGE:**\n- **gap_1 (HTTP error handling)**: \u2713 Identified as \"Critical Gap 1 - No Error Handling Granularity\"\n- **gap_2 (feed validation)**: \u2717 Triage mentions \"Data Validation\" but only for feeds.json schema, not for validating parsed feed data quality\n- **gap_3 (deduplication across fetches)**: \u2717 Not identified. The report incorrectly claims deduplication works in Observations\n- **gap_4 (content extraction)**: \u2713 Identified as \"Critical Gap 2 - No Entry Content Storage\"\n- **gap_5 (caching/conditional fetching)**: \u2713 Identified as \"Important Gap 5 - No Caching/Conditional Requests\"\n- **gap_6 (rate limiting)**: \u2713 Identified as \"Important Gap 4 - No Rate Limiting\"\n- **gap_7 (persistent state)**: \u2717 Not identified. \"Unbounded Data Growth\" mentions accumulation but not read/unread tracking or last-fetched timestamps\n- **gap_8 (error recovery/retry)**: \u2713 Covered by \"Critical Gap 1\" addressing sys.exit() behavior\n- **gap_9 (feed discovery/OPML)**: \u2713 Identified as \"Nice-to-Have Gap 13 - No Feed Discovery\"\n- **gap_10 (output format flexibility)**: \u2713 Identified as \"Nice-to-Have Gap 14 - No Output Format Options\"\n\n**PLAN SPECIFICITY:**\n- Gaps identified with concrete plans: 1, 4, 5, 6, 8, 9, 10 all have detailed code examples\n- Gaps not identified have no plans: 2, 3, 7 are \"absent\"",
+  "parsed": {
+    "observation_accuracy": "mostly_accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": true,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": true
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "concrete",
+      "gap_7": "absent",
+      "gap_8": "concrete",
+      "gap_9": "concrete",
+      "gap_10": "concrete"
+    }
+  }
+}

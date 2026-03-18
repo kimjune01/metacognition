@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 2,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": false,\n    \"gap_3\": false,\n    \"gap_4\": false,\n    \"gap_5\": false,\n    \"gap_6\": false,\n    \"gap_7\": false,\n    \"gap_8\": true,\n    \"gap_9\": false,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"absent\",\n    \"gap_3\": \"absent\",\n    \"gap_4\": \"absent\",\n    \"gap_5\": \"absent\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"absent\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"absent\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Reasoning:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes the system's working capabilities: base64 decoding, varint parsing, card grouping by multiplicity, sideboard support, format validation, and the Deck class API. It accurately reflects what the system *does* do.\n\n**Gap Coverage Analysis:**\n\n- **gap_1 (truncated deckstring handling)**: \u2705 **TRUE** - The report explicitly mentions \"_read_varint() has an EOF bug: stream.read(1) returns b\"\", not \"\", so truncated input raises the wrong exception path\"\n\n- **gap_2 (trailing-byte detection)**: \u274c **FALSE** - Not mentioned. The report discusses input validation but doesn't identify the specific issue of unparsed trailing bytes.\n\n- **gap_3 (card-count validation)**: \u274c **FALSE** - While the report mentions \"positive counts\" in the plan, it doesn't identify that the system currently accepts zero or negative card counts.\n\n- **gap_4 (deck-size validation)**: \u274c **FALSE** - Not mentioned. No discussion of total card count constraints (30/40 cards).\n\n- **gap_5 (card-ID validation)**: \u274c **FALSE** - Not mentioned. The report doesn't identify that card IDs aren't validated against a database.\n\n- **gap_6 (human-readable output)**: \u274c **FALSE** - Not mentioned. No discussion of resolving card IDs to names or metadata.\n\n- **gap_7 (format-version migration)**: \u274c **FALSE** - Not mentioned. The report doesn't discuss version 2 compatibility or graceful degradation.\n\n- **gap_8 (logging/error context)**: \u2705 **TRUE** - The report states \"Error reporting is inconsistent and low-level\" and recommends \"Make parse/write error messages precise enough for callers to log and act on.\"\n\n- **gap_9 (serialization to standard formats)**: \u274c **FALSE** - Not mentioned. No discussion of to_dict(), to_json(), or __repr__ methods.\n\n- **gap_10 (batch processing)**: \u274c **FALSE** - Not mentioned. No discussion of concurrent or bulk processing capabilities.\n\n**Plan Specificity Analysis:**\n\n- **gap_1**: **concrete** - \"Fix _read_varint() to detect b\"\" and raise a domain-appropriate truncation error\"\n- **gap_8**: **directional** - \"Make parse/write error messages precise enough\" is directional but not as concrete as gap_1's fix\n\nAll other gaps are **absent** from the plan since they weren't identified in the triage.",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": false,
+      "gap_3": false,
+      "gap_4": false,
+      "gap_5": false,
+      "gap_6": false,
+      "gap_7": false,
+      "gap_8": true,
+      "gap_9": false,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "absent",
+      "gap_3": "absent",
+      "gap_4": "absent",
+      "gap_5": "absent",
+      "gap_6": "absent",
+      "gap_7": "absent",
+      "gap_8": "directional",
+      "gap_9": "absent",
+      "gap_10": "absent"
+    }
+  }
+}

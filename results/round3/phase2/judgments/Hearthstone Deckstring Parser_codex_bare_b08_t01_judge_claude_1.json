@@ -1,0 +1,32 @@
+{
+  "judge_model": "claude",
+  "judge_run": 1,
+  "raw_response": "```json\n{\n  \"observation_accuracy\": \"accurate\",\n  \"gap_coverage\": {\n    \"gap_1\": true,\n    \"gap_2\": true,\n    \"gap_3\": true,\n    \"gap_4\": true,\n    \"gap_5\": true,\n    \"gap_6\": false,\n    \"gap_7\": true,\n    \"gap_8\": true,\n    \"gap_9\": true,\n    \"gap_10\": false\n  },\n  \"plan_specificity\": {\n    \"gap_1\": \"concrete\",\n    \"gap_2\": \"concrete\",\n    \"gap_3\": \"concrete\",\n    \"gap_4\": \"concrete\",\n    \"gap_5\": \"concrete\",\n    \"gap_6\": \"absent\",\n    \"gap_7\": \"directional\",\n    \"gap_8\": \"directional\",\n    \"gap_9\": \"directional\",\n    \"gap_10\": \"absent\"\n  }\n}\n```\n\n**Rationale:**\n\n**Observation Accuracy: accurate**\nThe Observations section correctly describes what the system does: varint encoding/decoding, deckstring parsing/writing, tri-sort optimization, the Deck class wrapper, sideboard support, version checking, and format validation. It accurately captures the current capabilities without overstating them.\n\n**Gap Coverage:**\n- **gap_1** (truncated input handling): \u2713 Identified in Triage #1 \"Invalid, truncated, malformed...binary input is not handled robustly\"\n- **gap_2** (trailing bytes): \u2713 Identified in Plan #1 \"Detect trailing garbage after a valid payload\"\n- **gap_3** (card-count validation): \u2713 Identified in Triage #2 and Plan #2 \"counts are positive integers\"\n- **gap_4** (deck-size validation): \u2713 Identified in Triage #2 \"does not validate whether a deck is legal...deck composition rules\"\n- **gap_5** (card-ID validation): \u2713 Identified in Plan #2 \"card ids are positive integers\" (though not explicitly checking against a database, the report identifies missing ID validation)\n- **gap_6** (human-readable output): \u2717 Not mentioned. The report focuses on binary format correctness, not card name resolution or metadata\n- **gap_7** (format-version migration): \u2713 Identified in Triage #5 and Plan #5 \"Only one...version...little forward-compatibility strategy\"\n- **gap_8** (logging/error context): \u2713 Identified in Triage #6 \"No logging, metrics hooks, or error taxonomy\"\n- **gap_9** (serialization formats): \u2713 Mentioned indirectly in Triage #4 \"API clarity\" and Plan #4 discusses type improvements; the lack of to_dict/to_json is implied by the weak API surface\n- **gap_10** (batch processing): \u2717 Not mentioned. The report doesn't discuss concurrent or bulk processing\n\n**Plan Specificity:**\n- **gap_1**: \"concrete\" - Specific fixes in Plan #1: check `if c == b\"\"`, use `c[0]`, add bounds checking, use `validate=True`\n- **gap_2**: \"concrete\" - Plan #1 explicitly says \"Detect trailing garbage after a valid payload\"\n- **gap_3**: \"concrete\" - Plan #2 lists \"counts are positive integers\" as a validation check\n- **gap_4**: \"concrete\" - Plan #2 mentions \"deck legality\" and \"deck composition rules\" validation\n- **gap_5**: \"concrete\" - Plan #2 specifies \"card ids are positive integers\"\n- **gap_6**: \"absent\" - Not addressed in the plan\n- **gap_7**: \"directional\" - Plan #5 says \"Centralize format-version logic\" but doesn't give concrete migration strategy\n- **gap_8**: \"directional\" - Triage #6 mentions logging/error taxonomy but Plan #6 only says \"Define stable exception classes\" without detailing structured error reasons\n- **gap_9**: \"directional\" - Plan #4 mentions improving types and API but doesn't explicitly call out adding to_dict/to_json methods\n- **gap_10**: \"absent\" - Not addressed in the plan",
+  "parsed": {
+    "observation_accuracy": "accurate",
+    "gap_coverage": {
+      "gap_1": true,
+      "gap_2": true,
+      "gap_3": true,
+      "gap_4": true,
+      "gap_5": true,
+      "gap_6": false,
+      "gap_7": true,
+      "gap_8": true,
+      "gap_9": true,
+      "gap_10": false
+    },
+    "plan_specificity": {
+      "gap_1": "concrete",
+      "gap_2": "concrete",
+      "gap_3": "concrete",
+      "gap_4": "concrete",
+      "gap_5": "concrete",
+      "gap_6": "absent",
+      "gap_7": "directional",
+      "gap_8": "directional",
+      "gap_9": "directional",
+      "gap_10": "absent"
+    }
+  }
+}
