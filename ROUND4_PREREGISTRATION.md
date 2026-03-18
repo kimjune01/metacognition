@@ -341,21 +341,106 @@ This preregistration is versioned in git. Changes tracked via commit history:
 
 ## Changes from Round 3
 
-**Design improvements:**
+**Every Round 3 failure informs Round 4 design:**
 
-1. **Added null cases (25%)** — Tests restraint, prevents positive-case bias
-2. **External evidence requirement** — Prevents smuggling diagnosis into selection
-3. **Futility stopping at batch 15** — Learned from Round 3 oscillation
-4. **SOAP directive without scaffold** — Reduces output-structure confounding
-5. **Effect size consideration** — Not just probability, but practical margin
-6. **Algorithmic sentinels** — Tests if Handshake rescues where Framework failed
+### 1. Futility stopping at batch 15 (50% of max)
 
-**Scope narrowing:**
+**Round 3 problem:** RSS oscillated 0.90-0.94 from batch 13-30. Wasted compute trying to reach impossible 0.95 threshold. We knew at batch 15 it wouldn't confirm.
+
+**Round 4 fix:**
+- At batch 15: if P trapped in [0.40, 0.60] or oscillating ±0.05 with no trend, stop
+- Estimate batches needed: ~2/(threshold - current_mean)²
+- Saves compute, honest about moderate effects
+
+**Lesson:** Bayesian stopping is efficient for decisive results. Need futility rules for indecisive results.
+
+### 2. Null/calibration cases (25%)
+
+**Round 3 problem:** All problems had gaps. Didn't test if framework can say "nothing important missing." Positive-case bias.
+
+**Round 4 fix:**
+- 75% gap cases (externally documented problems)
+- 25% null cases (no qualifying gaps after search)
+- Tests restraint, prevents "everything has gaps" tautology
+
+**Lesson from codex:** "If the framework cannot cleanly say 'nothing important missing,' it is not a reliable diagnostic tool."
+
+### 3. External evidence requirement
+
+**Round 3 problem:** We decided what gaps existed during selection. Could smuggle diagnosis.
+
+**Round 4 fix:**
+- Require: issue threads, postmortems, maintainer TODOs, incident notes, bug clusters
+- OR: null case (no evidence after fixed search protocol)
+- Pre-register search procedure (which artifacts, how many, timebox)
+
+**Lesson:** Don't select problems where we already know the "right" answer.
+
+### 4. Problem-type clustering (multiple per category)
+
+**Round 3 problem:** Had 1 data-processing problem, 1 algorithmic. Can't establish category effects with N=1 per category. Category and item difficulty confounded.
+
+**Round 4 fix:**
+- 2-3 problems per category minimum
+- Categories: data processing, production infrastructure
+- Plus algorithmic sentinels (test if Handshake rescues)
+
+**Lesson:** Need multiple items to separate category effects from specific problem difficulty.
+
+### 5. SOAP directive without scaffold
+
+**Round 3 problem:** Directive showed structure (Observations → Triage → Plan). If Handshake primes that structure better, wins on format not diagnosis. Output-structure confounding.
+
+**Round 4 fix:**
+- Just say "Generate SOAP notes" (no template shown)
+- LLMs know SOAP format (medical documentation)
+- Judges score diagnosis substance only, not organization
+
+**Lesson:** Reduce latent treatment from format specification. Can't eliminate (SOAP is still structure), but can avoid explicit scaffolding.
+
+### 6. Effect size + probability in decision rule
+
+**Round 3 problem:** Pure threshold (P≥0.95) ignores effect size, cost, robustness. A tiny win with high certainty may not justify complexity.
+
+**Round 4 fix:**
+- Adopt intervention if P(hs>fw) ≥ 0.95 **AND** mean difference ≥ 0.10
+- If P high but effect tiny: "trivially better, not worth complexity"
+- If P moderate but effect large: report effect size honestly
+
+**Lesson:** P=0.949 vs P=0.95 is vanity. Pre-commit to thresholds for integrity, but interpret with effect size and practical significance.
+
+---
+
+## What Round 3 Taught Us About Science
+
+**Pre-registration keeps you honest:**
+When noise helped (opposite of prediction), we couldn't hide it. When framework hit P=0.949 (just missing 0.95), we couldn't lower the threshold. Forces intellectual honesty.
+
+**Surprises are features, not bugs:**
+- Noise helps (don't know why, but replicated)
+- Compressed harmful/useless (can't extract vocabulary)
+- Theory massively load-bearing (prior 0.45, actual 0.95)
+
+If everything confirmed predictions, we'd learn nothing new.
+
+**Process matters as much as results:**
+Work log captures bugs, fixes, reasoning evolution, surprises. Most research hides messy process, shows polished results. Transparency enables verification and learning.
+
+**Honesty is intersubjective:**
+Can't self-certify (unconscious bias exists). Make work auditable: append-only artifacts, public repo, commit history, disclosed Rounds 1-2, honest reporting.
+
+Science works through collective error correction, not individual virtue.
+
+---
+
+## Scope Narrowing
 
 - Round 3: tested "does theory help?" broadly
 - Round 4: assumes theory helps (Round 3 result), asks "does MORE theory help MORE?"
 - Scoped to production systems with multi-stage architecture and actionable gaps
 - Explicit about boundaries (not testing on toy problems or trivial systems)
+
+**The question is sharper:** Not "does framework help in general?" but "for production-readiness diagnostics on multi-stage information systems, does formal theory improve over conceptual theory?"
 
 ---
 
