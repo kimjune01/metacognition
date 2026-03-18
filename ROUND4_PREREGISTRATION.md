@@ -15,6 +15,45 @@ Does formal categorical theory (The Handshake) improve diagnostic quality more t
 
 ---
 
+## Research Goals
+
+This experiment has **two objectives** (both explicit, both valued):
+
+### 1. Learn to do science
+
+**Methodological practice:**
+- Pre-registration discipline (lock protocol before seeing data)
+- Bayesian stopping with futility rules (efficient, honest about effect sizes)
+- Audit layers for single-model judging (variance vs bias)
+- Broad vs deep sampling trade-offs (external validity vs local robustness)
+- Transparent artifacts (prompts, data, reasoning, mistakes)
+
+**Learning from failure:**
+- Round 3 taught us: futility rules, null cases, external evidence, problem clustering
+- Each mistake documented, each lesson applied
+- Process transparency enables collective error correction
+
+**Value:** Building methodology that others can use for honest prompt engineering experiments.
+
+### 2. Produce potentially useful diagnoses
+
+**Practical artifacts:**
+- 30 diagnostic reports on real production API systems
+- Actionable gap identification (sprint-plannable)
+- Shareable with maintainers (opt-in, with attribution)
+- Reference examples of diagnostic quality
+
+**Test in the wild:**
+- Do maintainers find these useful?
+- Do they act on the diagnoses?
+- What's the conversion rate from "diagnosis shared" to "gap fixed"?
+
+**Value:** Experiments should produce useful outputs, not just p-values. If the diagnoses are good, they have immediate practical value beyond the experimental finding.
+
+**Honest accounting:** We don't know if maintainers will appreciate unsolicited diagnoses. That's part of the experiment—both the methodology (does Handshake help?) and the artifact quality (do humans use these outputs?).
+
+---
+
 ## Background
 
 **Round 3 findings:**
