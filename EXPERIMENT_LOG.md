@@ -121,3 +121,264 @@ Pre-registration works. It kept us honest when results contradicted predictions.
 This is how experiments should be run: lock in predictions, follow the protocol, report what you find, learn from surprises.
 
 **Next**: Wait for RSS to complete, write honest results regardless of outcome.
+
+## 2026-03-17 17:30-19:00 - Meta-Reflections on Honest Science
+
+**Context**: Posteriors converged at batch 15, conclusions clear even though experiment running to batch 30. Created results blog post while waiting for formal completion.
+
+**Discussion with Claude on what constitutes honest science:**
+
+Started with question: "Is not publishing Rounds 1-2 p-hacking if I waited to see if Round 3 came up positive?"
+
+Not p-hacking (multiple experiments, not multiple analyses on same data) but is publication bias. Mitigated by disclosing Rounds 1-2 in Round 3 post. The test: would I publish Round 3 if it came up completely negative? If yes (because pre-registered and well-designed), then clean.
+
+**The honesty paradox:**
+- Dishonest researchers are certain they're honest (unconscious bias)
+- Honest researchers are uncertain about honesty (conscious doubt)  
+- Therefore uncertainty signals honesty
+- But knowing this creates certainty about uncertainty
+- Which breaks the signal
+- Paradox
+
+**Resolution:** Stop trying to self-certify honesty (impossible due to bias blind spot). Make work auditable to others. Not "am I honest?" but "is this auditable?"
+
+Honesty is intersubjective, not introspective. Can't know if you're honest by looking inward. Can only make work transparent enough for others to evaluate.
+
+**The recursion problem:**
+
+Gave checklist for honest science (pre-register, disclose, make auditable). User noted: "that's a checklist" - and we just proved checklists fail without grounding.
+
+Gave theory behind checklist (why humans rationalize, why selection bias compounds, why introspection fails). User noted: "recursion" - that's still just a list of claims without grounding those claims.
+
+Pattern repeats at every meta-level. Can't bottom out. Theory is load-bearing means the value isn't compressible. Can't extract "the answer" and carry it away. Understanding comes from thinking through specific cases with enough grounding to make useful judgments, not from following extracted checklists.
+
+The recursion stops when understanding becomes useful, not when it becomes complete.
+
+**Git commits as preregistration:**
+
+Novel as a recognized practice (not widely formalized) but technically sound. Cryptographic timestamps, immutable history, verifiable. Computational researchers sometimes do this but it's not "official" like OSF.
+
+Advantage: Same tool as code, distributed verification, complete audit trail visible in commit history.
+
+More valuable than just preregistration: committed all intermediate stages (bugs, fixes, learnings, reflections). Most research only shows polished result. This shows the messy middle where the actual learning lives.
+
+**The repo as dataset for LLM study:**
+
+Complete research artifact with reasoning, failures, iterations could teach LLMs research methodology (not just facts). Test: Could an LLM study this repo and replicate the methodology on new problems? Would reveal what LLMs can/can't learn from process documentation.
+
+Recursive irony: Experiment designed with LLMs, executed using LLMs, about LLM capabilities, becomes training data for LLM research capabilities.
+
+**Work logs in research:**
+
+Lab notebooks are standard in traditional science but private. Public, detailed, honest work logs in computational research are rare. Most researchers publish polished results, hide messy process.
+
+This log captures things usually lost: bugs and fixes, reasoning evolution, what surprised vs expected, reflections on methodology. Makes research process auditable, not just results.
+
+**Key insight:** All published research is selected. Nobody publishes everything they try. The question isn't "did you select?" (everyone does) but "can a reader evaluate your selection bias?"
+
+This experiment makes that evaluation possible through: preregistration (public), artifacts (append-only), disclosed history (Rounds 1-2), honest reporting (surprises, negatives, uncertainties), complete process log (this file).
+
+**On statisticians and their own statistics papers:**
+
+Statisticians writing methodology papers are subject to same biases they're trying to prevent (cherry-picking examples, researcher degrees of freedom in choosing which methods to compare). Meta-methods research has same problems as any research, just one level up.
+
+No one escapes bias through individual virtue. Science works through collective error correction: make work auditable, publish failures, let others check your work. Process is error-correcting even if individuals aren't error-free.
+
+**Status**: Round 3 results blog post published. Experiment still running (batch 16+). Conclusions won't change with more data - posteriors converged. Waiting for formal completion to honor pre-registered protocol (run to batch 30 or stopping criterion).
+
+## 2026-03-17 20:00 - Round 4 Planning: The Handshake Hypothesis
+
+**Context**: Round 3 completed (results published). Planning next experiment based on key finding: theory is load-bearing.
+
+**Hypothesis**: If theory is load-bearing (Round 3: P(fw>comp) = 0.93-0.98), does even more formal theory help even more?
+
+**The Handshake as experimental condition:**
+- Round 3 tested Natural Framework (8.3k tokens, conceptual introduction)
+- The Handshake is more formal/detailed (~9k tokens after extraction)
+- Includes: contracts, data processing inequality, budget formalism, fractal tower
+- Question: Does deeper theoretical grounding improve diagnostic quality?
+
+**Goal**: Clean, actionable recommendation backed by data
+
+For practitioners to know "when to use what," need:
+1. Direct framework vs handshake comparison (head-to-head on same problems)
+2. Problem-type clustering (which approach for which task type)
+3. Pre-registered decision tree (data → recommendation)
+
+**Design decisions:**
+
+**Conditions (5):**
+- Zero, Compressed, Framework, Handshake, Filler (9k Wikipedia)
+- Dropped: Bare (Round 3 already tested, less informative than other controls)
+- Savings: 17% of trials per batch
+
+**Problem categories (2):**
+- Data Processing (3 problems) — where framework helped (Round 3: P≈0.91)
+- Production Infrastructure (3 problems) — untested, vocabulary should map
+- **Excluded: Algorithmic** — Round 3 showed framework doesn't help (P=0.39)
+
+**Decision to drop algorithmic category:**
+- Round 3 already showed framework fails on algorithmic tasks (Hearthstone P=0.39)
+- Assumption: handshake won't help where framework failed (vocabulary doesn't map to pure computation)
+- Saves 33% of trial budget (2 problems out of 6)
+- Reinvest in higher power or more problems in categories where theory plausibly helps
+- Pre-registered exclusion: documents assumption that handshake won't break the pattern
+- Focus: differentiate framework vs handshake in domains where both might work
+
+**Key comparisons:**
+- P(hs>fw) — main question: does more formal theory help?
+- P(fw>comp), P(hs>comp) — replication: theory still load-bearing?
+- P(hs>filler) — diagnostic value of formal theory
+- Category interaction — does handshake help differentially by problem type?
+
+**Pre-registered recommendation logic:**
+- If P(hs>fw) ≥ 0.95 across both categories → "Use Handshake"
+- If P(hs>fw) ≥ 0.95 on one category only → conditional recommendation
+- If P(hs>fw) < 0.50 → "Framework sufficient, handshake overkill"
+- If P(fw>filler) < 0.50 on either category → "Theory doesn't help on [category]"
+
+**Budget:**
+- 5 conditions × 2 models × 6 problems = 60 trials per batch
+- 3× more expensive than Round 3 per batch
+- Focused question: where does more formal theory help?
+
+**Status**: Planning phase. Next steps:
+- Extract handshake diagnostic content (~9k tokens)
+- Define inclusion criteria for problem categories
+- Double-blind problem selection (3 per category)
+- Design stopping rules with futility checks
+- Set priors and write preregistration
+
+**Methodological learning applied from Round 3:**
+- Need futility stopping rules (add at batch 15, 50% of max)
+- Pre-register problem categories before selecting problems
+- Pre-register decision tree for recommendations
+- Direct comparisons for clean recommendations (can't recommend without head-to-head data)
+
+
+## 2026-03-17 21:00 - Selection Criteria Refinement
+
+**Context**: Codex reviewed Round 4 design, identified critical selection bias issue.
+
+**Codex's main critique:**
+Current criteria optimized for finding cases where diagnosis CAN help, not estimating when it ACTUALLY does help. Criterion "identifiable gaps" preselects positive cases where NF has room to shine.
+
+**Key fixes applied:**
+
+**1. Add null/calibration cases (20-30%)**
+- Include systems where best diagnosis is "mostly complete, no major NF gap"
+- Tests if framework can correctly identify when nothing is broken
+- Prevents "all problems have gaps" tautology
+
+**2. External evidence requirement**
+- Cannot decide during selection what gaps exist
+- Require: issue thread, postmortem, maintainer TODO, incident note, bug cluster
+- OR: null case (no such evidence exists)
+- Prevents smuggling own diagnosis into selection
+
+**3. Separate production realism from complexity**
+- Stars don't measure architecture complexity
+- Use: "publicly documented production artifact with credible deployment"
+- Not: ">1k stars or known company" (weak proxy, may exclude good cases)
+
+**4. Pre-register qualifying gaps**
+- Define what counts as NF-relevant gap before seeing problems
+- Example: "missing role X causing externally documented failure mode Y"
+- Prevents drift toward NF-friendly examples
+
+**5. Output-structure confounding fix**
+- Codex noted: Round 3 directive shows SOAP-like structure
+- If Handshake primes that structure better, wins on format not diagnosis
+- Solution: Directive says "Generate SOAP notes" without showing scaffold
+- All conditions get same instruction, no format bias
+- LLMs know SOAP (medical documentation format)
+- Judges score on diagnosis substance, not organization
+
+**Revised selection criteria:**
+
+1. **Real production context** - publicly documented, credible deployment
+2. **Reconstructable architecture** - enough docs to understand contracts/behavior
+3. **Problem signal** - externally evidenced gap (issues, postmortem, TODO) OR null case
+4. **Actionable artifact** - diagnosis would guide sprint work
+
+**Sample composition:**
+- 70-80% actionable-gap cases (test if theory improves fix planning)
+- 20-30% null/calibration cases (test if framework says "nothing major missing")
+
+**Updated directive:**
+```
+You are diagnosing what's missing from this production system.
+
+Generate SOAP notes identifying architectural gaps.
+
+Code: [system code]
+Goal: [what it's supposed to do]
+[condition-specific context: zero/compressed/framework/handshake/filler]
+```
+
+**Why this eliminates confounding:**
+- No structure shown in directive (just "generate SOAP notes")
+- All conditions get same instruction
+- If Handshake organizes better, that's real effect (formal theory → clearer thinking)
+- Not circular (not teaching format then rewarding it)
+
+**Next**: Get codex feedback on updated design, finalize selection protocol.
+
+
+## 2026-03-17 21:30 - Codex Review: Design-Implementation Gap
+
+**Codex's assessment:** Closer, but not ready to preregister. Main issue is design-implementation mismatch, not conceptual bias anymore.
+
+**1. SOAP-without-scaffolding: reduces confounding, doesn't eliminate it**
+- "SOAP notes" still specifies response schema
+- Removed explicit scaffold but structure is latent treatment
+- Acceptable if claim is: "helps produce better diagnostic notes under standard format"
+- Not acceptable if claim is: "purely better diagnosis independent of format"
+- **Implementation issue:** prompts/directive.md still has old scaffold (Observations/Triage/Plan)
+- Design doc and actual prompts out of sync
+
+**2. Null proportion: pick one value, not range**
+- Recommendation: 25% (good compromise)
+- Enough to test restraint, doesn't dilute power on main comparison
+- OR 33% if null-case calibration is primary estimand
+- Must pre-register exact value
+
+**3. Main remaining holes:**
+
+**Null-case ground truth underspecified:**
+- "No external evidence" is absence of evidence (weak)
+- Need positive rule: no qualifying evidence after fixed search protocol + system appears feature-complete relative to stated goal
+
+**Scoring rubric is positive-case shaped:**
+- Current judge_prompt.md assumes gap_list exists
+- For null cases: need explicit rewards for correctly saying "no major gap"
+- Need penalties for hallucinated gaps
+
+**Selection frame needs tightening:**
+- Positive and null must come from same sampling process
+- Otherwise nulls = "easy polished projects", gap cases = "messy troubled projects"
+- Bias by difficulty, not gap presence
+
+**Evidence protocol needs timebox:**
+- Define which artifacts count (issues, PRs, postmortems, TODOs)
+- How many must be checked
+- How searched (GitHub API, manual review, time limit)
+- Without this, selection can drift
+
+**Judges shouldn't reward SOAP conformity:**
+- Score substance only
+- Section presence is binary check, not quality component
+
+**4. Not ready to preregister - need one more refinement pass:**
+
+Must lock down:
+- Exact null proportion (25%)
+- Null-case qualification protocol (search protocol + feature-complete check)
+- Null-case scoring rubric (rewards for correct "no gap", penalties for hallucination)
+- Shared sampling frame (positive and null from same process)
+- Final prompt text (update directive.md to match design)
+
+**Status:** Biggest risk shifted from conceptual bias to operationalization mismatch. Design is sound. Implementation needs to catch up.
+
+**Next:** One more refinement pass before preregistration.
+

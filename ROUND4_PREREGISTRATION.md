@@ -1,0 +1,375 @@
+# Round 4 Preregistration
+
+**Date Started:** 2026-03-17
+**Status:** DRAFT - Refinement in progress
+**Preregistered By:** June Kim
+**Repository:** github.com/kimjune01/metacognition
+
+---
+
+## Research Question
+
+Does formal categorical theory (The Handshake) improve diagnostic quality more than conceptual theory (Natural Framework) when diagnosing production-readiness gaps in multi-stage information systems?
+
+---
+
+## Background
+
+**Round 3 findings:**
+- Theory is load-bearing: P(framework > compressed) = 0.93-0.98
+- Problem-type dependent: framework helped on data processing (P≈0.91), not on algorithmic (P=0.39)
+- You can't extract just vocabulary—theoretical grounding makes it applicable
+
+**Round 4 hypothesis:**
+If theory is load-bearing, does MORE formal theory help even more?
+
+---
+
+## Experimental Conditions
+
+**Five conditions (5):**
+
+1. **Zero** — Code + goal only (baseline)
+2. **Compressed** — 520-token diagnostic checklist (replication from Round 3)
+3. **Framework** — 8.3k-token Natural Framework (conceptual introduction)
+4. **Handshake** — 9k-token categorical formalism (contracts, DPI, budget, fractal tower)
+5. **Filler** — 9k-token Wikipedia articles (control for Handshake length)
+
+**Why these conditions:**
+- Zero: baseline
+- Compressed: replication (expect P(fw>comp) ≈ 0.95, P(hs>comp) ≈ 0.95)
+- Framework vs Handshake: **primary comparison** (does formal theory help more?)
+- Filler: control for token length (P(hs>filler) tests diagnostic value)
+
+---
+
+## Problem Selection
+
+**Selection criteria:**
+
+1. **Real production context** — Publicly documented production artifact with credible deployment evidence
+2. **Reconstructable architecture** — Documentation sufficient to understand system contracts and intended behavior
+3. **Problem signal** — Externally evidenced gaps (issues, PRs, postmortems, TODOs) OR null case (no evidence after search)
+4. **Actionable artifact** — Diagnosis would guide actual sprint work
+
+**Sample composition:**
+- **75% actionable-gap cases** (6 problems) — Systems with externally documented production-readiness gaps
+- **25% null/calibration cases** (2 problems) — Systems with no qualifying gaps after search protocol
+
+**Total: 8 problems** (2 data processing, 2 production infrastructure, 2 algorithmic sentinels, 2 null cases)
+
+**Category definitions:**
+
+**Data Processing:**
+- Transforms/validates structured data
+- Clear input→output types
+- Multi-stage pipeline
+- Round 3 baseline: P(fw>filler) ≈ 0.91
+
+**Production Infrastructure:**
+- Quality gates, error handling, retry logic, observability
+- Production-critical concerns
+- Not tested in Round 3
+
+**Algorithmic Sentinels:**
+- Pure computation, deterministic, no I/O
+- Round 3 showed framework doesn't help (P=0.39)
+- Tests if Handshake rescues where Framework failed
+- 1-2 problems (exploratory, not full category)
+
+**Null Cases:**
+- No qualifying gaps after search protocol
+- Feature-complete relative to stated goal
+- Tests if framework can correctly say "nothing major missing"
+
+---
+
+## Selection Protocol
+
+**[TO BE LOCKED BEFORE EXECUTION]**
+
+**Gap-case selection:**
+1. Source from production repos (GitHub, company engineering blogs)
+2. Evidence search protocol: [DEFINE ARTIFACTS, SEARCH PROCEDURE, TIME LIMIT]
+3. Qualify: external evidence of missing role → documented failure mode
+4. Pre-identify gaps for scoring (external evidence only)
+5. Double-blind selection: Claude selects N per category without knowing difficulty
+
+**Null-case selection:**
+1. Source from same sampling frame as gap cases
+2. Search protocol: [DEFINE SAME SEARCH PROCEDURE]
+3. Qualify: no qualifying evidence found + appears feature-complete
+4. Positive null-case rule: [DEFINE COMPLETENESS CHECK]
+
+**Shared sampling frame requirement:** Positive and null cases from same production-repo pool, not "messy projects" vs "polished projects."
+
+---
+
+## Directive
+
+**[TO BE LOCKED - UPDATE prompts/directive.md]**
+
+```
+You are diagnosing what's missing from this production system.
+
+Generate SOAP notes identifying architectural gaps.
+
+Code: [system code]
+Goal: [what it's supposed to do]
+
+[condition-specific context: zero/compressed/framework/handshake/filler]
+```
+
+**Note:** "SOAP notes" specifies format but doesn't show scaffold. Reduces output-structure confounding (no explicit Subjective/Objective/Assessment/Plan template shown).
+
+---
+
+## Scoring Rubric
+
+**[TO BE LOCKED - UPDATE prompts/judge_prompt.md]**
+
+**For gap cases (75%):**
+
+Current rubric (Round 3):
+- Observation accuracy
+- Gap coverage (per ground-truth gap)
+- Plan specificity
+
+**For null cases (25%):**
+
+**[NEEDS ADDITION]**
+- Correctly identifies "no major gap": +reward
+- Hallucinates major gaps: penalty
+- Minor suggestions okay (polish, not architecture)
+
+**Judge instructions:**
+- Score diagnosis substance only
+- SOAP section presence: binary check (not quality component)
+- No reward for organizational structure
+
+---
+
+## Dual-Model Judging
+
+**Same as Round 3:**
+- GPT-5.4 (via codex CLI)
+- Claude Sonnet 4.5 (via Anthropic API)
+- 3 runs each per diagnostic report
+- Majority vote (6 judgments → final score)
+- Tests for systematic judge bias
+
+---
+
+## Stopping Rules
+
+**Bayesian adaptive stopping with futility checks (learned from Round 3):**
+
+**Primary estimand:** P(handshake > framework)
+
+**Stopping criteria:**
+- **Confirm:** P(hs > fw) ≥ 0.95 on 2 consecutive batches
+- **Disconfirm:** P(hs > fw) ≤ 0.05 on 2 consecutive batches
+- **Futility (at batch 15 of max 30):** If P(hs > fw) trapped in [0.40, 0.60], declare inconclusive and stop
+- **Max batches:** 30 (120 trials per problem × 8 problems = 960 trials)
+
+**Secondary estimands:**
+- P(fw > compressed): expect ≥ 0.95 (replication)
+- P(hs > compressed): expect ≥ 0.95 (replication)
+- P(hs > filler): expect ≥ 0.70 (diagnostic value)
+
+**Category interaction:**
+- If P(hs > fw) varies significantly by category (data processing vs production infrastructure)
+- Report conditional recommendations
+
+**Algorithmic sentinels:**
+- Exploratory analysis only
+- Primary question: does Handshake rescue where Framework failed?
+- Not required for main conclusions
+
+---
+
+## Priors
+
+**Primary comparison (main question):**
+- P(hs > fw) prior: Beta(4.5, 5.5) — skeptical (mode at 0.45)
+- Defers to Round 3 lesson: prompt-engineering wisdom says shorter is better
+- But Round 3 showed theory is load-bearing, so not fully skeptical
+
+**Replications:**
+- P(fw > comp) prior: Beta(9.5, 1.5) — confident (mode at 0.95, expect replication)
+- P(hs > comp) prior: Beta(9.5, 1.5) — confident (mode at 0.95, same reason)
+
+**Diagnostic value:**
+- P(hs > filler) prior: Beta(7, 4) — moderately optimistic (mode at 0.70)
+- Formal theory should beat noise, but Round 3 showed noise helps surprisingly
+
+**Category interaction:**
+- No strong prior on differential effects
+- Let data determine if formal theory helps more in one category vs another
+
+---
+
+## Decision Tree (Pre-Registered Recommendations)
+
+**Based on primary estimand P(hs > fw):**
+
+**If P(hs > fw) ≥ 0.95 across both core categories (data processing + production infrastructure):**
+→ **Recommendation:** "Use The Handshake for diagnosing production-readiness gaps in multi-stage information systems"
+
+**If P(hs > fw) ≥ 0.95 in one category but not the other:**
+→ **Recommendation:** "Use Handshake for [winning category], Framework for [other category]"
+
+**If P(hs > fw) < 0.50 across both categories:**
+→ **Recommendation:** "Use Natural Framework. Handshake is overkill—formal theory doesn't add diagnostic value beyond conceptual theory."
+
+**If P(fw > filler) < 0.50 in either category:**
+→ **Recommendation:** "Theory doesn't help diagnose [category]. Use zero baseline."
+
+**Null-case calibration:**
+- If framework/handshake hallucinate major gaps on >50% of null cases, flag as unreliable diagnostic tool
+- Report separately from main recommendations
+
+**Algorithmic sentinels:**
+- If P(hs > filler) ≥ 0.70 on algorithmic (where fw failed): "Formal theory rescues algorithmic diagnosis"
+- If P(hs > filler) < 0.50 on algorithmic: "Task-structure boundary confirmed—theory doesn't help on algorithmic"
+
+**Scope of inference:**
+All recommendations apply only to tested categories and production systems meeting selection criteria.
+
+---
+
+## Effect Size Consideration
+
+**[TO BE LOCKED]**
+
+Per codex feedback: Don't just use P(hs > fw) ≥ 0.95. Add practical margin.
+
+**Proposed rule:**
+- Adopt Handshake if P(hs > fw) ≥ 0.95 **AND** mean(hs) - mean(fw) ≥ 0.10 on 5-point scale
+- If P ≥ 0.95 but effect < 0.10: "Handshake trivially better, not worth complexity cost"
+- Keep Framework if Handshake wins narrowly or inconsistently
+
+**[NEEDS OPERATIONALIZATION]**
+
+---
+
+## Budget
+
+**Trials per batch:**
+- 5 conditions × 2 models × 8 problems = 80 trials per batch
+
+**Cost per batch:**
+- 80 diagnostic reports generated (40 codex, 40 claude)
+- 480 judgments (80 reports × 6 judges each)
+
+**Max cost:**
+- 30 batches × 80 trials = 2,400 diagnostic reports
+- 30 batches × 480 judgments = 14,400 judge calls
+
+**Comparison to Round 3:**
+- Round 3: 20 trials/batch (2 problems)
+- Round 4: 80 trials/batch (8 problems)
+- 4× more expensive per batch, but tests more categories and includes null cases
+
+---
+
+## Open Items (To Be Locked Before Execution)
+
+**Critical path:**
+
+1. **Null-case protocol** (selection + scoring)
+   - Define search procedure (artifacts, count, timebox)
+   - Define feature-complete check
+   - Add null-case scoring to judge rubric
+
+2. **Evidence protocol** (gap-case selection)
+   - Which artifacts count (issues, PRs, postmortems, TODOs)
+   - How many required
+   - Search procedure and time limit
+
+3. **Update prompts**
+   - directive.md: remove old scaffold, use "Generate SOAP notes"
+   - judge_prompt.md: add null-case scoring
+
+4. **Effect size operationalization**
+   - Define practical margin
+   - Integrate into decision tree
+
+5. **Shared sampling frame**
+   - Define single process for both gap and null cases
+
+6. **Extract Handshake content**
+   - ~9k tokens from full post
+   - Core sections: contracts, DPI, budget, fractal tower
+   - Diagnostic-focused (remove objections, prior art)
+
+**Nice to have:**
+
+- Problem pre-selection and pre-identification of gaps
+- Finalize category counts (current: 2+2+2+2, could adjust)
+
+---
+
+## Commit History
+
+This preregistration is versioned in git. Changes tracked via commit history:
+- Initial draft: 2026-03-17
+- Codex feedback integration: [pending]
+- Final locked version: [pending]
+
+**Pre-execution requirement:** All "[TO BE LOCKED]" sections must be resolved and committed before running first trial.
+
+---
+
+## Falsification
+
+**What would disconfirm the hypothesis?**
+
+1. P(hs > fw) < 0.50 across both categories → formal theory doesn't help
+2. P(hs > fw) ≈ P(fw > filler) → Handshake is no better than noise
+3. Handshake hallucinates gaps on >50% null cases → unreliable
+4. Effect size trivial even if P ≥ 0.95 → not worth complexity
+
+**What would support the hypothesis?**
+
+1. P(hs > fw) ≥ 0.95 with meaningful effect (>0.10)
+2. P(hs > comp) ≈ 0.95 (replication: theory load-bearing)
+3. Correct identification on null cases (restraint)
+4. Actionable diagnoses on gap cases (sprint-plannable)
+
+---
+
+## Changes from Round 3
+
+**Design improvements:**
+
+1. **Added null cases (25%)** — Tests restraint, prevents positive-case bias
+2. **External evidence requirement** — Prevents smuggling diagnosis into selection
+3. **Futility stopping at batch 15** — Learned from Round 3 oscillation
+4. **SOAP directive without scaffold** — Reduces output-structure confounding
+5. **Effect size consideration** — Not just probability, but practical margin
+6. **Algorithmic sentinels** — Tests if Handshake rescues where Framework failed
+
+**Scope narrowing:**
+
+- Round 3: tested "does theory help?" broadly
+- Round 4: assumes theory helps (Round 3 result), asks "does MORE theory help MORE?"
+- Scoped to production systems with multi-stage architecture and actionable gaps
+- Explicit about boundaries (not testing on toy problems or trivial systems)
+
+---
+
+## Acknowledgments
+
+Experimental design developed collaboratively with:
+- GPT-5.4 (via codex CLI) — methodological critique, bias identification
+- Claude Opus 4.6 (via Claude Code) — implementation, protocol design
+
+Preregistration informed by:
+- Round 3 findings (theory is load-bearing, problem-type dependent)
+- Codex feedback on selection bias and output-structure confounding
+- Diagnosis LLM standard (june.kim/diagnosis-llm)
+
+---
+
+*This preregistration will be locked via git commit before trial execution. All changes after lock will be documented in EXPERIMENT_LOG.md.*
