@@ -598,3 +598,53 @@ If maintainers respond positively (implement fixes, confirm gaps), that's empiri
 
 **Next:** Commit easy fixes.
 
+
+## 2026-03-18 00:00 - Final Round 4 Design: Codex-Only Judging ($10 Budget)
+
+**Budget constraint:** User can't spend $500. Revised economics based on subscription model.
+
+**Key realization:** Codex CLI is included in subscription ($0 marginal cost). Claude API is expensive ($3-15/M tokens).
+
+**Cost breakdown:**
+
+**Previous estimate (dual judging):**
+- Generation: 150 codex + 150 claude = ~$20
+- Judging: 900 codex + 900 claude = ~$70
+- Total: ~$90
+
+**Actual costs (with subscription):**
+- 150 codex generations: $0 (subscription)
+- 150 claude generations: ~$10 (API)
+- 1,500 codex judges (5 runs × 300 reports): $0 (subscription)
+- Total: ~$10
+
+**Final judging design:**
+- Codex only (GPT-5.4 via CLI)
+- 5 runs per report (increased from 3 for reliability)
+- Majority vote across 5 judgments
+- Rate limiting: 2s delay between calls (ToS compliance)
+
+**Change from Round 3:**
+- Round 3: dual-model (codex + claude, 3 runs each) = robust but expensive
+- Round 4: codex-only (5 runs) = budget-conscious but still reliable
+
+**Rationale:**
+- Codex is harsh critic (valuable signal, not noise)
+- 5 runs handle variance (more than Round 3's 3)
+- Single model okay for relative comparison (win/loss, not absolute scores)
+- $10 is affordable vs $90
+
+**Limitation noted:**
+- No cross-model validation (can't catch codex-specific bias)
+- But: codex was reliable in Round 3, 5 runs improve reliability
+- For win/loss comparison (not absolute scoring), single model sufficient
+
+**Rate limiting:**
+- 2s delay between codex calls (same as Round 3)
+- ~1 hour per repo × 30 repos = ~30 hours total
+- Spread over days/weeks, ToS compliant
+
+**Status:** Final design locked. Budget: $10. Affordable. Ready to execute when resources align.
+
+**Next:** None - design complete. Implementation when ready (extract Handshake, select repos, execute).
+

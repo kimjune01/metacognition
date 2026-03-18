@@ -162,14 +162,23 @@ Current rubric (Round 3):
 
 ---
 
-## Dual-Model Judging
+## Judging Protocol
 
-**Same as Round 3:**
-- GPT-5.4 (via codex CLI)
-- Claude Sonnet 4.5 (via Anthropic API)
-- 3 runs each per diagnostic report
-- Majority vote (6 judgments → final score)
-- Tests for systematic judge bias
+**Single-model judging (budget constraint):**
+- GPT-5.4 via codex CLI (included in subscription, $0 marginal cost)
+- 5 runs per diagnostic report (increased from 3 for reliability)
+- Majority vote across 5 judgments
+- Rate limiting: 2s delay between calls (ToS compliance)
+
+**Change from Round 3:**
+- Round 3: dual-model (codex + claude, 3 runs each)
+- Round 4: codex-only (5 runs)
+- Rationale: Budget constraint (~$10 vs ~$45). Codex is harsh critic. 5 runs handle variance.
+
+**Limitation noted:**
+- Single-model judging (no cross-model validation)
+- But: increased runs (5 vs 3) improve reliability
+- Codex has been reliable harsh critic in Round 3
 
 ---
 
@@ -283,21 +292,27 @@ Per codex feedback: Don't just use P(hs > fw) ≥ 0.95. Add practical margin.
 
 ## Budget
 
-**Trials per batch:**
-- 5 conditions × 2 models × 8 problems = 80 trials per batch
+**Round 4 broad design (single round):**
+- 30 repos × 5 conditions × 2 models = 300 diagnostic reports
+- Generation: 150 codex ($0) + 150 claude (~$10)
+- Judging: 300 reports × 5 codex judges = 1,500 calls ($0, subscription)
+- Rate limiting: 2s delays between codex calls
 
-**Cost per batch:**
-- 80 diagnostic reports generated (40 codex, 40 claude)
-- 480 judgments (80 reports × 6 judges each)
-
-**Max cost:**
-- 30 batches × 80 trials = 2,400 diagnostic reports
-- 30 batches × 480 judgments = 14,400 judge calls
+**Total cost: ~$10** (just Claude API generation)
 
 **Comparison to Round 3:**
-- Round 3: 20 trials/batch (2 problems)
-- Round 4: 80 trials/batch (8 problems)
-- 4× more expensive per batch, but tests more categories and includes null cases
+- Round 3: 2 problems × 30 batches = 1,200 reports + 7,200 judges = ~$300
+- Round 4: 30 repos × 1 round = 300 reports + 1,500 judges = ~$10
+
+**Why so cheap:**
+- Broad & shallow (1 round per repo, not 30 batches)
+- Codex subscription (judging is free)
+- Single model judging (no expensive Claude judges)
+
+**Execution timeline:**
+- With 2s rate limiting: ~1 hour per repo (300 gen + 1,500 judge calls)
+- 30 repos = ~30 hours spread over days/weeks
+- ToS compliant, no suspicious burst traffic
 
 ---
 
