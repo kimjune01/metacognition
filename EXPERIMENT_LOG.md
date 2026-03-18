@@ -382,3 +382,105 @@ Must lock down:
 
 **Next:** One more refinement pass before preregistration.
 
+
+## 2026-03-17 23:00 - Round 4 Pivot: Broad & Shallow Design
+
+**Context:** Round 4 planning after Round 3 complete. Initial design had 8-10 problems, testing across categories with deep sampling (30 batches per problem). User feedback: Round 3 was painful (oscillation drama, grinding), don't want scope creep.
+
+**User insight:** "How about many repos with 1-3 rounds each, instead of few repos with 30 batches?"
+
+**Objection addressed:** Round 3's weakness is narrow generalizability. "It worked on RSS reader (toy example), but won't work on my complex production codebase."
+
+**Design pivot: Deep → Broad**
+
+**Old design (deep sampling):**
+- 6-8 problems
+- 30 batches per problem
+- Tests: "How confident are we it works on THESE problems?"
+- Result: "94.9% confident framework helps on RSS reader"
+- Weakness: Narrow scope, oscillation drama, grinding
+
+**New design (broad sampling):**
+- 30 production API repos
+- 1-2 rounds per repo
+- Tests: "How often does it work across MANY problems?"
+- Result: "Handshake won on 25/30 production repos"
+- Strength: Generalizability, no oscillation, practical value
+
+**What changes:**
+
+**Dimension tested:**
+- Deep: per-repo confidence (P=0.949 on specific problem)
+- Broad: consistency across repos (wins on X/30 repos)
+
+**Sample:**
+- 30 API repos with documented production gaps
+- Domain: "API request handlers missing error handling/validation/observability"
+- Criteria: deployed, 5k+ lines, real users, external evidence, maintained
+
+**Trials:**
+- 1-2 rounds per repo (not 30 batches!)
+- 5 conditions × 2 models × 30 repos × 1-2 rounds = 300-600 reports
+- Same budget as narrow-deep design, spread wide not deep
+
+**Analysis:**
+- Binary per repo: handshake > framework? (based on scores)
+- Aggregate: handshake won on X/30 repos
+- Pre-register threshold: X ≥ 24 (80%) to claim "generally better"
+- If X ≈ 15 (50%) → inconclusive
+- If X ≤ 10 (33%) → framework sufficient
+
+**Practical value:**
+- Generate 30 real diagnoses (6 per repo: 5 conditions + 1 duplicate)
+- Share with maintainers
+- Get feedback on diagnostic quality
+- Actual value, not just research artifact
+
+**Why this kills the generalizability objection:**
+
+Round 3: "Worked on 2 toy examples" → "Won't scale to my complex codebase"
+Round 4: "Worked on 25/30 production repos with real users" → "Burden shifts to you to explain why yours is exceptional"
+
+If maintainers respond positively (implement fixes, confirm gaps), that's empirical proof of practical value.
+
+**Advantages:**
+1. No oscillation drama (1-2 rounds, done, move on)
+2. Tests consistency (does it work GENERALLY?)
+3. Practical output (diagnoses to share)
+4. Clearer for practitioners ("works 80% of time" > "works confidently on 2 examples")
+5. Directly addresses main objection to Round 3
+
+**Trade-offs:**
+- Less per-repo confidence (1-2 rounds vs 30 batches)
+- More selection risk (30 repos vs 2, bias matters more)
+- Need tight criteria + external evidence
+- Variance within repo (fix: 2 rounds minimum for variance estimate)
+
+**Pre-registration updates needed:**
+- Change sample: 30 repos (not 6-8 problems)
+- Change trials: 1-2 rounds per repo (not 30 batches)
+- Change analysis: aggregate win rate (not per-problem posteriors)
+- Keep: external evidence, null cases, SOAP directive, effect size
+
+**Next:** Update preregistration with broad design, ask codex for review.
+
+
+## 2026-03-17 23:15 - Updated Round 4 Preregistration with Broad Design
+
+**Changes made to ROUND4_PREREGISTRATION.md:**
+
+1. **Research question:** Added "Design: Broad & shallow to test consistency"
+2. **Sample:** Changed from 8 problems to 30 repos (27 gap + 3 null)
+3. **Domain:** Narrowed to API request handlers (homogeneous)
+4. **Selection criteria:** Production deployed, 5k+ lines, real users, external evidence, maintained
+5. **Trials:** Changed from 30 batches per problem to 1-2 rounds per repo
+6. **Analysis:** Changed from Bayesian posteriors to aggregate win rate (X/30 repos)
+7. **Threshold:** ≥24/30 (80%) to claim "generally better"
+8. **Budget:** 300-600 reports (vs 1,200 for deep design)
+
+**Key insight:** Tests "how often does it work?" not "how confident are we it works on specific problems?"
+
+**Addresses Round 3 weakness:** "Worked on toy examples" → "Worked on 80% of production repos"
+
+**Next:** Commit, ask codex for review on broad design.
+

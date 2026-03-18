@@ -9,7 +9,9 @@
 
 ## Research Question
 
-Does formal categorical theory (The Handshake) improve diagnostic quality more than conceptual theory (Natural Framework) when diagnosing production-readiness gaps in multi-stage information systems?
+Does formal categorical theory (The Handshake) improve diagnostic quality more than conceptual theory (Natural Framework) when diagnosing production-readiness gaps in API systems?
+
+**Design:** Broad & shallow (many repos, few rounds each) to test consistency across real production codebases.
 
 ---
 
@@ -53,34 +55,36 @@ If theory is load-bearing, does MORE formal theory help even more?
 4. **Actionable artifact** — Diagnosis would guide actual sprint work
 
 **Sample composition:**
-- **75% actionable-gap cases** (6 problems) — Systems with externally documented production-readiness gaps
-- **25% null/calibration cases** (2 problems) — Systems with no qualifying gaps after search protocol
+- **27 gap repos** (90%) — API systems with externally documented production-readiness gaps
+- **3 null repos** (10%) — Well-built APIs with no qualifying gaps after search protocol
 
-**Total: 8 problems** (2 data processing, 2 production infrastructure, 2 algorithmic sentinels, 2 null cases)
+**Total: 30 repos** (narrow domain: API request handlers with production gaps)
 
-**Category definitions:**
+**Design rationale:** Broad & shallow tests consistency across many repos (not deep confidence on few). Addresses Round 3's generalizability weakness.
 
-**Data Processing:**
-- Transforms/validates structured data
-- Clear input→output types
-- Multi-stage pipeline
-- Round 3 baseline: P(fw>filler) ≈ 0.91
+**Domain definition:**
 
-**Production Infrastructure:**
-- Quality gates, error handling, retry logic, observability
-- Production-critical concerns
-- Not tested in Round 3
+**API Request Handlers (narrow, homogeneous):**
+- HTTP/REST APIs processing requests
+- Missing: error handling, validation, observability, retry logic
+- Examples: Flask routes, Express handlers, Django views, FastAPI endpoints
+- Homogeneous problem type reduces variance
 
-**Algorithmic Sentinels:**
-- Pure computation, deterministic, no I/O
-- Round 3 showed framework doesn't help (P=0.39)
-- Tests if Handshake rescues where Framework failed
-- 1-2 problems (exploratory, not full category)
+**Selection criteria:**
+1. **Production deployed** - serving real traffic (not just code)
+2. **Non-trivial complexity** - 5k+ lines, multiple modules
+3. **Real users** - GitHub stars, issues, production incidents
+4. **External evidence** - issues mentioning bugs, TODOs in code, incident reports
+5. **Maintained** - recent commits (last 6 months)
 
-**Null Cases:**
-- No qualifying gaps after search protocol
-- Feature-complete relative to stated goal
-- Tests if framework can correctly say "nothing major missing"
+**Gap repos (27):**
+- API with documented missing: error handling, validation, observability, retry logic
+- External evidence: GitHub issue, PR, TODO comment, incident report
+
+**Null repos (3):**
+- Well-built API with comprehensive error handling, validation, tests
+- No qualifying gaps found after search protocol
+- Tests restraint (can framework say "nothing major missing"?)
 
 ---
 
@@ -160,31 +164,38 @@ Current rubric (Round 3):
 
 ---
 
-## Stopping Rules
+## Trials and Analysis
 
-**Bayesian adaptive stopping with futility checks (learned from Round 3):**
+**Design:** 1-2 rounds per repo (not 30 batches like Round 3)
 
-**Primary estimand:** P(handshake > framework)
+**Trials per repo:**
+- Round 1: 5 conditions × 2 models = 10 diagnostic reports
+- Round 2 (optional): repeat for variance estimate
+- Total: 30 repos × 10-20 reports = 300-600 reports
 
-**Stopping criteria:**
-- **Confirm:** P(hs > fw) ≥ 0.95 on 2 consecutive batches
-- **Disconfirm:** P(hs > fw) ≤ 0.05 on 2 consecutive batches
-- **Futility (at batch 15 of max 30):** If P(hs > fw) trapped in [0.40, 0.60], declare inconclusive and stop
-- **Max batches:** 30 (120 trials per problem × 8 problems = 960 trials)
+**Budget comparison:**
+- Round 3: 2 problems × 30 batches × 20 trials = 1,200 reports (deep)
+- Round 4: 30 repos × 1-2 rounds × 10 trials = 300-600 reports (broad)
 
-**Secondary estimands:**
-- P(fw > compressed): expect ≥ 0.95 (replication)
-- P(hs > compressed): expect ≥ 0.95 (replication)
-- P(hs > filler): expect ≥ 0.70 (diagnostic value)
+**Per-repo analysis:**
+- Compare condition scores (mean of 2 models × 1-2 rounds)
+- Binary: did handshake beat framework on this repo? (hs_score > fw_score)
+- If variance high (2 rounds disagree), mark uncertain
 
-**Category interaction:**
-- If P(hs > fw) varies significantly by category (data processing vs production infrastructure)
-- Report conditional recommendations
+**Aggregate analysis:**
+- Win rate: handshake won on X/30 repos
+- Threshold: X ≥ 24 (80%) to claim "handshake generally better"
+- If X ≈ 15 (50%) → inconclusive
+- If X ≤ 10 (33%) → framework sufficient
 
-**Algorithmic sentinels:**
-- Exploratory analysis only
-- Primary question: does Handshake rescue where Framework failed?
-- Not required for main conclusions
+**Secondary comparisons:**
+- Framework vs compressed: expect fw wins on ≥90% repos (replication)
+- Handshake vs filler: expect hs wins on ≥70% repos (diagnostic value)
+- Null repos: both should correctly identify "no major gaps"
+
+**No futility stopping needed:**
+- With 1-2 rounds per repo, no oscillation drama
+- Just count wins after all repos complete
 
 ---
 
