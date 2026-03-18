@@ -274,6 +274,84 @@ Current rubric (Round 3):
 
 ---
 
+## Two-Phase Experimental Design
+
+**Phase 1: Diagnosis (pre-registered experiment)**
+- Sample: 30 repos
+- Generate: 5-condition diagnoses (zero/compressed/framework/handshake/filler)
+- Judge: codex 5 runs + audit layer on 20%
+- Analysis: P(hs > fw), win/tie/loss rates, stratified by covariates
+- Metrics: diagnostic quality (does theory help?)
+- **Budget:** ~$10-13
+- **Timeline:** ~30 hours compute (spread over days/weeks)
+
+**Phase 2: Implementation (post-experiment practical validation)**
+- Sample: 5-10 repos selected from Phase 1 based on:
+  - **Quality:** Diagnosis identified clear, fixable gap
+  - **Fixability:** Can be addressed in single PR (not architectural rewrite)
+  - **Activity:** Project is active (commits in last week)
+  - **Evidence:** Gap has external validation (mentioned in issues/TODOs)
+- Action: Implement fix for "most critical gap" identified by winning diagnosis
+- Deliver: Submit PR with:
+  - Fix (code changes)
+  - Diagnosis (context: why this matters)
+  - Attribution (generated with Framework/Handshake, human-implemented)
+- Metrics:
+  - PR merged (strong validation)
+  - PR engaged (maintainer reviewed, provided feedback)
+  - PR ignored (no response after 2 weeks)
+- Analysis: Conversion funnel (30 diagnoses → X fixable → Y PRs → Z merged)
+- **Budget:** Human time (implementation + PR submission)
+- **Timeline:** Post-Phase 1, not time-critical
+
+**Rationale for two phases:**
+
+1. **Phase 1 (experimental):** Tests the research question (does formal theory help diagnose?)
+   - Needs statistical power (30 repos)
+   - Pre-registered protocol
+   - Scientific rigor
+
+2. **Phase 2 (practical):** Tests real-world value (will maintainers use it?)
+   - Needs concrete contributions (PRs, not just advice)
+   - Post-hoc selection (based on Phase 1 results)
+   - Practical validation
+
+**Why not combine them:**
+- Too expensive to implement 30 PRs
+- Selection for "fixable in one PR" biases the experimental sample
+- Keeps experimental design clean (all 30 treated equally)
+- Phase 2 selection is informed by Phase 1 results (which diagnoses were best)
+
+**Phase 2 is NOT pre-registered:**
+- Repo selection happens after Phase 1 complete
+- "Most critical gap" identification uses Phase 1 winning diagnosis
+- Success metrics are observational (what maintainers do), not experimental
+- Value: practical validation, not statistical inference
+
+**What Phase 2 tests:**
+1. Can we identify "most critical gap" from diagnosis? (prioritization)
+2. Can we implement correct fix? (technical capability)
+3. Do maintainers find value? (adoption in the wild)
+4. What's the conversion rate? (diagnoses → fixes → merged PRs)
+
+**Honest accounting:**
+- Even good PRs create work (review, test, decide, maintain)
+- People are lazy (rational effort conservation) - respect that
+- Most unsolicited PRs will be ignored (base rate: 1-5% acceptance)
+- Success case: 20-40% acceptance (1-2 out of 5-10 merged)
+- Wild success: 60%+ engagement (maintainers provide feedback even if not merged)
+- Failure teaches too: if no PRs merge, either diagnosis was wrong or delivery mechanism failed
+
+**Alternative to Phase 2 (lower friction):**
+- Just publish the corpus publicly
+- Include diagnosis + suggested fix (code) but don't submit PRs
+- Let maintainers discover and use if interested
+- Measure: views, stars, references, organic adoption
+- No unsolicited work for maintainers
+- Still validates practical value if people use it
+
+---
+
 ## Priors
 
 **Primary comparison (main question):**

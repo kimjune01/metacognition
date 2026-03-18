@@ -310,5 +310,60 @@
 
 **Status:** Dual goals explicit. Design complete. Ready for implementation when resources align.
 
-**Next:** Implementation phase (extract Handshake, select repos, lock protocols, execute).
+**Next:** Update with two-phase design.
+
+
+## 2026-03-18 01:00 - Two-Phase Design: Diagnosis + Implementation
+
+**User insight:** "I think we should only deliver the diagnosis if we can provide a PR about the most critical problem they have at the same time."
+
+**Why this is better:**
+- Unsolicited advice = quackery
+- Unsolicited contribution with rationale = how OSS works
+- Code proves we understood the system
+- Concrete value vs abstract critique
+
+**Two-phase approach:**
+
+**Phase 1: Diagnosis (experimental)**
+- 30 repos, 5 conditions, statistical testing
+- Pre-registered protocol
+- Answers: Does theory help? Does formalization help more?
+- Budget: ~$10-13
+
+**Phase 2: Implementation (practical validation)**
+- 5-10 repos selected from Phase 1
+- Implement fix for "most critical gap"
+- Submit PR with diagnosis as context
+- Answers: Can we prioritize? Can we fix? Will maintainers use it?
+- Budget: Human time (implementation)
+
+**Selection for Phase 2:**
+- Diagnosis identified clear, fixable gap
+- Can be addressed in single PR (not architectural)
+- Project is active (commits in last week)
+- Gap has external evidence (issues/TODOs)
+
+**Success metrics:**
+- 1-2 PRs merged (20-40%)
+- 3-5 PRs engaged (60%)
+- Conversion funnel: 30 diagnoses → X fixable → Y PRs → Z merged
+
+**User reality check:** "Nobody wants to be told that they need to do more work and pick up the slack, people are lazy, we gotta respect that."
+
+**Acknowledgment:**
+- Even good PRs create work (review, test, decide, maintain)
+- People are lazy = rational effort conservation
+- Most unsolicited PRs ignored (base rate: 1-5%)
+- Need to make this as low-friction as possible
+
+**Alternative approach (lower friction):**
+- Publish corpus with diagnosis + suggested fixes
+- Don't submit PRs (don't create unsolicited work)
+- Let maintainers discover and use if interested
+- Measure organic adoption (views, stars, references)
+
+**Status:** Two-phase design documented. Phase 2 is post-hoc (not pre-registered). Can decide after Phase 1 whether to submit PRs or just publish corpus.
+
+**Next:** Commit changes, then implementation phase when ready.
 
