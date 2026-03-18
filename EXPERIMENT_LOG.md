@@ -691,5 +691,62 @@ If maintainers respond positively (implement fixes, confirm gaps), that's empiri
 
 **Status:** Design complete with calibration layer. Addresses codex's concern about single-model bias. Ready for implementation when resources align.
 
-**Next:** Implementation (extract Handshake, select repos, lock protocols, execute).
+**Next:** Add output artifacts structure.
+
+
+## 2026-03-18 00:45 - Output Artifacts Structure Added
+
+**User question:** "Do we also pipe the outputs to a new folder for the diagnoses?"
+
+**Insight:** Experiments should produce useful artifacts, not just p-values. If we're diagnosing 30 production repos, those reports should be shareable with maintainers.
+
+**Added to preregistration:**
+
+1. **Experimental data** (`round4/`)
+   - All 5 conditions × 2 models
+   - Judgments, scores, analysis
+   - Scientific record, append-only
+
+2. **Shareable diagnoses** (`diagnoses/`)
+   - Best diagnosis per repo (winning condition only)
+   - Full comparison (all 5 conditions side-by-side)
+   - Summary README with methodology
+   - Cross-repo patterns and findings
+
+**Post-experiment plan:**
+- Export 30 best diagnoses as GitHub-ready markdown
+- Contact maintainers for permission to share (opt-in)
+- Publish corpus as reference examples
+- Blog post: "30 Production API Diagnoses"
+
+**Practical value:**
+- For maintainers: actionable sprint-plannable diagnosis
+- For practitioners: see what Framework/Handshake quality looks like
+- For researchers: corpus of AI diagnostics with ground truth
+- For science: outputs become productive, not just validated
+
+**Status:** Full artifact protocol documented. Ready for implementation when resources align.
+
+**Next:** Commit, then implementation phase.
+
+
+## 2026-03-18 00:50 - Prompts Added to Output Artifacts
+
+**User:** "And of course we share the prompts, right?"
+
+**Yes.** Full reproducibility requires sharing:
+- directive.md (diagnostic generation prompt)
+- judge_prompt.md (scoring rubric)
+- All condition content (framework.md, handshake.md, compressed.md, filler.md)
+
+**Added to preregistration:**
+- `round4/prompts/` directory with all prompt materials
+- Post-experiment action: publish prompts for full replication
+- Anyone can run the experiment on their own repos
+
+**Transparency principle:** Science requires reproducible methods, not just results. Prompts are the experimental protocol. Must be shared.
+
+**Status:** Complete artifact protocol (data + diagnoses + prompts). Ready for implementation.
+
+**Next:** Commit changes, then begin implementation phase when resources align.
 

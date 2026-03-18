@@ -330,6 +330,93 @@ Per codex feedback: Don't just use P(hs > fw) ≥ 0.95. Add practical margin.
 
 ---
 
+## Output Artifacts
+
+**Experimental data (for scientific record):**
+
+```
+round4/
+├── prompts/               # Full reproducibility
+│   ├── directive.md       # Diagnostic generation prompt
+│   ├── judge_prompt.md    # Scoring rubric
+│   ├── framework.md       # 8.3k token Natural Framework
+│   ├── handshake.md       # 9k token categorical formalism
+│   ├── compressed.md      # 520 token checklist
+│   └── filler.md          # 9k token Wikipedia control
+├── [repo-name]/
+│   ├── reports/           # All 5 conditions × 2 models × 1-2 rounds
+│   ├── judgments/         # Scoring data (5 codex runs + audit)
+│   └── scores/            # Numerical results
+└── analysis/              # Aggregate results, stratified analysis
+```
+
+**Shareable diagnoses (for practical use):**
+
+```
+diagnoses/
+├── [repo-name].md         # Best diagnosis (winning condition only)
+├── [repo-name]-full.md    # All conditions (comparison view)
+├── README.md              # How to use, attribution, methodology
+└── summary.md             # Aggregated findings across all 30 repos
+```
+
+**What goes in `diagnoses/`:**
+
+1. **Best diagnosis per repo** (`[repo-name].md`)
+   - Only the winning condition's output (Handshake, Framework, or tie)
+   - Formatted as GitHub-ready markdown (could be posted as issues)
+   - Attribution: "Diagnosed using [condition] by [model]"
+   - License: CC-BY (maintainers can use freely with attribution)
+
+2. **Full comparison** (`[repo-name]-full.md`)
+   - All 5 conditions side-by-side
+   - Shows what each theory level caught/missed
+   - Educational value: demonstrates effect of theoretical grounding
+
+3. **Summary README**
+   - Methodology overview (one paragraph)
+   - Links to all 30 individual diagnoses
+   - Aggregated findings: most common gaps, surprising patterns
+   - Attribution and contact info
+
+4. **Cross-repo summary** (`summary.md`)
+   - Patterns across all 30 repos
+   - Gap frequency by type (validation, error handling, observability, retry)
+   - Difficulty stratification (which gaps were hardest to diagnose)
+   - Framework/Handshake differential (what formal theory catches better)
+
+**Post-experiment actions:**
+
+1. **Publish prompts** (full reproducibility)
+   - directive.md, judge_prompt.md in repo
+   - framework.md, handshake.md, compressed.md, filler.md (all conditions)
+   - Anyone can replicate the experiment with their own repos
+
+2. **Export best diagnoses** after results complete
+   - Winning condition per repo → `diagnoses/`
+   - Full comparisons for educational value
+
+3. **Contact maintainers** for permission to share (opt-in)
+   - Some may prefer privacy, respect that
+   - Redact repo names if needed, keep diagnosis substance
+
+4. **Publish corpus**
+   - Full experimental data in repo (scientific record)
+   - Shareable diagnoses with permission (practical value)
+
+5. **Blog post** with examples: "30 Production API Diagnoses"
+   - Show what Framework/Handshake diagnostic quality looks like
+   - Reference implementation for prompt engineering experiments
+
+**Practical value:**
+
+- **For maintainers:** Actionable diagnosis they can use for sprint planning
+- **For practitioners:** Examples of Framework/Handshake diagnostic quality
+- **For researchers:** Corpus of AI diagnostics with ground truth and human validation
+- **For science:** Experiments should produce useful artifacts, not just p-values
+
+---
+
 ## Open Items (To Be Locked Before Execution)
 
 **Critical path:**
