@@ -285,24 +285,46 @@ Current rubric (Round 3):
 - **Budget:** ~$10-13
 - **Timeline:** ~30 hours compute (spread over days/weeks)
 
-**Phase 2: Implementation (post-experiment practical validation)**
-- Sample: 5-10 repos selected from Phase 1 based on:
-  - **Quality:** Diagnosis identified clear, fixable gap
+**Phase 2: Practical Validation (post-experiment, opt-in based)**
+
+**Step 1: Contact maintainers (opt-in)**
+- Reach out to all 30 repos: "We diagnosed your system as part of an experiment. Found some architectural gaps. Interested in seeing the diagnosis?"
+- Responses:
+  - **Yes + invite collaboration:** Proceed to Step 2 (implement + PR)
+  - **Yes but no invitation:** Send diagnosis only, no PR
+  - **No / ignore:** Respect that, no further contact
+- Measure: opt-in rate (how many want to see it?)
+
+**Step 2: Implementation (only if invited)**
+- Repos that invite collaboration: implement fix for "most critical gap"
+- Selection criteria (from those who invite):
   - **Fixability:** Can be addressed in single PR (not architectural rewrite)
-  - **Activity:** Project is active (commits in last week)
-  - **Evidence:** Gap has external validation (mentioned in issues/TODOs)
-- Action: Implement fix for "most critical gap" identified by winning diagnosis
+  - **Quality:** Diagnosis identified clear gap with external evidence
+  - **Capacity:** We have time/resources to implement well
 - Deliver: Submit PR with:
-  - Fix (code changes)
+  - Fix (code changes, well-tested)
   - Diagnosis (context: why this matters)
   - Attribution (generated with Framework/Handshake, human-implemented)
 - Metrics:
   - PR merged (strong validation)
   - PR engaged (maintainer reviewed, provided feedback)
-  - PR ignored (no response after 2 weeks)
-- Analysis: Conversion funnel (30 diagnoses → X fixable → Y PRs → Z merged)
-- **Budget:** Human time (implementation + PR submission)
+- Analysis: Conversion funnel (30 contacted → X interested → Y invited → Z PRs → W merged)
+- **Budget:** Human time (only for invited repos)
 - **Timeline:** Post-Phase 1, not time-critical
+
+**Step 3: Publish corpus (always)**
+- All 30 diagnoses published regardless of opt-in
+- Includes diagnosis + suggested fix (code) for transparency
+- Attribution, methodology, full reproducibility
+- Let others discover and use organically
+- Measure: views, stars, references, citations
+
+**This approach:**
+- Respects autonomy (ask permission first)
+- Only creates work if invited (PRs by invitation only)
+- Default is publish-only (no obligation)
+- Still tests practical value (do maintainers engage?)
+- Honest about conversion funnel (contact → interest → collaboration → merge)
 
 **Rationale for two phases:**
 
@@ -337,18 +359,14 @@ Current rubric (Round 3):
 **Honest accounting:**
 - Even good PRs create work (review, test, decide, maintain)
 - People are lazy (rational effort conservation) - respect that
-- Most unsolicited PRs will be ignored (base rate: 1-5% acceptance)
-- Success case: 20-40% acceptance (1-2 out of 5-10 merged)
-- Wild success: 60%+ engagement (maintainers provide feedback even if not merged)
-- Failure teaches too: if no PRs merge, either diagnosis was wrong or delivery mechanism failed
-
-**Alternative to Phase 2 (lower friction):**
-- Just publish the corpus publicly
-- Include diagnosis + suggested fix (code) but don't submit PRs
-- Let maintainers discover and use if interested
-- Measure: views, stars, references, organic adoption
-- No unsolicited work for maintainers
-- Still validates practical value if people use it
+- Expected funnel:
+  - 30 contacted → 3-10 interested (10-30% opt-in)
+  - 3-10 interested → 1-5 invite collaboration (30-50% of interested)
+  - 1-5 PRs → 0-2 merged (20-40% acceptance)
+- Success: Any maintainer engagement validates quality
+- Wild success: 1-2 PRs merged
+- Failure teaches too: if no one opts in, diagnosis quality or approach failed
+- Corpus has value regardless of individual engagement
 
 ---
 

@@ -365,5 +365,43 @@
 
 **Status:** Two-phase design documented. Phase 2 is post-hoc (not pre-registered). Can decide after Phase 1 whether to submit PRs or just publish corpus.
 
-**Next:** Commit changes, then implementation phase when ready.
+**Next:** Finalize opt-in approach.
+
+
+## 2026-03-18 01:10 - Opt-In Approach: Invitation-Based Collaboration
+
+**User:** "If they invite collaborators, then we submit PRs. If they don't, we just publish."
+
+**Perfect solution - respects autonomy completely:**
+
+**Phase 2 workflow:**
+
+1. **Contact all 30 maintainers:** "We diagnosed your system as part of an experiment. Found some architectural gaps. Interested in seeing the diagnosis?"
+
+2. **Respect responses:**
+   - Yes + invite collaboration → implement fixes, submit PRs
+   - Yes but no invitation → send diagnosis only
+   - No / ignore → respect that, no further contact
+
+3. **Publish corpus regardless:** All 30 diagnoses public, regardless of individual engagement
+
+**Why this works:**
+- Ask permission first (no unsolicited work)
+- Only submit PRs if invited (full consent)
+- Default is publish-only (no obligation)
+- Respects "people are lazy" (rational effort conservation)
+- Still validates quality (do maintainers want to see it?)
+
+**Expected funnel:**
+- 30 contacted → 3-10 interested (10-30%)
+- 3-10 interested → 1-5 invite collaboration (30-50%)
+- 1-5 PRs → 0-2 merged (20-40%)
+
+**Success:** Any engagement validates quality. 1-2 merged PRs = wild success.
+
+**Corpus has value regardless:** Reference examples, methodology, research artifact.
+
+**Status:** Final design complete. Opt-in approach respects autonomy. Ready for implementation when resources align.
+
+**Next:** Implementation phase (extract Handshake, select repos, lock protocols, execute Phase 1).
 
