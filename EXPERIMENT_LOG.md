@@ -484,3 +484,117 @@ If maintainers respond positively (implement fixes, confirm gaps), that's empiri
 
 **Next:** Commit, ask codex for review on broad design.
 
+
+## 2026-03-17 23:30 - Codex Review: Broad Design Needs Tighter Measurement
+
+**Codex's assessment:** "Broad pivot is directionally right. Main risk: you've changed the estimand - measuring cross-repo win rate under noisy single-shot evaluations."
+
+**What works:**
+- Narrow domain is good (API repos with similar defect classes)
+- Practical value is strong (real diagnoses to share)
+- Testing external validity instead of local robustness
+
+**Main issues:**
+
+**1. 1-2 rounds too thin if scoring pipeline is noisy**
+- Single round only works if: issue clearly defined, rubric tight, grading deterministic
+- Single-trial noise will dominate win/loss calls
+- Fix: Not more rounds, but better measurement
+
+**Codex recommendation:**
+- Keep 1 repo = 1 sampled issue
+- Add 2 blinded graders (not just model variance)
+- Allow win/tie/loss (not forced binary)
+- Adjudication for close cases
+
+**2. 80% threshold weakly motivated**
+- Fine as aspirational target, not as statistical threshold
+- With 30 repos, 24 wins = 0.80 but uncertainty is material
+- Need to justify from: effect size, prior baseline, or CI width
+
+**Codex recommendation:**
+- Pre-register both: win rate + 95% CI AND decision threshold
+- Primary: win rate with CI
+- Decision: lower bound > 0.60, or observed rate ≥ 0.75
+- Report interval, not just "hit 80%"
+
+**3. Repo difficulty confound**
+- If handshake wins 20 easy repos, loses 10 hard → raw count hides failure mode
+- Need covariates: repo size, framework, language, issue subtype, difficulty
+
+**Codex recommendation:**
+- Add blinded difficulty rating (1-5 scale)
+- Capture: size, stack, framework, issue type
+- Report stratified results (easy vs hard repos)
+
+**4. Forced binary win/loss loses information**
+- Some repos will be ties or incomparable
+- Forcing binary inflates noise
+
+**Codex recommendation:**
+- Use win/tie/loss categories
+- Report: wins, non-loss rate, false positive on nulls
+
+**5. Additional methodological holes:**
+- Selection bias (explicit sampling rules before evaluation)
+- Target leakage (issue too visible from external evidence)
+- Rubric instability (subjective scores inherit grader noise)
+- Non-independence (30 repos not independent if share framework/org)
+- Null definition (what exactly is "no major gap"?)
+
+**Easy fixes to implement:**
+1. Change "maintained: last 6 months" → "last month" (user note)
+2. Add win/tie/loss (not binary)
+3. Add difficulty annotation (1-5 blinded rating)
+4. Pre-register 95% CI, not just point threshold
+5. Add repo covariates (size, framework, language)
+6. Define null repos precisely
+
+**Harder fixes (defer):**
+- 2 blinded graders per report (doubles grading cost)
+- Adjudication protocol for close cases
+- Stratified analysis by difficulty
+
+**Codex offered:** "I can turn this into concrete preregistration template with success criteria, repo sampling rules, grading rubric, and analysis plan."
+
+**Next:** Implement easy fixes to preregistration.
+
+
+## 2026-03-17 23:45 - Implemented Easy Fixes from Codex Review
+
+**Changes to ROUND4_PREREGISTRATION.md:**
+
+1. **Maintained:** Changed "last 6 months" → "last month" (user feedback)
+
+2. **Repo covariates added:** Size, stack, framework, issue subtype, difficulty (1-5 blinded rating)
+   - Enables stratified analysis (easy vs hard repos, by stack, by issue type)
+
+3. **Win/tie/loss instead of binary:**
+   - Win: hs_score > fw_score + 0.10 margin
+   - Tie: scores within margin
+   - Loss: fw_score > hs_score + margin
+   - Reports: wins, ties, losses, non-loss rate
+
+4. **95% CI instead of point threshold:**
+   - Primary: win rate with 95% confidence interval
+   - Decision: lower bound > 0.60 OR observed rate ≥ 0.75
+   - Not just "hit 80%" - report full interval
+
+5. **Null repos defined precisely:**
+   - Comprehensive: error handling, validation, tests, observability
+   - Metric: false positive rate (% hallucinating major gaps)
+   - Expected: both should say "no major gaps" or minor polish only
+
+**Deferred (too expensive for initial design):**
+- 2 blinded human graders per report (doubles grading cost)
+- Adjudication protocol for close cases
+- Would be valuable but budgetarily prohibitive
+
+**Status:** Easy fixes implemented. Preregistration now has:
+- Tighter measurement (win/tie/loss, margin, CI)
+- Covariates for stratified analysis
+- Precise null definition
+- Honest claims tied to CI, not arbitrary threshold
+
+**Next:** Commit easy fixes.
+

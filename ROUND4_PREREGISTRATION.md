@@ -75,16 +75,25 @@ If theory is load-bearing, does MORE formal theory help even more?
 2. **Non-trivial complexity** - 5k+ lines, multiple modules
 3. **Real users** - GitHub stars, issues, production incidents
 4. **External evidence** - issues mentioning bugs, TODOs in code, incident reports
-5. **Maintained** - recent commits (last 6 months)
+5. **Maintained** - recent commits (last month)
+
+**Repo covariates (capture for stratified analysis):**
+- Size (lines of code, number of modules)
+- Stack (Python/Node/Ruby/Go/etc.)
+- Framework (Flask/Express/Rails/Django/FastAPI/etc.)
+- Issue subtype (validation/error-handling/observability/retry)
+- Difficulty (1-5 blinded rating by external evaluator)
 
 **Gap repos (27):**
 - API with documented missing: error handling, validation, observability, retry logic
 - External evidence: GitHub issue, PR, TODO comment, incident report
 
 **Null repos (3):**
-- Well-built API with comprehensive error handling, validation, tests
-- No qualifying gaps found after search protocol
-- Tests restraint (can framework say "nothing major missing"?)
+- Well-built API with comprehensive: error handling, validation, tests, observability
+- No qualifying gaps found after search protocol (no issues/TODOs about missing production-readiness)
+- Tests false positive rate (does framework hallucinate major gaps?)
+- Expected outcome: both framework and handshake should identify "no major gaps" or only minor polish suggestions
+- Metric: false positive rate = % of null repos where condition hallucinates major architectural gaps
 
 ---
 
@@ -179,14 +188,22 @@ Current rubric (Round 3):
 
 **Per-repo analysis:**
 - Compare condition scores (mean of 2 models × 1-2 rounds)
-- Binary: did handshake beat framework on this repo? (hs_score > fw_score)
-- If variance high (2 rounds disagree), mark uncertain
+- Outcome: **win / tie / loss** (not forced binary)
+  - Win: hs_score > fw_score + margin (0.10 on 5-point scale)
+  - Tie: scores within margin
+  - Loss: fw_score > hs_score + margin
+- If 2 rounds disagree, adjudicate or mark uncertain
 
 **Aggregate analysis:**
-- Win rate: handshake won on X/30 repos
-- Threshold: X ≥ 24 (80%) to claim "handshake generally better"
-- If X ≈ 15 (50%) → inconclusive
-- If X ≤ 10 (33%) → framework sufficient
+- **Primary:** Win rate with 95% confidence interval
+- **Decision threshold:** Lower bound of 95% CI > 0.60, OR observed win rate ≥ 0.75
+- Report: wins, ties, losses, non-loss rate
+- **Stratified:** Report by difficulty (easy vs hard repos), by stack, by issue type
+
+**Claims:**
+- If win rate ≥ 0.75 with CI lower bound > 0.60: "Handshake generally better for API diagnostics"
+- If win rate ≈ 0.50 or CI spans 0.50: "Inconclusive, no clear advantage"
+- If win rate < 0.40: "Framework sufficient, Handshake doesn't add value"
 
 **Secondary comparisons:**
 - Framework vs compressed: expect fw wins on ≥90% repos (replication)
